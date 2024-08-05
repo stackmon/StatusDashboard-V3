@@ -1,0 +1,20 @@
+import { Config } from "tailwindcss";
+import { isolateOutsideOfContainer, scopedPreflightStyles } from "tailwindcss-scoped-preflight";
+
+/** @type {Config} */
+const config = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [scopedPreflightStyles({
+    isolationStrategy: isolateOutsideOfContainer([
+      '[class^="scale-"]',
+    ])
+  })],
+};
+
+export default config;

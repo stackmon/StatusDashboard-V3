@@ -9,6 +9,12 @@
     "clean": "farm clean"
   },
   "dependencies": {
+    "@telekom/scale-components": "3.0.0-beta.152",
+    "@telekom/scale-components-react": "3.0.0-beta.152",
+    "ahooks": "^3.8.0",
+    "dexie": "^4.0.8",
+    "dexie-react-hooks": "^1.1.7",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -17,6 +23,7 @@
     "@farmfe/core": "^1.3.12",
     "@farmfe/js-plugin-postcss": "^1.8.0",
     "@farmfe/plugin-react": "^1.2.0",
+    "@types/lodash": "^4.17.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",

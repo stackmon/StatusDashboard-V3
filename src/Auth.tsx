@@ -1,12 +1,13 @@
 import { useMount, useUpdateEffect } from "ahooks";
-import { Logger, WebStorageStateStore } from "oidc-client-ts";
+import { WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode } from "react";
 import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
+import { Logger } from "./Helpers/Logger";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 1.0.0
  */
 export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
   const { Rep } = useRouter();
@@ -47,7 +48,7 @@ const log = new Logger("Auth");
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 1.0.0
  */
 function AuthHandler() {
   const auth = (Common.AuthSlot = useAuth());

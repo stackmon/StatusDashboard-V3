@@ -2,7 +2,8 @@ import { useMount, useUpdateEffect } from "ahooks";
 import { WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode } from "react";
 import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
-import { Logger } from "./Helpers/Logger";
+import { Logger } from "~/Helpers/Logger";
+import { useRouter } from "./Router";
 
 /**
  * @author Aloento

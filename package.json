@@ -14,8 +14,6 @@
     "@telekom/scale-components-react": "3.0.0-beta.152",
     "ahooks": "^3.8.0",
     "dayjs": "^1.11.12",
-    "dexie": "^4.0.8",
-    "dexie-react-hooks": "^1.1.7",
     "lodash": "^4.17.21",
     "oidc-client-ts": "^3.0.1",
     "react": "^18.3.1",

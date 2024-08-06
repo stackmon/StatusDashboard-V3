@@ -2,6 +2,7 @@ import { useMount, useUpdateEffect } from "ahooks";
 import { WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode } from "react";
 import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
+import { Common } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useRouter } from "./Router";
 
@@ -24,7 +25,7 @@ export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
       }}
       authority={
         process.env.NODE_ENV === "development"
-          ? "http://80.158.108.251:8080/"
+          ? "http://80.158.108.251:8080/realms/sd2"
           : "https://keycloak.eco.tsi-dev.otc-service.com/realms/eco"
       }
       post_logout_redirect_uri={

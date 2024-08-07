@@ -1,5 +1,7 @@
 import { ScaleTelekomHeader, ScaleTelekomNavItem, ScaleTelekomNavList } from "@telekom/scale-components-react";
+import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
+import { ProfileMenu } from "./ProfileMenu";
 
 /**
  * @author Aloento

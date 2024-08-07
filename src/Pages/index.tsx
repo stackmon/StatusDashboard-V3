@@ -1,5 +1,6 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { useMemo } from "react";
+import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
 import { NotFound } from "./404";

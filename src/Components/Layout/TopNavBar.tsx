@@ -1,4 +1,5 @@
 import { ScaleTelekomHeader, ScaleTelekomNavItem, ScaleTelekomNavList } from "@telekom/scale-components-react";
+import { NavItem } from "./NavItem";
 
 /**
  * @author Aloento
@@ -15,9 +16,9 @@ export function TopNavBar() {
       type="slim">
 
       <ScaleTelekomNavList aria-label="Main Navigation Links" slot="main-nav">
-        <NavItem href="/History" Label="History" />
+        <NavItem Href="/History" Label="History" />
 
-        <NavItem href="/Availability" Label="Availability" />
+        <NavItem Href="/Availability" Label="Availability" />
 
         <ScaleTelekomNavItem aria-label="Docs">
           <a href="https://docs.otc.t-systems.com/status-dashboard/index.html" target="_black">

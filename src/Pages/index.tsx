@@ -4,6 +4,7 @@ import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
 import { NotFound } from "./404";
+import { Home } from "./Home";
 
 /**
  * @author Aloento
@@ -24,7 +25,7 @@ export function Layout() {
 
       case "":
       case undefined:
-        return <div>Home</div>;
+        return <Home />;
 
       default:
         return <NotFound />;

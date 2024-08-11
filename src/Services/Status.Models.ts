@@ -7,7 +7,12 @@ import { EventStatus, EventType } from "~/Components/Event/Enums";
  * @version 0.1.0
  */
 export interface IStatusContext {
-
+  Services: Models.IService[];
+  Categories: Models.ICategory[];
+  Regions: Models.IRegion[];
+  Events: Models.IEvent[];
+  Histories: Models.IHistory[];
+  RegionsServices: Models.IRegionService[];
 }
 
 /**

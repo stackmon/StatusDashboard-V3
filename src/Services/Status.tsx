@@ -1,3 +1,4 @@
+import { useRequest } from "ahooks";
 import { createContext, useState } from "react";
 import { Logger } from "~/Helpers/Logger";
 import { IStatusContext } from "./Status.Models";
@@ -32,6 +33,19 @@ const log = new Logger("Service", "Status");
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
+
+  useRequest(async () => {
+    log.info("Loading status data...");
+    const response = await fetch("https://status.cloudmon.eco.tsi-dev.otc-service.com/api/v1/component_status");
+    const data = await response.json();
+    log.debug("Status data loaded.", data);
+    return data;
+  }, {
+    cacheKey: log.namespace,
+    onSuccess: (data) => {
+
+    }
+  });
 
   function update(data: IStatusContext) {
     DB = { ...data };

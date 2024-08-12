@@ -12,7 +12,7 @@ export interface IStatusContext {
   Regions: Models.IRegion[];
   Events: Models.IEvent[];
   Histories: Models.IHistory[];
-  RegionsServices: Models.IRegionService[];
+  RegionService: Models.IRegionService[];
 }
 
 /**
@@ -26,25 +26,25 @@ export namespace Models {
     Name: string;
     Abbr: string;
     Category: ICategory;
-    Regions: IRegion[];
+    Regions: Set<IRegion>;
   }
 
   export interface ICategory {
     Id: number;
     Name: string;
-    Services: IService[];
+    Services: Set<IService>;
   }
 
   export interface IRegion {
     Id: number;
     Name: string;
-    Services: IService[];
+    Services: Set<IService>;
   }
 
   export interface IRegionService {
     Region: IRegion;
     Service: IService;
-    Events: IEvent[];
+    Events: Set<IEvent>;
   }
 
   export interface IEvent {
@@ -53,8 +53,8 @@ export namespace Models {
     Type: EventType;
     Start: Dayjs;
     End: Dayjs;
-    RegionServices: IRegionService[];
-    Histories: IHistory[];
+    RegionServices: Set<IRegionService>;
+    Histories: Set<IHistory>;
   }
 
   export interface IHistory {

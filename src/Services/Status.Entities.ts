@@ -3,7 +3,7 @@
  * @since 1.0.0
  * @version 0.1.0
  */
-export interface IStatusEntity {
+export interface StatusEntity {
   attributes: AttributeEntity[];
   id: number;
   incidents: IncidentEntity[];
@@ -15,7 +15,7 @@ interface AttributeEntity {
   value: string;
 }
 
-const enum NameEnum {
+export const enum NameEnum {
   Category = "category",
   Region = "region",
   Type = "type",
@@ -36,7 +36,7 @@ interface UpdateEntity {
   timestamp: string;
 }
 
-const enum StatusEnum {
+export const enum StatusEnum {
   Analyzing = "analyzing",
   Changed = "changed",
   Completed = "completed",

@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import { OIDCProvider } from "./Components/Auth";
 import { BrowserRouter } from "./Components/Router";
 import { Layout } from "./Pages";
+import { StatusContext } from "./Services/Status";
 
 defineCustomElements();
 
@@ -15,7 +16,9 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <OIDCProvider>
-      <Layout />
+      <StatusContext>
+        <Layout />
+      </StatusContext>
     </OIDCProvider>
   </BrowserRouter>
 );

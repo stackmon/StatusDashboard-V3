@@ -24,7 +24,7 @@ export function ProfileMenu() {
               Hi, {auth.user?.profile.name}
             </ScaleMenuFlyoutItem>
 
-            <ScaleMenuFlyoutItem onClick={() => auth.signoutRedirect()}>
+            <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
               Logout
             </ScaleMenuFlyoutItem>
 
@@ -36,7 +36,7 @@ export function ProfileMenu() {
           </Authorized>
 
           <NotAuthorized>
-            <ScaleMenuFlyoutItem onClick={() => auth.signinRedirect()}>
+            <ScaleMenuFlyoutItem onScale-select={() => auth.signinRedirect()}>
               Login
             </ScaleMenuFlyoutItem>
           </NotAuthorized>

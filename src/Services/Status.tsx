@@ -1,7 +1,9 @@
 import { useRequest } from "ahooks";
+import dayjs from "dayjs";
 import { createContext, useState } from "react";
+import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
-import { NameEnum, StatusEntity } from "./Status.Entities";
+import { NameEnum, StatusEntity, StatusEnum } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 
 /**
@@ -107,19 +109,98 @@ export function StatusContext({ children }: { children: JSX.Element }) {
           dbRegion.Services.add(dbService);
           dbCate.Services.add(dbService);
 
-          const regionService = db.RegionService.find(
+          let regionService = db.RegionService.find(
             (x) => x.Region === dbRegion && x.Service === dbService
           );
           if (!regionService) {
-            db.RegionService.push({
+            regionService = {
               Region: dbRegion,
               Service: dbService,
               Events: new Set(),
-            });
+            };
+            db.RegionService.push(regionService);
           }
 
           for (const incident of item.incidents) {
-            const dbEvent = db.Events.find((x) => x.Id === incident.id);
+            let dbEvent = db.Events.find((x) => x.Id === incident.id);
+
+            if (!dbEvent) {
+              const type = (() => {
+                switch (incident.impact) {
+                  case 0:
+                    return EventType.Maintenance;
+                  case 1:
+                    return EventType.MinorIssue;
+                  case 2:
+                    return EventType.MajorIssue;
+                  default:
+                    return EventType.Outage;
+                }
+              })();
+
+              dbEvent = {
+                Id: incident.id,
+                Title: incident.text,
+                Start: dayjs(incident.start_date),
+                End: dayjs(incident.end_date),
+                Type: type,
+                Histories: new Set(),
+                RegionServices: new Set([regionService]),
+              };
+
+              for (const update of incident.updates) {
+                const status = (() => {
+                  switch (update.status) {
+                    case StatusEnum.System:
+                      return incident.end_date ? EventStatus.Cancelled : EventStatus.Investigating;
+
+                    case StatusEnum.Analyzing:
+                      return EventStatus.Investigating;
+                    case StatusEnum.Fixing:
+                    case StatusEnum.Reopened:
+                      return EventStatus.Fixing;
+                    case StatusEnum.Observing:
+                      return EventStatus.Monitoring;
+                    case StatusEnum.Resolved:
+                    case StatusEnum.Changed:
+                      return EventStatus.Resolved;
+
+                    case StatusEnum.Description:
+                    case StatusEnum.Scheduled:
+                    case StatusEnum.Modified:
+                      return EventStatus.Scheduled;
+                    case StatusEnum.InProgress:
+                      return EventStatus.Performing;
+                    case StatusEnum.Completed:
+                      return EventStatus.Completed;
+
+                    default:
+                      log.warn("Unknown Status", incident);
+                      break;
+                  }
+                })();
+
+                if (!status) {
+                  continue;
+                }
+
+                const history = {
+                  Id: id++,
+                  Message: update.text,
+                  Created: dayjs(update.timestamp),
+                  Status: status,
+                  Event: dbEvent
+                };
+
+                dbEvent.Histories.add(history);
+              }
+
+              db.Events.push(dbEvent);
+            } else {
+              dbEvent.RegionServices.add(regionService);
+            }
+
+            regionService.Events.add(dbEvent);
           }
         }
       },

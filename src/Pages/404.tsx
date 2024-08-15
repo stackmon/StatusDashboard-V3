@@ -18,6 +18,6 @@ export function NotFound() {
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
 
-    <ScaleLoadingSpinner size="large" text="Redirecting..." />
+    <ScaleLoadingSpinner size="large" text="404, Redirecting..." />
   </>;
 }

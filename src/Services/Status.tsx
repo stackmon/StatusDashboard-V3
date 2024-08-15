@@ -41,9 +41,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   useRequest(
     async () => {
       log.info("Loading status data...");
-      const response = await fetch(
-        "https://status.cloudmon.eco.tsi-dev.otc-service.com/api/v1/component_status"
-      );
+      const response = await fetch("/api/v1/component_status");
       const data = await response.json();
       log.debug("Status data loaded.", data);
       return data as StatusEntity[];

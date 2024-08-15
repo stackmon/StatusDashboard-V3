@@ -175,12 +175,12 @@ export function StatusContext({ children }: { children: JSX.Element }) {
                       return EventStatus.Completed;
 
                     default:
-                      log.warn("Unknown Status", incident);
                       break;
                   }
                 })();
 
                 if (!status) {
+                  log.debug("Skipped Unknown Status.", update, incident);
                   continue;
                 }
 
@@ -203,6 +203,9 @@ export function StatusContext({ children }: { children: JSX.Element }) {
             regionService.Events.add(dbEvent);
           }
         }
+
+        log.info("Status data loaded.", db);
+        update(db);
       },
     }
   );

@@ -39,13 +39,13 @@ export function MobileMenu() {
                 <a href="/NewEvent">New Event</a>
               </ScaleTelekomMobileMenuItem>
 
-              <ScaleTelekomMobileMenuItem onClick={() => auth.signoutRedirect()}>
+              <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutRedirect()}>
                 Logout {auth.user?.profile.name}
               </ScaleTelekomMobileMenuItem>
             </Authorized>
 
             <NotAuthorized>
-              <ScaleTelekomMobileMenuItem onClick={() => auth.signinRedirect()}>
+              <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signinRedirect()}>
                 Login
               </ScaleTelekomMobileMenuItem>
             </NotAuthorized>

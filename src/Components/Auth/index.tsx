@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
 import { Common } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
-import { useRouter } from "./Router";
+import { useRouter } from "../Router";
 
 /**
  * @author Aloento

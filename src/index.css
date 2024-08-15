@@ -4,10 +4,6 @@
 
 @tailwind utilities;
 
-:root {
-  color-scheme: light !important;
-}
-
 html,
 body {
   -moz-osx-font-smoothing: grayscale;

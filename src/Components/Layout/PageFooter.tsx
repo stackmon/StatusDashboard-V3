@@ -7,7 +7,7 @@ import { ScaleTelekomFooter, ScaleTelekomFooterContent } from "@telekom/scale-co
  */
 export function PageFooter() {
   return (
-    <ScaleTelekomFooter slot="footer" type="minimal" class="mt-auto pt-8">
+    <ScaleTelekomFooter slot="footer" type="minimal" class="mt-auto pt-8" data-mode="dark">
       <ScaleTelekomFooterContent>
         <span slot="notice"> © Deutsche Telekom AG </span>
         <ul slot="navigation">

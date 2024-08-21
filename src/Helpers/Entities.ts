@@ -1,5 +1,6 @@
 import { User } from "oidc-client-ts";
 import { AuthContextProps } from "react-oidc-context";
+import { SubjectLike } from "rxjs";
 
 /**
  * @author Aloento
@@ -9,6 +10,31 @@ import { AuthContextProps } from "react-oidc-context";
 export const Dic = {
   Name: "SD3",
 };
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 1.0.0
+ */
+export abstract class Station {
+  private static readonly subjects: Map<string, SubjectLike<unknown>> = new Map();
+
+  public static get<T extends SubjectLike<any>>(topic: string, factor?: () => T): T {
+    if (!this.subjects.has(topic)) {
+      if (factor) {
+        this.subjects.set(topic, factor());
+      } else {
+        throw new Error(`Subject '${topic}' not found.`);
+      }
+    }
+
+    return this.subjects.get(topic) as T;
+  }
+
+  public static delete(topic: string): void {
+    this.subjects.delete(topic);
+  }
+}
 
 /**
  * @author Aloento

@@ -1,6 +1,6 @@
 import { useRequest } from "ahooks";
 import dayjs from "dayjs";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { NameEnum, StatusEntity, StatusEnum } from "./Status.Entities";
@@ -26,6 +26,15 @@ interface IContext {
 }
 
 const CTX = createContext<IContext>({} as IContext);
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export function useStatus() {
+  return useContext(CTX);
+}
 
 const log = new Logger("Service", "Status");
 let id = 0;

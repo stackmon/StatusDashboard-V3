@@ -3,7 +3,7 @@
  * @since 1.0.0
  * @version 0.1.0
  */
-export const enum EventType {
+export enum EventType {
   Operational = "Operational",
   Maintenance = "Maintenance",
   MinorIssue = "Minor Issue",

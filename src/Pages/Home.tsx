@@ -1,6 +1,12 @@
+import { ScaleIcon, ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
+import { chain } from "lodash";
+import { useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
+import { EventType } from "~/Components/Event/Enums";
+import "~/Components/Home/Home.css";
+import { Indicator } from "~/Components/Home/Indicator";
 import { Station } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
@@ -18,11 +24,57 @@ export function Home() {
       return new BehaviorSubject(first);
     }), []);
 
+  const categories = useMemo(() => {
+    return chain(DB.RegionService)
+      .filter(rs => rs.Region === region.value)
+      .map(rs => rs.Service.Category)
+      .uniq()
+      .sort()
+      .value();
+  }, [DB]);
+
+  const abnormalCount = useMemo(() => {
+    const service = chain(DB.Events)
+      .filter(e => e.End === null)
+      .flatMap(e => [...e.RegionServices])
+      .map(rs => rs.Service)
+      .uniqBy(s => s.Id)
+      .value();
+
+    return service.length;
+  }, [DB]);
+
+  const heading = abnormalCount > 0
+    ? `${abnormalCount} components have issue, but don't worry, we are working on it.`
+    : "All Systems Operational";
+
   return (
     <>
       <Helmet>
         <title>OTC Status Dashboard</title>
       </Helmet>
+
+      <ScaleNotification
+        heading={heading}
+        opened
+        variant={abnormalCount > 0 ? "warning" : "success"}
+      /><ScaleIcon></ScaleIcon>
+
+      <section className="flex flex-wrap justify-between gap-y-2 py-2">
+        <div className="flex items-center gap-x-2">
+          <div className="Blink" />
+          <label>Auto Refresh Enabled</label>
+        </div>
+
+        <legend className="flex flex-wrap items-center gap-x-6 gap-y-2.5">
+          {Object.values(EventType).map(state => (
+            <div className="flex gap-x-2">
+              <Indicator Type={state} />
+              <label>{state}</label>
+            </div>
+          ))}
+        </legend>
+      </section>
     </>
   );
 }

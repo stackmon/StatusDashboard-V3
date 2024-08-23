@@ -1,7 +1,7 @@
-import { ScaleIcon, ScaleNotification } from "@telekom/scale-components-react";
+import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
 import { chain } from "lodash";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
 import { EventType } from "~/Components/Event/Enums";
@@ -17,21 +17,27 @@ import { useStatus } from "~/Services/Status";
  */
 export function Home() {
   const { DB } = useStatus();
+  const [region, setRegion] = useState(DB.Regions[0]);
 
-  const region = useCreation(
-    () => Station.get("region", () => {
+  const regionSub = useCreation(
+    () => Station.get("HomeRegion", () => {
       const first = DB.Regions[0];
       return new BehaviorSubject(first);
     }), []);
 
+  useEffect(() => {
+    const sub = regionSub.subscribe(setRegion);
+    return () => sub.unsubscribe();
+  }, []);
+
   const categories = useMemo(() => {
     return chain(DB.RegionService)
-      .filter(rs => rs.Region === region.value)
+      .filter(rs => rs.Region === region)
       .map(rs => rs.Service.Category)
       .uniq()
       .sort()
       .value();
-  }, [DB]);
+  }, [DB, region]);
 
   const abnormalCount = useMemo(() => {
     const service = chain(DB.Events)
@@ -58,7 +64,7 @@ export function Home() {
         heading={heading}
         opened
         variant={abnormalCount > 0 ? "warning" : "success"}
-      /><ScaleIcon></ScaleIcon>
+      />
 
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">

@@ -8,6 +8,7 @@ import { EventType } from "~/Components/Event/Enums";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
+import { StatusCard } from "~/Components/Home/StatusCard";
 import { Station } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
@@ -70,6 +71,12 @@ export function Home() {
 
       <RegionSelector Title="OTC Current Status" Topic={topic} />
 
+      <section className="grid-cols-1 grid gap-x-7 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+        {categories.map((cate, i) => (
+          <StatusCard key={i} Category={cate} />
+        ))}
+      </section>
+
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">
           <div className="Blink" />
@@ -77,8 +84,8 @@ export function Home() {
         </div>
 
         <legend className="flex flex-wrap items-center gap-x-6 gap-y-2.5">
-          {Object.values(EventType).map(state => (
-            <div className="flex gap-x-2">
+          {Object.values(EventType).map((state, i) => (
+            <div key={i} className="flex gap-x-2">
               <Indicator Type={state} />
               <label>{state}</label>
             </div>

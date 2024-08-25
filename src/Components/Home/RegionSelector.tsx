@@ -25,7 +25,7 @@ export function RegionSelector({ Title, Topic }: IRegionSelector) {
         </label>
 
         <ScaleTabNav>
-          {Regions.map(item => <>
+          {Regions.map((item, i) => <>
             <ScaleTabHeader
               key={item.Name}
               slot="tab"
@@ -33,7 +33,7 @@ export function RegionSelector({ Title, Topic }: IRegionSelector) {
             >
               {item.Name}
             </ScaleTabHeader>
-            <ScaleTabPanel className="hidden" slot="panel" />
+            <ScaleTabPanel key={i} className="hidden" slot="panel" />
           </>)}
         </ScaleTabNav>
       </div>

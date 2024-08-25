@@ -7,6 +7,7 @@ import { BehaviorSubject } from "rxjs";
 import { EventType } from "~/Components/Event/Enums";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
+import { RegionSelector } from "~/Components/Home/RegionSelector";
 import { Station } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
@@ -19,8 +20,9 @@ export function Home() {
   const { DB } = useStatus();
   const [region, setRegion] = useState(DB.Regions[0]);
 
+  const topic = "HomeRegion";
   const regionSub = useCreation(
-    () => Station.get("HomeRegion", () => {
+    () => Station.get(topic, () => {
       const first = DB.Regions[0];
       return new BehaviorSubject(first);
     }), []);
@@ -65,6 +67,8 @@ export function Home() {
         opened
         variant={abnormalCount > 0 ? "warning" : "success"}
       />
+
+      <RegionSelector Title="OTC Current Status" Topic={topic} />
 
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "../Event/Enums";
+import { Indicator } from "./Indicator";
+import "./ServiceItem.css";
 
 interface IServiceItem {
   RegionService: Models.IRegionService;
@@ -45,6 +47,24 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   }, [DB, RegionService]);
 
   return (
-    <div></div>
-  )
+    <li className="flex items-center py-2">
+      {future ? (
+        <a className="with-dot flex h-6" href={`/Event/${id}`}>
+          <Indicator Type={EventType.Operational} />
+          <div className="blue-dot" />
+        </a>
+      ) :
+        id ? (
+          <a className="flex items-center" href={`/Event/${id}`}>
+            <Indicator Type={status} />
+          </a>
+        ) : (
+          <Indicator Type={status} />
+        )}
+
+      <label className="ml-2.5 text-xl font-medium text-slate-700">
+        {RegionService.Service.Name}
+      </label>
+    </li>
+  );
 }

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
 import { EventType } from "~/Components/Event/Enums";
+import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
@@ -68,6 +69,8 @@ export function Home() {
         opened
         variant={abnormalCount > 0 ? "warning" : "success"}
       />
+
+      <EventGrid />
 
       <RegionSelector Title="OTC Current Status" Topic={topic} />
 

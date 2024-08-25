@@ -1,6 +1,6 @@
 .blue-dot {
-  width: 10px;
-  height: 10px;
+  width: 4px;
+  height: 4px;
   background-color: blue;
   border-radius: 50%;
   position: absolute;

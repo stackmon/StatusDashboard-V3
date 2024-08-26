@@ -2,6 +2,7 @@ import { ScaleDivider, ScaleTabHeader, ScaleTabNav, ScaleTabPanel } from "@telek
 import { useCreation } from "ahooks";
 import { Station } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
+import "./RegionSelector.css";
 
 interface IRegionSelector {
   Title: string;
@@ -18,7 +19,7 @@ export function RegionSelector({ Title, Topic }: IRegionSelector) {
   const regionSub = useCreation(() => Station.get(Topic), []);
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col" id="RegionSelector">
       <div className="flex items-center justify-between">
         <label className="text-3xl font-medium text-slate-800">
           {Title}

@@ -2,7 +2,7 @@ import { Config } from "tailwindcss";
 import { isolateOutsideOfContainer, scopedPreflightStyles } from "tailwindcss-scoped-preflight";
 
 /** @type {Config} */
-const config = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -16,5 +16,3 @@ const config = {
     ])
   })],
 };
-
-export default config;

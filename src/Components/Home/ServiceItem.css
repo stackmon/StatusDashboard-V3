@@ -1,11 +1,7 @@
 .blue-dot {
-  width: 4px;
-  height: 4px;
-  background-color: blue;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: absolute !important;
+  top: -10%;
+  right: -10%;
 }
 
 .with-dot {

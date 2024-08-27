@@ -1,3 +1,4 @@
+import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-components";
 import dayjs from "dayjs";
 import { chain, orderBy } from "lodash";
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
 
   const [status, setStatus] = useState(EventType.Operational);
-  const [future, setFuture] = useState(false);
+  const [future, setFuture] = useState(true);
   const [id, setId] = useState<number>();
 
   useEffect(() => {
@@ -52,9 +53,12 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   return (
     <li className="flex items-center py-2">
       {future ? (
-        <a className="with-dot flex h-6" href={`/Event/${id}`}>
-          <Indicator Type={EventType.Operational} />
-          <div className="blue-dot" />
+        <a className="flex h-6" href={`/Event/${id}`}>
+          <FluentProvider className="with-dot" theme={webLightTheme}>
+            <Indicator Type={EventType.Operational} />
+
+            <CounterBadge className="blue-dot" dot />
+          </FluentProvider>
         </a>
       ) :
         id ? (

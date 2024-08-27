@@ -1,7 +1,6 @@
-import { ScaleDivider, ScaleTabHeader, ScaleTabNav, ScaleTabPanel } from "@telekom/scale-components-react";
-import { useCreation } from "ahooks";
-import { Station } from "~/Helpers/Entities";
+import { ScaleDivider, ScaleTabNav } from "@telekom/scale-components-react";
 import { useStatus } from "~/Services/Status";
+import { NavWorkaround } from "./NavWorkaround";
 import "./RegionSelector.css";
 
 interface IRegionSelector {
@@ -16,7 +15,6 @@ interface IRegionSelector {
  */
 export function RegionSelector({ Title, Topic }: IRegionSelector) {
   const { DB: { Regions } } = useStatus();
-  const regionSub = useCreation(() => Station.get(Topic), []);
 
   return (
     <section className="flex flex-col" id="RegionSelector">
@@ -26,16 +24,8 @@ export function RegionSelector({ Title, Topic }: IRegionSelector) {
         </label>
 
         <ScaleTabNav>
-          {Regions.map((item, i) => <>
-            <ScaleTabHeader
-              key={item.Name}
-              slot="tab"
-              onClick={() => regionSub.next(item)}
-            >
-              {item.Name}
-            </ScaleTabHeader>
-            <ScaleTabPanel key={i} className="hidden" slot="panel" />
-          </>)}
+          {Regions.map((item, i) =>
+            <NavWorkaround key={i} Item={item} Topic={Topic} />)}
         </ScaleTabNav>
       </div>
 

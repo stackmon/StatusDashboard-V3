@@ -29,13 +29,16 @@ export function ServiceItem({ RegionService }: IServiceItem) {
         Id: x.Id,
         Type: x.Type,
         Start: x.Start,
-        Status: orderBy([...x.Histories], 'Created', 'desc')[0].Status
+        Status: orderBy([...x.Histories], y => y.Created, 'desc').at(0)?.Status
       }))
-      .filter(x =>
-        ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
-          .includes(x.Status)
-      )
-      .orderBy('Type', 'desc')
+      .filter(x => {
+        if (!x.Status) {
+          return true;
+        }
+        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
+          .includes(x.Status);
+      })
+      .orderBy(x => x.Type, 'desc')
       .head()
       .value();
 

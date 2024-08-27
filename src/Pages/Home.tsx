@@ -39,7 +39,7 @@ export function Home() {
       .filter(rs => rs.Region === region)
       .map(rs => rs.Service.Category)
       .uniq()
-      .sort()
+      .sortBy(x => x.Name)
       .value();
   }, [DB, region]);
 

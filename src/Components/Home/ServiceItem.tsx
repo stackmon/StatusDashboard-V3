@@ -21,7 +21,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
 
   const [status, setStatus] = useState(EventType.Operational);
-  const [future, setFuture] = useState(true);
+  const [future, setFuture] = useState(false);
   const [id, setId] = useState<number>();
 
   useEffect(() => {

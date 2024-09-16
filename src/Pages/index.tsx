@@ -1,5 +1,5 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
@@ -37,7 +37,9 @@ export function Layout() {
       <TopNavBar />
 
       <main className="mx-auto flex w-full max-w-screen-xl flex-col gap-y-8 px-3 pt-8">
-        {match}
+        <Suspense fallback={<ScaleLoadingSpinner size="large" text="Loading..." />}>
+          {match}
+        </Suspense>
       </main>
 
       <PageFooter />

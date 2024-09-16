@@ -33,7 +33,20 @@ const CTX = createContext<IContext>({} as IContext);
  * @version 0.1.0
  */
 export function useStatus() {
-  return useContext(CTX);
+  const ctx = useContext(CTX);
+
+  if (DB.Regions.length < 1) {
+    throw new Promise((res) => {
+      const i = setInterval(() => {
+        if (DB.Regions.length > 0) {
+          clearInterval(i);
+          res(ctx);
+        }
+      }, 100);
+    });
+  }
+
+  return ctx;
 }
 
 const log = new Logger("Service", "Status");
@@ -96,7 +109,9 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
           let dbService = db.Services.find((x) => x.Name === targetService);
           if (!dbService) {
-            const abbr = item.attributes.find((x) => x.name === NameEnum.Type)?.value;
+            const abbr = item.attributes.find(
+              (x) => x.name === NameEnum.Type
+            )?.value;
             if (!abbr) {
               log.debug("Skipped Null Abbr.", item);
               continue;
@@ -159,7 +174,9 @@ export function StatusContext({ children }: { children: JSX.Element }) {
                 const status = (() => {
                   switch (update.status) {
                     case StatusEnum.System:
-                      return incident.end_date ? EventStatus.Cancelled : EventStatus.Investigating;
+                      return incident.end_date
+                        ? EventStatus.Cancelled
+                        : EventStatus.Investigating;
 
                     case StatusEnum.Analyzing:
                       return EventStatus.Investigating;
@@ -196,7 +213,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
                   Message: update.text,
                   Created: dayjs(update.timestamp),
                   Status: status,
-                  Event: dbEvent
+                  Event: dbEvent,
                 };
 
                 dbEvent.Histories.add(history);

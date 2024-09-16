@@ -1,5 +1,7 @@
 import { useRequest } from "ahooks";
+import { openDB } from "idb";
 import { createContext, useContext, useState } from "react";
+import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { StatusEntity } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
@@ -25,6 +27,32 @@ interface IContext {
 }
 
 const CTX = createContext<IContext>({} as IContext);
+const Store = "Status";
+
+function init() {
+  return openDB(Dic.Name, 1, {
+    upgrade(db) {
+      db.createObjectStore(Store);
+    },
+  });
+}
+
+async function save() {
+  const db = await init();
+  await db.put(Store, DB, Store);
+  db.close();
+}
+
+async function load() {
+  const db = await init();
+  const res = await db.get(Store, Store) as IStatusContext;
+  if (res) {
+    DB = res;
+  }
+  db.close();
+}
+
+await load();
 
 /**
  * @author Aloento
@@ -75,6 +103,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   function update(data: IStatusContext) {
     DB = { ...data };
     setDB(DB);
+    save();
   }
 
   return (

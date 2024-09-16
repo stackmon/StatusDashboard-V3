@@ -45,7 +45,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
     if (res) {
       setStatus(res.Type);
-      setFuture(res.Start.isAfter(dayjs()));
+      setFuture(dayjs(res.Start).isAfter(dayjs()));
       setId(res.Id);
     }
   }, [DB, RegionService]);

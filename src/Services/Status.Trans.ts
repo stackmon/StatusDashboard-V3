@@ -107,12 +107,15 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
         dbEvent = {
           Id: incident.id,
           Title: incident.text,
-          Start: dayjs(incident.start_date),
-          End: dayjs(incident.end_date),
+          Start: dayjs(incident.start_date).toDate(),
           Type: type,
           Histories: new Set(),
           RegionServices: new Set([regionService]),
         };
+
+        if (dbEvent.End) {
+          dbEvent.End = dayjs(incident.end_date).toDate();
+        }
 
         for (const update of incident.updates) {
           const status = (() => {
@@ -155,7 +158,7 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
           const history = {
             Id: id++,
             Message: update.text,
-            Created: dayjs(update.timestamp),
+            Created: dayjs(update.timestamp).toDate(),
             Status: status,
             Event: dbEvent,
           };

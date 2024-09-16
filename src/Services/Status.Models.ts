@@ -1,4 +1,3 @@
-import { Dayjs } from "dayjs";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
 
 /**
@@ -51,8 +50,8 @@ export namespace Models {
     Id: number;
     Title: string;
     Type: EventType;
-    Start: Dayjs;
-    End: Dayjs;
+    Start: Date;
+    End?: Date;
     RegionServices: Set<IRegionService>;
     Histories: Set<IHistory>;
   }
@@ -60,7 +59,7 @@ export namespace Models {
   export interface IHistory {
     Id: number;
     Message: string;
-    Created: Dayjs;
+    Created: Date;
     Status: EventStatus;
     Event: IEvent;
   }

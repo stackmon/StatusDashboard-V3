@@ -45,7 +45,7 @@ export function Home() {
 
   const abnormalCount = useMemo(() => {
     const service = chain(DB.Events)
-      .filter(e => e.End === null)
+      .filter(e => !e.End)
       .flatMap(e => [...e.RegionServices])
       .map(rs => rs.Service)
       .uniqBy(s => s.Id)

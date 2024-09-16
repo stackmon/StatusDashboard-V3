@@ -1,7 +1,7 @@
 import { ScaleDivider, ScaleTabNav } from "@telekom/scale-components-react";
 import { useStatus } from "~/Services/Status";
-import { NavWorkaround } from "./NavWorkaround";
 import "./RegionSelector.css";
+import { TabItem } from "./TabItem";
 
 interface IRegionSelector {
   Title: string;
@@ -25,7 +25,7 @@ export function RegionSelector({ Title, Topic }: IRegionSelector) {
 
         <ScaleTabNav>
           {Regions.map((item, i) =>
-            <NavWorkaround key={i} Item={item} Topic={Topic} />)}
+            <TabItem key={i} Item={item} Topic={Topic} />)}
         </ScaleTabNav>
       </div>
 

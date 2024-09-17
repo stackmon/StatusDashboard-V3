@@ -36,7 +36,7 @@ export function Home() {
 
   const categories = useMemo(() => {
     return chain(DB.RegionService)
-      .filter(rs => rs.Region === region)
+      .filter(rs => rs.Region.Id === region.Id)
       .map(rs => rs.Service.Category)
       .uniq()
       .sortBy(x => x.Name)

@@ -31,8 +31,8 @@ export function StatusCard({ Category }: IStatusCard) {
 
   const services = useMemo(() =>
     chain(DB.RegionService)
-      .filter(x => x.Region === region)
-      .filter(x => x.Service.Category === Category)
+      .filter(x => x.Region.Id === region.Id)
+      .filter(x => x.Service.Category.Id === Category.Id)
       .orderBy(x => x.Service.Name)
       .value()
     , [DB, region, Category]);

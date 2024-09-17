@@ -12,14 +12,23 @@ import { Transformer } from "./Status.Trans";
  * @since 1.0.0
  * @version 0.1.0
  */
-export let DB: IStatusContext = {
-  Services: [],
-  Categories: [],
-  Regions: [],
-  Events: [],
-  Histories: [],
-  RegionService: [],
-};
+export function EmptyDB(): IStatusContext {
+  return {
+    Services: [],
+    Categories: [],
+    Regions: [],
+    Events: [],
+    Histories: [],
+    RegionService: [],
+  }
+}
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export let DB = EmptyDB();
 
 interface IContext {
   DB: IStatusContext;
@@ -96,7 +105,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     },
     {
       cacheKey: log.namespace,
-      onSuccess: (list) => Transformer(list, update),
+      onSuccess: (list) => update(Transformer(list)),
     }
   );
 

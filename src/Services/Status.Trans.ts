@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
-import { DB } from "./Status";
+import { EmptyDB } from "./Status";
 import { NameEnum, StatusEntity, StatusEnum } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 
@@ -12,8 +12,9 @@ const log = new Logger("Service", "Status", "Transformer");
  * @since 1.0.0
  * @version 0.1.0
  */
-export function Transformer(list: StatusEntity[], update: (data: IStatusContext) => void) {
+export function Transformer(list: StatusEntity[]): IStatusContext {
   let id = 0;
+  const db = EmptyDB();
 
   for (const item of list) {
     if (item.attributes.length < 3) {
@@ -29,10 +30,10 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
       continue;
     }
 
-    let dbCate = DB.Categories.find((x) => x.Name === targetCate);
+    let dbCate = db.Categories.find((x) => x.Name === targetCate);
     if (!dbCate) {
       dbCate = { Id: id++, Name: targetCate, Services: new Set() };
-      DB.Categories.push(dbCate);
+      db.Categories.push(dbCate);
     }
 
     const targetRegion = item.attributes.find(
@@ -43,15 +44,15 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
       continue;
     }
 
-    let dbRegion = DB.Regions.find((x) => x.Name === targetRegion);
+    let dbRegion = db.Regions.find((x) => x.Name === targetRegion);
     if (!dbRegion) {
       dbRegion = { Id: id++, Name: targetRegion, Services: new Set() };
-      DB.Regions.push(dbRegion);
+      db.Regions.push(dbRegion);
     }
 
     const targetService = item.name;
 
-    let dbService = DB.Services.find((x) => x.Name === targetService);
+    let dbService = db.Services.find((x) => x.Name === targetService);
     if (!dbService) {
       const abbr = item.attributes.find(
         (x) => x.name === NameEnum.Type
@@ -68,14 +69,14 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
         Category: dbCate,
         Regions: new Set([dbRegion]),
       };
-      DB.Services.push(dbService);
+      db.Services.push(dbService);
     }
 
     dbService.Regions.add(dbRegion);
     dbRegion.Services.add(dbService);
     dbCate.Services.add(dbService);
 
-    let regionService = DB.RegionService.find(
+    let regionService = db.RegionService.find(
       (x) => x.Region === dbRegion && x.Service === dbService
     );
     if (!regionService) {
@@ -84,11 +85,11 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
         Service: dbService,
         Events: new Set(),
       };
-      DB.RegionService.push(regionService);
+      db.RegionService.push(regionService);
     }
 
     for (const incident of item.incidents) {
-      let dbEvent = DB.Events.find((x) => x.Id === incident.id);
+      let dbEvent = db.Events.find((x) => x.Id === incident.id);
 
       if (!dbEvent) {
         const type = (() => {
@@ -113,7 +114,7 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
           RegionServices: new Set([regionService]),
         };
 
-        if (dbEvent.End) {
+        if (incident.end_date) {
           dbEvent.End = dayjs(incident.end_date).toDate();
         }
 
@@ -166,7 +167,7 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
           dbEvent.Histories.add(history);
         }
 
-        DB.Events.push(dbEvent);
+        db.Events.push(dbEvent);
       } else {
         dbEvent.RegionServices.add(regionService);
       }
@@ -175,6 +176,6 @@ export function Transformer(list: StatusEntity[], update: (data: IStatusContext)
     }
   }
 
-  log.info("Status data loaded.", DB);
-  update(DB);
+  log.info("Status data loaded.", db);
+  return db;
 }

@@ -128,8 +128,10 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
 
               case StatusEnum.Analyzing:
                 return EventStatus.Investigating;
-              case StatusEnum.Fixing:
+              // @ts-expect-error
               case StatusEnum.Reopened:
+                dbEvent.End = undefined;
+              case StatusEnum.Fixing:
                 return EventStatus.Fixing;
               case StatusEnum.Observing:
                 return EventStatus.Monitoring;

@@ -4,6 +4,7 @@ import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
 import { NotFound } from "./404";
+import { History } from "./History";
 import { Home } from "./Home";
 
 /**
@@ -22,6 +23,9 @@ export function Layout() {
 
       case "Reload":
         return <ScaleLoadingSpinner size="large" text="Reloading..." />;
+
+      case "History":
+        return <History />;
 
       case "":
       case undefined:

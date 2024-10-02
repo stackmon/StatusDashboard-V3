@@ -63,6 +63,8 @@ async function load() {
 
 await load();
 
+const log = new Logger("Service", "Status");
+
 /**
  * @author Aloento
  * @since 1.0.0
@@ -84,8 +86,6 @@ export function useStatus() {
 
   return ctx;
 }
-
-const log = new Logger("Service", "Status");
 
 /**
  * @author Aloento

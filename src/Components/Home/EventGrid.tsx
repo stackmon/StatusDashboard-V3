@@ -1,6 +1,10 @@
 import { ScaleDataGrid } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
+import dayjs from "dayjs";
+import { chain } from "lodash";
 import { useEffect, useRef } from "react";
+import { useStatus } from "~/Services/Status";
+import { EventStatus, EventType } from "../Event/Enums";
 
 /**
  * @author Aloento
@@ -8,6 +12,7 @@ import { useEffect, useRef } from "react";
  * @version 0.1.0
  */
 export function EventGrid() {
+  const { DB } = useStatus();
   const ref = useRef<HTMLScaleDataGridElement>(null);
 
   const observer = useCreation(() => {
@@ -56,49 +61,91 @@ export function EventGrid() {
       { type: "actions", label: "Detail" },
     ];
 
-    grid.rows = [
-      [
-        212,
-        [
-          {
-            "content": "Maintain",
-            "color": "cyan"
-          }
-        ],
-        "2024-09-09 08:30 UTC",
-        "09-09 09:30",
-        "EU-DE",
-        "Anti DDoS",
-        [
-          {
-            "label": "↗",
-            "variant": "secondary",
-            "href": "/Event/212"
-          }
-        ]
-      ],
-      [
-        210,
-        [
-          {
-            "content": "Minor",
-            "color": "yellow"
-          }
-        ],
-        "2024-08-29 14:00 UTC",
-        "Investigating",
-        "EU-DE +1",
-        "Anti DDoS +1",
-        [
-          {
-            "label": "↗",
-            "variant": "secondary",
-            "href": "/Event/210"
-          }
-        ]
-      ]
-    ];
-  }, [ref.current]);
+    const events = chain(DB.Events)
+      .map((x) => {
+        const rs = Array.from(x.RegionServices);
+
+        const Services = chain(rs)
+          .map(s => s.Service.Name)
+          .uniq()
+          .value();
+
+        const Regions = chain(rs)
+          .map(r => r.Region.Name)
+          .uniq()
+          .value();
+
+        const Latest = chain(Array.from(x.Histories))
+          .orderBy(e => e.Created, "desc")
+          .first()
+          .value();
+
+        return {
+          ...x,
+          Services,
+          Regions,
+          Latest
+        }
+      })
+      .filter(x => {
+        if (!x.Latest) {
+          return true;
+        }
+
+        const s = x.Latest.Status;
+
+        const res =
+          s != EventStatus.Completed &&
+          s != EventStatus.Resolved &&
+          s != EventStatus.Cancelled
+
+        return res;
+      })
+      .orderBy(x => x.Start, "desc")
+      .map(x => {
+        let tag;
+
+        switch (x.Type) {
+          case EventType.MinorIssue:
+            tag = { content: "Minor", color: "yellow" };
+            break;
+          case EventType.MajorIssue:
+            tag = { content: "Major", color: "orange" };
+            break;
+          case EventType.Outage:
+            tag = { content: "Outage", color: "red" };
+            break;
+          default:
+            tag = { content: "Maintain", color: "cyan" };
+            break;
+        }
+
+        return [
+          x.Id,
+          [tag],
+          dayjs(x.Start).format("YYYY-MM-DD HH:mm [UTC]"),
+          x.End
+            ? dayjs(x.End).format("MM-DD HH:mm")
+            : (x.Latest?.Status ?? EventStatus.Investigating),
+          x.Regions.length > 1
+            ? `${x.Regions[0]} +${x.Regions.length - 1}`
+            : x.Regions[0],
+          x.Services.length > 1
+            ? `${x.Services[0]} +${x.Services.length - 1}`
+            : x.Services[0],
+          [
+            {
+              label: "↗",
+              variant: "secondary",
+              href: `/Event/${x.Id}`
+            }
+          ]
+        ];
+      })
+      .value();
+
+    grid.rows = events;
+  }, [ref.current, DB]);
 
   return (
     <ScaleDataGrid

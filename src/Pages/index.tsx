@@ -4,6 +4,7 @@ import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
 import { NotFound } from "./404";
+import { Availability } from "./Availability";
 import { History } from "./History";
 import { Home } from "./Home";
 
@@ -26,6 +27,9 @@ export function Layout() {
 
       case "History":
         return <History />;
+
+      case "Availability":
+        return <Availability />;
 
       case "":
       case undefined:

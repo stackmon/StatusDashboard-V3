@@ -16,7 +16,7 @@ export function History() {
 
   const skel = useRef<HTMLDivElement>(null);
   const [isBottom] = useInViewport(skel);
-  const [isEnd, { set }] = useBoolean(true);
+  const [isEnd] = useBoolean(true);
 
   const loading = isBottom && !isEnd;
 

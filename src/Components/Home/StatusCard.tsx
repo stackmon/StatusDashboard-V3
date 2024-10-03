@@ -46,8 +46,8 @@ export function StatusCard({ Category }: IStatusCard) {
       <ScaleDivider className="h-auto" />
 
       <ul className="px-3.5">
-        {services.map(item => (
-          <ServiceItem RegionService={item} />
+        {services.map((item, i) => (
+          <ServiceItem key={i} RegionService={item} />
         ))}
       </ul>
     </div>

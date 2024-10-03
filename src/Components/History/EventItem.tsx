@@ -41,7 +41,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
       .orderBy(x => x.Created, "desc")
       .map(x => x.Status)
       .first()
-      .value();
+      .value() ?? EventStatus.Investigating;
   }, [Curr.Histories]);
 
   const services = useMemo(() => {

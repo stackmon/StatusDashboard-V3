@@ -53,7 +53,7 @@ export function Indicator({ Type, Size, Class }: IIndicator) {
     {
       "accessibility-title": Type,
       fill: fillColor,
-      className: Class,
+      class: Class,
       ...(Size ? { size: Size } : {}),
     }
   );

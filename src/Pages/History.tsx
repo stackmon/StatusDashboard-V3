@@ -1,5 +1,10 @@
 import { FluentProvider, Skeleton, SkeletonItem, webLightTheme } from "@fluentui/react-components";
+import { useBoolean, useInViewport } from "ahooks";
+import { chain } from "lodash";
+import { useRef } from "react";
 import { Helmet } from "react-helmet";
+import { EventItem } from "~/Components/History/EventItem";
+import { useStatus } from "~/Services/Status";
 
 /**
  * @author Aloento
@@ -7,6 +12,14 @@ import { Helmet } from "react-helmet";
  * @version 0.1.0
  */
 export function History() {
+  const { DB } = useStatus();
+
+  const skel = useRef<HTMLDivElement>(null);
+  const [isBottom] = useInViewport(skel);
+  const [isEnd, { set }] = useBoolean(true);
+
+  const loading = isBottom && !isEnd;
+
   return <>
     <Helmet>
       <title>Timeline - OTC Status Dashboard</title>
@@ -18,11 +31,24 @@ export function History() {
       </h3>
     </section>
 
+    <ol className="flex flex-col">
+      {
+        chain(DB.Events)
+          .sortBy(x => x.Start, "desc")
+          .map((event, index, events) => [events[index - 1], event])
+          .map(([prev, curr]) => (
+            <EventItem key={curr.Id} Prev={prev} Curr={curr} />
+          ))
+          .value()
+      }
+    </ol>
+
     <FluentProvider
       theme={webLightTheme}
       className="-ml-3"
+      ref={skel}
     >
-      <Skeleton className="flex gap-x-5">
+      <Skeleton className="gap-x-5" style={{ display: loading ? "flex" : "none" }}>
         <SkeletonItem size={24} shape="circle" />
 
         <div className="flex flex-col gap-y-3">

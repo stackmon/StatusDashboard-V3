@@ -71,6 +71,12 @@ export function AvailaMatrix() {
             .value()}
         </tbody>
       </table>
+
+      <template>
+        <p className="bg-emerald-100 hover:bg-emerald-200" />
+        <p className="bg-amber-100 hover:bg-amber-200" />
+        <p className="bg-rose-100 hover:bg-rose-200" />
+      </template>
     </ScaleTable>
   );
 }

@@ -45,20 +45,20 @@ export function AvailaMatrix() {
             <th className="!py-2 !text-center !text-lg" colSpan={6} scope="colgroup">
               Availability, %
             </th>
+          </tr>
 
-            <tr>
-              {Array.from({ length: 6 }).map((_, i) => {
-                const date = dayjs().subtract(5 - i, 'month');
-                const month = date.format('MMMM');
-                const year = date.year();
+          <tr>
+            {Array.from({ length: 6 }).map((_, i) => {
+              const date = dayjs().subtract(5 - i, 'month');
+              const month = date.format('MMMM');
+              const year = date.year();
 
-                return (
-                  <th key={i} className="!pb-1 !text-lg !text-center w-1/12" scope="col">
-                    {year} <br /> {month}
-                  </th>
-                );
-              })}
-            </tr>
+              return (
+                <th key={i} className="!pb-1 !text-lg !text-center w-1/12" scope="col">
+                  {year} <br /> {month}
+                </th>
+              );
+            })}
           </tr>
         </thead>
 

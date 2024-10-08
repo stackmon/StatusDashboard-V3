@@ -67,7 +67,7 @@ export function AvailaMatrix() {
             .map(x => x.Category)
             .uniqBy(x => x.Id)
             .sortBy(x => x.Name, 'asc')
-            .map((x, i) => <CategoryGroup key={i} Category={x} />)
+            .map((x, i) => <CategoryGroup key={i} Category={x} Topic={topic} />)
             .value()}
         </tbody>
       </table>

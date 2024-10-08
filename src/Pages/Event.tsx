@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet";
+import { EventCard } from "~/Components/Event/EventCard";
+import { EventLog } from "~/Components/Event/EventLog";
 import { useRouter } from "~/Components/Router";
 import { useStatus } from "~/Services/Status";
 import { NotFound } from "./404";
@@ -24,5 +26,8 @@ export function Event() {
     <Helmet>
       <title>Event {id.toString()} - OTC Status Dashboard</title>
     </Helmet>
+
+    <EventCard Event={event} />
+    <EventLog Event={event} />
   </>
 }

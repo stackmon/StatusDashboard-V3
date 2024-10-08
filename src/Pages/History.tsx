@@ -33,7 +33,7 @@ export function History() {
 
     <ol className="flex flex-col">
       {chain(DB.Events)
-        .sortBy(x => x.Start, "desc")
+        .orderBy(x => x.Start, "desc")
         .map((event, index, events) => [events[index - 1], event])
         .map(([prev, curr]) => (
           <EventItem key={curr.Id} Prev={prev} Curr={curr} />

@@ -33,7 +33,7 @@ export function CategoryGroup({ Category, Topic }: ICategoryGroup) {
     const s = chain(DB.RegionService)
       .filter(x => x.Region.Id === region.Id)
       .filter(x => x.Service.Category.Id === Category.Id)
-      .sortBy(x => x.Service.Name)
+      .orderBy(x => x.Service.Name)
       .value();
 
     const a = chain(s)

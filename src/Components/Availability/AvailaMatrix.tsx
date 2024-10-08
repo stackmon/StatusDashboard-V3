@@ -66,7 +66,7 @@ export function AvailaMatrix() {
           {chain(Array.from(region.Services))
             .map(x => x.Category)
             .uniqBy(x => x.Id)
-            .sortBy(x => x.Name, 'asc')
+            .orderBy(x => x.Name)
             .map((x, i) => <CategoryGroup key={i} Category={x} Topic={topic} />)
             .value()}
         </tbody>

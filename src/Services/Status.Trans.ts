@@ -15,8 +15,14 @@ const log = new Logger("Service", "Status", "Transformer");
 export function Transformer(list: StatusEntity[]): IStatusContext {
   let id = 0;
   const db = EmptyDB();
+  const ng = process.env.SD_BACKEND_NG;
 
   for (const item of list) {
+    if (ng) {
+      // @ts-expect-error
+      item.attributes = item.attrs;
+    }
+
     if (item.attributes.length < 3) {
       log.debug("Skipped Hidden Item.", item);
       continue;

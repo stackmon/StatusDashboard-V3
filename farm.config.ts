@@ -11,6 +11,7 @@ export default defineConfig({
       }
     }
   },
+  envPrefix: "SD_",
   server: {
     proxy: {
       "/api": {

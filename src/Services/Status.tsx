@@ -94,11 +94,13 @@ export function useStatus() {
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
+  const url = process.env.SD_BACKEND_URL;
+  const uri = process.env.SD_BACKEND_URI;
 
   useRequest(
     async () => {
       log.info("Loading status data...");
-      const response = await fetch("/api/v1/component_status");
+      const response = await fetch(`${url}${uri}`);
       const data = await response.json();
       log.debug("Status data loaded.", data);
       return data as StatusEntity[];

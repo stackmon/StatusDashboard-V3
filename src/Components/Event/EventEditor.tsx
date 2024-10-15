@@ -1,3 +1,5 @@
+import { ScaleButton, ScaleIconActionEdit, ScaleModal } from "@telekom/scale-components-react";
+import { useBoolean } from "ahooks";
 import { Models } from "~/Services/Status.Models";
 
 /**
@@ -6,5 +8,22 @@ import { Models } from "~/Services/Status.Models";
  * @version 0.1.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
-  return <></>;
+  const [open, { setTrue, setFalse }] = useBoolean();
+
+  return <>
+    <ScaleButton onClick={setTrue} size="small">
+      <ScaleIconActionEdit />
+      Edit
+    </ScaleButton>
+
+    <ScaleModal
+      heading="Edit Event"
+      opened={open}
+      omitCloseButton
+      size="small"
+      class="absolute"
+    >
+
+    </ScaleModal>
+  </>;
 }

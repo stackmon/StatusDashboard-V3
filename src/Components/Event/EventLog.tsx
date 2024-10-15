@@ -1,3 +1,6 @@
+import { ScaleTable } from "@telekom/scale-components-react";
+import dayjs from "dayjs";
+import { chain } from "lodash";
 import { Models } from "~/Services/Status.Models";
 
 /**
@@ -6,5 +9,36 @@ import { Models } from "~/Services/Status.Models";
  * @version 0.1.0
  */
 export function EventLog({ Event }: { Event: Models.IEvent }) {
-  return <></>;
+  const list = chain(Array.from(Event.Histories))
+    .orderBy(x => x.Created, "desc")
+    .value();
+
+  return (
+    <ScaleTable class="rounded-md bg-white p-6 shadow-md">
+      <table>
+        <thead>
+          <tr>
+            <th>Updates</th>
+            <th>Information</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {list.map((history, i) => (
+            <tr key={i}>
+              <td className="flex flex-col">
+                <label className="font-medium">{history.Status}</label>
+
+                <label>
+                  {dayjs(history.Created).format("YYYY-MM-DD HH:mm [UTC]")}
+                </label>
+              </td>
+
+              <td className="text-pretty">{history.Message}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </ScaleTable >
+  );
 }

@@ -102,6 +102,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       log.info("Loading status data...");
       const response = await fetch(`${url}${uri}/component_status`);
       const data = await response.json();
+      // const data = (await import("./test.json")).default;
       log.debug("Status data loaded.", data);
       return data as StatusEntity[];
     },

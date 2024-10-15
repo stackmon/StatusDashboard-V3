@@ -1,6 +1,6 @@
 import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-components";
 import dayjs from "dayjs";
-import { chain, orderBy } from "lodash";
+import { chain } from "lodash";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
@@ -26,20 +26,9 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
   useEffect(() => {
     const res = chain([...RegionService.Events])
-      .map(x => ({
-        Id: x.Id,
-        Type: x.Type,
-        Start: x.Start,
-        End: x.End,
-        Status: orderBy([...x.Histories], y => y.Created, 'desc').at(0)?.Status
-      }))
       .filter(x => {
         if (x.Type !== EventType.Maintenance && x.End) {
           return false;
-        }
-
-        if (!x.Status) {
-          return true;
         }
 
         return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]

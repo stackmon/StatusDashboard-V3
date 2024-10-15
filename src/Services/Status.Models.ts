@@ -52,6 +52,7 @@ export namespace Models {
     Type: EventType;
     Start: Date;
     End?: Date;
+    Status: EventStatus;
     RegionServices: Set<IRegionService>;
     Histories: Set<IHistory>;
   }

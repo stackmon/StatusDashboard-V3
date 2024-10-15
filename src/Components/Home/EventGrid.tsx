@@ -75,32 +75,20 @@ export function EventGrid() {
           .uniq()
           .value();
 
-        const Latest = chain(Array.from(x.Histories))
-          .orderBy(e => e.Created, "desc")
-          .first()
-          .value();
-
         return {
           ...x,
           Services,
           Regions,
-          Latest
+          Status: x.Status
         }
       })
       .filter(x => {
-        if (!x.Latest) {
-          return true;
+        if (x.Type !== EventType.Maintenance && x.End) {
+          return false;
         }
 
-        const s = x.Latest.Status;
-
-        const res =
-          !x.End &&
-          s != EventStatus.Completed &&
-          s != EventStatus.Resolved &&
-          s != EventStatus.Cancelled
-
-        return res;
+        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
+          .includes(x.Status);
       })
       .orderBy(x => x.Start, "desc")
       .map(x => {
@@ -127,7 +115,7 @@ export function EventGrid() {
           dayjs(x.Start).format("YYYY-MM-DD HH:mm [UTC]"),
           x.End
             ? dayjs(x.End).format("MM-DD HH:mm")
-            : (x.Latest?.Status ?? EventStatus.Investigating),
+            : x.Status,
           x.Regions.length > 1
             ? `${x.Regions[0]} +${x.Regions.length - 1}`
             : x.Regions[0],

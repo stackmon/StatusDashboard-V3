@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { orderBy } from "lodash";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
@@ -119,6 +120,7 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
           Title: incident.text,
           Start: dayjs(incident.start_date).toDate(),
           Type: type,
+          Status: type === EventType.Maintenance ? EventStatus.Scheduled : EventStatus.Investigating,
           Histories: new Set(),
           RegionServices: new Set([regionService]),
         };
@@ -177,6 +179,11 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
             };
 
             dbEvent.Histories.add(history);
+          }
+
+          const status = orderBy(Array.from(dbEvent.Histories), x => x.Created, "desc").at(0)?.Status;
+          if (status) {
+            dbEvent.Status = status;
           }
         }
 

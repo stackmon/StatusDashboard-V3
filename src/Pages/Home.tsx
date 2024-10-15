@@ -1,6 +1,6 @@
 import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
-import { chain, orderBy } from "lodash";
+import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
@@ -50,13 +50,7 @@ export function Home() {
     const service = chain(DB.Events)
       .filter(e => !e.End)
       .filter(e => e.Type !== EventType.Maintenance)
-      .filter(e => {
-        const status = orderBy(Array.from(e.Histories), y => y.Created, 'desc').at(0)?.Status;
-        if (!status) {
-          return true;
-        }
-        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
-      })
+      .filter(e => ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(e.Status))
       .flatMap(e => [...e.RegionServices])
       .map(rs => rs.Service)
       .uniqBy(s => s.Id)

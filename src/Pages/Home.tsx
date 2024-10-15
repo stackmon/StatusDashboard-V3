@@ -1,17 +1,20 @@
 import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
-import { chain } from "lodash";
+import { chain, orderBy } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
-import { EventType } from "~/Components/Event/Enums";
+import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
 import { StatusCard } from "~/Components/Home/StatusCard";
 import { Station } from "~/Helpers/Entities";
+import { Logger } from "~/Helpers/Logger";
 import { useStatus } from "~/Services/Status";
+
+const log = new Logger("Home");
 
 /**
  * @author Aloento
@@ -46,11 +49,20 @@ export function Home() {
   const abnormalCount = useMemo(() => {
     const service = chain(DB.Events)
       .filter(e => !e.End)
+      .filter(e => e.Type !== EventType.Maintenance)
+      .filter(e => {
+        const status = orderBy(Array.from(e.Histories), y => y.Created, 'desc').at(0)?.Status;
+        if (!status) {
+          return true;
+        }
+        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
+      })
       .flatMap(e => [...e.RegionServices])
       .map(rs => rs.Service)
       .uniqBy(s => s.Id)
       .value();
 
+    log.debug(service);
     return service.length;
   }, [DB]);
 

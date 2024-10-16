@@ -96,13 +96,20 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
   const url = process.env.SD_BACKEND_URL;
   const uri = process.env.SD_BACKEND_API;
+  const file = process.env.SD_BACKEND_FILE === "true";
 
   useRequest(
     async () => {
       log.info("Loading status data...");
-      const response = await fetch(`${url}${uri}/component_status`);
-      const data = await response.json();
-      // const data = (await import("./test.json")).default;
+      let data;
+
+      if (file) {
+        data = (await import("./mock.json")).default;
+      } else {
+        const response = await fetch(`${url}${uri}/component_status`);
+        data = await response.json();
+      }
+
       log.debug("Status data loaded.", data);
       return data as StatusEntity[];
     },

@@ -95,6 +95,7 @@ export function EventGrid() {
         const s = x.Latest.Status;
 
         const res =
+          !x.End &&
           s != EventStatus.Completed &&
           s != EventStatus.Resolved &&
           s != EventStatus.Cancelled

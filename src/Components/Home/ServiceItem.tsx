@@ -30,12 +30,18 @@ export function ServiceItem({ RegionService }: IServiceItem) {
         Id: x.Id,
         Type: x.Type,
         Start: x.Start,
+        End: x.End,
         Status: orderBy([...x.Histories], y => y.Created, 'desc').at(0)?.Status
       }))
       .filter(x => {
+        if (x.Type !== EventType.Maintenance && x.End) {
+          return false;
+        }
+
         if (!x.Status) {
           return true;
         }
+
         return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
           .includes(x.Status);
       })
@@ -47,6 +53,11 @@ export function ServiceItem({ RegionService }: IServiceItem) {
       setStatus(res.Type);
       setFuture(dayjs(res.Start).isAfter(dayjs()));
       setId(res.Id);
+    }
+    else {
+      setStatus(EventType.Operational);
+      setFuture(false);
+      setId(undefined);
     }
   }, [DB, RegionService]);
 

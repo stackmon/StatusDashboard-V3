@@ -15,14 +15,13 @@ const log = new Logger("Service", "Status", "Transformer");
 export function Transformer(list: StatusEntity[]): IStatusContext {
   let id = 0;
   const db = EmptyDB();
-  const ng = process.env.SD_BACKEND_NG;
+
+  if (!list?.length) {
+    log.warn("Empty List.");
+    return db;
+  }
 
   for (const item of list) {
-    if (ng) {
-      // @ts-expect-error
-      item.attributes = item.attrs;
-    }
-
     if (item.attributes.length < 3) {
       log.debug("Skipped Hidden Item.", item);
       continue;
@@ -94,6 +93,10 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
       db.RegionService.push(regionService);
     }
 
+    if (!item.incidents?.length) {
+      continue;
+    }
+
     for (const incident of item.incidents) {
       let dbEvent = db.Events.find((x) => x.Id === incident.id);
 
@@ -124,55 +127,57 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
           dbEvent.End = dayjs(incident.end_date).toDate();
         }
 
-        for (const update of incident.updates) {
-          const status = (() => {
-            switch (update.status) {
-              case StatusEnum.System:
-                return incident.end_date
-                  ? EventStatus.Cancelled
-                  : EventStatus.Investigating;
+        if (incident.updates?.length) {
+          for (const update of incident.updates) {
+            const status = (() => {
+              switch (update.status) {
+                case StatusEnum.System:
+                  return incident.end_date
+                    ? EventStatus.Cancelled
+                    : EventStatus.Investigating;
 
-              case StatusEnum.Analyzing:
-                return EventStatus.Investigating;
-              // @ts-expect-error
-              case StatusEnum.Reopened:
-                dbEvent.End = undefined;
-              case StatusEnum.Fixing:
-                return EventStatus.Fixing;
-              case StatusEnum.Observing:
-                return EventStatus.Monitoring;
-              case StatusEnum.Resolved:
-              case StatusEnum.Changed:
-                return EventStatus.Resolved;
+                case StatusEnum.Analyzing:
+                  return EventStatus.Investigating;
+                // @ts-expect-error
+                case StatusEnum.Reopened:
+                  dbEvent.End = undefined;
+                case StatusEnum.Fixing:
+                  return EventStatus.Fixing;
+                case StatusEnum.Observing:
+                  return EventStatus.Monitoring;
+                case StatusEnum.Resolved:
+                case StatusEnum.Changed:
+                  return EventStatus.Resolved;
 
-              case StatusEnum.Description:
-              case StatusEnum.Scheduled:
-              case StatusEnum.Modified:
-                return EventStatus.Scheduled;
-              case StatusEnum.InProgress:
-                return EventStatus.Performing;
-              case StatusEnum.Completed:
-                return EventStatus.Completed;
+                case StatusEnum.Description:
+                case StatusEnum.Scheduled:
+                case StatusEnum.Modified:
+                  return EventStatus.Scheduled;
+                case StatusEnum.InProgress:
+                  return EventStatus.Performing;
+                case StatusEnum.Completed:
+                  return EventStatus.Completed;
 
-              default:
-                break;
+                default:
+                  break;
+              }
+            })();
+
+            if (!status) {
+              log.debug("Skipped Unknown Status.", update, incident);
+              continue;
             }
-          })();
 
-          if (!status) {
-            log.debug("Skipped Unknown Status.", update, incident);
-            continue;
+            const history = {
+              Id: id++,
+              Message: update.text,
+              Created: dayjs(update.timestamp).toDate(),
+              Status: status,
+              Event: dbEvent,
+            };
+
+            dbEvent.Histories.add(history);
           }
-
-          const history = {
-            Id: id++,
-            Message: update.text,
-            Created: dayjs(update.timestamp).toDate(),
-            Status: status,
-            Event: dbEvent,
-          };
-
-          dbEvent.Histories.add(history);
         }
 
         db.Events.push(dbEvent);

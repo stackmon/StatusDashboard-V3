@@ -1,0 +1,39 @@
+name: Static Web Apps
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "latest"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "latest"
+          run_install: false
+
+      - name: UseFile
+        run: sed -i 's/SD_BACKEND_FILE=false/SD_BACKEND_FILE=true/' .env &&
+          curl -o public/mock.json https://status.cloudmon.eco.tsi-dev.otc-service.com/api/v1/component_status
+
+      - name: Build
+        run: pnpm install && pnpm build
+
+      - name: Pages Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          cname: sd3.eco.tsi-dev.otc-service.com

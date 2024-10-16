@@ -101,14 +101,10 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   useRequest(
     async () => {
       log.info("Loading status data...");
-      let data;
 
-      if (file) {
-        data = (await import("./mock.json")).default;
-      } else {
-        const response = await fetch(`${url}${uri}/component_status`);
-        data = await response.json();
-      }
+      const link = file ? "/mock.json" : `${url}${uri}/component_status`;
+      const response = await fetch(link);
+      const data = await response.json();
 
       log.debug("Status data loaded.", data);
       return data as StatusEntity[];

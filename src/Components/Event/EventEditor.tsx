@@ -1,4 +1,4 @@
-import { ScaleButton, ScaleIconActionEdit, ScaleModal } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleIconActionEdit, ScaleModal, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import { Models } from "~/Services/Status.Models";
 
@@ -23,6 +23,12 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       size="small"
       class="absolute"
     >
+      <ScaleTextField
+        inputAutocomplete="off"
+        class="w-full"
+        placeholder="Please give the title of event"
+        required
+      />
 
     </ScaleModal>
   </>;

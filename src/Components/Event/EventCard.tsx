@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { Models } from "~/Services/Status.Models";
 import { Indicator } from "../Home/Indicator";
+import { EventStatus, EventType } from "./Enums";
 import { EventAffected } from "./EventAffected";
 import { EventEditor } from "./EventEditor";
 
@@ -39,7 +40,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-600">
-            (Plan) End At:
+            {Event.Type === EventType.Maintenance &&
+              Event.Status !== EventStatus.Completed &&
+              "(Plan)"} End At:
           </label>
         </div>
 

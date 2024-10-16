@@ -187,6 +187,13 @@ export function Transformer(list: StatusEntity[]): IStatusContext {
           }
         }
 
+        if (dbEvent.End &&
+          dbEvent.Type === EventType.Maintenance &&
+          dbEvent.Status !== EventStatus.Cancelled &&
+          dayjs(dbEvent.End).isBefore(dayjs())) {
+          dbEvent.Status = EventStatus.Completed;
+        }
+
         db.Events.push(dbEvent);
       } else {
         dbEvent.RegionServices.add(regionService);

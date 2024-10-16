@@ -1,0 +1,1 @@
+(function(_){for(var r in _){_[r].__farm_resource_pot__='scale-ssr-slot-fix.entry_e371.js';window['48f482be4dd400a82c616a2a754e954c'].__farm_module_system__.register(r,_[r])}})({"a37da843":function l(l,r,s,t){l._m(r),l.o(r,"scale_ssr_slot_fix",()=>n);var e=s("93ebae3c");let n=class{constructor(l){e.r(this,l);}render(){return e.h(e.a,null,e.h("slot",null));}};},});

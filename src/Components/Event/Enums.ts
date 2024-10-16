@@ -16,7 +16,7 @@ export enum EventType {
  * @since 1.0.0
  * @version 0.1.0
  */
-export const enum EventStatus {
+export enum EventStatus {
   Investigating = "Investigating",
   Fixing = "Fixing",
   Monitoring = "Monitoring",

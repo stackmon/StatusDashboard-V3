@@ -2,6 +2,7 @@ import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconAct
 import { useBoolean } from "ahooks";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
+import { useEventForm } from "./useEventForm";
 
 /**
  * @author Aloento
@@ -10,6 +11,7 @@ import { EventStatus, EventType } from "./Enums";
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const [open, { setTrue, setFalse }] = useBoolean();
+  const { State, Actions, Validation } = useEventForm(Event);
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
@@ -31,16 +33,32 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           placeholder="Please give the title of event"
           required
           label="Title"
+          value={State.title}
+          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+          invalid={!!Validation.title}
+          helperText={Validation.title}
         />
 
-        <ScaleDropdownSelect label="Type">
+        <ScaleDropdownSelect
+          label="Type"
+          value={State.type}
+          onScale-change={(e) => Actions.setType(e.target.value as EventType)}
+          invalid={!!Validation.type}
+          helperText={Validation.type}
+        >
           {Object.values(EventType).slice(1).map((type, i) =>
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
             </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
-        <ScaleDropdownSelect label="Status">
+        <ScaleDropdownSelect
+          label="Status"
+          value={State.status}
+          onScale-change={(e) => Actions.setStatus(e.target.value as EventStatus)}
+          invalid={!!Validation.status}
+          helperText={Validation.status}
+        >
           {Object.values(EventStatus)
             .slice(
               Event.Type === EventType.Maintenance ? 4 : 0,
@@ -56,11 +74,19 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             type="datetime-local"
             label="(Plan) End"
             required
+            value={State.end?.toISOString().slice(0, 16)}
+            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+            invalid={!!Validation.end}
+            helperText={Validation.end}
           />}
 
         <ScaleTextarea
           label="Update Message"
           resize="vertical"
+          value={State.update}
+          onScale-input={(e) => Actions.setUpdate(e.target.value as string)}
+          invalid={!!Validation.update}
+          helperText={Validation.update}
         />
 
         <div className="flex gap-x-3 self-end">
@@ -68,7 +94,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             Cancel
           </ScaleButton>
 
-          <ScaleButton>
+          <ScaleButton type="submit">
             Submit
           </ScaleButton>
         </div>

@@ -38,3 +38,4 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
           # cname: sd3.eco.tsi-dev.otc-service.com
+          cname: sd.aloen.to

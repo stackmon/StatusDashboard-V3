@@ -1,4 +1,4 @@
-import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextField } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
@@ -25,10 +25,9 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       class="absolute"
       onScale-before-close={(e) => e.preventDefault()}
     >
-      <div className="flex flex-col gap-y-6">
+      <form className="flex flex-col gap-y-6">
         <ScaleTextField
           inputAutocomplete="off"
-          class="w-full"
           placeholder="Please give the title of event"
           required
           label="Title"
@@ -52,6 +51,18 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
+        {Event.Type === EventType.Maintenance &&
+          <ScaleTextField
+            type="datetime-local"
+            label="(Plan) End"
+            required
+          />}
+
+        <ScaleTextarea
+          label="Update Message"
+          resize="vertical"
+        />
+
         <div className="flex gap-x-3 self-end">
           <ScaleButton onClick={setFalse} variant="secondary">
             Cancel
@@ -61,7 +72,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             Submit
           </ScaleButton>
         </div>
-      </div>
+      </form>
     </ScaleModal>
   </>;
 }

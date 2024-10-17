@@ -37,4 +37,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          cname: sd3.eco.tsi-dev.otc-service.com
+          # cname: sd3.eco.tsi-dev.otc-service.com

@@ -6,14 +6,14 @@ import { EmptyDB } from "./Status";
 import { NameEnum, StatusEntityV1, StatusEnum } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 
-const log = new Logger("Service", "Status", "Transformer");
+const log = new Logger("Service", "Status", "TransformerV1");
 
 /**
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0
  */
-export function Transformer(list: StatusEntityV1[]): IStatusContext {
+export function TransformerV1(list: StatusEntityV1[]): IStatusContext {
   let id = 0;
   const db = EmptyDB();
 

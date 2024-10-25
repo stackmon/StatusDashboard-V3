@@ -42,11 +42,11 @@ interface IncidentEntityV1 {
  * @since 1.0.0
  * @version 0.1.0
  */
-export interface IncidentEntityV2 extends IncidentEntityV1 {
+export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates"> {
   title: string;
   components: number[];
   system: boolean;
-  updates: UpdateEntityV2[];
+  updates?: UpdateEntityV2[];
 }
 
 interface UpdateEntityV1 {

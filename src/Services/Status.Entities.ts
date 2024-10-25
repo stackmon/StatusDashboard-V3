@@ -6,7 +6,7 @@
 export interface StatusEntityV1 {
   attributes: AttributeEntity[];
   id: number;
-  incidents: IncidentEntity[];
+  incidents: IncidentEntityV1[];
   name: string;
 }
 
@@ -28,21 +28,42 @@ export const enum NameEnum {
   Type = "type",
 }
 
-interface IncidentEntity {
+interface IncidentEntityV1 {
   end_date: null | string;
   id: number;
   impact: number;
   start_date: string;
   text: string;
-  updates: UpdateEntity[];
+  updates: UpdateEntityV1[];
 }
 
-interface UpdateEntity {
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export interface IncidentEntityV2 extends IncidentEntityV1 {
+  title: string;
+  components: number[];
+  system: boolean;
+  updates: UpdateEntityV2[];
+}
+
+interface UpdateEntityV1 {
   status: StatusEnum;
   text: string;
   timestamp: string;
 }
 
+interface UpdateEntityV2 extends UpdateEntityV1 {
+  id: number;
+}
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
 export const enum StatusEnum {
   Analyzing = "analyzing",
   Changed = "changed",

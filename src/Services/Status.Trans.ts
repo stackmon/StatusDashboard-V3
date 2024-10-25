@@ -3,7 +3,7 @@ import { orderBy } from "lodash";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
-import { NameEnum, StatusEntity, StatusEnum } from "./Status.Entities";
+import { NameEnum, StatusEntityV1, StatusEnum } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 
 const log = new Logger("Service", "Status", "Transformer");
@@ -13,7 +13,7 @@ const log = new Logger("Service", "Status", "Transformer");
  * @since 1.0.0
  * @version 0.1.0
  */
-export function Transformer(list: StatusEntity[]): IStatusContext {
+export function Transformer(list: StatusEntityV1[]): IStatusContext {
   let id = 0;
   const db = EmptyDB();
 

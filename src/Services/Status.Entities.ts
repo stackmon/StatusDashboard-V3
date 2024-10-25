@@ -3,12 +3,19 @@
  * @since 1.0.0
  * @version 0.1.0
  */
-export interface StatusEntity {
+export interface StatusEntityV1 {
   attributes: AttributeEntity[];
   id: number;
   incidents: IncidentEntity[];
   name: string;
 }
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export type StatusEntityV2 = Omit<StatusEntityV1, "incidents">;
 
 interface AttributeEntity {
   name: NameEnum;

@@ -3,7 +3,7 @@ import { openDB } from "idb";
 import { createContext, useContext, useState } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
-import { StatusEntity } from "./Status.Entities";
+import { StatusEntityV1 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 import { Transformer } from "./Status.Trans";
 
@@ -107,7 +107,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       const data = await response.json();
 
       log.debug("Status data loaded.", data);
-      return data as StatusEntity[];
+      return data as StatusEntityV1[];
     },
     {
       cacheKey: log.namespace,

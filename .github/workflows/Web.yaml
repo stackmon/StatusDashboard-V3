@@ -25,8 +25,10 @@ jobs:
           cache: "pnpm"
 
       - name: UseFile
-        run: sed -i 's/SD_BACKEND_FILE=false/SD_BACKEND_FILE=true/' .env &&
-          curl -o public/mock.json http://80.158.108.251:8000/v2/components &&
+        run: |
+          grep -q 'SD_BACKEND_FILE=false' .env && sed -i 's/SD_BACKEND_FILE=false/SD_BACKEND_FILE=true/' .env
+          grep -q 'SD_BACKEND_V2=false' .env && sed -i 's/SD_BACKEND_V2=false/SD_BACKEND_V2=true/' .env
+          curl -o public/mock.json http://80.158.108.251:8000/v2/components
           curl -o public/event.json http://80.158.108.251:8000/v2/incidents
 
       - name: Build

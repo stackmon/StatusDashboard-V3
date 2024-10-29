@@ -1,10 +1,13 @@
 import { ScaleDataGrid } from "@telekom/scale-components-react";
-import { useCreation } from "ahooks";
+import { useBoolean, useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
+import { Logger } from "~/Helpers/Logger";
 import { useStatus } from "~/Services/Status";
 import { EventStatus, EventType } from "../Event/Enums";
+
+const log = new Logger("Home", "EventGrid");
 
 /**
  * @author Aloento
@@ -14,6 +17,7 @@ import { EventStatus, EventType } from "../Event/Enums";
 export function EventGrid() {
   const { DB } = useStatus();
   const ref = useRef<HTMLScaleDataGridElement>(null);
+  const [hidden, { set }] = useBoolean();
 
   const observer = useCreation(() => {
     return new MutationObserver((mutationsList) => {
@@ -133,12 +137,13 @@ export function EventGrid() {
       })
       .value();
 
+    set(!events.length);
     grid.rows = events;
-
-    if (!events.length) {
-      grid.style.display = "none";
-    }
   }, [ref.current, DB]);
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <ScaleDataGrid

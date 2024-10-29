@@ -56,7 +56,7 @@ export function Home() {
       .uniqBy(s => s.Id)
       .value();
 
-    log.debug(service);
+    log.debug("Abnormal Services", service);
     return service.length;
   }, [DB]);
 

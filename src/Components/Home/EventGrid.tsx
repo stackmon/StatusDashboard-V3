@@ -134,6 +134,10 @@ export function EventGrid() {
       .value();
 
     grid.rows = events;
+
+    if (!events.length) {
+      grid.style.display = "none";
+    }
   }, [ref.current, DB]);
 
   return (

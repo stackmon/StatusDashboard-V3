@@ -1,7 +1,6 @@
 import { ScaleTable } from "@telekom/scale-components-react";
 import { useMemo } from "react";
 import { Models } from "~/Services/Status.Models";
-import { EventType } from "./Enums";
 
 /**
  * @author Aloento
@@ -13,16 +12,14 @@ export function EventAffected({ Event }: { Event: Models.IEvent }) {
     const all = Array.from(Event.RegionServices);
     const l = new Map<string, Set<string>>();
 
-    if (Event.Type === EventType.Maintenance) {
-      for (const item of all) {
-        const service = item.Service.Name;
-        const region = item.Region.Name;
+    for (const item of all) {
+      const service = item.Service.Name;
+      const region = item.Region.Name;
 
-        if (!l.has(service)) {
-          l.set(service, new Set([region]));
-        } else {
-          l.get(service)!.add(region);
-        }
+      if (!l.has(service)) {
+        l.set(service, new Set([region]));
+      } else {
+        l.get(service)!.add(region);
       }
     }
 

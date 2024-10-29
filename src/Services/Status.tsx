@@ -114,7 +114,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       if (v2) {
         const eventLink = file ? "/event.json" : `${url}${uri}/incidents`;
         const eventRes = await fetch(eventLink);
-        const eventData = await eventRes.json();
+        const eventData = (await eventRes.json()).data;
 
         log.debug("Events loaded.", eventData);
 

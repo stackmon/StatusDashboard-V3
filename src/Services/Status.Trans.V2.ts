@@ -23,7 +23,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
   }
 
   for (const comp of Components) {
-    if (comp.attributes.length < 3) {
+    if (!comp.attributes || comp.attributes.length < 3) {
       log.debug("Skipped Hidden Item.", comp);
       continue;
     }

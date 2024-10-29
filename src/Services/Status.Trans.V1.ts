@@ -87,6 +87,7 @@ export function TransformerV1(list: StatusEntityV1[]): IStatusContext {
     );
     if (!regionService) {
       regionService = {
+        Id: item.id,
         Region: dbRegion,
         Service: dbService,
         Events: new Set(),
@@ -181,7 +182,9 @@ export function TransformerV1(list: StatusEntityV1[]): IStatusContext {
             dbEvent.Histories.add(history);
           }
 
-          const status = orderBy(Array.from(dbEvent.Histories), x => x.Created, "desc").at(0)?.Status;
+          const status = orderBy(
+            Array.from(dbEvent.Histories), x => x.Created, "desc"
+          ).at(0)?.Status;
           if (status) {
             dbEvent.Status = status;
           }

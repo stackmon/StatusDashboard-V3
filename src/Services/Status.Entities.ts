@@ -42,7 +42,7 @@ interface IncidentEntityV1 {
  * @since 1.0.0
  * @version 0.1.0
  */
-export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates"> {
+export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates" | "text"> {
   title: string;
   components: number[];
   system: boolean;

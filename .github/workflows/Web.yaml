@@ -26,7 +26,8 @@ jobs:
 
       - name: UseFile
         run: sed -i 's/SD_BACKEND_FILE=false/SD_BACKEND_FILE=true/' .env &&
-          curl -o public/mock.json https://status.cloudmon.eco.tsi-dev.otc-service.com/api/v1/component_status
+          curl -o public/mock.json http://80.158.108.251:8000/v2/components &&
+          curl -o public/event.json http://80.158.108.251:8000/v2/incidents
 
       - name: Build
         run: pnpm install && pnpm build

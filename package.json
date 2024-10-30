@@ -4,9 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "farm start",
-    "start": "farm start",
+    "start": "farm preview",
     "build": "farm build",
-    "preview": "farm preview",
     "clean": "farm clean"
   },
   "dependencies": {

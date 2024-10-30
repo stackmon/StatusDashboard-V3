@@ -13,7 +13,14 @@ RUN pnpm fetch
 COPY . /app
 RUN pnpm run build
 
-FROM steebchen/nginx-spa:stable
+FROM nginx:stable-alpine
+
+RUN sed -i '1idaemon off;' /etc/nginx/nginx.conf
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=prod /app/dist/ /app
+
 EXPOSE 80
+
 CMD [ "nginx" ]

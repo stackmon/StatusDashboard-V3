@@ -9,7 +9,7 @@ on:
 
 env:
   ORG: opentelekomcloud
-  PROJECT: status-dashboard-v3-api
+  PROJECT: StatusDashboard-V3
 
 jobs:
   push_if_tag:

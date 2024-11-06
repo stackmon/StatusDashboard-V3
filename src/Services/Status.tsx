@@ -3,9 +3,9 @@ import { openDB } from "idb";
 import { createContext, useContext, useState } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
-import { StatusEntity } from "./Status.Entities";
+import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
-import { Transformer } from "./Status.Trans";
+import { TransformerV2 } from "./Status.Trans.V2";
 
 /**
  * @author Aloento
@@ -94,20 +94,35 @@ export function useStatus() {
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
+
   const url = process.env.SD_BACKEND_URL;
   const uri = process.env.SD_BACKEND_API;
+  const file = process.env.SD_BACKEND_FILE === "true";
 
   useRequest(
     async () => {
-      log.info("Loading status data...");
-      const response = await fetch(`${url}${uri}/component_status`);
-      const data = await response.json();
-      log.debug("Status data loaded.", data);
-      return data as StatusEntity[];
+      log.info(`Loading status data from v2...`);
+
+      const compLink = file ? "/mock.json" : `${url}${uri}/components`;
+      const compRes = await fetch(compLink);
+      const compData = await compRes.json();
+
+      log.debug("Components Status loaded.", compData);
+
+      const eventLink = file ? "/event.json" : `${url}${uri}/incidents`;
+      const eventRes = await fetch(eventLink);
+      const eventData = (await eventRes.json()).data;
+
+      log.debug("Events loaded.", eventData);
+
+      return {
+        Components: compData as StatusEntityV2[],
+        Events: eventData as IncidentEntityV2[]
+      };
     },
     {
       cacheKey: log.namespace,
-      onSuccess: (list) => update(Transformer(list)),
+      onSuccess: (res) => update(TransformerV2(res)),
     }
   );
 

@@ -1,4 +1,5 @@
 import path from "path";
+import { loadEnv } from "vite";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -6,7 +7,8 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./test/vitest.setup.ts",
     alias: {
-      '~': path.resolve(__dirname, './src')
+      "~": path.resolve(__dirname, "./src"),
     },
+    env: loadEnv("", process.cwd(), ""),
   },
 });

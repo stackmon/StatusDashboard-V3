@@ -9,6 +9,28 @@ import { IStatusContext, Models } from "./Status.Models";
 const log = new Logger("Service", "Status", "TransformerV2");
 
 /**
+ * Transforms the provided components and events into a status context.
+ *
+ * This function processes the given components and events, organizing them into
+ * categories, regions, and services. It also handles event statuses and histories,
+ * ensuring that the data is structured and ready for further use.
+ *
+ * Note: This function assumes that all components have valid attributes and that
+ * all events have valid impact values. It also assumes that the input data is
+ * already sorted in the desired order.
+ *
+ * @param {Object} param - The input object containing components and events.
+ * @param {StatusEntityV2[]} param.Components - The list of status components to be processed.
+ * @param {IncidentEntityV2[]} param.Events - The list of incident events to be processed.
+ * @returns {IStatusContext} The transformed status context containing organized data.
+ *
+ * @example
+ * const context = TransformerV2({ Components: [], Events: [] });
+ * console.log(context);
+ *
+ * @throws {Error} If any component or event is missing required attributes.
+ * @throws {Error} If any event has an invalid impact value.
+ *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

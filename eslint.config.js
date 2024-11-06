@@ -9,6 +9,7 @@ export default tseslint.config(
     languageOptions: {
       globals: globals.browser,
     },
+    // The following rules are turned off to maintain compatibility with legacy browser and to ensure smooth integration with existing systems.
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-explicit-any": "off",

@@ -3,10 +3,9 @@
  * @since 1.0.0
  * @version 0.1.0
  */
-export interface StatusEntity {
+export interface StatusEntityV2 {
   attributes: AttributeEntity[];
   id: number;
-  incidents: IncidentEntity[];
   name: string;
 }
 
@@ -21,21 +20,34 @@ export const enum NameEnum {
   Type = "type",
 }
 
-interface IncidentEntity {
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export interface IncidentEntityV2 {
+  title: string;
+  components: number[];
+  system: boolean;
   end_date: null | string;
   id: number;
   impact: number;
   start_date: string;
-  text: string;
-  updates: UpdateEntity[];
+  updates?: UpdateEntityV2[];
 }
 
-interface UpdateEntity {
+interface UpdateEntityV2 {
+  id: number;
   status: StatusEnum;
   text: string;
   timestamp: string;
 }
 
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
 export const enum StatusEnum {
   Analyzing = "analyzing",
   Changed = "changed",

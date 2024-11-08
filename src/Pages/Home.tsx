@@ -17,6 +17,19 @@ import { useStatus } from "~/Services/Status";
 const log = new Logger("Home");
 
 /**
+ * The Home component serves as the main entry point for the status dashboard.
+ * It orchestrates the rendering of various subcomponents and manages the state
+ * related to the selected region and the status of services. The component
+ * leverages several hooks and utilities to fetch and process data, ensuring
+ * that the UI reflects the current state of the system. The use of memoization
+ * and subscriptions helps in optimizing performance and keeping the UI
+ * responsive. The component also handles the display of notifications and
+ * status indicators, providing users with real-time updates on the system's
+ * health. Overall, the Home component is a crucial part of the application,
+ * bringing together various functionalities to deliver a cohesive user
+ * experience.
+ *
+ * @component
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

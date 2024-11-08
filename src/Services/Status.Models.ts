@@ -41,6 +41,7 @@ export namespace Models {
   }
 
   export interface IRegionService {
+    Id: number;
     Region: IRegion;
     Service: IService;
     Events: Set<IEvent>;
@@ -52,6 +53,7 @@ export namespace Models {
     Type: EventType;
     Start: Date;
     End?: Date;
+    Status: EventStatus;
     RegionServices: Set<IRegionService>;
     Histories: Set<IHistory>;
   }

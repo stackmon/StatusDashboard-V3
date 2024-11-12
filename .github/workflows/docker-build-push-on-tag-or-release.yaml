@@ -50,6 +50,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
-          build-args: |
-            BASE_URL=${{ secrets.BASE_URL }}
-            AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}

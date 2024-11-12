@@ -6,12 +6,10 @@ RUN corepack enable
 
 FROM base AS prod
 
-RUN mkdir -p /app
-COPY pnpm-lock.yaml /app
 WORKDIR /app
-RUN pnpm fetch
+COPY . .
 
-COPY . /app
+RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
 FROM nginx:stable-alpine

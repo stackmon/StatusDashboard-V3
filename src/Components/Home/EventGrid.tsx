@@ -82,8 +82,7 @@ export function EventGrid() {
         return {
           ...x,
           Services,
-          Regions,
-          Status: x.Status
+          Regions
         }
       })
       .filter(x => {

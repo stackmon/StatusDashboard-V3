@@ -67,6 +67,7 @@ interface UpdateEntityV2 extends UpdateEntityV1 {
 export const enum StatusEnum {
   Analyzing = "analyzing",
   Changed = "changed",
+  ImpactChanged = "impact changed",
   Completed = "completed",
   Description = "description",
   Fixing = "fixing",

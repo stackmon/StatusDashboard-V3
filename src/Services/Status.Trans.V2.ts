@@ -162,6 +162,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               return EventStatus.Monitoring;
             case StatusEnum.Resolved:
             case StatusEnum.Changed:
+            case StatusEnum.ImpactChanged:
               return EventStatus.Resolved;
 
             case StatusEnum.Description:

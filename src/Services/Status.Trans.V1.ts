@@ -150,6 +150,7 @@ export function TransformerV1(list: StatusEntityV1[]): IStatusContext {
                   return EventStatus.Monitoring;
                 case StatusEnum.Resolved:
                 case StatusEnum.Changed:
+                case StatusEnum.ImpactChanged:
                   return EventStatus.Resolved;
 
                 case StatusEnum.Description:

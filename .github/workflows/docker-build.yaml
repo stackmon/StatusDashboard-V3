@@ -11,7 +11,7 @@ on:
 
 env:
   ORG: stackmon
-  PROJECT: status-dashboard-v3
+  PROJECT: status-dashboard-v3-front
 
 jobs:
   build:

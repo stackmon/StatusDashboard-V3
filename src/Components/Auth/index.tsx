@@ -12,17 +12,20 @@ import { useRouter } from "../Router";
  * @version 1.0.0
  */
 export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
-  const { Rep } = useRouter();
+  const { Reload } = useRouter();
 
   return (
     <AuthProvider
-      client_id="status-dashboard"
+      client_id={
+        process.env.NODE_ENV === "development"
+          ? "newsd2"
+          : "status-dashboard"
+      }
       scope="openid profile email"
       userStore={new WebStorageStateStore({ store: window.localStorage })}
-      onSigninCallback={() => {
-        Rep("/");
-        location.reload();
-      }}
+      onSigninCallback={() => Reload("/")}
+      onSignoutCallback={() => Reload("/")}
+      matchSignoutCallback={(args) => window.location.href === args.post_logout_redirect_uri}
       authority={
         process.env.NODE_ENV === "development"
           ? "http://80.158.108.251:8080/realms/sd2"
@@ -30,14 +33,15 @@ export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
       }
       post_logout_redirect_uri={
         process.env.NODE_ENV === "development"
-          ? "http://localhost:9000/Logout"
-          : "https://sd3.eco.tsi-dev.otc-service.com/Logout"
+          ? "http://localhost:9000/signout-callback-oidc"
+          : "https://sd3.eco.tsi-dev.otc-service.com/signout-callback-oidc"
       }
       redirect_uri={
         process.env.NODE_ENV === "development"
-          ? "http://localhost:9000/Login"
-          : "https://sd3.eco.tsi-dev.otc-service.com/Login"
+          ? "http://localhost:9000/signin-oidc"
+          : "https://sd3.eco.tsi-dev.otc-service.com/signin-oidc"
       }
+      client_secret={process.env.SD_AUTH_SECRET}
     >
       <AuthHandler />
       {children}

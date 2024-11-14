@@ -20,8 +20,11 @@ export function Layout() {
 
   const match = useMemo(() => {
     switch (path) {
-      case "Login":
+      case "signin-oidc":
         return <ScaleLoadingSpinner size="large" text="Login Redirecting..." />;
+
+      case "signout-callback-oidc":
+        return <ScaleLoadingSpinner size="large" text="Logout Redirecting..." />;
 
       case "Reload":
         return <ScaleLoadingSpinner size="large" text="Reloading..." />;

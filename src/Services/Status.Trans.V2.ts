@@ -153,7 +153,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Analyzing:
               return EventStatus.Investigating;
-            // @ts-expect-error
+            // @ts-expect-error TS7029
             case StatusEnum.Reopened:
               dbEvent.End = undefined;
             case StatusEnum.Fixing:

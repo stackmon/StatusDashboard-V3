@@ -33,7 +33,7 @@ export let DB = EmptyDB();
 
 interface IContext {
   DB: IStatusContext;
-  Update: (data: IStatusContext) => void;
+  Update: (data?: IStatusContext) => void;
 }
 
 const CTX = createContext<IContext>({} as IContext);
@@ -132,7 +132,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     }
   );
 
-  function update(data: IStatusContext) {
+  function update(data: IStatusContext = DB) {
     DB = { ...data };
     setDB(DB);
     save();

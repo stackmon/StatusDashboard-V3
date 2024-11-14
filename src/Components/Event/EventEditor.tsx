@@ -10,8 +10,8 @@ import { useEventForm } from "./useEventForm";
  * @version 0.1.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
+  const { State, Actions, Validation, OnSubmit } = useEventForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
-  const { State, Actions, Validation } = useEventForm(Event);
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
@@ -27,7 +27,12 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       class="absolute"
       onScale-before-close={(e) => e.preventDefault()}
     >
-      <form className="flex flex-col gap-y-6">
+      <form
+        className="flex flex-col gap-y-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          OnSubmit(setFalse);
+        }}>
         <ScaleTextField
           inputAutocomplete="off"
           placeholder="Please give the title of event"

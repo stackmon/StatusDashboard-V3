@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Models } from "~/Services/Status.Models";
+import { Authorized } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType } from "./Enums";
 import { EventAffected } from "./EventAffected";
@@ -22,7 +23,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </h3>
         </div>
 
-        <EventEditor Event={Event} />
+        <Authorized>
+          <EventEditor Event={Event} />
+        </Authorized>
       </div>
 
       <div className="flex gap-x-2.5">

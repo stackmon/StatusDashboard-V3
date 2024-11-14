@@ -185,7 +185,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         }
 
         const history = {
-          Id: id++,
+          Id: update.id,
           Message: update.text,
           Created: dayjs(update.timestamp).toDate(),
           Status: status,

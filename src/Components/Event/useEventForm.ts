@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
 
@@ -8,6 +9,8 @@ import { EventStatus, EventType } from "./Enums";
  * @version 0.1.0
  */
 export function useEventForm(event: Models.IEvent) {
+  const { Update } = useStatus();
+
   const [title, _setTitle] = useState(event.Title);
   const [valTitle, setValTitle] = useState<string>();
   function setTitle(value = title) {
@@ -94,6 +97,36 @@ export function useEventForm(event: Models.IEvent) {
     !err && setValEnd(undefined);
   }
 
+  function OnSubmit(close: () => void) {
+    setTitle();
+    setType();
+    setUpdate();
+    setStatus();
+    setEnd();
+
+    if (valTitle || valType || valUpdate || valStatus || valEnd) {
+      return;
+    }
+
+    event.Title = title;
+    event.Type = type;
+
+    const maxId = Math.max(...[...event.Histories].map(history => history.Id), 0);
+    event.Histories.add({
+      Id: maxId + 1,
+      Message: update,
+      Created: new Date(),
+      Status: status,
+      Event: event
+    });
+
+    event.Status = status;
+    event.End = end;
+
+    Update();
+    close();
+  }
+
   return {
     State: {
       title,
@@ -115,6 +148,7 @@ export function useEventForm(event: Models.IEvent) {
       update: valUpdate,
       status: valStatus,
       end: valEnd
-    }
+    },
+    OnSubmit
   }
 }

@@ -66,15 +66,15 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         >
           {Object.values(EventStatus)
             .slice(
-              Event.Type === EventType.Maintenance ? 4 : 0,
-              Event.Type === EventType.Maintenance ? undefined : 4
+              State.type === EventType.Maintenance ? 4 : 0,
+              State.type === EventType.Maintenance ? undefined : 4
             ).map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}
               </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
-        {Event.Type === EventType.Maintenance &&
+        {State.type === EventType.Maintenance &&
           <ScaleTextField
             type="datetime-local"
             label="(Plan) End"

@@ -28,6 +28,8 @@ export function useEventForm(event: Models.IEvent) {
 
     _setTitle(value);
     !err && setValTitle(undefined);
+
+    return !err;
   }
 
   const [type, _setType] = useState(event.Type);
@@ -35,16 +37,26 @@ export function useEventForm(event: Models.IEvent) {
   function setType(value = type) {
     if (!value) {
       setValType("Type is required.");
-      return;
+      return false;
     }
 
     if (!Object.values(EventType).includes(value)) {
       setValType("Invalid event type.");
-      return;
+      return false;
+    }
+
+    if (type === EventType.Maintenance && value !== EventType.Maintenance) {
+      _setStatus(EventStatus.Investigating);
+    }
+
+    if (type !== EventType.Maintenance && value === EventType.Maintenance) {
+      _setStatus(EventStatus.Scheduled);
     }
 
     _setType(value);
     setValType(undefined);
+
+    return true;
   }
 
   const [update, _setUpdate] = useState("");
@@ -64,6 +76,8 @@ export function useEventForm(event: Models.IEvent) {
 
     _setUpdate(value);
     !err && setValUpdate(undefined);
+
+    return !err;
   }
 
   const [status, _setStatus] = useState(event.Status);
@@ -71,16 +85,18 @@ export function useEventForm(event: Models.IEvent) {
   function setStatus(value = status) {
     if (!value) {
       setValStatus("Status is required.");
-      return;
+      return false;
     }
 
     if (!Object.values(EventStatus).includes(value)) {
       setValStatus("Invalid event status.");
-      return;
+      return false;
     }
 
     _setStatus(value);
     setValStatus(undefined);
+
+    return true;
   }
 
   const [end, _setEnd] = useState(event.End);
@@ -95,16 +111,15 @@ export function useEventForm(event: Models.IEvent) {
 
     _setEnd(value);
     !err && setValEnd(undefined);
+
+    if (type === EventType.Maintenance) {
+      return !err;
+    }
+    return true;
   }
 
   function OnSubmit(close: () => void) {
-    setTitle();
-    setType();
-    setUpdate();
-    setStatus();
-    setEnd();
-
-    if (valTitle || valType || valUpdate || valStatus || valEnd) {
+    if (![setTitle(), setType(), setUpdate(), setStatus(), setEnd()].every(Boolean)) {
       return;
     }
 

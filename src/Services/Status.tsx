@@ -38,6 +38,7 @@ interface IContext {
 
 const CTX = createContext<IContext>({} as IContext);
 const Store = "Status";
+let freeze = false;
 
 function init() {
   return openDB(Dic.Name, 1, {
@@ -58,6 +59,10 @@ async function load() {
   const res = await db.get(Store, Store) as IStatusContext;
   if (res) {
     DB = res;
+  }
+
+  if (process.env.SD_FREEZE === "true") {
+    freeze = !!res;
   }
   db.close();
 }
@@ -128,7 +133,13 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     },
     {
       cacheKey: log.namespace,
-      onSuccess: (res: any) => update(v2 ? TransformerV2(res) : TransformerV1(res)),
+      onSuccess: (res: any) => {
+        if (freeze) {
+          log.warn("Data is frozen.");
+          return;
+        }
+        return update(v2 ? TransformerV2(res) : TransformerV1(res));
+      },
     }
   );
 

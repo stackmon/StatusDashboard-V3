@@ -16,31 +16,15 @@ export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
 
   return (
     <AuthProvider
-      client_id={
-        process.env.NODE_ENV === "development"
-          ? "newsd2"
-          : "status-dashboard"
-      }
+      client_id={process.env.SD_CLIENT_ID}
       scope="openid profile email"
       userStore={new WebStorageStateStore({ store: window.localStorage })}
       onSigninCallback={() => Reload("/")}
       onSignoutCallback={() => Reload("/")}
       matchSignoutCallback={(args) => window.location.href === args.post_logout_redirect_uri}
-      authority={
-        process.env.NODE_ENV === "development"
-          ? "http://80.158.108.251:8080/realms/sd2"
-          : "https://keycloak.eco.tsi-dev.otc-service.com/realms/eco"
-      }
-      post_logout_redirect_uri={
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:9000/signout-callback-oidc"
-          : "https://sd3.eco.tsi-dev.otc-service.com/signout-callback-oidc"
-      }
-      redirect_uri={
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:9000/signin-oidc"
-          : "https://sd3.eco.tsi-dev.otc-service.com/signin-oidc"
-      }
+      authority={process.env.SD_AUTHORITY}
+      post_logout_redirect_uri={process.env.SD_LOGOUT_REDIRECT}
+      redirect_uri={process.env.SD_REDIRECT}
       client_secret={process.env.SD_AUTH_SECRET}
     >
       <AuthHandler />

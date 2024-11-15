@@ -1,4 +1,4 @@
-import { ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useStatus } from "~/Services/Status";
 import { EventType } from "../Event/Enums";
 
@@ -68,6 +68,22 @@ export function NewForm() {
           </table>
         </div>
       </ScaleTable>
+
+      <ScaleTextField
+        type="datetime-local"
+        label="Start"
+        required
+      />
+
+      <ScaleTextField
+        type="datetime-local"
+        label="End"
+        required
+      />
+
+      <ScaleButton class="self-end" size="small" type="submit">
+        Submit
+      </ScaleButton>
     </form>
   )
 }

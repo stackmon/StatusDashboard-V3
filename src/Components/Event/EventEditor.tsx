@@ -29,12 +29,12 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
     >
       <form
         className="flex flex-col gap-y-6"
+        autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
           OnSubmit(setFalse);
         }}>
         <ScaleTextField
-          inputAutocomplete="off"
           placeholder="Please give the title of event"
           required
           label="Title"

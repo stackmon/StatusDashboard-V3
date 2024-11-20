@@ -3,11 +3,8 @@ import { useBoolean, useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
-import { Logger } from "~/Helpers/Logger";
 import { useStatus } from "~/Services/Status";
 import { EventStatus, EventType } from "../Event/Enums";
-
-const log = new Logger("Home", "EventGrid");
 
 /**
  * @author Aloento

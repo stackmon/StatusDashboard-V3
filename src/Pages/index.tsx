@@ -8,6 +8,7 @@ import { Availability } from "./Availability";
 import { Event } from "./Event";
 import { History } from "./History";
 import { Home } from "./Home";
+import { NewEvent } from "./NewEvent";
 
 /**
  * @author Aloento
@@ -20,8 +21,11 @@ export function Layout() {
 
   const match = useMemo(() => {
     switch (path) {
-      case "Login":
+      case "signin-oidc":
         return <ScaleLoadingSpinner size="large" text="Login Redirecting..." />;
+
+      case "signout-callback-oidc":
+        return <ScaleLoadingSpinner size="large" text="Logout Redirecting..." />;
 
       case "Reload":
         return <ScaleLoadingSpinner size="large" text="Reloading..." />;
@@ -34,6 +38,9 @@ export function Layout() {
 
       case "Availability":
         return <Availability />;
+
+      case "NewEvent":
+        return <NewEvent />;
 
       case "":
       case undefined:

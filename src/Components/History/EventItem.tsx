@@ -36,14 +36,6 @@ export function EventItem({ Prev, Curr }: IEventItem) {
     }
   }, [label.current]);
 
-  const status = useMemo(() => {
-    return chain(Array.from(Curr.Histories))
-      .orderBy(x => x.Created, "desc")
-      .map(x => x.Status)
-      .first()
-      .value() ?? EventStatus.Investigating;
-  }, [Curr.Histories]);
-
   const services = useMemo(() => {
     return chain(Array.from(Curr.RegionServices))
       .map(x => x.Service)
@@ -73,7 +65,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
 
   let color: any;
 
-  switch (status) {
+  switch (Curr.Status) {
     case EventStatus.Investigating:
     case EventStatus.Fixing:
     case EventStatus.Monitoring:
@@ -112,7 +104,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
 
         <div className="flex gap-x-2.5">
           <ScaleTag color={color}>
-            {status}
+            {Curr.Status}
           </ScaleTag>
 
           {services.slice(0, 3).map(service => (

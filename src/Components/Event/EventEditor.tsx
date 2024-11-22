@@ -2,7 +2,7 @@ import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconAct
 import { useBoolean } from "ahooks";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
-import { useEventForm } from "./useEventForm";
+import { useEditForm } from "./useEditForm";
 
 /**
  * @author Aloento
@@ -10,7 +10,7 @@ import { useEventForm } from "./useEventForm";
  * @version 0.1.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
-  const { State, Actions, Validation, OnSubmit } = useEventForm(Event);
+  const { State, Actions, Validation, OnSubmit } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
 
   return <>

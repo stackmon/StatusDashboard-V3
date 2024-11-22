@@ -8,7 +8,7 @@ import { EventStatus, EventType } from "./Enums";
  * @since 1.0.0
  * @version 0.1.0
  */
-export function useEventForm(event: Models.IEvent) {
+export function useEditForm(event: Models.IEvent) {
   const { Update } = useStatus();
 
   const [title, _setTitle] = useState(event.Title);

@@ -10,6 +10,8 @@ COPY . .
 RUN pnpm install --frozen-lockfile
 RUN apk add --no-cache nginx
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 
-CMD [ "cd /app && pnpm run build && nginx" ]
+CMD [ "cd /app && pnpm run build && nginx -g 'daemon off;'" ]

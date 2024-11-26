@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . .
 
 RUN pnpm install --frozen-lockfile
+RUN pnpm install -D express
 
 EXPOSE 80
 
-CMD [ "cd /app && pnpm run build && pnpm start --port 80" ]
+CMD [ "cd /app && pnpm run build && node server.js" ]

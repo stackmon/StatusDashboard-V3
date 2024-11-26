@@ -1,13 +1,13 @@
-import express, { static } from "express";
+import express from "express";
 import { join } from "path";
 
 const app = express();
 const port = 80;
 
-app.use(static(join(__dirname, "dist")));
+app.use(express.static("dist"));
 
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "dist", "index.html"));
+  res.sendFile(join("dist", "index.html"));
 });
 
 app.listen(port, () => {

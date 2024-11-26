@@ -12,4 +12,4 @@ RUN apk add --no-cache nginx
 
 EXPOSE 80
 
-CMD [ "cd /app && pnpm run build && nginx -g 'daemon off;'" ]
+CMD [ "cd /app && pnpm run build && nginx" ]

@@ -22,9 +22,9 @@ export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
       onSigninCallback={() => Reload("/")}
       onSignoutCallback={() => Reload("/")}
       matchSignoutCallback={(args) => window.location.href === args.post_logout_redirect_uri}
-      authority={process.env.SD_AUTHORITY}
-      post_logout_redirect_uri={process.env.SD_LOGOUT_REDIRECT}
-      redirect_uri={process.env.SD_REDIRECT}
+      authority={process.env.SD_AUTHORITY_URL}
+      post_logout_redirect_uri={process.env.SD_LOGOUT_REDIRECT_URL}
+      redirect_uri={process.env.SD_REDIRECT_URL}
       client_secret={process.env.SD_AUTH_SECRET}
     >
       <AuthHandler />

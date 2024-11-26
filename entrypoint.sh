@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /app
+
 cat <<EOF > .env
 SD_BACKEND_URL=$SD_BACKEND_URL
 SD_CLIENT_ID=$SD_CLIENT_ID
@@ -10,4 +12,4 @@ SD_AUTH_SECRET=$SD_AUTH_SECRET
 EOF
 
 pnpm run build
-pnpm start -- --port 80
+pnpm start --port 80

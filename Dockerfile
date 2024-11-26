@@ -9,8 +9,6 @@ COPY . .
 
 RUN pnpm install --frozen-lockfile
 
-RUN chmod +x entrypoint.sh
-
 EXPOSE 80
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+CMD [ "cd /app && pnpm run build && pnpm start --port 80" ]

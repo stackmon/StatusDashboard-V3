@@ -4,20 +4,13 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-FROM base AS prod
-
 WORKDIR /app
 COPY . .
 
 RUN pnpm install --frozen-lockfile
-RUN pnpm run build
 
-FROM nginx:stable-alpine
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=prod /app/dist/ /app
+RUN chmod +x entrypoint.sh
 
 EXPOSE 80
 
-CMD [ "nginx" ]
+ENTRYPOINT [ "/app/entrypoint.sh" ]

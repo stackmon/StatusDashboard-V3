@@ -4,14 +4,20 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
+FROM base AS prod
+
 WORKDIR /app
 COPY . .
 
 RUN pnpm install --frozen-lockfile
-RUN apk add --no-cache nginx
+RUN pnpm run build
+
+FROM nginx:stable-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+COPY --from=prod /app/dist/ /app
+
 EXPOSE 80
 
-CMD [ "cd /app && pnpm run build && nginx -g 'daemon off;'" ]
+CMD [ "nginx" ]

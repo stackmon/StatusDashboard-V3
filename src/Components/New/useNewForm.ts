@@ -109,7 +109,7 @@ export function useNewForm() {
 
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
   const [valServices, setValServices] = useState<string>();
-  function setServices(action: (curr: Models.IRegionService[]) => Models.IRegionService[]) {
+  function setServices(action: (curr: Models.IRegionService[]) => Models.IRegionService[] = (s) => s) {
     const updated = action(services);
     let err: boolean = false;
 
@@ -125,19 +125,36 @@ export function useNewForm() {
   }
 
   function OnSubmit(close: () => void) {
-    if (![setTitle(), setType(), setDescription(), setStart, setEnd()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart, setEnd(), setServices()].every(Boolean)) {
       return;
     }
 
-    const event = {
-      Id: 0,
+    const status = type === EventType.Maintenance
+      ? EventStatus.Scheduled : EventStatus.Investigating
+
+    const event: Models.IEvent = {
+      Id: DB.Events.reduce((maxId, event) => Math.max(maxId, event.Id), 0) + 1,
       Title: title,
       Type: type,
+      Start: start,
       End: end,
-      Status: type === EventType.Maintenance
-        ? EventStatus.Scheduled : EventStatus.Investigating,
-      Histories: []
+      Status: status,
+      RegionServices: new Set(services),
+      Histories: new Set()
     };
+
+    const his: Models.IHistory = {
+      Id: 0,
+      Message: description,
+      Created: new Date(),
+      Status: status,
+      Event: event
+    };
+
+    event.Histories.add(his);
+
+    DB.Events.push(event);
+    DB.Histories.push(his);
 
     Update();
     close();

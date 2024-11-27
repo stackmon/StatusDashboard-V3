@@ -133,7 +133,7 @@ export function useNewForm() {
       ? EventStatus.Scheduled : EventStatus.Investigating
 
     const event: Models.IEvent = {
-      Id: DB.Events.reduce((maxId, event) => Math.max(maxId, event.Id), 0) + 1,
+      Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
       Title: title,
       Type: type,
       Start: start,
@@ -143,18 +143,15 @@ export function useNewForm() {
       Histories: new Set()
     };
 
-    const his: Models.IHistory = {
+    event.Histories.add({
       Id: 0,
       Message: description,
       Created: new Date(),
       Status: status,
       Event: event
-    };
-
-    event.Histories.add(his);
+    });
 
     DB.Events.push(event);
-    DB.Histories.push(his);
 
     Update();
     close();

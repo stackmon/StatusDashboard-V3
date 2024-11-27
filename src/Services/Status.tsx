@@ -102,22 +102,20 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
 
   const url = process.env.SD_BACKEND_URL;
-  const uri = process.env.SD_BACKEND_API;
-  const file = process.env.SD_BACKEND_FILE === "true";
   const v2 = process.env.SD_BACKEND_V2 === "true";
 
   useRequest(
     async () => {
       log.info(`Loading status data from ${v2 ? "v2" : "v1"}...`);
 
-      const compLink = file ? "/mock.json" : `${url}${uri}/${v2 ? "components" : "component_status"}`;
+      const compLink = `${url}/${v2 ? "components" : "component_status"}`;
       const compRes = await fetch(compLink);
       const compData = await compRes.json();
 
       log.debug("Components Status loaded.", compData);
 
       if (v2) {
-        const eventLink = file ? "/event.json" : `${url}${uri}/incidents`;
+        const eventLink = `${url}/incidents`;
         const eventRes = await fetch(eventLink);
         const eventData = (await eventRes.json()).data;
 

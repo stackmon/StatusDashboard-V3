@@ -9,7 +9,7 @@ import { EventStatus, EventType } from "./Enums";
  * @version 0.1.0
  */
 export function useEditForm(event: Models.IEvent) {
-  const { DB, Update } = useStatus();
+  const { Update } = useStatus();
 
   const [title, _setTitle] = useState(event.Title);
   const [valTitle, setValTitle] = useState<string>();

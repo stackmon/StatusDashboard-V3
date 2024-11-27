@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "../Event/Enums";
+import { useRouter } from "../Router";
 
 /**
  * @author Aloento
@@ -124,7 +125,9 @@ export function useNewForm() {
     return !err;
   }
 
-  function OnSubmit(close: () => void) {
+  const { Nav } = useRouter();
+
+  function OnSubmit() {
     if (![setTitle(), setType(), setDescription(), setStart, setEnd(), setServices()].every(Boolean)) {
       return;
     }
@@ -154,7 +157,7 @@ export function useNewForm() {
     DB.Events.push(event);
 
     Update();
-    close();
+    Nav(`/Event/${event.Id}`);
   }
 
   return {

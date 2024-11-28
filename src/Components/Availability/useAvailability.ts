@@ -49,7 +49,7 @@ export function useAvailability(category: Models.ICategory, topic: string) {
       .filter(x => x.Service.Category.Id === category.Id)
       .map(x => ({
         RS: x,
-        Percentages: Array(6).fill(0)
+        Percentages: Array(6).fill(100)
       })));
 
   const url = process.env.SD_BACKEND_URL;

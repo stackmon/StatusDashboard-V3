@@ -1,5 +1,7 @@
-import { useRequest } from "ahooks";
-import { useState } from "react";
+import { useCreation, useRequest } from "ahooks";
+import { useEffect, useState } from "react";
+import { BehaviorSubject } from "rxjs";
+import { Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
@@ -29,21 +31,32 @@ interface IAvailability {
  * @since 1.0.0
  * @version 0.1.0
  */
-export function useAvailability() {
+export function useAvailability(category: Models.ICategory, topic: string) {
   const { DB } = useStatus();
+
+  const [region, setRegion] = useState(DB.Regions[0]);
+  const regionSub = useCreation(
+    () => Station.get<BehaviorSubject<Models.IRegion>>(topic), []);
+
+  useEffect(() => {
+    const sub = regionSub.subscribe(setRegion);
+    return () => sub.unsubscribe();
+  }, []);
+
   const [avas, setAvas] = useState<IAvailability[]>(
-    () => DB.RegionService.map(x => ({
-      RS: x,
-      Percentages: Array(6).fill(100)
-    })));
+    () => DB.RegionService
+      .filter(x => x.Region.Id === region.Id)
+      .filter(x => x.Service.Category.Id === category.Id)
+      .map(x => ({
+        RS: x,
+        Percentages: Array(6).fill(0)
+      })));
 
   const url = process.env.SD_BACKEND_URL;
 
-  useRequest(async () => {
+  const { data } = useRequest(async () => {
     const res = await fetch(`${url}/availability`);
     const data = (await res.json()).data as ServiceAvaEntity[];
-
-    log.info("Availability data loaded.", data);
 
     const raw = [] as IAvailability[];
 
@@ -66,13 +79,21 @@ export function useAvailability() {
       });
     }
 
-    log.info("Availability data processed.", raw);
-    setAvas(raw);
-
+    log.debug("Availability data processed.", raw);
     return raw;
   }, {
     cacheKey: log.namespace
   });
+
+  useEffect(() => {
+    if (data) {
+      const res = data
+        .filter(x => x.RS.Region.Id === region.Id)
+        .filter(x => x.RS.Service.Category.Id === category.Id);
+
+      setAvas(res);
+    }
+  }, [data, category, region]);
 
   return avas;
 }

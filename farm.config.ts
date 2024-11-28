@@ -11,8 +11,7 @@ export default defineConfig((cfg) => {
       SD_CLIENT_ID: process.env.SD_CLIENT_ID,
       SD_AUTHORITY_URL: process.env.SD_AUTHORITY_URL,
       SD_REDIRECT_URL: process.env.SD_REDIRECT_URL,
-      SD_LOGOUT_REDIRECT_URL: process.env.SD_LOGOUT_REDIRECT_URL,
-      SD_AUTH_SECRET: process.env.SD_AUTH_SECRET,
+      SD_LOGOUT_REDIRECT_URL: process.env.SD_LOGOUT_REDIRECT_URL
     };
 
     for (const [key, value] of Object.entries(env)) {

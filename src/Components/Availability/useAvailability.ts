@@ -20,7 +20,7 @@ interface AvaliaEntity {
 }
 
 interface IAvailability {
-  RegionService: Models.IRegionService,
+  RS: Models.IRegionService,
   Percentages: number[]
 }
 
@@ -33,7 +33,7 @@ export function useAvailability() {
   const { DB } = useStatus();
   const [avas, setAvas] = useState<IAvailability[]>(
     () => DB.RegionService.map(x => ({
-      RegionService: x,
+      RS: x,
       Percentages: Array(6).fill(100)
     })));
 
@@ -44,34 +44,34 @@ export function useAvailability() {
     const data = (await res.json()).data as ServiceAvaEntity[];
 
     log.info("Availability data loaded.", data);
-    return data;
-  }, {
-    cacheKey: log.namespace,
-    onSuccess: (data) => {
-      const res = [] as IAvailability[];
 
-      for (const service of data) {
-        const rs = DB.RegionService.find(x => x.Id === service.id);
+    const raw = [] as IAvailability[];
 
-        if (!rs) {
-          log.warn("Service not found.", service);
-          continue;
-        }
+    for (const service of data) {
+      const rs = DB.RegionService.find(x => x.Id === service.id);
 
-        const ava = service.availability
-          .map(x => x.percentage)
-          .slice(0, 6)
-          .reverse();
-
-        res.push({
-          RegionService: rs,
-          Percentages: ava
-        });
+      if (!rs) {
+        log.warn("Service not found.", service);
+        continue;
       }
 
-      log.info("Availability data processed.", res);
-      setAvas(res);
+      const ava = service.availability
+        .map(x => x.percentage)
+        .slice(0, 6)
+        .reverse();
+
+      raw.push({
+        RS: rs,
+        Percentages: ava
+      });
     }
+
+    log.info("Availability data processed.", raw);
+    setAvas(raw);
+
+    return raw;
+  }, {
+    cacheKey: log.namespace
   });
 
   return avas;

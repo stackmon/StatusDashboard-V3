@@ -32,7 +32,6 @@ export function EmptyDB(): IStatusContext {
     Categories: [],
     Regions: [],
     Events: [],
-    Histories: [],
     RegionService: [],
   }
 }

@@ -213,6 +213,6 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
     db.Events.push(dbEvent);
   }
 
-  log.info("Status data loaded.", db);
+  log.debug("Status data loaded.", db);
   return db;
 }

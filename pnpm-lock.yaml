@@ -15,8 +15,8 @@ importers:
         specifier: 3.0.0-beta.154
         version: 3.0.0-beta.154
       '@telekom/scale-components-react':
-        specifier: 3.0.0-beta.154
-        version: 3.0.0-beta.154(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0-beta.155
+        version: 3.0.0-beta.155(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ahooks:
         specifier: ^3.8.1
         version: 3.8.1(react@18.3.1)
@@ -1210,8 +1210,8 @@ packages:
   '@telekom/design-tokens@1.0.0-beta.10':
     resolution: {integrity: sha512-57BFgDxDkvOOrQf7wmS1u5jQmPRdhh6Y/qOHwTvYlS5GwGlkr3EeGeuwePL5pJ7z0jTnxEIVhmwbZnIx9AIX8w==}
 
-  '@telekom/scale-components-react@3.0.0-beta.154':
-    resolution: {integrity: sha512-Q7wQG67Dvose8dcrSZoGZY1xm924QXaW2LoiScSVDl+ZjrF6h6hhOhLPS+dOiIoXkWBrM/uXYfmxDrB4TRmhpg==}
+  '@telekom/scale-components-react@3.0.0-beta.155':
+    resolution: {integrity: sha512-DabpPlynstXekDBsmQmL5hml/1P8W0N/q3YxiSAnyd/RLLhssce9DsncumYeuhMoF75EgnLNbXGMcwfrI/fkLQ==}
     peerDependencies:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
@@ -5024,7 +5024,7 @@ snapshots:
 
   '@telekom/design-tokens@1.0.0-beta.10': {}
 
-  '@telekom/scale-components-react@3.0.0-beta.154(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@telekom/scale-components-react@3.0.0-beta.155(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@types/react-dom': 16.9.24
       '@types/vfile-message': 2.0.0

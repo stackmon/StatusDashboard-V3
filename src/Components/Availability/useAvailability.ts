@@ -77,7 +77,7 @@ export function useAvailability(category: Models.ICategory, topic: string) {
       const rs = DB.RegionService.find(x => x.Id === service.id);
 
       if (!rs) {
-        log.warn("Service not found.", service);
+        log.info("Service not found.", service);
         continue;
       }
 

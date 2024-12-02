@@ -22,10 +22,20 @@ export abstract class Station {
   public static get<T extends SubjectLike<any>>(topic: string, factor?: () => T): T {
     if (!this.subjects.has(topic)) {
       if (factor) {
-        this.subjects.set(topic, factor());
-      } else {
-        throw new Error(`Subject '${topic}' not found.`);
+        const sub = factor();
+        this.subjects.set(topic, sub);
+        return sub;
       }
+
+      throw new Promise((res) => {
+        const i = setInterval(() => {
+          const sub = this.subjects.get(topic);
+          if (sub) {
+            clearInterval(i);
+            res(sub);
+          }
+        }, 100);
+      });
     }
 
     return this.subjects.get(topic) as T;

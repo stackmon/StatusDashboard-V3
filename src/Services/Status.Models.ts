@@ -10,7 +10,6 @@ export interface IStatusContext {
   Categories: Models.ICategory[];
   Regions: Models.IRegion[];
   Events: Models.IEvent[];
-  Histories: Models.IHistory[];
   RegionService: Models.IRegionService[];
 }
 

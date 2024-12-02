@@ -12,8 +12,8 @@ importers:
         specifier: ^9.56.2
         version: 9.56.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)
       '@telekom/scale-components':
-        specifier: 3.0.0-beta.154
-        version: 3.0.0-beta.154
+        specifier: 3.0.0-beta.155
+        version: 3.0.0-beta.155
       '@telekom/scale-components-react':
         specifier: 3.0.0-beta.154
         version: 3.0.0-beta.154(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1216,8 +1216,8 @@ packages:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
 
-  '@telekom/scale-components@3.0.0-beta.154':
-    resolution: {integrity: sha512-SiXx71TCMB8mBtr9wi23Y4cTRjaxamjLTB/zuQNGBHhbmHSNMFyGG4SKFcyMwAeF4BRbfdrT5b33jeJq9T2oVA==}
+  '@telekom/scale-components@3.0.0-beta.155':
+    resolution: {integrity: sha512-yxlX8wxTcM4B2Fw3UMDO/yvbNQDo4cijC7QfqjoMtv/BtR/fVWI6BEtxBD/J6OE4I2j95e2NsVtF1R/Tbpg6gQ==}
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -5031,7 +5031,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@telekom/scale-components@3.0.0-beta.154':
+  '@telekom/scale-components@3.0.0-beta.155':
     dependencies:
       '@duetds/date-picker': 1.2.0
       '@floating-ui/dom': 1.6.12

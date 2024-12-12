@@ -5,6 +5,17 @@ import { EventStatus, EventType } from "./Enums";
 import { useEditForm } from "./useEditForm";
 
 /**
+ * The `EventEditor` component is a versatile and dynamic component designed to handle the editing of events.
+ * It provides a user interface for modifying event details, including title, type, status, and update message.
+ *
+ * This component leverages various hooks and state management techniques to ensure a seamless and responsive user experience.
+ *
+ * @param {Models.IEvent} props.Event - The event object to be edited.
+ *
+ * @remarks
+ * The `EventEditor` component is highly customizable and can be adapted to various use cases.
+ * It includes form validation and handles user input efficiently.
+ *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

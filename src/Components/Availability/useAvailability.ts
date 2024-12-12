@@ -11,11 +11,11 @@ const log = new Logger("useAvailability");
 interface ServiceAvaEntity {
   id: number
   name: string
-  availability: AvaliaEntity[]
+  availability: AvailEntity[]
   region: string
 }
 
-interface AvaliaEntity {
+interface AvailEntity {
   year: number
   month: number
   percentage: number

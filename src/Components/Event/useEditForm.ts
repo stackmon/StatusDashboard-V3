@@ -4,6 +4,20 @@ import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
 
 /**
+ * Custom hook for managing the edit form state and validation for an event.
+ *
+ * This hook provides state management and validation for various fields of an event,
+ * including title, type, update message, status, and end date. It also includes a
+ * submission handler to update the event and close the form.
+ *
+ * @param {Models.IEvent} event - The event object to be edited.
+ *
+ * @returns An object containing the state, actions, validation messages,
+ * and submission handler for the edit form.
+ *
+ * @property {Function} OnSubmit - Function to handle form submission, update the event,
+ * and close the form.
+ *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

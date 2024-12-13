@@ -12,11 +12,11 @@ importers:
         specifier: ^9.56.5
         version: 9.56.5(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(scheduler@0.25.0)
       '@telekom/scale-components':
-        specifier: 3.0.0-beta.154
-        version: 3.0.0-beta.154
+        specifier: 3.0.0-beta.155
+        version: 3.0.0-beta.155
       '@telekom/scale-components-react':
-        specifier: 3.0.0-beta.154
-        version: 3.0.0-beta.154(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 3.0.0-beta.155
+        version: 3.0.0-beta.155(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       ahooks:
         specifier: ^3.8.4
         version: 3.8.4(react@19.0.0)
@@ -1359,14 +1359,14 @@ packages:
   '@telekom/design-tokens@1.0.0-beta.10':
     resolution: {integrity: sha512-57BFgDxDkvOOrQf7wmS1u5jQmPRdhh6Y/qOHwTvYlS5GwGlkr3EeGeuwePL5pJ7z0jTnxEIVhmwbZnIx9AIX8w==}
 
-  '@telekom/scale-components-react@3.0.0-beta.154':
-    resolution: {integrity: sha512-Q7wQG67Dvose8dcrSZoGZY1xm924QXaW2LoiScSVDl+ZjrF6h6hhOhLPS+dOiIoXkWBrM/uXYfmxDrB4TRmhpg==}
+  '@telekom/scale-components-react@3.0.0-beta.155':
+    resolution: {integrity: sha512-DabpPlynstXekDBsmQmL5hml/1P8W0N/q3YxiSAnyd/RLLhssce9DsncumYeuhMoF75EgnLNbXGMcwfrI/fkLQ==}
     peerDependencies:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
 
-  '@telekom/scale-components@3.0.0-beta.154':
-    resolution: {integrity: sha512-SiXx71TCMB8mBtr9wi23Y4cTRjaxamjLTB/zuQNGBHhbmHSNMFyGG4SKFcyMwAeF4BRbfdrT5b33jeJq9T2oVA==}
+  '@telekom/scale-components@3.0.0-beta.155':
+    resolution: {integrity: sha512-yxlX8wxTcM4B2Fw3UMDO/yvbNQDo4cijC7QfqjoMtv/BtR/fVWI6BEtxBD/J6OE4I2j95e2NsVtF1R/Tbpg6gQ==}
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -5284,7 +5284,7 @@ snapshots:
 
   '@telekom/design-tokens@1.0.0-beta.10': {}
 
-  '@telekom/scale-components-react@3.0.0-beta.154(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@telekom/scale-components-react@3.0.0-beta.155(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@types/react-dom': 16.9.25(@types/react@19.0.1)
       '@types/vfile-message': 2.0.0
@@ -5293,7 +5293,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@telekom/scale-components@3.0.0-beta.154':
+  '@telekom/scale-components@3.0.0-beta.155':
     dependencies:
       '@duetds/date-picker': 1.2.0
       '@floating-ui/dom': 1.6.12

@@ -5,6 +5,12 @@ import { EventStatus, EventType } from "../Event/Enums";
 import { useRouter } from "../Router";
 
 /**
+ * Custom hook to manage the state and validation of a form.
+ *
+ * This hook provides various state variables and functions to handle
+ * form inputs, validation, and submission. It ensures that the form
+ * data is properly managed and validated before submission.
+ *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

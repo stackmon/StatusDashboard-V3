@@ -4,6 +4,18 @@ import { EventType } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
 
 /**
+ * Represents a form component for creating a new event.
+ * This component is responsible for rendering the form fields and handling user input.
+ * It includes various input fields such as title, type, description, affected services, start time, and end time.
+ * The form also includes validation and submission logic.
+ *
+ * @remarks
+ * This component utilizes several custom components from the @telekom/scale-components-react library.
+ * It also relies on hooks for managing state and handling form submission.
+ * The form fields are dynamically generated based on the provided data.
+ * The component ensures that the form is properly validated before submission.
+ * The form layout is styled using Tailwind CSS classes.
+ *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

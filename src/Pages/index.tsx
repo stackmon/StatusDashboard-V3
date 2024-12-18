@@ -8,6 +8,7 @@ import { Availability } from "./Availability";
 import { Event } from "./Event";
 import { History } from "./History";
 import { Home } from "./Home";
+import { NewEvent } from "./NewEvent";
 
 /**
  * @author Aloento
@@ -37,6 +38,9 @@ export function Layout() {
 
       case "Availability":
         return <Availability />;
+
+      case "NewEvent":
+        return <NewEvent />;
 
       case "":
       case undefined:

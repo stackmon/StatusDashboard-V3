@@ -9,12 +9,12 @@
     "clean": "farm clean"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.56.5",
+    "@fluentui/react-components": "^9.57.0",
     "@telekom/scale-components": "3.0.0-beta.155",
     "@telekom/scale-components-react": "3.0.0-beta.155",
     "ahooks": "^3.8.4",
     "dayjs": "^1.11.13",
-    "idb": "^8.0.0",
+    "idb": "^8.0.1",
     "lodash": "^4.17.21",
     "oidc-client-ts": "^3.1.0",
     "react": "^19.0.0",
@@ -25,20 +25,20 @@
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.4",
-    "@farmfe/core": "1.5.0",
-    "@farmfe/js-plugin-postcss": "^1.10.0",
+    "@farmfe/core": "1.6.4",
+    "@farmfe/js-plugin-postcss": "^1.11.0",
     "@farmfe/plugin-react": "^1.2.6",
-    "@types/lodash": "^4.17.13",
-    "@types/node": "^22.10.2",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.2",
+    "@types/lodash": "^4.17.14",
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.3",
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.20",
-    "core-js": "^3.39.0",
-    "postcss": "^8.4.49",
+    "core-js": "^3.40.0",
+    "postcss": "^8.5.0",
     "react-refresh": "^0.16.0",
-    "tailwindcss": "^3.4.16",
+    "tailwindcss": "^3.4.17",
     "tailwindcss-scoped-preflight": "^3.4.10"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.4"
 }

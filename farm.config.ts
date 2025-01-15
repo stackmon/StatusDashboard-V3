@@ -17,6 +17,10 @@ export default defineConfig({
       "/api": {
         target: "https://status.cloudmon.eco.tsi-dev.otc-service.com",
         changeOrigin: true
+      },
+      "/v2": {
+        target: "http://localhost:8000",
+        changeOrigin: true
       }
     }
   }

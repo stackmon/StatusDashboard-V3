@@ -52,7 +52,6 @@ jobs:
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
             SD_REDIRECT_URL=${{ secrets.SD_REDIRECT_URL }}
             SD_LOGOUT_REDIRECT_URL=${{ secrets.SD_LOGOUT_REDIRECT_URL }}
-            SD_AUTH_SECRET=${{ secrets.SD_AUTH_SECRET }}
 
   push_if_merged:
     if: github.event.pull_request.merged == true
@@ -99,4 +98,3 @@ jobs:
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
             SD_REDIRECT_URL=${{ secrets.SD_REDIRECT_URL }}
             SD_LOGOUT_REDIRECT_URL=${{ secrets.SD_LOGOUT_REDIRECT_URL }}
-            SD_AUTH_SECRET=${{ secrets.SD_AUTH_SECRET }}

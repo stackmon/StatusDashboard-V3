@@ -30,7 +30,7 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
                 <label className="font-medium">{history.Status}</label>
 
                 <label>
-                  {dayjs(history.Created).format("YYYY-MM-DD HH:mm [UTC]")}
+                  {dayjs(history.Created).utc().format("YYYY-MM-DD HH:mm [UTC]")}
                 </label>
               </td>
 

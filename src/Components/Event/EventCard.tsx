@@ -59,11 +59,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {dayjs(Event.Start).format("YYYY-MM-DD HH:mm [UTC]")}
+            {dayjs(Event.Start).utc().format("YYYY-MM-DD HH:mm [UTC]")}
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {Event.End ? dayjs(Event.End).format("YYYY-MM-DD HH:mm [UTC]") : "Still Ongoing"}
+            {Event.End ? dayjs(Event.End).utc().format("YYYY-MM-DD HH:mm [UTC]") : "Still Ongoing"}
           </label>
         </div>
       </div>

@@ -10,7 +10,7 @@ import { useNewForm } from "./useNewForm";
  */
 export function NewForm() {
   const { DB } = useStatus();
-  const { State, Actions, Validation, OnSubmit } = useNewForm();
+  const { State, Actions, Validation, OnSubmit, Loading } = useNewForm();
 
   return (
     <form
@@ -129,7 +129,12 @@ export function NewForm() {
         helperText={Validation.end}
       />
 
-      <ScaleButton class="self-end" size="small" type="submit">
+      <ScaleButton
+        class="self-end"
+        size="small"
+        type="submit"
+        disabled={Loading}
+      >
         Submit
       </ScaleButton>
     </form>

@@ -125,7 +125,7 @@ export function NewForm() {
           type="datetime-local"
           label="End CET"
           required
-          value={dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss')}
+          value={State.end ? dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss') : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}
           helperText={Validation.end}

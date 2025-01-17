@@ -1,4 +1,6 @@
+import { useRequest } from "ahooks";
 import { useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "../Event/Enums";
@@ -105,7 +107,7 @@ export function useNewForm() {
       err = true;
     }
 
-    _setStart(value);
+    _setEnd(value);
     !err && setValEnd(undefined);
 
     if (type === EventType.Maintenance) {
@@ -132,8 +134,9 @@ export function useNewForm() {
   }
 
   const { Nav } = useRouter();
+  const { user } = useAuth();
 
-  function OnSubmit() {
+  const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setDescription(), setStart, setEnd(), setServices()].every(Boolean)) {
       return;
     }
@@ -142,7 +145,7 @@ export function useNewForm() {
       ? EventStatus.Scheduled : EventStatus.Investigating
 
     const event: Models.IEvent = {
-      Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
+      Id: 0,
       Title: title,
       Type: type,
       Start: start,
@@ -160,11 +163,39 @@ export function useNewForm() {
       Event: event
     });
 
-    DB.Events.push(event);
+    const url = process.env.SD_BACKEND_URL!;
 
+    const body: Record<string, any> = {
+      title,
+      description,
+      impact: GetEventImpact(type),
+      components: services.map(s => s.Id),
+      start_date: start.toISOString()
+    }
+
+    if (type === EventType.Maintenance) {
+      body.end_date = end
+    }
+
+    const raw = await fetch(`${url}/incidents`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user?.access_token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const res = await raw.json();
+    event.Id = res.result.at(0).incident_id;
+
+    DB.Events.push(event);
     Update();
+
     Nav(`/Event/${event.Id}`);
-  }
+  }, {
+    manual: true
+  });
 
   return {
     State: {
@@ -191,6 +222,7 @@ export function useNewForm() {
       end: valEnd,
       services: valServices
     },
-    OnSubmit
+    OnSubmit: runAsync,
+    Loading: loading
   }
 }

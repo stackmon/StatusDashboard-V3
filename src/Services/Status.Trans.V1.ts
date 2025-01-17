@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
-import { EventStatus, EventType } from "~/Components/Event/Enums";
+import { EventStatus, EventType, GetEventType } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
 import { NameEnum, StatusEntityV1, StatusEnum } from "./Status.Entities";
@@ -103,18 +103,7 @@ export function TransformerV1(list: StatusEntityV1[]): IStatusContext {
       let dbEvent = db.Events.find((x) => x.Id === incident.id);
 
       if (!dbEvent) {
-        const type = (() => {
-          switch (incident.impact) {
-            case 0:
-              return EventType.Maintenance;
-            case 1:
-              return EventType.MinorIssue;
-            case 2:
-              return EventType.MajorIssue;
-            default:
-              return EventType.Outage;
-          }
-        })();
+        const type = GetEventType(incident.impact);
 
         dbEvent = {
           Id: incident.id,

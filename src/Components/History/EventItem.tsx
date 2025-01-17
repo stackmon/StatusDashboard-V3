@@ -124,7 +124,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
           {dayjs(Curr.Start).format("DD MMM, HH:mm")}
 
           {Curr.End && (
-            <> - {dayjs(Curr.End).format("DD MMM, HH:mm [UTC]")}</>
+            <> - {dayjs(Curr.End).utc().format("DD MMM, HH:mm [UTC]")}</>
           )}
         </label>
 

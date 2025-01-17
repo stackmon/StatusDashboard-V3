@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType } from "../Event/Enums";
+import { EventStatus, EventType, GetEventImpact } from "../Event/Enums";
 import { useRouter } from "../Router";
 
 /**

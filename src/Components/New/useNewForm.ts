@@ -1,5 +1,5 @@
-import { useGetState, useRequest } from "ahooks";
-import { useState } from "react";
+import { useRequest } from "ahooks";
+import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
@@ -52,7 +52,7 @@ export function useNewForm() {
     setValType(undefined);
 
     if (value !== EventType.Maintenance) {
-      setEnd(undefined);
+      _setEnd(undefined);
     }
 
     return true;
@@ -74,14 +74,13 @@ export function useNewForm() {
     return !err;
   }
 
-  const [start, _setStart, _getStart] = useGetState(new Date());
+  const [start, _setStart] = useState(new Date());
   const [valStart, setValStart] = useState<string>();
-  function setStart(value = _getStart()) {
+  function setStart(value = start) {
     let err: boolean = false;
 
     const now = new Date();
-    const nEnd = _getEnd();
-    if (nEnd && value > nEnd) {
+    if (end && value > end) {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
@@ -93,34 +92,29 @@ export function useNewForm() {
     !err && setValStart(undefined);
     _setStart(value);
 
-    if (end === nEnd) {
-      return !err;
-    }
-    setEnd();
-
     return !err;
   }
 
-  const [end, _setEnd, _getEnd] = useGetState<Date>();
+  const [end, _setEnd] = useState<Date>();
   const [valEnd, setValEnd] = useState<string>();
-  function setEnd(value = _getEnd()) {
+  function setEnd(value = end) {
     let err: boolean = false;
 
-    const nStart = _getStart();
-    if (value && value < nStart) {
+    if (value && value < start) {
       setValEnd("End Date cannot be before Start Date.");
       err = true;
     }
 
     !err && setValEnd(undefined);
     _setEnd(value);
-    setStart();
 
-    if (type === EventType.Maintenance) {
-      return !err;
-    }
-    return true;
+    return !err;
   }
+
+  useEffect(() => {
+    setStart();
+    setEnd();
+  }, [start, end]);
 
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
   const [valServices, setValServices] = useState<string>();

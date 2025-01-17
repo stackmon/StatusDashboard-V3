@@ -1,4 +1,5 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
+import dayjs from "dayjs";
 import { useStatus } from "~/Services/Status";
 import { EventType } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
@@ -111,23 +112,25 @@ export function NewForm() {
 
       <ScaleTextField
         type="datetime-local"
-        label="Start"
+        label="Start CET"
         required
-        value={State.start?.toISOString().slice(0, 16)}
+        value={dayjs(State.start).format('YYYY-MM-DDTHH:mm:ss')}
         onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
         invalid={!!Validation.start}
         helperText={Validation.start}
       />
 
-      <ScaleTextField
-        type="datetime-local"
-        label="End"
-        required
-        value={State.end?.toISOString().slice(0, 16)}
-        onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
-        invalid={!!Validation.end}
-        helperText={Validation.end}
-      />
+      {State.type === EventType.Maintenance && (
+        <ScaleTextField
+          type="datetime-local"
+          label="End CET"
+          required
+          value={dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss')}
+          onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+          invalid={!!Validation.end}
+          helperText={Validation.end}
+        />
+      )}
 
       <ScaleButton
         class="self-end"

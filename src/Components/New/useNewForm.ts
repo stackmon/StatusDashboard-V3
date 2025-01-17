@@ -1,4 +1,4 @@
-import { useRequest } from "ahooks";
+import { useGetState, useRequest } from "ahooks";
 import { useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
@@ -51,6 +51,10 @@ export function useNewForm() {
     _setType(value);
     setValType(undefined);
 
+    if (value !== EventType.Maintenance) {
+      setEnd(undefined);
+    }
+
     return true;
   }
 
@@ -70,13 +74,14 @@ export function useNewForm() {
     return !err;
   }
 
-  const [start, _setStart] = useState(new Date());
+  const [start, _setStart, _getStart] = useGetState(new Date());
   const [valStart, setValStart] = useState<string>();
-  function setStart(value = start) {
+  function setStart(value = _getStart()) {
     let err: boolean = false;
 
     const now = new Date();
-    if (value > end) {
+    const nEnd = _getEnd();
+    if (nEnd && value > nEnd) {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
@@ -85,24 +90,31 @@ export function useNewForm() {
       err = true;
     }
 
-    _setStart(value);
     !err && setValStart(undefined);
+    _setStart(value);
+
+    if (end === nEnd) {
+      return !err;
+    }
+    setEnd();
 
     return !err;
   }
 
-  const [end, _setEnd] = useState(new Date());
+  const [end, _setEnd, _getEnd] = useGetState<Date>();
   const [valEnd, setValEnd] = useState<string>();
-  function setEnd(value = end) {
+  function setEnd(value = _getEnd()) {
     let err: boolean = false;
 
-    if (value && value < start) {
+    const nStart = _getStart();
+    if (value && value < nStart) {
       setValEnd("End Date cannot be before Start Date.");
       err = true;
     }
 
-    _setEnd(value);
     !err && setValEnd(undefined);
+    _setEnd(value);
+    setStart();
 
     if (type === EventType.Maintenance) {
       return !err;

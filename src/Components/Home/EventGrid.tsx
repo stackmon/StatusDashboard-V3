@@ -112,9 +112,9 @@ export function EventGrid() {
         return [
           x.Id,
           [tag],
-          dayjs(x.Start).format("YYYY-MM-DD HH:mm [UTC]"),
+          dayjs(x.Start).utc().format("YYYY-MM-DD HH:mm [UTC]"),
           x.End
-            ? dayjs(x.End).format("MM-DD HH:mm")
+            ? dayjs(x.End).utc().format("MM-DD HH:mm")
             : x.Status,
           x.Regions.length > 1
             ? `${x.Regions[0]} +${x.Regions.length - 1}`

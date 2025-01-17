@@ -145,7 +145,7 @@ export function useNewForm() {
       ? EventStatus.Scheduled : EventStatus.Investigating
 
     const event: Models.IEvent = {
-      Id: 0,
+      Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
       Title: title,
       Type: type,
       Start: start,
@@ -187,7 +187,11 @@ export function useNewForm() {
     });
 
     const res = await raw.json();
-    event.Id = res.result.at(0).incident_id;
+    const id = res.result.at(0)?.incident_id;
+
+    if (id) {
+      event.Id = id;
+    }
 
     DB.Events.push(event);
     Update();

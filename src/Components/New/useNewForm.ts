@@ -1,5 +1,5 @@
 import { useRequest } from "ahooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
@@ -57,6 +57,10 @@ export function useNewForm() {
     _setType(value);
     setValType(undefined);
 
+    if (value !== EventType.Maintenance) {
+      _setEnd(undefined);
+    }
+
     return true;
   }
 
@@ -82,7 +86,7 @@ export function useNewForm() {
     let err: boolean = false;
 
     const now = new Date();
-    if (value > end) {
+    if (end && value > end) {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
@@ -91,13 +95,13 @@ export function useNewForm() {
       err = true;
     }
 
-    _setStart(value);
     !err && setValStart(undefined);
+    _setStart(value);
 
     return !err;
   }
 
-  const [end, _setEnd] = useState(new Date());
+  const [end, _setEnd] = useState<Date>();
   const [valEnd, setValEnd] = useState<string>();
   function setEnd(value = end) {
     let err: boolean = false;
@@ -107,14 +111,16 @@ export function useNewForm() {
       err = true;
     }
 
-    _setEnd(value);
     !err && setValEnd(undefined);
+    _setEnd(value);
 
-    if (type === EventType.Maintenance) {
-      return !err;
-    }
-    return true;
+    return !err;
   }
+
+  useEffect(() => {
+    setStart();
+    setEnd();
+  }, [start, end]);
 
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
   const [valServices, setValServices] = useState<string>();

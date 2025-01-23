@@ -14,14 +14,18 @@ export default defineConfig({
   envPrefix: "SD_",
   server: {
     proxy: {
-      "/api": {
-        target: "https://status.cloudmon.eco.tsi-dev.otc-service.com",
+      "/auth": {
+        target: "http://localhost:8000",
         changeOrigin: true
       },
       "/v2": {
         target: "http://localhost:8000",
         changeOrigin: true
       }
+    },
+    https: {
+      key: "/home/ubuntu/.acme.sh/inf.aloen.to_ecc/inf.aloen.to.key",
+      cert: "/home/ubuntu/.acme.sh/inf.aloen.to_ecc/fullchain.cer"
     }
   }
 });

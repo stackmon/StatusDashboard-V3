@@ -1,10 +1,10 @@
 import { useMount, useUpdateEffect } from "ahooks";
-import { WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode } from "react";
 import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
 import { Common } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useRouter } from "../Router";
+import { UserMgr } from "./UserMgr";
 
 /**
  * @author Aloento
@@ -16,15 +16,10 @@ export function OIDCProvider({ children }: { children: ReactNode }): ReactNode {
 
   return (
     <AuthProvider
-      client_id={process.env.SD_CLIENT_ID}
-      scope="openid profile email"
-      userStore={new WebStorageStateStore({ store: window.localStorage })}
       onSigninCallback={() => Reload("/")}
       onSignoutCallback={() => Reload("/")}
       matchSignoutCallback={(args) => window.location.href === args.post_logout_redirect_uri}
-      authority={process.env.SD_AUTHORITY_URL}
-      post_logout_redirect_uri={process.env.SD_LOGOUT_REDIRECT_URL}
-      redirect_uri={process.env.SD_REDIRECT_URL}
+      userManager={new UserMgr()}
     >
       <AuthHandler />
       {children}

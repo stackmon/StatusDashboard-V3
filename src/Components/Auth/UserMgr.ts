@@ -1,4 +1,4 @@
-import { uniqueId } from "lodash";
+import { jwtDecode } from "jwt-decode";
 import { SigninRedirectArgs, User, UserManager, WebStorageStateStore } from "oidc-client-ts";
 
 /**
@@ -19,12 +19,20 @@ export class UserMgr extends UserManager {
   }
 
   override async signinRedirect(args?: SigninRedirectArgs): Promise<void> {
-    const code = uniqueId();
-    this.settings.userStore.set("code", code);
+    const code = crypto.randomUUID();
+    await this.settings.userStore.set("code", code);
+
+    const codeChallenge = Array.from(
+      new Uint8Array(
+        await crypto.subtle.digest(
+          'SHA-256', new TextEncoder().encode(code)
+        )))
+      .map(byte => byte.toString(16).padStart(2, '0'))
+      .join('');
 
     const stateObj = JSON.stringify({
       callback_url: this.settings.redirect_uri,
-      code_challenge: code,
+      code_challenge: codeChallenge,
     });
     const state = btoa(stateObj).replace(/=+$/, '');
 
@@ -33,11 +41,12 @@ export class UserMgr extends UserManager {
   }
 
   override async signinCallback(url?: string): Promise<User | undefined> {
-    const code = this.settings.userStore.get("code");
-    if (!code) return undefined;
+    const code = await this.settings.userStore.get("code");
+    if (!code)
+      throw new Error("Code not found in user store");
 
     this.settings.userStore.remove("code");
-    fetch(`${process.env.SD_BACKEND_URL}/auth/token`, {
+    const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,5 +56,27 @@ export class UserMgr extends UserManager {
       }),
     });
 
+    if (!res.ok)
+      throw new Error("Failed to exchange code for token");
+
+    const data = await res.json();
+    const access = data.access_token;
+    const refresh = data.refresh_token;
+
+    if (!access || !refresh)
+      throw new Error("Access or refresh token not found in response");
+
+    const decodedToken = jwtDecode(access);
+
+    const user = new User({
+      access_token: access,
+      refresh_token: refresh,
+      token_type: "Bearer",
+      profile: decodedToken as User["profile"],
+      expires_at: decodedToken.exp,
+    });
+
+    await this.storeUser(user);
+    return user;
   }
 }

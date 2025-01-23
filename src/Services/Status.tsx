@@ -3,9 +3,8 @@ import { openDB } from "idb";
 import { createContext, useContext, useState } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
-import { IncidentEntityV2, StatusEntityV1, StatusEntityV2 } from "./Status.Entities";
+import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
-import { TransformerV1 } from "./Status.Trans.V1";
 import { TransformerV2 } from "./Status.Trans.V2";
 
 /**
@@ -101,32 +100,27 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   const [db, setDB] = useState(DB);
 
   const url = process.env.SD_BACKEND_URL;
-  const v2 = process.env.SD_BACKEND_V2 === "true";
 
   useRequest(
     async () => {
-      log.info(`Loading status data from ${v2 ? "v2" : "v1"}...`);
+      log.info(`Loading status data from v2...`);
 
-      const compLink = `${url}/${v2 ? "components" : "component_status"}`;
+      const compLink = `${url}/v2/components`;
       const compRes = await fetch(compLink);
       const compData = await compRes.json();
 
       log.debug("Components Status loaded.", compData);
 
-      if (v2) {
-        const eventLink = `${url}/incidents`;
-        const eventRes = await fetch(eventLink);
-        const eventData = (await eventRes.json()).data;
+      const eventLink = `${url}/incidents`;
+      const eventRes = await fetch(eventLink);
+      const eventData = (await eventRes.json()).data;
 
-        log.debug("Events loaded.", eventData);
+      log.debug("Events loaded.", eventData);
 
-        return {
-          Components: compData as StatusEntityV2[],
-          Events: eventData as IncidentEntityV2[]
-        };
-      }
-
-      return compData as StatusEntityV1[];
+      return {
+        Components: compData as StatusEntityV2[],
+        Events: eventData as IncidentEntityV2[]
+      };
     },
     {
       cacheKey: log.namespace,
@@ -135,7 +129,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
           log.warn("Data is frozen.");
           return;
         }
-        return update(v2 ? TransformerV2(res) : TransformerV1(res));
+        return update(TransformerV2(res));
       },
     }
   );

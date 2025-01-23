@@ -31,12 +31,16 @@ const log = new Logger("Auth");
  */
 function AuthHandler() {
   const auth = (Common.AuthSlot = useAuth());
-  const { Paths, Reload } = useRouter();
+  const { Paths, Rep, Reload } = useRouter();
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
       userMgr.signinCallback()
-        .finally(() => Reload("/"));
+        .then(() => {
+          Rep("/");
+          return window.location.reload();
+        })
+        .catch(() => Reload("/"));
       return;
     }
 

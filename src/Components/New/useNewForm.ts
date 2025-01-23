@@ -177,7 +177,7 @@ export function useNewForm() {
       body.end_date = end
     }
 
-    const raw = await fetch(`${url}/incidents`, {
+    const raw = await fetch(`${url}/v2/incidents`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

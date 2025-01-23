@@ -35,13 +35,11 @@ function AuthHandler() {
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
-      userMgr.signinCallback()
-        .then(() => {
+      return userMgr.signinCallback()
+        .finally(() => {
           Rep("/");
-          return window.location.reload();
-        })
-        .catch(() => Reload("/"));
-      return;
+          window.location.reload();
+        });
     }
 
     if (Paths.at(0) === "signout-callback-oidc") {

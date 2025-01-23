@@ -18,7 +18,7 @@ export class UserMgr extends UserManager {
     });
   }
 
-  override async signinRedirect(args?: SigninRedirectArgs): Promise<void> {
+  override async signinRedirect(_args?: SigninRedirectArgs): Promise<void> {
     const code = crypto.randomUUID();
     await this.settings.userStore.set("code", code);
 
@@ -40,7 +40,7 @@ export class UserMgr extends UserManager {
     window.location.href = loginUrl;
   }
 
-  override async signinCallback(url?: string): Promise<User | undefined> {
+  override async signinCallback(_url?: string): Promise<User | undefined> {
     const code = await this.settings.userStore.get("code");
     if (!code)
       throw new Error("Code not found in user store");
@@ -61,16 +61,14 @@ export class UserMgr extends UserManager {
 
     const data = await res.json();
     const access = data.access_token;
-    const refresh = data.refresh_token;
 
-    if (!access || !refresh)
-      throw new Error("Access or refresh token not found in response");
+    if (!access)
+      throw new Error("Access token not found in response");
 
     const decodedToken = jwtDecode(access);
 
     const user = new User({
       access_token: access,
-      refresh_token: refresh,
       token_type: "Bearer",
       profile: decodedToken as User["profile"],
       expires_at: decodedToken.exp,

@@ -34,6 +34,10 @@ export default defineConfig((cfg) => {
     envPrefix: "SD_",
     server: {
       proxy: {
+        "/auth": {
+          target: "http://localhost:8000",
+          changeOrigin: true
+        },
         "/api": {
           target: "https://status.cloudmon.eco.tsi-dev.otc-service.com",
           changeOrigin: true

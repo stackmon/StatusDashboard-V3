@@ -10,8 +10,6 @@ export default defineConfig((cfg) => {
       SD_BACKEND_URL: process.env.SD_BACKEND_URL,
       SD_CLIENT_ID: process.env.SD_CLIENT_ID,
       SD_AUTHORITY_URL: process.env.SD_AUTHORITY_URL,
-      SD_REDIRECT_URL: process.env.SD_REDIRECT_URL,
-      SD_LOGOUT_REDIRECT_URL: process.env.SD_LOGOUT_REDIRECT_URL
     };
 
     for (const [key, value] of Object.entries(env)) {
@@ -34,8 +32,12 @@ export default defineConfig((cfg) => {
     envPrefix: "SD_",
     server: {
       proxy: {
-        "/api": {
-          target: "https://status.cloudmon.eco.tsi-dev.otc-service.com",
+        "/auth": {
+          target: "http://localhost:8000",
+          changeOrigin: true
+        },
+        "/v2": {
+          target: "http://localhost:8000",
           changeOrigin: true
         }
       }

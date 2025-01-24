@@ -38,8 +38,8 @@ export default defineConfig((cfg) => {
           target: "http://localhost:8000",
           changeOrigin: true
         },
-        "/api": {
-          target: "https://status.cloudmon.eco.tsi-dev.otc-service.com",
+        "/v2": {
+          target: "http://localhost:8000",
           changeOrigin: true
         }
       }

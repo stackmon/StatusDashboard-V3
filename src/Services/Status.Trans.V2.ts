@@ -131,6 +131,11 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       rs.Events.add(dbEvent);
     }
 
+    if (dbEvent.RegionServices.size < 1) {
+      log.debug("Skipped Empty RegionService.", event);
+      continue;
+    }
+
     if (event.updates?.length) {
       for (const update of event.updates) {
         const status = (() => {

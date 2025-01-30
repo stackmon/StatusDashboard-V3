@@ -89,12 +89,12 @@ export function GetStatusString(status: EventStatus): string {
     case EventStatus.Resolved:
       return "resolved";
     case EventStatus.Scheduled:
-      return "scheduled";
+      return "modified";
     case EventStatus.Performing:
       return "in progress";
     case EventStatus.Completed:
       return "completed";
-    case EventStatus.Cancelled:
-      return "SYSTEM";
   }
+
+  throw new Error("Invalid status: " + status);
 }

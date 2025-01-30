@@ -149,9 +149,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Analyzing:
               return EventStatus.Investigating;
-            // @ts-expect-error TS7029
             case StatusEnum.Reopened:
-              dbEvent.End = undefined;
             case StatusEnum.Fixing:
               return EventStatus.Fixing;
             case StatusEnum.Observing:
@@ -200,13 +198,6 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       if (status) {
         dbEvent.Status = status;
       }
-    }
-
-    if (dbEvent.End &&
-      dbEvent.Type === EventType.Maintenance &&
-      dbEvent.Status !== EventStatus.Cancelled &&
-      dayjs(dbEvent.End).isBefore(dayjs())) {
-      dbEvent.Status = EventStatus.Completed;
     }
 
     db.Events.push(dbEvent);

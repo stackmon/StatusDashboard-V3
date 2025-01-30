@@ -1,9 +1,8 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType } from "./Enums";
+import { EventStatus, EventType, GetEventImpact, GetStatusString, IsOpenStatus } from "./Enums";
 
 /**
  * @author Aloento
@@ -11,8 +10,6 @@ import { EventStatus, EventType } from "./Enums";
  * @version 0.1.0
  */
 export function useEditForm(event: Models.IEvent) {
-  const { Update } = useStatus();
-
   const [title, _setTitle] = useState(event.Title);
   const [valTitle, setValTitle] = useState<string>();
   function setTitle(value = title) {
@@ -101,7 +98,7 @@ export function useEditForm(event: Models.IEvent) {
     return true;
   }
 
-  const [start, _setStart] = useState(new Date());
+  const [start, _setStart] = useState(event.Start);
   const [valStart, setValStart] = useState<string>();
   function setStart(value = start) {
     let err: boolean = false;
@@ -122,7 +119,7 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
-  const [end, _setEnd] = useState<Date>();
+  const [end, _setEnd] = useState<Date | undefined>(event.End);
   const [valEnd, setValEnd] = useState<string>();
   function setEnd(value = end) {
     let err: boolean = false;
@@ -147,26 +144,56 @@ export function useEditForm(event: Models.IEvent) {
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd()].every(Boolean)) {
-      return;
+      throw new Error("Validation failed.");
     }
 
-    event.Title = title;
-    event.Type = type;
+    const url = process.env.SD_BACKEND_URL!;
 
-    event.Histories.add({
-      Id: Math.max(...[...event.Histories].map(history => history.Id), 0) + 1,
-      Message: update,
-      Created: new Date(),
-      Status: status,
-      Event: event
+    const body: Record<string, any> = {
+      title,
+      status: GetStatusString(status),
+      impact: GetEventImpact(type),
+      message: update,
+      update_date: new Date().toISOString(),
+    };
+
+    if (event.Type !== type) {
+      body.status = "impact changed";
+    }
+
+    if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
+      if (event.Status !== status) {
+        body.status = "reopened";
+      } else {
+        body.start_date = start.toISOString();
+        body.status = "changed";
+      }
+    }
+
+    if (event.Type === EventType.Maintenance) {
+      body.start_date = start.toISOString();
+    }
+
+    if (end && !isNaN(end.getTime())) {
+      body.end_date = end.toISOString();
+    }
+
+    const raw = await fetch(`${url}/v2/incidents/${event.Id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user?.access_token}`
+      },
+      body: JSON.stringify(body)
     });
 
-    event.Status = status;
-    event.Start = start;
-    event.End = end;
+    if (!raw.ok) {
+      throw new Error("Failed to update event: " + await raw.text());
+    }
 
-    Update();
-    close();
+    window.location.reload();
+  }, {
+    manual: true
   });
 
   return {

@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
 import { useStatus } from "~/Services/Status";
-import { EventStatus, EventType } from "../Event/Enums";
+import { EventType, IsOpenStatus } from "../Event/Enums";
 
 /**
  * @author Aloento
@@ -87,8 +87,7 @@ export function EventGrid() {
           return false;
         }
 
-        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
-          .includes(x.Status);
+        return IsOpenStatus(x.Status);
       })
       .orderBy(x => x.Start, "desc")
       .map(x => {

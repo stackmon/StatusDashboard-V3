@@ -69,6 +69,15 @@ export enum EventStatus {
  * @since 1.0.0
  * @version 0.1.0
  */
+export function IsOpenStatus(status: EventStatus): boolean {
+  return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
+}
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
     case EventStatus.Investigating:

@@ -4,7 +4,7 @@ import { chain } from "lodash";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType } from "../Event/Enums";
+import { EventType, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
 import "./ServiceItem.css";
 
@@ -31,8 +31,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
           return false;
         }
 
-        return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled]
-          .includes(x.Status);
+        return IsOpenStatus(x.Status);
       })
       .orderBy(x => x.Type, 'desc')
       .head()

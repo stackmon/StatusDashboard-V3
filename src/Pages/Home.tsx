@@ -4,7 +4,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
-import { EventStatus, EventType } from "~/Components/Event/Enums";
+import { EventType, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
@@ -50,7 +50,7 @@ export function Home() {
     const service = chain(DB.Events)
       .filter(e => !e.End)
       .filter(e => e.Type !== EventType.Maintenance)
-      .filter(e => ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(e.Status))
+      .filter(e => IsOpenStatus(e.Status))
       .flatMap(e => [...e.RegionServices])
       .map(rs => rs.Service)
       .uniqBy(s => s.Id)

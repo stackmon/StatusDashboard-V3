@@ -173,7 +173,7 @@ export function useNewForm() {
       start_date: start.toISOString()
     }
 
-    if (type === EventType.Maintenance) {
+    if (type === EventType.Maintenance && end) {
       body.end_date = end
     }
 

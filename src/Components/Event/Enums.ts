@@ -63,3 +63,29 @@ export enum EventStatus {
   Completed = "Completed",
   Cancelled = "Cancelled",
 }
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export function GetStatusString(status: EventStatus): string {
+  switch (status) {
+    case EventStatus.Investigating:
+      return "analyzing";
+    case EventStatus.Fixing:
+      return "fixing";
+    case EventStatus.Monitoring:
+      return "observing";
+    case EventStatus.Resolved:
+      return "resolved";
+    case EventStatus.Scheduled:
+      return "scheduled";
+    case EventStatus.Performing:
+      return "in progress";
+    case EventStatus.Completed:
+      return "completed";
+    case EventStatus.Cancelled:
+      return "SYSTEM";
+  }
+}

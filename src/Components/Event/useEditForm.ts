@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useRequest } from "ahooks";
+import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
@@ -99,36 +101,60 @@ export function useEditForm(event: Models.IEvent) {
     return true;
   }
 
-  const [end, _setEnd] = useState(event.End);
+  const [start, _setStart] = useState(new Date());
+  const [valStart, setValStart] = useState<string>();
+  function setStart(value = start) {
+    let err: boolean = false;
+
+    const now = new Date();
+    if (end && value > end) {
+      setValStart("Start Date cannot be later than End Date.");
+      err = true;
+    }
+    if (value > now) {
+      setValStart("Start Date cannot be in the future.");
+      err = true;
+    }
+
+    !err && setValStart(undefined);
+    _setStart(value);
+
+    return !err;
+  }
+
+  const [end, _setEnd] = useState<Date>();
   const [valEnd, setValEnd] = useState<string>();
   function setEnd(value = end) {
     let err: boolean = false;
 
-    if (value && value < event.Start) {
+    if (value && value < start) {
       setValEnd("End Date cannot be before Start Date.");
       err = true;
     }
 
-    _setEnd(value);
     !err && setValEnd(undefined);
+    _setEnd(value);
 
-    if (type === EventType.Maintenance) {
-      return !err;
-    }
-    return true;
+    return !err;
   }
 
-  function OnSubmit(close: () => void) {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setEnd()].every(Boolean)) {
+  useEffect(() => {
+    setStart();
+    setEnd();
+  }, [start, end]);
+
+  const { user } = useAuth();
+
+  const { runAsync, loading } = useRequest(async () => {
+    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd()].every(Boolean)) {
       return;
     }
 
     event.Title = title;
     event.Type = type;
 
-    const maxId = Math.max(...[...event.Histories].map(history => history.Id), 0);
     event.Histories.add({
-      Id: maxId + 1,
+      Id: Math.max(...[...event.Histories].map(history => history.Id), 0) + 1,
       Message: update,
       Created: new Date(),
       Status: status,
@@ -136,11 +162,12 @@ export function useEditForm(event: Models.IEvent) {
     });
 
     event.Status = status;
+    event.Start = start;
     event.End = end;
 
     Update();
     close();
-  }
+  });
 
   return {
     State: {
@@ -148,6 +175,7 @@ export function useEditForm(event: Models.IEvent) {
       type,
       update,
       status,
+      start,
       end
     },
     Actions: {
@@ -155,6 +183,7 @@ export function useEditForm(event: Models.IEvent) {
       setType,
       setUpdate,
       setStatus,
+      setStart,
       setEnd
     },
     Validation: {
@@ -162,8 +191,10 @@ export function useEditForm(event: Models.IEvent) {
       type: valType,
       update: valUpdate,
       status: valStatus,
+      start: valStart,
       end: valEnd
     },
-    OnSubmit
+    OnSubmit: runAsync,
+    Loading: loading
   }
 }

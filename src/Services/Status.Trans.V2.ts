@@ -137,6 +137,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
     }
 
     if (event.updates?.length) {
+      let prev: EventStatus | undefined;
+
       for (const update of event.updates) {
         const status = (() => {
           switch (update.status) {
@@ -155,8 +157,6 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
             case StatusEnum.Observing:
               return EventStatus.Monitoring;
             case StatusEnum.Resolved:
-            case StatusEnum.Changed:
-            case StatusEnum.ImpactChanged:
               return EventStatus.Resolved;
 
             case StatusEnum.Description:
@@ -167,6 +167,10 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               return EventStatus.Performing;
             case StatusEnum.Completed:
               return EventStatus.Completed;
+
+            case StatusEnum.Changed:
+            case StatusEnum.ImpactChanged:
+              return prev || EventStatus.Investigating;
 
             default:
               break;
@@ -187,6 +191,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         };
 
         dbEvent.Histories.add(history);
+        prev = status;
       }
 
       const status = orderBy(

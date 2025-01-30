@@ -31,15 +31,12 @@ const log = new Logger("Auth");
  */
 function AuthHandler() {
   const auth = (Common.AuthSlot = useAuth());
-  const { Paths, Rep, Reload } = useRouter();
+  const { Paths, Reload } = useRouter();
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
       return userMgr.signinCallback()
-        .finally(() => {
-          Rep("/");
-          window.location.reload();
-        });
+        .finally(() => window.location.reload());
     }
 
     if (Paths.at(0) === "signout-callback-oidc") {

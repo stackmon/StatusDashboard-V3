@@ -1,5 +1,6 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
+import dayjs from "dayjs";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType } from "./Enums";
 import { useEditForm } from "./useEditForm";
@@ -10,7 +11,7 @@ import { useEditForm } from "./useEditForm";
  * @version 0.1.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
-  const { State, Actions, Validation, OnSubmit } = useEditForm(Event);
+  const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
 
   return <>
@@ -32,7 +33,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
-          OnSubmit(setFalse);
+          OnSubmit();
         }}>
         <ScaleTextField
           placeholder="Please give the title of event"
@@ -74,12 +75,22 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
+        <ScaleTextField
+          type="datetime-local"
+          label="Start CET"
+          required
+          value={dayjs(State.start).format('YYYY-MM-DDTHH:mm:ss')}
+          onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+          invalid={!!Validation.start}
+          helperText={Validation.start}
+        />
+
         {State.type === EventType.Maintenance &&
           <ScaleTextField
             type="datetime-local"
             label="(Plan) End"
             required
-            value={State.end?.toISOString().slice(0, 16)}
+            value={State.end ? dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss') : null}
             onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
             invalid={!!Validation.end}
             helperText={Validation.end}
@@ -99,7 +110,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             Cancel
           </ScaleButton>
 
-          <ScaleButton type="submit">
+          <ScaleButton type="submit" disabled={Loading}>
             Submit
           </ScaleButton>
         </div>

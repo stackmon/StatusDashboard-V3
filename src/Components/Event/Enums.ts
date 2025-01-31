@@ -1,3 +1,5 @@
+import { StatusEnum } from "~/Services/Status.Entities";
+
 /**
  * @author Aloento
  * @since 1.0.0
@@ -81,19 +83,19 @@ export function IsOpenStatus(status: EventStatus): boolean {
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
     case EventStatus.Investigating:
-      return "analyzing";
+      return StatusEnum.Analyzing;
     case EventStatus.Fixing:
-      return "fixing";
+      return StatusEnum.Fixing;
     case EventStatus.Monitoring:
-      return "observing";
+      return StatusEnum.Observing;
     case EventStatus.Resolved:
-      return "resolved";
+      return StatusEnum.Resolved;
     case EventStatus.Scheduled:
-      return "modified";
+      return StatusEnum.Modified;
     case EventStatus.Performing:
-      return "in progress";
+      return StatusEnum.InProgress;
     case EventStatus.Completed:
-      return "completed";
+      return StatusEnum.Completed;
   }
 
   throw new Error("Invalid status: " + status);

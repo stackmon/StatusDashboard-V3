@@ -1,6 +1,7 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
+import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, GetEventImpact, GetStatusString, IsOpenStatus } from "./Enums";
 
@@ -158,15 +159,15 @@ export function useEditForm(event: Models.IEvent) {
     };
 
     if (event.Type !== type) {
-      body.status = "impact changed";
+      body.status = StatusEnum.ImpactChanged;
     }
 
     if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
       if (event.Status !== status) {
-        body.status = "reopened";
+        body.status = StatusEnum.Reopened;
       } else {
         body.start_date = start.toISOString();
-        body.status = "changed";
+        body.status = StatusEnum.Changed;
       }
     }
 

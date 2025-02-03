@@ -153,7 +153,14 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       rs.Events.add(dbEvent);
     }
 
+    if (dbEvent.RegionServices.size < 1) {
+      log.debug("Skipped Empty RegionService.", event);
+      continue;
+    }
+
     if (event.updates?.length) {
+      let prev: EventStatus | undefined;
+
       for (const update of event.updates) {
         const status = (() => {
           switch (update.status) {
@@ -164,15 +171,12 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Analyzing:
               return EventStatus.Investigating;
-            // @ts-expect-error TS7029
             case StatusEnum.Reopened:
-              dbEvent.End = undefined;
             case StatusEnum.Fixing:
               return EventStatus.Fixing;
             case StatusEnum.Observing:
               return EventStatus.Monitoring;
             case StatusEnum.Resolved:
-            case StatusEnum.Changed:
               return EventStatus.Resolved;
 
             case StatusEnum.Description:
@@ -183,6 +187,10 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               return EventStatus.Performing;
             case StatusEnum.Completed:
               return EventStatus.Completed;
+
+            case StatusEnum.Changed:
+            case StatusEnum.ImpactChanged:
+              return prev || EventStatus.Investigating;
 
             default:
               break;
@@ -195,7 +203,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         }
 
         const history = {
-          Id: id++,
+          Id: update.id,
           Message: update.text,
           Created: dayjs(update.timestamp).toDate(),
           Status: status,
@@ -203,6 +211,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         };
 
         dbEvent.Histories.add(history);
+        prev = status;
       }
 
       const status = orderBy(
@@ -211,13 +220,6 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       if (status) {
         dbEvent.Status = status;
       }
-    }
-
-    if (dbEvent.End &&
-      dbEvent.Type === EventType.Maintenance &&
-      dbEvent.Status !== EventStatus.Cancelled &&
-      dayjs(dbEvent.End).isBefore(dayjs())) {
-      dbEvent.Status = EventStatus.Completed;
     }
 
     db.Events.push(dbEvent);

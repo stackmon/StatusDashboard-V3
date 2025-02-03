@@ -54,5 +54,3 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
-            SD_REDIRECT_URL=${{ secrets.SD_REDIRECT_URL }}
-            SD_LOGOUT_REDIRECT_URL=${{ secrets.SD_LOGOUT_REDIRECT_URL }}

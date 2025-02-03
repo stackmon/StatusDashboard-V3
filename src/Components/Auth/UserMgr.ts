@@ -28,6 +28,7 @@ export class UserMgr extends UserManager {
       authority: process.env.SD_AUTHORITY_URL!,
       post_logout_redirect_uri: `${window.location.origin}/signout-callback-oidc`,
       redirect_uri: `${window.location.origin}/signin-oidc`,
+      automaticSilentRenew: false
     });
   }
 

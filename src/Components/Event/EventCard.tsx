@@ -7,18 +7,6 @@ import { EventAffected } from "./EventAffected";
 import { EventEditor } from "./EventEditor";
 
 /**
- * Represents an EventCard component that displays detailed information about a specific event.
- * This component is designed to be highly flexible and adaptable to various event types and statuses.
- * It leverages multiple sub-components to render different parts of the event information.
- *
- * @param {Object} props - The properties object.
- * @param {Models.IEvent} props.Event - The event data to be displayed in the card.
- *
- * @remarks
- * This component is part of a larger system and interacts with several other components and services.
- * It is important to ensure that the event data passed to this component is accurate and up-to-date.
- * The component's appearance and behavior may change based on the event type and status.
- *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

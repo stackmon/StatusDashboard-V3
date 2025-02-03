@@ -55,7 +55,7 @@ export function useAvailability(category: Models.ICategory, topic: string) {
   const url = process.env.SD_BACKEND_URL;
 
   const { data } = useRequest(async () => {
-    const res = await fetch(`${url}/availability`);
+    const res = await fetch(`${url}/v2/availability`);
     const data = (await res.json()).data as ServiceAvaEntity[];
 
     const raw = [] as IAvailability[];

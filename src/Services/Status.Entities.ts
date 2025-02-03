@@ -51,6 +51,7 @@ interface UpdateEntityV2 {
 export const enum StatusEnum {
   Analyzing = "analyzing",
   Changed = "changed",
+  ImpactChanged = "impact changed",
   Completed = "completed",
   Description = "description",
   Fixing = "fixing",

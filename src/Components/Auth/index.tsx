@@ -1,6 +1,6 @@
 import { useMount, useUpdateEffect } from "ahooks";
 import { ReactNode } from "react";
-import { AuthProvider, hasAuthParams, useAuth } from "react-oidc-context";
+import { AuthProvider, useAuth } from "react-oidc-context";
 import { Common } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useRouter } from "../Router";
@@ -31,29 +31,17 @@ const log = new Logger("Auth");
  */
 function AuthHandler() {
   const auth = (Common.AuthSlot = useAuth());
-  const { Paths, Rep, Reload } = useRouter();
+  const { Paths, Reload } = useRouter();
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
-      return userMgr.signinCallback()
-        .finally(() => {
-          Rep("/");
-          window.location.reload();
-        });
+      return userMgr.signinCallback();
     }
 
     if (Paths.at(0) === "signout-callback-oidc") {
       auth.removeUser();
       return Reload("/");
     }
-
-    if (
-      !hasAuthParams() &&
-      !auth.isAuthenticated &&
-      !auth.activeNavigator &&
-      !auth.isLoading
-    )
-      auth.signinRedirect();
   });
 
   useUpdateEffect(() => {

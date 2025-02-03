@@ -1,7 +1,8 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
+import dayjs from "dayjs";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType } from "./Enums";
+import { EventStatus, EventType, IsOpenStatus } from "./Enums";
 import { useEditForm } from "./useEditForm";
 
 /**
@@ -21,7 +22,7 @@ import { useEditForm } from "./useEditForm";
  * @version 0.1.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
-  const { State, Actions, Validation, OnSubmit } = useEditForm(Event);
+  const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
 
   return <>
@@ -43,7 +44,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
-          OnSubmit(setFalse);
+          OnSubmit().then(() => setFalse());
         }}>
         <ScaleTextField
           placeholder="Please give the title of event"
@@ -58,11 +59,12 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         <ScaleDropdownSelect
           label="Type"
           value={State.type}
+          disabled={Event.Type === EventType.Maintenance}
           onScale-change={(e) => Actions.setType(e.target.value as EventType)}
           invalid={!!Validation.type}
           helperText={Validation.type}
         >
-          {Object.values(EventType).slice(1).map((type, i) =>
+          {Object.values(EventType).slice(2).map((type, i) =>
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
             </ScaleDropdownSelectItem>)}
@@ -78,23 +80,32 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           {Object.values(EventStatus)
             .slice(
               State.type === EventType.Maintenance ? 4 : 0,
-              State.type === EventType.Maintenance ? undefined : 4
+              State.type === EventType.Maintenance ? 7 : 4
             ).map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}
               </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
-        {State.type === EventType.Maintenance &&
-          <ScaleTextField
-            type="datetime-local"
-            label="(Plan) End"
-            required
-            value={State.end?.toISOString().slice(0, 16)}
-            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
-            invalid={!!Validation.end}
-            helperText={Validation.end}
-          />}
+        <ScaleTextField
+          type="datetime-local"
+          label="Start CET"
+          disabled={State.type !== EventType.Maintenance && IsOpenStatus(Event.Status)}
+          value={dayjs(State.start).format('YYYY-MM-DDTHH:mm:ss')}
+          onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+          invalid={!!Validation.start}
+          helperText={Validation.start}
+        />
+
+        <ScaleTextField
+          type="datetime-local"
+          label="(Plan) End"
+          disabled={!(State.type === EventType.Maintenance || !IsOpenStatus(Event.Status))}
+          value={State.end ? dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss') : null}
+          onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+          invalid={!!Validation.end}
+          helperText={Validation.end}
+        />
 
         <ScaleTextarea
           label="Update Message"
@@ -106,11 +117,11 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         />
 
         <div className="flex gap-x-3 self-end">
-          <ScaleButton onClick={setFalse} variant="secondary">
+          <ScaleButton onClick={setFalse} variant="secondary" type="button">
             Cancel
           </ScaleButton>
 
-          <ScaleButton type="submit">
+          <ScaleButton type="submit" disabled={Loading}>
             Submit
           </ScaleButton>
         </div>

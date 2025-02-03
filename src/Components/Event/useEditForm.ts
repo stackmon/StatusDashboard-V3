@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { useStatus } from "~/Services/Status";
+import { useRequest } from "ahooks";
+import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
+import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType } from "./Enums";
+import { EventStatus, EventType, GetEventImpact, GetStatusString, IsOpenStatus } from "./Enums";
 
 /**
  * Custom hook for managing the edit form state and validation for an event.
@@ -23,8 +25,6 @@ import { EventStatus, EventType } from "./Enums";
  * @version 0.1.0
  */
 export function useEditForm(event: Models.IEvent) {
-  const { Update } = useStatus();
-
   const [title, _setTitle] = useState(event.Title);
   const [valTitle, setValTitle] = useState<string>();
   function setTitle(value = title) {
@@ -113,48 +113,103 @@ export function useEditForm(event: Models.IEvent) {
     return true;
   }
 
-  const [end, _setEnd] = useState(event.End);
+  const [start, _setStart] = useState(event.Start);
+  const [valStart, setValStart] = useState<string>();
+  function setStart(value = start) {
+    let err: boolean = false;
+
+    const now = new Date();
+    if (end && value > end) {
+      setValStart("Start Date cannot be later than End Date.");
+      err = true;
+    }
+    if (value > now) {
+      setValStart("Start Date cannot be in the future.");
+      err = true;
+    }
+
+    !err && setValStart(undefined);
+    _setStart(value);
+
+    return !err;
+  }
+
+  const [end, _setEnd] = useState<Date | undefined>(event.End);
   const [valEnd, setValEnd] = useState<string>();
   function setEnd(value = end) {
     let err: boolean = false;
 
-    if (value && value < event.Start) {
+    if (value && value < start) {
       setValEnd("End Date cannot be before Start Date.");
       err = true;
     }
 
-    _setEnd(value);
     !err && setValEnd(undefined);
+    _setEnd(value);
 
-    if (type === EventType.Maintenance) {
-      return !err;
-    }
-    return true;
+    return !err;
   }
 
-  function OnSubmit(close: () => void) {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setEnd()].every(Boolean)) {
-      return;
+  useEffect(() => {
+    setStart();
+    setEnd();
+  }, [start, end]);
+
+  const { user } = useAuth();
+
+  const { runAsync, loading } = useRequest(async () => {
+    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd()].every(Boolean)) {
+      throw new Error("Validation failed.");
     }
 
-    event.Title = title;
-    event.Type = type;
+    const url = process.env.SD_BACKEND_URL!;
 
-    const maxId = Math.max(...[...event.Histories].map(history => history.Id), 0);
-    event.Histories.add({
-      Id: maxId + 1,
-      Message: update,
-      Created: new Date(),
-      Status: status,
-      Event: event
+    const body: Record<string, any> = {
+      title,
+      status: GetStatusString(status),
+      impact: GetEventImpact(type),
+      message: update,
+      update_date: new Date().toISOString(),
+    };
+
+    if (event.Type !== type) {
+      body.status = StatusEnum.ImpactChanged;
+    }
+
+    if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
+      if (event.Status !== status) {
+        body.status = StatusEnum.Reopened;
+      } else {
+        body.start_date = start.toISOString();
+        body.status = StatusEnum.Changed;
+      }
+    }
+
+    if (event.Type === EventType.Maintenance) {
+      body.start_date = start.toISOString();
+    }
+
+    if (end && !isNaN(end.getTime())) {
+      body.end_date = end.toISOString();
+    }
+
+    const raw = await fetch(`${url}/v2/incidents/${event.Id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user?.access_token}`
+      },
+      body: JSON.stringify(body)
     });
 
-    event.Status = status;
-    event.End = end;
+    if (!raw.ok) {
+      throw new Error("Failed to update event: " + await raw.text());
+    }
 
-    Update();
-    close();
-  }
+    window.location.reload();
+  }, {
+    manual: true
+  });
 
   return {
     State: {
@@ -162,6 +217,7 @@ export function useEditForm(event: Models.IEvent) {
       type,
       update,
       status,
+      start,
       end
     },
     Actions: {
@@ -169,6 +225,7 @@ export function useEditForm(event: Models.IEvent) {
       setType,
       setUpdate,
       setStatus,
+      setStart,
       setEnd
     },
     Validation: {
@@ -176,8 +233,10 @@ export function useEditForm(event: Models.IEvent) {
       type: valType,
       update: valUpdate,
       status: valStatus,
+      start: valStart,
       end: valEnd
     },
-    OnSubmit
+    OnSubmit: runAsync,
+    Loading: loading
   }
 }

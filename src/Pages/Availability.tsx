@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import { AvailaMatrix } from "~/Components/Availability/AvailaMatrix";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
+import { AvailaContext } from "~/Services/Availability";
 
 /**
  * @author Aloento
@@ -18,6 +19,8 @@ export function Availability() {
       Topic="Availability"
     />
 
-    <AvailaMatrix />
+    <AvailaContext>
+      <AvailaMatrix />
+    </AvailaContext>
   </>;
 }

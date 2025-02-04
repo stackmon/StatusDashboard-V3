@@ -15,12 +15,6 @@ import { TransformerV2 } from "./Status.Trans.V2";
  * This function sets up the initial structure for the status database context.
  * It is used to ensure that the database has a consistent structure before any data is loaded.
  *
- * @example
- * ```typescript
- * const initialContext = EmptyDB();
- * console.log(initialContext.Services); // Outputs: []
- * ```
- *
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0

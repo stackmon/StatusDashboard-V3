@@ -1,8 +1,7 @@
 import { useRequest } from "ahooks";
-import { openDB } from "idb";
 import { createContext, JSX, useContext, useState } from "react";
-import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
+import { DB } from "./DB";
 import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 import { TransformerV2 } from "./Status.Trans.V2";
@@ -22,12 +21,7 @@ export function EmptyDB(): IStatusContext {
   }
 }
 
-/**
- * @author Aloento
- * @since 1.0.0
- * @version 0.1.0
- */
-export let DB = EmptyDB();
+const db = new DB(EmptyDB);
 
 interface IContext {
   DB: IStatusContext;
@@ -35,37 +29,9 @@ interface IContext {
 }
 
 const CTX = createContext<IContext>({} as IContext);
-const Store = "Status";
-let freeze = false;
+const key = "Status";
 
-function init() {
-  return openDB(Dic.Name, 1, {
-    upgrade(db) {
-      db.createObjectStore(Store);
-    },
-  });
-}
-
-async function save() {
-  const db = await init();
-  await db.put(Store, DB, Store);
-  db.close();
-}
-
-async function load() {
-  const db = await init();
-  const res = await db.get(Store, Store) as IStatusContext;
-  if (res) {
-    DB = res;
-  }
-
-  if (process.env.SD_FREEZE === "true") {
-    freeze = !!res;
-  }
-  db.close();
-}
-
-await load();
+await db.load(key);
 
 const log = new Logger("Service", "Status");
 
@@ -77,10 +43,10 @@ const log = new Logger("Service", "Status");
 export function useStatus() {
   const ctx = useContext(CTX);
 
-  if (DB.Regions.length < 1) {
+  if (db.Ins.Regions.length < 1) {
     throw new Promise((res) => {
       const i = setInterval(() => {
-        if (DB.Regions.length > 0) {
+        if (db.Ins.Regions.length > 0) {
           clearInterval(i);
           res(ctx);
         }
@@ -97,7 +63,7 @@ export function useStatus() {
  * @version 0.1.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
-  const [db, setDB] = useState(DB);
+  const [ins, setDB] = useState(db.Ins);
 
   const url = process.env.SD_BACKEND_URL;
 
@@ -124,23 +90,17 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     },
     {
       cacheKey: log.namespace,
-      onSuccess: (res: any) => {
-        if (freeze) {
-          log.warn("Data is frozen.");
-          return;
-        }
-        return update(TransformerV2(res));
-      },
+      onSuccess: (res: any) => update(TransformerV2(res)),
     }
   );
 
-  function update(data: IStatusContext = DB) {
-    DB = { ...data };
-    setDB(DB);
-    save();
+  function update(data: IStatusContext = ins) {
+    const raw = { ...data };
+    setDB(raw);
+    db.save(key, raw);
   }
 
   return (
-    <CTX.Provider value={{ DB: db, Update: update }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ DB: ins, Update: update }}>{children}</CTX.Provider>
   );
 }

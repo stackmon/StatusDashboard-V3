@@ -33,7 +33,7 @@ const key = "Status";
 
 await db.load(key);
 
-const log = new Logger("Service", "Status");
+const log = new Logger("Service", key);
 
 /**
  * @author Aloento
@@ -89,7 +89,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       };
     },
     {
-      cacheKey: log.namespace,
+      cacheKey: key,
       onSuccess: (res: any) => update(TransformerV2(res)),
     }
   );

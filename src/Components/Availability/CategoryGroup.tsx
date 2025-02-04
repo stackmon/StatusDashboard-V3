@@ -1,18 +1,22 @@
+import { useMemo } from "react";
+import { useAvailability } from "~/Services/Availability";
 import { Models } from "~/Services/Status.Models";
-import { useAvailability } from "./useAvailability";
-
-interface ICategoryGroup {
-  Category: Models.ICategory;
-  Topic: string;
-}
 
 /**
  * @author Aloento
  * @since 1.0.0
  * @version 0.1.0
  */
-export function CategoryGroup({ Category, Topic }: ICategoryGroup) {
-  const avas = useAvailability(Category, Topic);
+export function CategoryGroup({ Category }: { Category: Models.ICategory }) {
+  const { Availa, Region } = useAvailability();
+
+  const avas = useMemo(() => {
+    const res = Availa
+      .filter(x => x.RS.Region.Id === Region.Id)
+      .filter(x => x.RS.Service.Category.Id === Category.Id);
+
+    return res;
+  }, [Availa, Region]);
 
   function getColor(val: number): string {
     const color = val >= 99.95

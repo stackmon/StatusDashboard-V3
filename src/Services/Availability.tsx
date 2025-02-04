@@ -1,8 +1,10 @@
+import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { useCreation, useRequest } from "ahooks";
-import { createContext, JSX, useContext, useEffect, useState } from "react";
+import { createContext, JSX, Suspense, useContext, useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 import { Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
+import { DB } from "./DB";
 import { useStatus } from "./Status";
 import { Models } from "./Status.Models";
 
@@ -29,9 +31,14 @@ interface IContext {
   Region: Models.IRegion
 }
 
-const CTX = createContext<IContext>({} as IContext);
+const db = new DB<IAvailability[]>(() => []);
 
-const log = new Logger("Service", "Availability");
+const CTX = createContext<IContext>({} as IContext);
+const key = "Availability";
+
+await db.load(key);
+
+const log = new Logger("Service", key);
 
 /**
  * @author Aloento
@@ -41,10 +48,10 @@ const log = new Logger("Service", "Availability");
 export function useAvailability() {
   const ctx = useContext(CTX);
 
-  if (!ctx.Availa) {
+  if (db.Ins.length < 1) {
     throw new Promise((res) => {
       const i = setInterval(() => {
-        if (ctx.Availa?.length > 0) {
+        if (db.Ins.length > 0) {
           clearInterval(i);
           res(ctx);
         }
@@ -63,9 +70,10 @@ export function useAvailability() {
 export function AvailaContext({ children }: { children: JSX.Element }) {
   const { DB } = useStatus();
   const [region, setRegion] = useState(DB.Regions[0]);
+  const [ins, setDB] = useState(db.Ins);
 
   const regionSub = useCreation(
-    () => Station.get("Availability", () => {
+    () => Station.get(key, () => {
       const first = DB.Regions[0];
       return new BehaviorSubject(first);
     }), []);
@@ -77,7 +85,7 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
 
   const url = process.env.SD_BACKEND_URL;
 
-  const { data } = useRequest(async () => {
+  useRequest(async () => {
     const res = await fetch(`${url}/v2/availability`);
     const data = (await res.json()).data as ServiceAvaEntity[];
 
@@ -88,6 +96,11 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
 
       if (!rs) {
         log.info("Service not found.", service);
+        continue;
+      }
+
+      if (!service.availability || service.availability.length < 6) {
+        log.info(`Skipped ${key}.`, service);
         continue;
       }
 
@@ -102,13 +115,21 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
       });
     }
 
-    log.debug("Availability data processed.", raw);
+    log.debug(`${key} data processed.`, raw);
     return raw;
   }, {
-    cacheKey: log.namespace
+    cacheKey: key,
+    onSuccess: (res) => {
+      setDB(res);
+      db.save(key, res);
+    }
   });
 
   return (
-    <CTX.Provider value={{ Availa: data!, Region: region }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ Availa: ins, Region: region }}>
+      <Suspense fallback={<ScaleLoadingSpinner size="large" text={`Loading ${key}...`} />}>
+        {children}
+      </Suspense>
+    </CTX.Provider>
   );
 }

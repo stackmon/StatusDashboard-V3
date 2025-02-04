@@ -1,6 +1,6 @@
 import { useRequest } from "ahooks";
 import { openDB } from "idb";
-import { createContext, useContext, useState } from "react";
+import { createContext, JSX, useContext, useState } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";

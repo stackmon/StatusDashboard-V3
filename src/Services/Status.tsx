@@ -1,8 +1,7 @@
 import { useRequest } from "ahooks";
-import { openDB } from "idb";
-import { createContext, useContext, useState } from "react";
-import { Dic } from "~/Helpers/Entities";
+import { createContext, JSX, useContext, useState } from "react";
 import { Logger } from "~/Helpers/Logger";
+import { DB } from "./DB";
 import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 import { TransformerV2 } from "./Status.Trans.V2";
@@ -36,18 +35,7 @@ export function EmptyDB(): IStatusContext {
   }
 }
 
-/**
- * A global variable representing the current state of the status database.
- *
- * @remarks
- * This variable is initialized with the structure provided by the `EmptyDB` function.
- * It is used throughout the application to access and update the status data.
- *
- * @author Aloento
- * @since 1.0.0
- * @version 0.1.0
- */
-export let DB = EmptyDB();
+const db = new DB(EmptyDB);
 
 interface IContext {
   DB: IStatusContext;
@@ -55,82 +43,11 @@ interface IContext {
 }
 
 const CTX = createContext<IContext>({} as IContext);
-const Store = "Status";
+const key = "Status";
 
-/**
- * Initializes the IndexedDB database for storing status information.
- *
- * @returns A promise that resolves to the initialized database instance.
- *
- * @remarks
- * This function sets up the IndexedDB database with the necessary object stores.
- * It is called internally to ensure the database is ready for use.
- *
- * @since 1.0.0
- * @version 0.1.0
- */
-function init() {
-  return openDB(Dic.Name, 1, {
-    upgrade(db) {
-      db.createObjectStore(Store);
-    },
-  });
-}
+await db.load(key);
 
-/**
- * Saves the current state of the status database to IndexedDB.
- *
- * @returns A promise that resolves when the save operation is complete.
- *
- * @remarks
- * This function writes the current state of the `DB` variable to the IndexedDB database.
- * It is called whenever the status data is updated to persist the changes.
- *
- * @since 1.0.0
- * @version 0.1.0
- */
-async function save() {
-  const db = await init();
-  await db.put(Store, DB, Store);
-  db.close();
-}
-
-/**
- * Loads the status database from IndexedDB.
- *
- * @returns A promise that resolves when the load operation is complete.
- *
- * @remarks
- * This function reads the status data from the IndexedDB database and updates the `DB` variable.
- * It is called during the initialization of the application to restore the previous state.
- *
- * @since 1.0.0
- * @version 0.1sv.0
- */
-async function load() {
-  const db = await init();
-  const res = await db.get(Store, Store) as IStatusContext;
-  if (res) {
-    DB = res;
-  }
-  db.close();
-}
-
-/**
- * Loads the status database from IndexedDB.
- *
- * @returns {Promise<void>} A promise that resolves when the load operation is complete.
- *
- * @remarks
- * This function reads the status data from the IndexedDB database and updates the `DB` variable.
- * It is called during the initialization of the application to restore the previous state.
- *
- * @since 1.0.0
- * @version 0.1sv.0
- */
-await load();
-
-const log = new Logger("Service", "Status");
+const log = new Logger("Service", key);
 
 /**
  * Custom hook to access the status context.
@@ -149,10 +66,10 @@ const log = new Logger("Service", "Status");
 export function useStatus() {
   const ctx = useContext(CTX);
 
-  if (DB.Regions.length < 1) {
+  if (db.Ins.Regions.length < 1) {
     throw new Promise((res) => {
       const i = setInterval(() => {
-        if (DB.Regions.length > 0) {
+        if (db.Ins.Regions.length > 0) {
           clearInterval(i);
           res(ctx);
         }
@@ -180,7 +97,7 @@ export function useStatus() {
  * @version 0.1.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
-  const [db, setDB] = useState(DB);
+  const [ins, setDB] = useState(db.Ins);
 
   const url = process.env.SD_BACKEND_URL;
 
@@ -206,18 +123,18 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       };
     },
     {
-      cacheKey: log.namespace,
+      cacheKey: key,
       onSuccess: (res) => update(TransformerV2(res)),
     }
   );
 
-  function update(data: IStatusContext = DB) {
-    DB = { ...data };
-    setDB(DB);
-    save();
+  function update(data: IStatusContext = ins) {
+    const raw = { ...data };
+    setDB(raw);
+    db.save(key, raw);
   }
 
   return (
-    <CTX.Provider value={{ DB: db, Update: update }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ DB: ins, Update: update }}>{children}</CTX.Provider>
   );
 }

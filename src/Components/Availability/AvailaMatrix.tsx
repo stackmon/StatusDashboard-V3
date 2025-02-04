@@ -1,11 +1,7 @@
 import { ScaleTable } from "@telekom/scale-components-react";
-import { useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
-import { useEffect, useState } from "react";
-import { BehaviorSubject } from "rxjs";
-import { Station } from "~/Helpers/Entities";
-import { useStatus } from "~/Services/Status";
+import { useAvailability } from "~/Services/Availability";
 import { CategoryGroup } from "./CategoryGroup";
 
 /**
@@ -14,20 +10,7 @@ import { CategoryGroup } from "./CategoryGroup";
  * @version 0.1.0
  */
 export function AvailaMatrix() {
-  const { DB } = useStatus();
-  const [region, setRegion] = useState(DB.Regions[0]);
-
-  const topic = "Availability";
-  const regionSub = useCreation(
-    () => Station.get(topic, () => {
-      const first = DB.Regions[0];
-      return new BehaviorSubject(first);
-    }), []);
-
-  useEffect(() => {
-    const sub = regionSub.subscribe(setRegion);
-    return () => sub.unsubscribe();
-  }, []);
+  const { Region } = useAvailability();
 
   return (
     <ScaleTable className="relative">
@@ -63,11 +46,11 @@ export function AvailaMatrix() {
         </thead>
 
         <tbody>
-          {chain(Array.from(region.Services))
+          {chain(Array.from(Region.Services))
             .map(x => x.Category)
             .uniqBy(x => x.Id)
             .orderBy(x => x.Name)
-            .map((x, i) => <CategoryGroup key={i} Category={x} Topic={topic} />)
+            .map((x, i) => <CategoryGroup key={i} Category={x} />)
             .value()}
         </tbody>
       </table>

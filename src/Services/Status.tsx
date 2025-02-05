@@ -90,7 +90,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     },
     {
       cacheKey: key,
-      onSuccess: (res: any) => update(TransformerV2(res)),
+      onSuccess: (res) => update(TransformerV2(res)),
     }
   );
 

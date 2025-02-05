@@ -9,6 +9,7 @@ import { SubjectLike } from "rxjs";
  */
 export const Dic = {
   Name: "SD3",
+  TZ: "Europe/Berlin",
 };
 
 /**

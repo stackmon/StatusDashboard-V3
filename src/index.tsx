@@ -3,6 +3,7 @@ import "./index.css";
 
 import { defineCustomElements } from "@telekom/scale-components/loader";
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { createRoot } from "react-dom/client";
 import { OIDCProvider } from "./Components/Auth";
@@ -11,6 +12,7 @@ import { Layout } from "./Pages";
 import { StatusContext } from "./Services/Status";
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 defineCustomElements();
 
 const container = document.querySelector("#root")!;

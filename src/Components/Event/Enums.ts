@@ -55,13 +55,13 @@ export function GetEventImpact(type: EventType): number {
  * @version 0.1.0
  */
 export enum EventStatus {
-  Investigating = "Investigating",
+  Analysing = "Analysing",
   Fixing = "Fixing",
-  Monitoring = "Monitoring",
+  Observing = "Observing",
   Resolved = "Resolved",
 
-  Scheduled = "Scheduled",
-  Performing = "Performing",
+  Modified = "Modified",
+  InProgress = "InProgress",
   Completed = "Completed",
   Cancelled = "Cancelled",
 }
@@ -82,17 +82,17 @@ export function IsOpenStatus(status: EventStatus): boolean {
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
-    case EventStatus.Investigating:
+    case EventStatus.Analysing:
       return StatusEnum.Analyzing;
     case EventStatus.Fixing:
       return StatusEnum.Fixing;
-    case EventStatus.Monitoring:
+    case EventStatus.Observing:
       return StatusEnum.Observing;
     case EventStatus.Resolved:
       return StatusEnum.Resolved;
-    case EventStatus.Scheduled:
+    case EventStatus.Modified:
       return StatusEnum.Modified;
-    case EventStatus.Performing:
+    case EventStatus.InProgress:
       return StatusEnum.InProgress;
     case EventStatus.Completed:
       return StatusEnum.Completed;

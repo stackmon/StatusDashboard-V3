@@ -60,11 +60,11 @@ export function useEditForm(event: Models.IEvent) {
     }
 
     if (type === EventType.Maintenance && value !== EventType.Maintenance) {
-      _setStatus(EventStatus.Investigating);
+      _setStatus(EventStatus.Analysing);
     }
 
     if (type !== EventType.Maintenance && value === EventType.Maintenance) {
-      _setStatus(EventStatus.Scheduled);
+      _setStatus(EventStatus.Modified);
     }
 
     _setType(value);

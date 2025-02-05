@@ -1,6 +1,7 @@
 import { ScaleTable } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { chain } from "lodash";
+import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 
 /**
@@ -41,7 +42,7 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
                 <label className="font-medium">{history.Status}</label>
 
                 <label>
-                  {dayjs(history.Created).utc().format("YYYY-MM-DD HH:mm [UTC]")}
+                  {dayjs(history.Created).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]")}
                 </label>
               </td>
 

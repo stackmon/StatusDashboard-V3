@@ -3,6 +3,7 @@ import { useBoolean, useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
+import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsOpenStatus } from "../Event/Enums";
 
@@ -111,9 +112,9 @@ export function EventGrid() {
         return [
           x.Id,
           [tag],
-          dayjs(x.Start).utc().format("YYYY-MM-DD HH:mm [UTC]"),
+          dayjs(x.Start).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]"),
           x.End
-            ? dayjs(x.End).utc().format("MM-DD HH:mm")
+            ? dayjs(x.End).tz(Dic.TZ).format("MM-DD HH:mm")
             : x.Status,
           x.Regions.length > 1
             ? `${x.Regions[0]} +${x.Regions.length - 1}`

@@ -67,14 +67,14 @@ export function EventItem({ Prev, Curr }: IEventItem) {
   let color: any;
 
   switch (Curr.Status) {
-    case EventStatus.Investigating:
+    case EventStatus.Analysing:
     case EventStatus.Fixing:
-    case EventStatus.Monitoring:
+    case EventStatus.Observing:
       color = "yellow";
       break;
 
-    case EventStatus.Scheduled:
-    case EventStatus.Performing:
+    case EventStatus.Modified:
+    case EventStatus.InProgress:
       color = "violet";
       break;
 

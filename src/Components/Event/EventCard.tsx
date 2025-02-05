@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { Authorized } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
@@ -59,11 +60,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {dayjs(Event.Start).utc().format("YYYY-MM-DD HH:mm [UTC]")}
+            {dayjs(Event.Start).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]")}
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {Event.End ? dayjs(Event.End).utc().format("YYYY-MM-DD HH:mm [UTC]") : "Still Ongoing"}
+            {Event.End ? dayjs(Event.End).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]") : "Still Ongoing"}
           </label>
         </div>
       </div>

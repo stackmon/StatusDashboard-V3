@@ -2,6 +2,7 @@ import { ScaleTag } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useMemo, useRef } from "react";
+import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus } from "../Event/Enums";
 import { Indicator } from "../Home/Indicator";
@@ -124,7 +125,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
           {dayjs(Curr.Start).format("DD MMM, HH:mm")}
 
           {Curr.End && (
-            <> - {dayjs(Curr.End).utc().format("DD MMM, HH:mm [UTC]")}</>
+            <> - {dayjs(Curr.End).tz(Dic.TZ).format("DD MMM, HH:mm [CET]")}</>
           )}
         </label>
 

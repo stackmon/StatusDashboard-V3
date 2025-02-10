@@ -1,5 +1,6 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
+import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
@@ -114,7 +115,7 @@ export function NewForm() {
         type="datetime-local"
         label="Start CET"
         required
-        value={dayjs(State.start).format('YYYY-MM-DDTHH:mm:ss')}
+        value={dayjs(State.start).format(Dic.Picker)}
         onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
         invalid={!!Validation.start}
         helperText={Validation.start}
@@ -125,7 +126,7 @@ export function NewForm() {
           type="datetime-local"
           label="(Plan) End CET"
           required
-          value={State.end ? dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss') : null}
+          value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}
           helperText={Validation.end}

@@ -8,9 +8,9 @@ import { StatusEnum } from "~/Services/Status.Entities";
 export enum EventType {
   Operational = "Operational",
   Maintenance = "Maintenance",
-  MinorIssue = "Minor Issue",
-  MajorIssue = "Major Issue",
-  Outage = "Outage",
+  Minor = "Minor Incident",
+  Major = "Major Incident",
+  Outage = "Service Outage",
 }
 
 /**
@@ -23,9 +23,9 @@ export function GetEventType(impact: number): EventType {
     case 0:
       return EventType.Maintenance;
     case 1:
-      return EventType.MinorIssue;
+      return EventType.Minor;
     case 2:
-      return EventType.MajorIssue;
+      return EventType.Major;
     default:
       return EventType.Outage;
   }
@@ -40,9 +40,9 @@ export function GetEventImpact(type: EventType): number {
   switch (type) {
     case EventType.Maintenance:
       return 0;
-    case EventType.MinorIssue:
+    case EventType.Minor:
       return 1;
-    case EventType.MajorIssue:
+    case EventType.Major:
       return 2;
     default:
       return 3;

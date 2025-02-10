@@ -22,9 +22,9 @@ export function Indicator({ Type, Size, Class }: IIndicator) {
     switch (Type) {
       case EventType.Maintenance:
         return "service-maintanance";
-      case EventType.MinorIssue:
+      case EventType.Minor:
         return "action-minus-circle";
-      case EventType.MajorIssue:
+      case EventType.Major:
         return "alert-warning";
       case EventType.Outage:
         return "action-circle-close";
@@ -37,9 +37,9 @@ export function Indicator({ Type, Size, Class }: IIndicator) {
     switch (Type) {
       case EventType.Maintenance:
         return `${text}informational)`;
-      case EventType.MinorIssue:
+      case EventType.Minor:
         return `${scaleColor}${func}warning-standard)`;
-      case EventType.MajorIssue:
+      case EventType.Major:
         return `${text}warning)`;
       case EventType.Outage:
         return `${text}danger)`;

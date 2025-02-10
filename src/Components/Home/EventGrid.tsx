@@ -95,17 +95,17 @@ export function EventGrid() {
         let tag;
 
         switch (x.Type) {
-          case EventType.MinorIssue:
-            tag = { content: "Minor", color: "yellow" };
+          case EventType.Minor:
+            tag = { content: EventType.Minor, color: "yellow" };
             break;
-          case EventType.MajorIssue:
-            tag = { content: "Major", color: "orange" };
+          case EventType.Major:
+            tag = { content: EventType.Major, color: "orange" };
             break;
           case EventType.Outage:
-            tag = { content: "Outage", color: "red" };
+            tag = { content: EventType.Outage, color: "red" };
             break;
           default:
-            tag = { content: "Maintain", color: "cyan" };
+            tag = { content: EventType.Maintenance, color: "cyan" };
             break;
         }
 

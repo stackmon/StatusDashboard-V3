@@ -95,26 +95,26 @@ export function EventGrid() {
         let tag;
 
         switch (x.Type) {
-          case EventType.MinorIssue:
-            tag = { content: "Minor", color: "yellow" };
+          case EventType.Minor:
+            tag = { content: EventType.Minor, color: "yellow" };
             break;
-          case EventType.MajorIssue:
-            tag = { content: "Major", color: "orange" };
+          case EventType.Major:
+            tag = { content: EventType.Major, color: "orange" };
             break;
           case EventType.Outage:
-            tag = { content: "Outage", color: "red" };
+            tag = { content: EventType.Outage, color: "red" };
             break;
           default:
-            tag = { content: "Maintain", color: "cyan" };
+            tag = { content: EventType.Maintenance, color: "cyan" };
             break;
         }
 
         return [
           x.Id,
           [tag],
-          dayjs(x.Start).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]"),
+          dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
           x.End
-            ? dayjs(x.End).tz(Dic.TZ).format("MM-DD HH:mm")
+            ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time)
             : x.Status,
           x.Regions.length > 1
             ? `${x.Regions[0]} +${x.Regions.length - 1}`

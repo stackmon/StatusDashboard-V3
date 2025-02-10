@@ -222,6 +222,13 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       }
     }
 
+    if (dbEvent.End &&
+      dbEvent.Type === EventType.Maintenance &&
+      dbEvent.Status !== EventStatus.Cancelled &&
+      dayjs(dbEvent.End).isBefore(dayjs())) {
+      dbEvent.Status = EventStatus.Completed;
+    }
+
     db.Events.push(dbEvent);
   }
 

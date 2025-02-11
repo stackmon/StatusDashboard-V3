@@ -1,6 +1,7 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
+import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, IsOpenStatus } from "./Enums";
 import { useEditForm } from "./useEditForm";
@@ -91,7 +92,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           type="datetime-local"
           label="Start CET"
           disabled={State.type !== EventType.Maintenance && IsOpenStatus(Event.Status)}
-          value={dayjs(State.start).format('YYYY-MM-DDTHH:mm:ss')}
+          value={dayjs(State.start).format(Dic.Picker)}
           onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
           invalid={!!Validation.start}
           helperText={Validation.start}
@@ -99,9 +100,9 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
 
         <ScaleTextField
           type="datetime-local"
-          label="(Plan) End"
+          label="(Plan) End CET"
           disabled={!(State.type === EventType.Maintenance || !IsOpenStatus(Event.Status))}
-          value={State.end ? dayjs(State.end).format('YYYY-MM-DDTHH:mm:ss') : null}
+          value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}
           helperText={Validation.end}

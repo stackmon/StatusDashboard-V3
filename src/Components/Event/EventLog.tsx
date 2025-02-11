@@ -42,7 +42,7 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
                 <label className="font-medium">{history.Status}</label>
 
                 <label>
-                  {dayjs(history.Created).tz(Dic.TZ).format("YYYY-MM-DD HH:mm [CET]")}
+                  {dayjs(history.Created).tz(Dic.TZ).format(Dic.Time)}
                 </label>
               </td>
 

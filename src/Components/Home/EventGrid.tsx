@@ -31,6 +31,9 @@ export function EventGrid() {
                 if (cell.querySelector(".tbody__actions")) {
                   cell.style.paddingTop = "0";
                   cell.style.paddingBottom = "0";
+                } else if (cell.querySelector(".tbody__text-cell")) {
+                  cell.style.textWrap = "auto";
+                  cell.style.maxWidth = "465px";
                 }
               });
             }
@@ -116,12 +119,10 @@ export function EventGrid() {
           x.End
             ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time)
             : x.Status,
-          x.Regions.length > 1
-            ? `${x.Regions[0]} +${x.Regions.length - 1}`
-            : x.Regions[0],
-          x.Services.length > 1
-            ? `${x.Services[0]} +${x.Services.length - 1}`
-            : x.Services[0],
+          x.Regions.join(", "),
+          x.Services.length > 3
+            ? `${x.Services.slice(0, 3).join(", ")} +${x.Services.length - 3}`
+            : x.Services.join(", "),
           [
             {
               label: "↗",

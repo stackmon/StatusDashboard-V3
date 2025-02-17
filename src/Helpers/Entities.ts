@@ -10,7 +10,8 @@ import { SubjectLike } from "rxjs";
 export const Dic = {
   Name: "SD3",
   TZ: "Europe/Berlin",
-  Time: "DD MMM YYYY, HH:mm [CET]",
+  Time: "DD MMM YYYY, HH:mm",
+  TimeTZ: "DD MMM YYYY, HH:mm [CET]",
   Picker: "YYYY-MM-DDTHH:mm:ss"
 };
 

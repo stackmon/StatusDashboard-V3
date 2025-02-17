@@ -56,8 +56,8 @@ export function EventGrid() {
     grid.fields = [
       { type: "number", label: "ID" },
       { type: "tags", label: "Type" },
-      { type: "date", label: "Start" },
-      { type: "text", label: "Status / Plan" },
+      { type: "date", label: "Start CET", sortable: true },
+      { type: "text", label: "Status / Plan CET" },
       { type: "text", label: "Region", sortable: true },
       { type: "text", label: "Service", sortable: true, stretchWeight: 0.7 },
       { type: "actions", label: "Detail" },

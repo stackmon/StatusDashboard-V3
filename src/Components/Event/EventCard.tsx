@@ -60,11 +60,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {dayjs(Event.Start).tz(Dic.TZ).format(Dic.Time)}
+            {dayjs(Event.Start).tz(Dic.TZ).format(Dic.TimeTZ)}
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.Time) : "Still Ongoing"}
+            {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
         </div>
       </div>

@@ -31,7 +31,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         <div className="flex items-center gap-x-3">
           <Indicator Type={Event.Type} />
 
-          <h3 className="text-2xl font-medium text-slate-800">
+          <h3 className="text-2xl font-medium text-slate-800 break-all">
             {Event.Title}
           </h3>
         </div>
@@ -72,11 +72,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {dayjs(Event.Start).tz(Dic.TZ).format(Dic.Time)}
+            {dayjs(Event.Start).tz(Dic.TZ).format(Dic.TimeTZ)}
           </label>
 
           <label className="text-xl font-medium text-slate-700">
-            {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.Time) : "Still Ongoing"}
+            {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
         </div>
       </div>

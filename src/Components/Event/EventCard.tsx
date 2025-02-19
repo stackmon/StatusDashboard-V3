@@ -19,7 +19,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         <div className="flex items-center gap-x-3">
           <Indicator Type={Event.Type} />
 
-          <h3 className="text-2xl font-medium text-slate-800">
+          <h3 className="text-2xl font-medium text-slate-800 break-all">
             {Event.Title}
           </h3>
         </div>

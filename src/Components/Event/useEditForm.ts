@@ -30,8 +30,8 @@ export function useEditForm(event: Models.IEvent) {
   function setTitle(value = title) {
     let err: boolean = false;
 
-    if (value.length < 8 || value.length > 200) {
-      setValTitle("Title must be between 8 and 200 characters.");
+    if (value.length < 8 || value.length > 100) {
+      setValTitle("Title must be between 8 and 100 characters.");
       err = true;
     }
 

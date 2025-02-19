@@ -33,7 +33,7 @@ export function EventGrid() {
                   cell.style.paddingBottom = "0";
                 } else if (cell.querySelector(".tbody__text-cell")) {
                   cell.style.textWrap = "auto";
-                  cell.style.maxWidth = "465px";
+                  cell.style.maxWidth = "510px";
                 }
               });
             }

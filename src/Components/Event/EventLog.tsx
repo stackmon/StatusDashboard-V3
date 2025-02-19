@@ -35,7 +35,7 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
                 </label>
               </td>
 
-              <td className="text-pretty">{history.Message}</td>
+              <td className="text-pretty break-all">{history.Message}</td>
             </tr>
           ))}
         </tbody>

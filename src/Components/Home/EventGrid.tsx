@@ -31,6 +31,9 @@ export function EventGrid() {
                 if (cell.querySelector(".tbody__actions")) {
                   cell.style.paddingTop = "0";
                   cell.style.paddingBottom = "0";
+                } else if (cell.querySelector(".tbody__text-cell")) {
+                  cell.style.textWrap = "auto";
+                  cell.style.maxWidth = "510px";
                 }
               });
             }
@@ -56,8 +59,8 @@ export function EventGrid() {
     grid.fields = [
       { type: "number", label: "ID" },
       { type: "tags", label: "Type" },
-      { type: "date", label: "Start" },
-      { type: "text", label: "Status / Plan" },
+      { type: "date", label: "Start CET", sortable: true },
+      { type: "text", label: "Status / Plan CET" },
       { type: "text", label: "Region", sortable: true },
       { type: "text", label: "Service", sortable: true, stretchWeight: 0.7 },
       { type: "actions", label: "Detail" },
@@ -116,12 +119,10 @@ export function EventGrid() {
           x.End
             ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time)
             : x.Status,
-          x.Regions.length > 1
-            ? `${x.Regions[0]} +${x.Regions.length - 1}`
-            : x.Regions[0],
-          x.Services.length > 1
-            ? `${x.Services[0]} +${x.Services.length - 1}`
-            : x.Services[0],
+          x.Regions.join(", "),
+          x.Services.length > 3
+            ? `${x.Services.slice(0, 3).join(", ")} +${x.Services.length - 3}`
+            : x.Services.join(", "),
           [
             {
               label: "↗",

@@ -1,4 +1,5 @@
 import { ScaleTelekomHeader, ScaleTelekomNavItem, ScaleTelekomNavList } from "@telekom/scale-components-react";
+import { Authorized } from "../Auth/With";
 import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
 import { ProfileMenu } from "./ProfileMenu";
@@ -30,7 +31,9 @@ export function TopNavBar() {
       </ScaleTelekomNavList>
 
       <ScaleTelekomNavList alignment="right" aria-label="Functions Menu" slot="functions" variant="functions">
-        <ProfileMenu />
+        <Authorized>
+          <ProfileMenu />
+        </Authorized>
         <MobileMenu />
       </ScaleTelekomNavList>
 

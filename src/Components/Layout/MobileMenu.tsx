@@ -1,6 +1,6 @@
 import { ScaleIconActionMenu, ScaleTelekomMobileFlyoutCanvas, ScaleTelekomMobileMenu, ScaleTelekomMobileMenuItem, ScaleTelekomNavFlyout, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
-import { Authorized, NotAuthorized } from "../Auth/With";
+import { Authorized } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -43,13 +43,6 @@ export function MobileMenu() {
                 Logout {auth.user?.profile.name}
               </ScaleTelekomMobileMenuItem>
             </Authorized>
-
-            <NotAuthorized>
-              <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signinRedirect()}>
-                Login
-              </ScaleTelekomMobileMenuItem>
-            </NotAuthorized>
-
           </ScaleTelekomMobileMenu>
         </ScaleTelekomMobileFlyoutCanvas>
       </ScaleTelekomNavFlyout>

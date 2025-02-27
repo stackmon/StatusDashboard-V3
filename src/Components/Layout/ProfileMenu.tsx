@@ -1,6 +1,5 @@
 import { ScaleButton, ScaleIconUserFileUser, ScaleMenuFlyout, ScaleMenuFlyoutItem, ScaleMenuFlyoutList, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
-import { Authorized, NotAuthorized } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -19,27 +18,19 @@ export function ProfileMenu() {
         </ScaleButton>
 
         <ScaleMenuFlyoutList>
-          <Authorized>
-            <ScaleMenuFlyoutItem>
-              Hi, {auth.user?.profile.name}
-            </ScaleMenuFlyoutItem>
+          <ScaleMenuFlyoutItem>
+            Hi, {auth.user?.profile.name}
+          </ScaleMenuFlyoutItem>
 
-            <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
-              Logout
-            </ScaleMenuFlyoutItem>
+          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
+            Logout
+          </ScaleMenuFlyoutItem>
 
-            <ScaleMenuFlyoutItem>
-              <a className="text-black no-underline" href="/NewEvent">
-                New Event
-              </a>
-            </ScaleMenuFlyoutItem>
-          </Authorized>
-
-          <NotAuthorized>
-            <ScaleMenuFlyoutItem onScale-select={() => auth.signinRedirect()}>
-              Login
-            </ScaleMenuFlyoutItem>
-          </NotAuthorized>
+          <ScaleMenuFlyoutItem>
+            <a className="text-black no-underline" href="/NewEvent">
+              New Event
+            </a>
+          </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>
 
       </ScaleMenuFlyout>

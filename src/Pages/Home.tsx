@@ -1,16 +1,17 @@
 import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
+import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { EventType, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
 import { StatusCard } from "~/Components/Home/StatusCard";
-import { Station } from "~/Helpers/Entities";
+import { Dic, Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useStatus } from "~/Services/Status";
 
@@ -32,9 +33,18 @@ export function Home() {
       return new BehaviorSubject(first);
     }), []);
 
+  const [update, setUpdate] = useState<Date>();
+
+  const updateSub = useCreation(
+    () => Station.get<Subject<Date>>("Update"), []);
+
   useEffect(() => {
     const sub = regionSub.subscribe(setRegion);
-    return () => sub.unsubscribe();
+    const sub2 = updateSub.subscribe(setUpdate);
+    return () => {
+      sub.unsubscribe();
+      sub2.unsubscribe();
+    };
   }, []);
 
   const categories = useMemo(() => {
@@ -89,7 +99,7 @@ export function Home() {
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">
           <div className="Blink" />
-          <label>Auto Refresh Enabled</label>
+          <label>{update ? `Last Auto Update at ${dayjs(update).format(Dic.Time)}` : "Auto Refresh Enabled"}</label>
         </div>
 
         <legend className="flex flex-wrap items-center gap-x-6 gap-y-2.5">

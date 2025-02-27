@@ -1,5 +1,7 @@
-import { useRequest } from "ahooks";
+import { useMount, useRequest } from "ahooks";
 import { createContext, JSX, useContext, useState } from "react";
+import { Subject } from "rxjs";
+import { Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { DB } from "./DB";
 import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
@@ -67,7 +69,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
   const url = process.env.SD_BACKEND_URL;
 
-  useRequest(
+  const { runAsync } = useRequest(
     async () => {
       log.info(`Loading status data from v2...`);
 
@@ -93,6 +95,13 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       onSuccess: (res) => update(TransformerV2(res)),
     }
   );
+
+  useMount(() => {
+    const sub = Station.get<Subject<Date>>("Update", () => new Subject());
+    setInterval(() => {
+      runAsync().then(() => sub.next(new Date()));
+    }, 60000);
+  });
 
   function update(data: IStatusContext = ins) {
     const raw = { ...data };

@@ -1,5 +1,6 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { Suspense, useMemo } from "react";
+import { useAuth } from "react-oidc-context";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
@@ -18,6 +19,7 @@ import { NewEvent } from "./NewEvent";
 export function Layout() {
   const { Paths } = useRouter();
   const path = Paths.at(0);
+  const auth = useAuth();
 
   const match = useMemo(() => {
     switch (path) {
@@ -26,6 +28,10 @@ export function Layout() {
 
       case "signout-callback-oidc":
         return <ScaleLoadingSpinner size="large" text="Logout Redirecting..." />;
+
+      case "Login":
+        auth.signinRedirect();
+        return null;
 
       case "Reload":
         return <ScaleLoadingSpinner size="large" text="Reloading..." />;

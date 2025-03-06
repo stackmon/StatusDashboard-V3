@@ -47,7 +47,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             Impact Type:
           </label>
 
-          <label className="text-xl font-medium text-slate-600">
+          <label className="text-xl font-medium text-slate-600 whitespace-nowrap">
             Current Status:
           </label>
 
@@ -60,6 +60,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
               Event.Status !== EventStatus.Completed &&
               "(Plan)"} End At:
           </label>
+
+          {Event.Type === EventType.Maintenance && Event.Description &&
+            <label className="text-xl font-medium text-slate-600">
+              Description:
+            </label>}
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -78,6 +83,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           <label className="text-xl font-medium text-slate-700">
             {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
+
+          {Event.Type === EventType.Maintenance && Event.Description &&
+            <label className="text-xl font-medium text-slate-700 break-all">
+              {Event.Description}
+            </label>}
         </div>
       </div>
 

@@ -180,6 +180,9 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               return EventStatus.Resolved;
 
             case StatusEnum.Description:
+              dbEvent.Description = update.text;
+              break;
+
             case StatusEnum.Scheduled:
             case StatusEnum.Modified:
               return EventStatus.Modified;

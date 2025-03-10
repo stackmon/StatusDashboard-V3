@@ -51,8 +51,6 @@ export class UserMgr extends UserManager {
     const state = btoa(stateObj).replace(/=+$/, '');
 
     const loginUrl = `${process.env.SD_BACKEND_URL}/auth/login?state=${state}`;
-    const current = window.location.href;
-    await this.settings.userStore.set("current", current);
     window.location.href = loginUrl;
   }
 
@@ -91,9 +89,7 @@ export class UserMgr extends UserManager {
     });
 
     await this.storeUser(user);
-    this.settings.userStore.get("current").then((current) => {
-      window.location.href = current || "/";
-    });
+    window.location.href = "/";
     return user;
   }
 }

@@ -63,7 +63,6 @@ export enum EventStatus {
   Modified = "Modified",
   InProgress = "InProgress",
   Completed = "Completed",
-  Cancelled = "Cancelled",
 }
 
 /**
@@ -72,7 +71,7 @@ export enum EventStatus {
  * @version 0.1.0
  */
 export function IsOpenStatus(status: EventStatus): boolean {
-  return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
+  return ![EventStatus.Completed, EventStatus.Resolved].includes(status);
 }
 
 /**
@@ -97,6 +96,4 @@ export function GetStatusString(status: EventStatus): string {
     case EventStatus.Completed:
       return StatusEnum.Completed;
   }
-
-  throw new Error("Invalid status: " + status);
 }

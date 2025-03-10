@@ -137,15 +137,15 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
     }
 
     if (event.updates?.length) {
-      let prev: EventStatus | undefined;
+      let prev = dbEvent.Status;
 
       for (const update of event.updates) {
         const status = (() => {
           switch (update.status) {
             case StatusEnum.System:
               return event.end_date
-                ? EventStatus.Cancelled
-                : EventStatus.Analysing;
+                ? type === EventType.Maintenance ? EventStatus.Completed : EventStatus.Resolved
+                : prev;
 
             case StatusEnum.Analyzing:
               return EventStatus.Analysing;
@@ -171,7 +171,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Changed:
             case StatusEnum.ImpactChanged:
-              return prev || EventStatus.Analysing;
+              return prev;
 
             default:
               break;
@@ -204,8 +204,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
     }
 
     if (dbEvent.End &&
-      dbEvent.Type === EventType.Maintenance &&
-      dbEvent.Status !== EventStatus.Cancelled &&
+      type === EventType.Maintenance &&
       dayjs(dbEvent.End).isBefore(dayjs())) {
       dbEvent.Status = EventStatus.Completed;
     }

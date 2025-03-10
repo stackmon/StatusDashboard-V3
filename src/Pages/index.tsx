@@ -29,7 +29,7 @@ export function Layout() {
       case "signout-callback-oidc":
         return <ScaleLoadingSpinner size="large" text="Logout Redirecting..." />;
 
-      case "Login":
+      case "login":
         auth.signinRedirect();
         return null;
 

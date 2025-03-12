@@ -41,7 +41,9 @@ export function useEditForm(event: Models.IEvent) {
     }
 
     _setTitle(value);
-    !err && setValTitle(undefined);
+    if (!err) {
+      setValTitle(undefined);
+    }
 
     return !err;
   }
@@ -89,7 +91,9 @@ export function useEditForm(event: Models.IEvent) {
     }
 
     _setUpdate(value);
-    !err && setValUpdate(undefined);
+    if (!err) {
+      setValUpdate(undefined);
+    }
 
     return !err;
   }
@@ -128,7 +132,9 @@ export function useEditForm(event: Models.IEvent) {
       err = true;
     }
 
-    !err && setValStart(undefined);
+    if (!err) {
+      setValStart(undefined);
+    }
     _setStart(value);
 
     return !err;
@@ -144,7 +150,9 @@ export function useEditForm(event: Models.IEvent) {
       err = true;
     }
 
-    !err && setValEnd(undefined);
+    if (!err) {
+      setValEnd(undefined);
+    }
     _setEnd(value);
 
     return !err;

@@ -1,5 +1,6 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
+import { orderBy } from "lodash";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType } from "../Event/Enums";
@@ -85,7 +86,7 @@ export function NewForm() {
             </thead>
 
             <tbody>
-              {DB.Services.map((service, i) => (
+              {orderBy(DB.Services, x => x.Name).map((service, i) => (
                 <tr key={i}>
                   <td>{service.Name}</td>
                   {DB.Regions.map((region, j) => {

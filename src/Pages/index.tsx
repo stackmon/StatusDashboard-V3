@@ -1,3 +1,4 @@
+import { FluentProvider, Toaster, webLightTheme } from "@fluentui/react-components";
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { Suspense, useMemo } from "react";
 import { useAuth } from "react-oidc-context";
@@ -68,6 +69,10 @@ export function Layout() {
       </main>
 
       <PageFooter />
+
+      <FluentProvider theme={webLightTheme}>
+        <Toaster />
+      </FluentProvider>
     </div>
   );
 }

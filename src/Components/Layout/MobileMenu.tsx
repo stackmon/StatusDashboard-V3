@@ -1,6 +1,7 @@
 import { ScaleIconActionMenu, ScaleTelekomMobileFlyoutCanvas, ScaleTelekomMobileMenu, ScaleTelekomMobileMenuItem, ScaleTelekomNavFlyout, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
 import { Authorized } from "../Auth/With";
+import { useExpireMin } from "./useExpireMin";
 
 /**
  * @author Aloento
@@ -9,6 +10,7 @@ import { Authorized } from "../Auth/With";
  */
 export function MobileMenu() {
   const auth = useAuth();
+  const exp = useExpireMin();
 
   return (
     <ScaleTelekomNavItem hideOnDesktop>
@@ -40,7 +42,7 @@ export function MobileMenu() {
               </ScaleTelekomMobileMenuItem>
 
               <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutRedirect()}>
-                Logout {auth.user?.profile.name}
+                {exp} Logout {auth.user?.profile.name}
               </ScaleTelekomMobileMenuItem>
             </Authorized>
           </ScaleTelekomMobileMenu>

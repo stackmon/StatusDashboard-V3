@@ -1,5 +1,6 @@
 import { ScaleButton, ScaleIconUserFileUser, ScaleMenuFlyout, ScaleMenuFlyoutItem, ScaleMenuFlyoutList, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
+import { useExpireMin } from "./useExpireMin";
 
 /**
  * @author Aloento
@@ -8,13 +9,15 @@ import { useAuth } from "react-oidc-context";
  */
 export function ProfileMenu() {
   const auth = useAuth();
+  const exp = useExpireMin();
 
   return (
     <ScaleTelekomNavItem hideOnMobile>
       <ScaleMenuFlyout>
 
-        <ScaleButton slot="trigger" variant="secondary" iconOnly>
+        <ScaleButton slot="trigger" variant="secondary">
           <ScaleIconUserFileUser accessibility-title="Menu" />
+          {exp}
         </ScaleButton>
 
         <ScaleMenuFlyoutList>

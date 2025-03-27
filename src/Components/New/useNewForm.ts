@@ -92,7 +92,7 @@ export function useNewForm() {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
-    if (value > now) {
+    if (value > now && type !== EventType.Maintenance) {
       setValStart("Start Date cannot be in the future.");
       err = true;
     }

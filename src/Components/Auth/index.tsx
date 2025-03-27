@@ -1,7 +1,6 @@
 import { useMount, useUpdateEffect } from "ahooks";
 import { ReactNode } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
-import { Common } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { useRouter } from "../Router";
 import { UserMgr } from "./UserMgr";
@@ -30,7 +29,7 @@ const log = new Logger("Auth");
  * @version 1.0.0
  */
 function AuthHandler() {
-  const auth = (Common.AuthSlot = useAuth());
+  const auth = useAuth();
   const { Paths, Reload } = useRouter();
 
   useMount(() => {

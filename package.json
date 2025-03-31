@@ -20,7 +20,7 @@
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "oidc-client-ts": "^3.2.0",
-    "react": "^19.0.0",
+    "react": "^19.1.0",
     "react-dom": "^19.0.0",
     "react-helmet": "^6.1.0",
     "react-oidc-context": "^3.3.0",

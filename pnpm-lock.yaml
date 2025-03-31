@@ -109,8 +109,8 @@ importers:
         specifier: ^8.5.3
         version: 8.5.3
       react-refresh:
-        specifier: ^0.16.0
-        version: 0.16.0
+        specifier: ^0.17.0
+        version: 0.17.0
       tailwindcss:
         specifier: 3.4.17
         version: 3.4.17
@@ -3051,8 +3051,8 @@ packages:
       oidc-client-ts: ^3.1.0
       react: '>=16.14.0'
 
-  react-refresh@0.16.0:
-    resolution: {integrity: sha512-FPvF2XxTSikpJxcr+bHut2H4gJ17+18Uy20D5/F+SKzFap62R3cM5wH6b8WN3LyGSYeQilLEcJcR1fjBSI2S1A==}
+  react-refresh@0.17.0:
+    resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
   react-side-effect@2.1.2:
@@ -7137,7 +7137,7 @@ snapshots:
       oidc-client-ts: 3.2.0
       react: 19.0.0
 
-  react-refresh@0.16.0: {}
+  react-refresh@0.17.0: {}
 
   react-side-effect@2.1.2(react@19.0.0):
     dependencies:

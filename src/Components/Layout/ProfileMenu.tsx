@@ -1,6 +1,5 @@
 import { ScaleButton, ScaleIconUserFileUser, ScaleMenuFlyout, ScaleMenuFlyoutItem, ScaleMenuFlyoutList, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
-import { useExpireMin } from "./useExpireMin";
 
 /**
  * @author Aloento
@@ -9,15 +8,13 @@ import { useExpireMin } from "./useExpireMin";
  */
 export function ProfileMenu() {
   const auth = useAuth();
-  const exp = useExpireMin();
 
   return (
     <ScaleTelekomNavItem hideOnMobile>
       <ScaleMenuFlyout>
 
-        <ScaleButton slot="trigger" variant="secondary">
+        <ScaleButton slot="trigger" variant="secondary" iconOnly>
           <ScaleIconUserFileUser accessibility-title="Menu" />
-          {exp}
         </ScaleButton>
 
         <ScaleMenuFlyoutList>
@@ -25,14 +22,14 @@ export function ProfileMenu() {
             Hi, {auth.user?.profile.name}
           </ScaleMenuFlyoutItem>
 
-          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
-            Logout
-          </ScaleMenuFlyoutItem>
-
           <ScaleMenuFlyoutItem>
             <a className="text-black no-underline" href="/NewEvent">
               New Event
             </a>
+          </ScaleMenuFlyoutItem>
+
+          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
+            Logout
           </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>
 

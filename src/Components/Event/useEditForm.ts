@@ -1,8 +1,8 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
-import { useAuth } from "react-oidc-context";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
+import { useAccessToken } from "../Auth/useAccessToken";
 import { EventStatus, EventType, GetEventImpact, GetStatusString, IsOpenStatus } from "./Enums";
 
 /**
@@ -141,7 +141,7 @@ export function useEditForm(event: Models.IEvent) {
     setEnd();
   }, [start, end]);
 
-  const { user } = useAuth();
+  const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd()].every(Boolean)) {
@@ -183,7 +183,7 @@ export function useEditForm(event: Models.IEvent) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user?.access_token}`
+        "Authorization": `Bearer ${getToken()}`
       },
       body: JSON.stringify(body)
     });

@@ -1,8 +1,8 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
-import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
+import { useAccessToken } from "../Auth/useAccessToken";
 import { EventStatus, EventType, GetEventImpact } from "../Event/Enums";
 import { useRouter } from "../Router";
 
@@ -134,7 +134,7 @@ export function useNewForm() {
   }
 
   const { Nav } = useRouter();
-  const { user } = useAuth();
+  const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setDescription(), setStart, setEnd(), setServices()].every(Boolean)) {
@@ -181,7 +181,7 @@ export function useNewForm() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user?.access_token}`
+        "Authorization": `Bearer ${getToken()}`
       },
       body: JSON.stringify(body)
     });

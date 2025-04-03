@@ -59,14 +59,14 @@ function AuthHandler() {
 
             <ToastFooter>
               <Link
-                onClick={() => userMgr.signinRedirect()}>
+                onClick={() => auth.signinRedirect()}>
                 Login Again
               </Link>
 
               <ToastTrigger>
                 <Link
                   href="/"
-                  onClick={() => auth.removeUser()}>
+                  onClick={() => auth.signoutSilent()}>
                   Dismiss
                 </Link>
               </ToastTrigger>

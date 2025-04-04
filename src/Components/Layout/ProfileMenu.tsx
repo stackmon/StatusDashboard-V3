@@ -22,14 +22,14 @@ export function ProfileMenu() {
             Hi, {auth.user?.profile.name}
           </ScaleMenuFlyoutItem>
 
-          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutRedirect()}>
-            Logout
-          </ScaleMenuFlyoutItem>
-
           <ScaleMenuFlyoutItem>
             <a className="text-black no-underline" href="/NewEvent">
               New Event
             </a>
+          </ScaleMenuFlyoutItem>
+
+          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutSilent()}>
+            Logout
           </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>
 

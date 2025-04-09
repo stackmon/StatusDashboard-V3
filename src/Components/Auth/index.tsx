@@ -45,34 +45,41 @@ function AuthHandler() {
     }
   });
 
+  function dispatch() {
+    dispatchToast(
+      <Toast>
+        <ToastTitle>
+          Login Expired
+        </ToastTitle>
+
+        <ToastFooter>
+          <Link
+            onClick={() => auth.signinRedirect()}>
+            Login Again
+          </Link>
+
+          <ToastTrigger>
+            <Link
+              href="/">
+              Dismiss
+            </Link>
+          </ToastTrigger>
+        </ToastFooter>
+      </Toast>,
+      { intent: "warning", timeout: -1 }
+    );
+
+    auth.signoutSilent();
+  }
+
   useEffect(() => {
     if (auth.error)
       log.warn(auth.error);
 
     if (auth.user?.expired) {
-      dispatchToast(
-        <Toast>
-          <ToastTitle>
-            Login Expired
-          </ToastTitle>
-
-          <ToastFooter>
-            <Link
-              onClick={() => auth.signinRedirect()}>
-              Login Again
-            </Link>
-
-            <ToastTrigger>
-              <Link
-                href="/"
-                onClick={() => auth.signoutSilent()}>
-                Dismiss
-              </Link>
-            </ToastTrigger>
-          </ToastFooter>
-        </Toast>,
-        { intent: "warning", timeout: -1 }
-      );
+      auth.signinSilent().then((user) => {
+        if (!user) dispatch();
+      }).catch(() => dispatch())
     }
   }, [auth.error, auth.user]);
 

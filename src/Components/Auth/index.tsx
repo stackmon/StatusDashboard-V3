@@ -49,32 +49,30 @@ function AuthHandler() {
     if (auth.error)
       log.warn(auth.error);
 
-    if (auth.user?.expires_in) {
-      setTimeout(() => {
-        dispatchToast(
-          <Toast>
-            <ToastTitle>
-              Login Expired
-            </ToastTitle>
+    if (auth.user?.expired) {
+      dispatchToast(
+        <Toast>
+          <ToastTitle>
+            Login Expired
+          </ToastTitle>
 
-            <ToastFooter>
+          <ToastFooter>
+            <Link
+              onClick={() => auth.signinRedirect()}>
+              Login Again
+            </Link>
+
+            <ToastTrigger>
               <Link
-                onClick={() => auth.signinRedirect()}>
-                Login Again
+                href="/"
+                onClick={() => auth.signoutSilent()}>
+                Dismiss
               </Link>
-
-              <ToastTrigger>
-                <Link
-                  href="/"
-                  onClick={() => auth.signoutSilent()}>
-                  Dismiss
-                </Link>
-              </ToastTrigger>
-            </ToastFooter>
-          </Toast>,
-          { intent: "warning", timeout: -1 }
-        );
-      }, auth.user.expires_in * 1000);
+            </ToastTrigger>
+          </ToastFooter>
+        </Toast>,
+        { intent: "warning", timeout: -1 }
+      );
     }
   }, [auth.error, auth.user]);
 

@@ -14,8 +14,7 @@ export class UserMgr extends UserManager {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: process.env.SD_AUTHORITY_URL!,
       post_logout_redirect_uri: `${window.location.origin}/signout-callback-oidc`,
-      redirect_uri: `${window.location.origin}/signin-oidc`,
-      automaticSilentRenew: false
+      redirect_uri: `${window.location.origin}/signin-oidc`
     });
   }
 
@@ -62,6 +61,7 @@ export class UserMgr extends UserManager {
 
     const data = await res.json();
     const access = data.access_token;
+    const refresh = data.refresh_token;
 
     if (!access)
       throw new Error("Access token not found in response");
@@ -70,6 +70,7 @@ export class UserMgr extends UserManager {
 
     const user = new User({
       access_token: access,
+      refresh_token: refresh,
       token_type: "Bearer",
       profile: decodedToken as User["profile"],
       expires_at: decodedToken.exp,
@@ -78,5 +79,46 @@ export class UserMgr extends UserManager {
     await this.storeUser(user);
     window.location.href = "/";
     return user;
+  }
+
+  override async signinSilent(): Promise<User | null> {
+    const user = await this.getUser();
+
+    if (user && user.refresh_token) {
+      const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/refresh`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token: user.refresh_token,
+        }),
+      });
+
+      if (!res.ok)
+        throw new Error("Failed to refresh token");
+
+      const data = await res.json();
+      const access = data.access_token;
+      const refresh = data.refresh_token;
+
+      if (!access)
+        throw new Error("Access token not found in response");
+
+      const decodedToken = jwtDecode(access);
+
+      const newUser = new User({
+        access_token: access,
+        refresh_token: refresh,
+        token_type: "Bearer",
+        profile: decodedToken as User["profile"],
+        expires_at: decodedToken.exp,
+      });
+
+      await this.storeUser(newUser);
+      return newUser;
+    }
+
+    return null;
   }
 }

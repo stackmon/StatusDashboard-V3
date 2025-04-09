@@ -63,8 +63,8 @@ export class UserMgr extends UserManager {
     const access = data.access_token;
     const refresh = data.refresh_token;
 
-    if (!access)
-      throw new Error("Access token not found in response");
+    if (!access || !refresh)
+      throw new Error("Token not found in response");
 
     const decodedToken = jwtDecode(access);
 
@@ -77,6 +77,8 @@ export class UserMgr extends UserManager {
     });
 
     await this.storeUser(user);
+    await this._events.load(user);
+
     window.location.href = "/";
     return user;
   }
@@ -84,7 +86,7 @@ export class UserMgr extends UserManager {
   override async signinSilent(): Promise<User | null> {
     const user = await this.getUser();
 
-    if (user && user.refresh_token) {
+    if (user?.refresh_token) {
       const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/refresh`, {
         method: "POST",
         headers: {
@@ -102,8 +104,8 @@ export class UserMgr extends UserManager {
       const access = data.access_token;
       const refresh = data.refresh_token;
 
-      if (!access)
-        throw new Error("Access token not found in response");
+      if (!access || !refresh)
+        throw new Error("Token not found in response");
 
       const decodedToken = jwtDecode(access);
 
@@ -116,6 +118,8 @@ export class UserMgr extends UserManager {
       });
 
       await this.storeUser(newUser);
+      await this._events.load(user);
+
       return newUser;
     }
 

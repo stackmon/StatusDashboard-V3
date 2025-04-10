@@ -9,10 +9,6 @@ import { useAuth } from "react-oidc-context";
 export function Authorized({ children }: { children: ReactNode }): ReactNode {
   const auth = useAuth();
 
-  if (auth.isLoading) {
-    return "Authenticating...";
-  }
-
   if (auth.isAuthenticated) {
     return children;
   }

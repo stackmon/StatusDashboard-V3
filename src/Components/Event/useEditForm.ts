@@ -158,6 +158,22 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
+  const [updateAt, _setUpdateAt] = useState<Date>(new Date());
+  const [valUpdateAt, setValUpdateAt] = useState<string>();
+  function setUpdateAt(value = updateAt) {
+    let err: boolean = false;
+
+    if (value && value < start) {
+      setValUpdateAt("Update Date cannot be earlier than Start Date.");
+      err = true;
+    }
+
+    !err && setValUpdateAt(undefined);
+    _setUpdateAt(value);
+
+    return !err;
+  }
+
   useEffect(() => {
     setStart();
     setEnd();
@@ -166,7 +182,7 @@ export function useEditForm(event: Models.IEvent) {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
 
@@ -177,7 +193,7 @@ export function useEditForm(event: Models.IEvent) {
       status: GetStatusString(status),
       impact: GetEventImpact(type),
       message: update,
-      update_date: new Date().toISOString(),
+      update_date: updateAt.toISOString(),
     };
 
     if (event.Type !== type) {
@@ -226,7 +242,8 @@ export function useEditForm(event: Models.IEvent) {
       update,
       status,
       start,
-      end
+      end,
+      updateAt,
     },
     Actions: {
       setTitle,
@@ -234,7 +251,8 @@ export function useEditForm(event: Models.IEvent) {
       setUpdate,
       setStatus,
       setStart,
-      setEnd
+      setEnd,
+      setUpdateAt,
     },
     Validation: {
       title: valTitle,
@@ -242,7 +260,8 @@ export function useEditForm(event: Models.IEvent) {
       update: valUpdate,
       status: valStatus,
       start: valStart,
-      end: valEnd
+      end: valEnd,
+      updateAt: valUpdateAt,
     },
     OnSubmit: runAsync,
     Loading: loading

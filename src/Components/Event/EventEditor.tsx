@@ -108,6 +108,15 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.end}
         />
 
+        <ScaleTextField
+          type="datetime-local"
+          label="Updated At"
+          value={dayjs(State.updateAt).format(Dic.Picker)}
+          onScale-input={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
+          invalid={!!Validation.updateAt}
+          helperText={Validation.updateAt}
+        />
+
         <ScaleTextarea
           label="Update Message"
           resize="vertical"

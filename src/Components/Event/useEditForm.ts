@@ -182,7 +182,7 @@ export function useEditForm(event: Models.IEvent) {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart, setEnd(), setUpdateAt()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
 

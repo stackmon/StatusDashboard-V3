@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.4",
-    "@farmfe/core": "^1.7.2",
+    "@farmfe/core": "^1.7.3",
     "@farmfe/js-plugin-postcss": "^1.12.0",
     "@farmfe/plugin-react": "^1.2.6",
     "@tailwindcss/postcss": "^4.1.3",

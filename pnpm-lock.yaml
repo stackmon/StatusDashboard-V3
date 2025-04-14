@@ -55,11 +55,11 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       '@farmfe/core':
-        specifier: ^1.7.2
-        version: 1.7.2
+        specifier: ^1.7.3
+        version: 1.7.3
       '@farmfe/js-plugin-postcss':
         specifier: ^1.12.0
-        version: 1.12.0(@farmfe/core@1.7.2)(postcss@8.5.3)
+        version: 1.12.0(@farmfe/core@1.7.3)(postcss@8.5.3)
       '@farmfe/plugin-react':
         specifier: ^1.2.6
         version: 1.2.6
@@ -439,62 +439,62 @@ packages:
     engines: {node: '>= 16'}
     hasBin: true
 
-  '@farmfe/core-darwin-arm64@1.7.2':
-    resolution: {integrity: sha512-E0rzh7NOBoAZIV7pEQ7S7U8BL26YCsI2lBCtzxi57JI2NkO0PPUhMNhfpzaxErhPkuIs0n0hmp3hlxyLDX1Hxg==}
+  '@farmfe/core-darwin-arm64@1.7.3':
+    resolution: {integrity: sha512-vy+KVXN2A+sYSHijAs0H7WoB5Ix4ZKX3GXiKyBSzHPQx3ttiy6vvvAjOld7sWJzmWCC9pVERtMXWBHoiOhkZsg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@farmfe/core-darwin-x64@1.7.2':
-    resolution: {integrity: sha512-sn34XfsexSZz7bDfRYsMDUBmNDQgaxfqYN9pjC4xuECSiHSrlAGZ6JDqy0+GE395UoChVBYTdKVqlKcS7KKZuw==}
+  '@farmfe/core-darwin-x64@1.7.3':
+    resolution: {integrity: sha512-NlrvLsdZtRzZWZVM8S9IYl+jRhAoA6wwzrkTocg9Cj3cRZ3ICOGx+tYOQLlHeVN1zJHe4raFJ86xWiQTJJplrg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@farmfe/core-linux-arm64-gnu@1.7.2':
-    resolution: {integrity: sha512-tMhJ+e5R1av6M9xq4I553lk+gw6Iwr9HCaYeG964FKJFNrwNIe2Yoenv8l8a5Fa4Y+zUWZ9pxMh996Ma0YtdJA==}
+  '@farmfe/core-linux-arm64-gnu@1.7.3':
+    resolution: {integrity: sha512-j1E519tQYrmRyUz7+CKeIdUbMFRhk4Ozq19UFWSnZgeXc01msoCG+G6loMDGqXE0DcqIX9U7xk2OS/Zg9+W+2Q==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-arm64-musl@1.7.2':
-    resolution: {integrity: sha512-H5DKYtyfE5nmnYj610KEuDiqNA8x+rJct8lSTt/DvjatW/JNDgzMD0b6ObKJEatYxYu4Cp2GQAldutk+joednA==}
+  '@farmfe/core-linux-arm64-musl@1.7.3':
+    resolution: {integrity: sha512-CtrWNvsoCk2UgZa2D6x/2/mwrU4BxbUN/PAC1rHfg8X3tu9QywskZtZvG4Znef5HzMLePdA/MnqzKjUdlXi+3Q==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-x64-gnu@1.7.2':
-    resolution: {integrity: sha512-MAMm8d/qyb4N9NS5zlSs+gxsaoA+FreGn1t4mGFhaoP86gDAo3iIRBNL2HoCfE8aTGJJ7BdaOrWCHejd0cST6Q==}
+  '@farmfe/core-linux-x64-gnu@1.7.3':
+    resolution: {integrity: sha512-n73338Vs65XlFw6O9lRRQv4WOQ8PmZcp5qoVGXri24MmAGNo/AFPrsPYDLXa89Hf1KVSPzp484yR1gXcyeaJLw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@farmfe/core-linux-x64-musl@1.7.2':
-    resolution: {integrity: sha512-zJLMEsMToe/6CqaYyivZS+TWupD+7NH9n3++0iREqiKTcz7BIDSvHKmKr3p0ygMW7IahdFQCOwinxPbpSiyzPQ==}
+  '@farmfe/core-linux-x64-musl@1.7.3':
+    resolution: {integrity: sha512-nh0fNB2vaxYi69XNEredgt6zddqv1cNBldcV2vxB1IgmT/gp7QhYfzqRJW93B9OrBNLwp+Xjr04DWaZmKYek5g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@farmfe/core-win32-arm64-msvc@1.7.2':
-    resolution: {integrity: sha512-3QoE8SOT8Ph4gT+GCkQCRC5xHIngiuSXiz8KHcqe1oSvyAjd4POXgDtMKf6GtLELwoKNtJNTNABOCLyTlawGGA==}
+  '@farmfe/core-win32-arm64-msvc@1.7.3':
+    resolution: {integrity: sha512-9NCHnUsbNMQiN3LUKSLFfnqWEm+7pRofpP6FJit339jXMwzgfo1hzeGie3BYDHyWin39445zZP75h/VJ23FCHA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@farmfe/core-win32-ia32-msvc@1.7.2':
-    resolution: {integrity: sha512-jNITTBiwWWAauS3aGvkKC9AS8+3djsfFmnrF/oI3lLe5OqN9bt9by7baS9sUc3h3Xrwl1SVJZgPqakv0vWXNww==}
+  '@farmfe/core-win32-ia32-msvc@1.7.3':
+    resolution: {integrity: sha512-/KsKmIpKi84soB/ngY+uUoZJXa3XKvl/odNy0lO8lHC6zrBFRg0Dp/0XCYaQGVnFjwgMjMU7FZHNBvG0G+XIaA==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@farmfe/core-win32-x64-msvc@1.7.2':
-    resolution: {integrity: sha512-EBSsB3YCI3LyPJLvYMd+ZXNpj8t8ZYWR1Zgt28CAolZK6eXUvzJRU0y5QVx7qLZz0qxJvE8a3Gy7/8IAkVnnaw==}
+  '@farmfe/core-win32-x64-msvc@1.7.3':
+    resolution: {integrity: sha512-ammgj4GQXmHJy9vyvtd8bjQhPnWaOOpz0MHvuxUhczBxBNvzwARK1is0+v6EsZi9rTTJ8eWwn58Q5twiApYp3w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@farmfe/core@1.7.2':
-    resolution: {integrity: sha512-HN8YaQJvVBBodqzvq5eFfqbX7ueNsdBvSS8IsTiOZkFlnPr6mikvt5UIySkWHa110yAEdKCuGMCTWedNANzXDQ==}
+  '@farmfe/core@1.7.3':
+    resolution: {integrity: sha512-+WfcgEvDtPM2Vfh2tAM0qJiaecLseMOCUN/XQbiW9wPWsWP5iaBEyQsXgNkwZJLvvDBkiglOgjN0XCxh+wJW0g==}
     engines: {node: '>=16.15.1'}
 
   '@farmfe/js-plugin-postcss@1.12.0':
@@ -1291,6 +1291,9 @@ packages:
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
+  '@swc/helpers@0.5.17':
+    resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
+
   '@tailwindcss/node@4.1.3':
     resolution: {integrity: sha512-H/6r6IPFJkCfBJZ2dKZiPJ7Ueb2wbL592+9bQEl2r73qbX6yGnmQVIfiUvDRB2YI0a3PWDrzUwkvQx1XW1bNkA==}
 
@@ -1709,6 +1712,9 @@ packages:
   caniuse-lite@1.0.30001712:
     resolution: {integrity: sha512-MBqPpGYYdQ7/hfKiet9SCI+nmN5/hp4ZzveOJubl5DTAMa5oggjAuoi0Z4onBpKPFI2ePGnQuQIzF3VxDjDJig==}
 
+  caniuse-lite@1.0.30001713:
+    resolution: {integrity: sha512-wCIWIg+A4Xr7NfhTuHdX+/FKh3+Op3LBbSp2N5Pfx6T/LhdQy3GTyoTg48BReaW/MyMNZAkTadsBtai3ldWK0Q==}
+
   chai@5.2.0:
     resolution: {integrity: sha512-mCuXncKXk5iCLhfhwTc0izo0gtEmpz5CtG2y8GiOINBlMVS6v8TMRc5TaLWKS6692m9+dVVfzgeVxR5UxWHTYw==}
     engines: {node: '>=12'}
@@ -1936,8 +1942,8 @@ packages:
     resolution: {integrity: sha512-zIHwmZPRshsCdpMDyVsqGmgyP0yT8GAgXUnkdAoJisxvf33k7yO6OuoKmcTGuXPWSsm8Oh88nZicRLA9Y0rUeA==}
     engines: {node: '>=12'}
 
-  dotenv@16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -2336,8 +2342,8 @@ packages:
     resolution: {integrity: sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==}
     engines: {node: '>= 14'}
 
-  http-proxy-middleware@3.0.4:
-    resolution: {integrity: sha512-LRX3BKgdEyHjLMz608kicoz5E6zGdkSpDwLYVBsJlDpQ3wcqh/Wdsopf2KrysXnNeM7jJJk4KXCV14u8SCLZzQ==}
+  http-proxy-middleware@3.0.5:
+    resolution: {integrity: sha512-GLZZm1X38BPY4lkXA01jhwxvDoOkkXqjgVyUzVxiEK4iuRu03PZoYHhHRwxnfhQMDuaxi3vVri0YgSro/1oWqg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
   http-proxy@1.18.1:
@@ -3956,51 +3962,51 @@ snapshots:
       inquirer: 9.2.12
       walkdir: 0.4.1
 
-  '@farmfe/core-darwin-arm64@1.7.2':
+  '@farmfe/core-darwin-arm64@1.7.3':
     optional: true
 
-  '@farmfe/core-darwin-x64@1.7.2':
+  '@farmfe/core-darwin-x64@1.7.3':
     optional: true
 
-  '@farmfe/core-linux-arm64-gnu@1.7.2':
+  '@farmfe/core-linux-arm64-gnu@1.7.3':
     optional: true
 
-  '@farmfe/core-linux-arm64-musl@1.7.2':
+  '@farmfe/core-linux-arm64-musl@1.7.3':
     optional: true
 
-  '@farmfe/core-linux-x64-gnu@1.7.2':
+  '@farmfe/core-linux-x64-gnu@1.7.3':
     optional: true
 
-  '@farmfe/core-linux-x64-musl@1.7.2':
+  '@farmfe/core-linux-x64-musl@1.7.3':
     optional: true
 
-  '@farmfe/core-win32-arm64-msvc@1.7.2':
+  '@farmfe/core-win32-arm64-msvc@1.7.3':
     optional: true
 
-  '@farmfe/core-win32-ia32-msvc@1.7.2':
+  '@farmfe/core-win32-ia32-msvc@1.7.3':
     optional: true
 
-  '@farmfe/core-win32-x64-msvc@1.7.2':
+  '@farmfe/core-win32-x64-msvc@1.7.3':
     optional: true
 
-  '@farmfe/core@1.7.2':
+  '@farmfe/core@1.7.3':
     dependencies:
       '@farmfe/runtime': 0.12.10
       '@farmfe/runtime-plugin-hmr': 3.5.10
       '@farmfe/runtime-plugin-import-meta': 0.2.3
       '@farmfe/utils': 0.1.0
       '@koa/cors': 5.0.0
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       chokidar: 3.6.0
       deepmerge: 4.3.1
-      dotenv: 16.4.7
+      dotenv: 16.5.0
       dotenv-expand: 11.0.7
       execa: 7.2.0
       farm-browserslist-generator: 1.0.5
       farm-plugin-replace-dirname: 0.2.1
       fast-glob: 3.3.3
       fs-extra: 11.3.0
-      http-proxy-middleware: 3.0.4
+      http-proxy-middleware: 3.0.5
       is-plain-object: 5.0.0
       koa: 2.16.1
       koa-compress: 5.1.1
@@ -4013,23 +4019,23 @@ snapshots:
       zod: 3.24.2
       zod-validation-error: 1.5.0(zod@3.24.2)
     optionalDependencies:
-      '@farmfe/core-darwin-arm64': 1.7.2
-      '@farmfe/core-darwin-x64': 1.7.2
-      '@farmfe/core-linux-arm64-gnu': 1.7.2
-      '@farmfe/core-linux-arm64-musl': 1.7.2
-      '@farmfe/core-linux-x64-gnu': 1.7.2
-      '@farmfe/core-linux-x64-musl': 1.7.2
-      '@farmfe/core-win32-arm64-msvc': 1.7.2
-      '@farmfe/core-win32-ia32-msvc': 1.7.2
-      '@farmfe/core-win32-x64-msvc': 1.7.2
+      '@farmfe/core-darwin-arm64': 1.7.3
+      '@farmfe/core-darwin-x64': 1.7.3
+      '@farmfe/core-linux-arm64-gnu': 1.7.3
+      '@farmfe/core-linux-arm64-musl': 1.7.3
+      '@farmfe/core-linux-x64-gnu': 1.7.3
+      '@farmfe/core-linux-x64-musl': 1.7.3
+      '@farmfe/core-win32-arm64-msvc': 1.7.3
+      '@farmfe/core-win32-ia32-msvc': 1.7.3
+      '@farmfe/core-win32-x64-msvc': 1.7.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@farmfe/js-plugin-postcss@1.12.0(@farmfe/core@1.7.2)(postcss@8.5.3)':
+  '@farmfe/js-plugin-postcss@1.12.0(@farmfe/core@1.7.3)(postcss@8.5.3)':
     dependencies:
-      '@farmfe/core': 1.7.2
+      '@farmfe/core': 1.7.3
       postcss: 8.5.3
 
   '@farmfe/plugin-react-darwin-arm64@1.2.6':
@@ -4104,11 +4110,11 @@ snapshots:
 
   '@fluentui/keyboard-keys@9.0.8':
     dependencies:
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
 
   '@fluentui/priority-overflow@9.1.15':
     dependencies:
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
 
   '@fluentui/react-accordion@9.6.6(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
@@ -4123,7 +4129,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4141,7 +4147,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4156,7 +4162,7 @@ snapshots:
       '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.0)(react@19.1.0)
       '@fluentui/react-tabster': 9.24.4(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4175,7 +4181,7 @@ snapshots:
       '@fluentui/react-tooltip': 9.6.4(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4191,7 +4197,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4209,7 +4215,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4226,7 +4232,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4242,7 +4248,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4261,7 +4267,7 @@ snapshots:
       '@fluentui/react-tooltip': 9.6.4(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       embla-carousel: 8.6.0
@@ -4283,7 +4289,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4301,7 +4307,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4324,7 +4330,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4405,7 +4411,7 @@ snapshots:
   '@fluentui/react-context-selector@9.1.75(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4427,7 +4433,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4442,7 +4448,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4459,7 +4465,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4477,7 +4483,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4498,7 +4504,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4514,7 +4520,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4533,7 +4539,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4549,7 +4555,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4560,7 +4566,7 @@ snapshots:
   '@fluentui/react-jsx-runtime@9.0.53(@types/react@19.1.0)(react@19.1.0)':
     dependencies:
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       react: 19.1.0
       react-is: 17.0.2
@@ -4572,7 +4578,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4587,7 +4593,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4604,7 +4610,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4626,7 +4632,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4644,7 +4650,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4654,7 +4660,7 @@ snapshots:
   '@fluentui/react-motion-components-preview@0.4.8(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/react-motion': 9.7.1(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4664,7 +4670,7 @@ snapshots:
     dependencies:
       '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.0)(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4678,7 +4684,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4695,7 +4701,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4716,7 +4722,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4730,7 +4736,7 @@ snapshots:
       '@fluentui/react-tabster': 9.24.4(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4745,7 +4751,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4759,7 +4765,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4777,7 +4783,7 @@ snapshots:
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/core': 1.19.1
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4793,7 +4799,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4810,7 +4816,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4825,7 +4831,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4842,7 +4848,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4853,7 +4859,7 @@ snapshots:
   '@fluentui/react-shared-contexts@9.23.1(@types/react@19.1.0)(react@19.1.0)':
     dependencies:
       '@fluentui/react-theme': 9.1.24
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       react: 19.1.0
 
@@ -4865,7 +4871,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4882,7 +4888,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4900,7 +4906,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4916,7 +4922,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4933,7 +4939,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4952,7 +4958,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4975,7 +4981,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -4992,7 +4998,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5006,7 +5012,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       keyborg: 2.6.0
@@ -5031,7 +5037,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5051,7 +5057,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5072,7 +5078,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5088,7 +5094,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5102,7 +5108,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5113,7 +5119,7 @@ snapshots:
   '@fluentui/react-theme@9.1.24':
     dependencies:
       '@fluentui/tokens': 1.0.0-alpha.21
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
 
   '@fluentui/react-toast@9.4.6(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
@@ -5129,7 +5135,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5147,7 +5153,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5166,7 +5172,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5190,7 +5196,7 @@ snapshots:
       '@fluentui/react-theme': 9.1.24
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5202,7 +5208,7 @@ snapshots:
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
       '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.0)(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       react: 19.1.0
 
@@ -5212,7 +5218,7 @@ snapshots:
       '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.0)(react@19.1.0)
       '@fluentui/react-utilities': 9.18.23(@types/react@19.1.0)(react@19.1.0)
       '@griffel/react': 1.5.29(react@19.1.0)
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
       '@types/react': 19.1.0
       '@types/react-dom': 19.1.2(@types/react@19.1.0)
       react: 19.1.0
@@ -5220,7 +5226,7 @@ snapshots:
 
   '@fluentui/tokens@1.0.0-alpha.21':
     dependencies:
-      '@swc/helpers': 0.5.15
+      '@swc/helpers': 0.5.17
 
   '@griffel/core@1.19.1':
     dependencies:
@@ -5384,6 +5390,10 @@ snapshots:
   '@stencil/core@2.22.3': {}
 
   '@swc/helpers@0.5.15':
+    dependencies:
+      tslib: 2.8.1
+
+  '@swc/helpers@0.5.17':
     dependencies:
       tslib: 2.8.1
 
@@ -5835,6 +5845,8 @@ snapshots:
 
   caniuse-lite@1.0.30001712: {}
 
+  caniuse-lite@1.0.30001713: {}
+
   chai@5.2.0:
     dependencies:
       assertion-error: 2.0.1
@@ -6021,9 +6033,9 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.5.0
 
-  dotenv@16.4.7: {}
+  dotenv@16.5.0: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -6238,7 +6250,7 @@ snapshots:
       '@types/semver': 7.7.0
       '@types/ua-parser-js': 0.7.39
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001712
+      caniuse-lite: 1.0.30001713
       isbot: 3.8.0
       object-path: 0.11.8
       semver: 7.7.1
@@ -6481,7 +6493,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  http-proxy-middleware@3.0.4:
+  http-proxy-middleware@3.0.5:
     dependencies:
       '@types/http-proxy': 1.17.16
       debug: 4.4.0

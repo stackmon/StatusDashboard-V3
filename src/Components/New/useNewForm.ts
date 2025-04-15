@@ -168,13 +168,16 @@ export function useNewForm() {
       Histories: new Set()
     };
 
-    event.Histories.add({
-      Id: 0,
-      Message: description,
-      Created: new Date(),
-      Status: status,
-      Event: event
-    });
+    if (type === EventType.Maintenance)
+      event.Description = description;
+    else
+      event.Histories.add({
+        Id: 0,
+        Message: description,
+        Created: new Date(),
+        Status: status,
+        Event: event
+      });
 
     const url = process.env.SD_BACKEND_URL!;
 

@@ -1,0 +1,89 @@
+name: Docker Image Build
+
+on:
+  workflow_dispatch:
+
+env:
+  ORG: stackmon
+  PROJECT: status-dashboard-v3-front
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: false
+          secrets: |
+            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
+            SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
+            SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+
+  push_manual:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          secrets: |
+            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
+            SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
+            SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}

@@ -178,21 +178,22 @@ export function useEditForm(event: Models.IEvent) {
       body.status = StatusEnum.ImpactChanged;
     }
 
-    if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
-      if (event.Status !== status) {
-        body.status = StatusEnum.Reopened;
-      } else {
-        body.start_date = start.toISOString();
-        body.status = StatusEnum.Changed;
-      }
-    }
-
     if (event.Type === EventType.Maintenance) {
       body.start_date = start.toISOString();
     }
 
     if (end && !isNaN(end.getTime())) {
       body.end_date = end.toISOString();
+    }
+
+    if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
+      if (event.Status !== status) {
+        body.end_date = undefined;
+        body.status = StatusEnum.Reopened;
+      } else {
+        body.start_date = start.toISOString();
+        body.status = StatusEnum.Changed;
+      }
     }
 
     const raw = await fetch(`${url}/v2/incidents/${event.Id}`, {

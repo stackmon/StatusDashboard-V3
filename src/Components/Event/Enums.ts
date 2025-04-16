@@ -63,6 +63,8 @@ export enum EventStatus {
   Modified = "Modified",
   InProgress = "InProgress",
   Completed = "Completed",
+
+  Reopened = "Reopened",
 }
 
 /**
@@ -95,5 +97,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.InProgress;
     case EventStatus.Completed:
       return StatusEnum.Completed;
+    case EventStatus.Reopened:
+      return StatusEnum.Reopened;
   }
 }

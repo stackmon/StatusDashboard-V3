@@ -82,7 +82,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
     case EventStatus.Analysing:
-      return StatusEnum.Analyzing;
+      return "analysing";
     case EventStatus.Fixing:
       return StatusEnum.Fixing;
     case EventStatus.Observing:

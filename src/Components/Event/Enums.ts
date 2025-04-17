@@ -65,6 +65,7 @@ export enum EventStatus {
   Completed = "Completed",
 
   Reopened = "Reopened",
+  Changed = "Changed",
 }
 
 /**
@@ -99,5 +100,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Completed;
     case EventStatus.Reopened:
       return StatusEnum.Reopened;
+    case EventStatus.Changed:
+      return StatusEnum.Changed;
   }
 }

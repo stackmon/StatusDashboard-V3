@@ -22,7 +22,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals"]
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]

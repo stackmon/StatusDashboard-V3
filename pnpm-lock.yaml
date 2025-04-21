@@ -109,8 +109,8 @@ importers:
         specifier: 3.4.17
         version: 3.4.17
       tailwindcss-scoped-preflight:
-        specifier: ^3.4.10
-        version: 3.4.10(postcss@8.5.3)(tailwindcss@3.4.17)
+        specifier: ^3.4.12
+        version: 3.4.12(postcss@8.5.3)(tailwindcss@3.4.17)
       typescript-eslint:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.6.3)
@@ -3237,8 +3237,8 @@ packages:
   tabster@8.5.3:
     resolution: {integrity: sha512-SO3HFGqPuTbK5ClrBGQgGtmbTq/VdldqSnQgKg4H+T0u+9x4bZ6YVOFu7juMKzK/IF/ekpVivSz/qkAeVr3y0Q==}
 
-  tailwindcss-scoped-preflight@3.4.10:
-    resolution: {integrity: sha512-eYG6wGrcaA2nu+iUSUB1kLR+kyq99mYD6PQaFo5Yp287KHm2uN8FBi37k56f8jeblCbDXe1HeeFnLSCSRTko4Q==}
+  tailwindcss-scoped-preflight@3.4.12:
+    resolution: {integrity: sha512-iEk5Hk4N1C3TZpUlRHc1TiPY9+A/X+Ia21/i/hO0yjMy3A5tGDCZZJdREK8tWPzybgBYRBNpUxTWbL0Yj0zoSw==}
     peerDependencies:
       postcss: ^8
       tailwindcss: ^3
@@ -7271,7 +7271,7 @@ snapshots:
       keyborg: 2.6.0
       tslib: 2.8.1
 
-  tailwindcss-scoped-preflight@3.4.10(postcss@8.5.3)(tailwindcss@3.4.17):
+  tailwindcss-scoped-preflight@3.4.12(postcss@8.5.3)(tailwindcss@3.4.17):
     dependencies:
       postcss: 8.5.3
       tailwindcss: 3.4.17

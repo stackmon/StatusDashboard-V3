@@ -63,6 +63,9 @@ export enum EventStatus {
   Modified = "Modified",
   InProgress = "InProgress",
   Completed = "Completed",
+
+  Reopened = "Reopened",
+  Changed = "Changed",
 }
 
 /**
@@ -82,7 +85,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
     case EventStatus.Analysing:
-      return StatusEnum.Analyzing;
+      return "analysing";
     case EventStatus.Fixing:
       return StatusEnum.Fixing;
     case EventStatus.Observing:
@@ -95,5 +98,9 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.InProgress;
     case EventStatus.Completed:
       return StatusEnum.Completed;
+    case EventStatus.Reopened:
+      return StatusEnum.Reopened;
+    case EventStatus.Changed:
+      return StatusEnum.Changed;
   }
 }

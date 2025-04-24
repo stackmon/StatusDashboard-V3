@@ -51,6 +51,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           secrets: |
-            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
+            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL_PROD }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}

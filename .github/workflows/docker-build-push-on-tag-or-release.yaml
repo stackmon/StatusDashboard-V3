@@ -8,7 +8,7 @@ on:
     types: [published]
 
 env:
-  ORG: opentelekomcloud
+  ORG: stackmon
   PROJECT: status-dashboard-v3-front
 
 jobs:

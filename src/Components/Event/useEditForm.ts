@@ -1,5 +1,6 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
+import { useStatus } from "~/Services/Status";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
@@ -158,6 +159,7 @@ export function useEditForm(event: Models.IEvent) {
   }, [start, end]);
 
   const getToken = useAccessToken();
+  const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
@@ -209,7 +211,27 @@ export function useEditForm(event: Models.IEvent) {
       throw new Error("Failed to update event: " + await raw.text());
     }
 
-    window.location.reload();
+    const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);
+    if (eventIndex !== -1) {
+      const updatedEvent = { ...DB.Events[eventIndex] };
+      updatedEvent.Title = title;
+      updatedEvent.Type = type;
+      updatedEvent.Status = status;
+      updatedEvent.Start = start;
+      updatedEvent.End = end;
+
+      const newHistory: Models.IHistory = {
+        Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
+        Message: update,
+        Created: updateAt,
+        Status: status,
+        Event: updatedEvent
+      };
+      updatedEvent.Histories.add(newHistory);
+
+      DB.Events[eventIndex] = updatedEvent;
+      Update();
+    }
   }, {
     manual: true
   });

@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.63.0",
+    "@fluentui/react-components": "^9.62.0",
     "@telekom/scale-components": "3.0.0-beta.155",
     "@telekom/scale-components-react": "3.0.0-beta.155",
     "ahooks": "^3.8.4",
@@ -34,7 +34,7 @@
     "@tailwindcss/postcss": "^4.1.4",
     "@testing-library/react": "^16.3.0",
     "@types/lodash": "^4.17.16",
-    "@types/node": "^22.15.2",
+    "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/react-helmet": "^6.1.11",
@@ -46,8 +46,7 @@
     "react-refresh": "^0.17.0",
     "tailwindcss": "3.4.17",
     "tailwindcss-scoped-preflight": "^3.4.12",
-    "typescript-eslint": "^8.31.0",
-    "vitest": "^3.1.2"
+    "typescript-eslint": "^8.31.0"
   },
-  "packageManager": "pnpm@10.8.1"
+  "packageManager": "pnpm@10.9.0"
 }

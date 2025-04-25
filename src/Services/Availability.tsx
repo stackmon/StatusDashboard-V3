@@ -99,15 +99,12 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
         continue;
       }
 
-      if (!service.availability || service.availability.length < 6) {
-        log.info(`Skipped ${key}.`, service);
-        continue;
-      }
-
-      const ava = service.availability
-        .map(x => x.percentage)
-        .slice(0, 6)
-        .reverse();
+      const ava = !service.availability || service.availability.length < 6
+        ? Array(6).fill(100)
+        : service.availability
+          .map(x => x.percentage)
+          .slice(0, 6)
+          .reverse();
 
       raw.push({
         RS: rs,

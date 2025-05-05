@@ -39,7 +39,7 @@
     "@types/react-dom": "^19.1.2",
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.21",
-    "core-js": "^3.41.0",
+    "core-js": "^3.42.0",
     "eslint": "^9.25.1",
     "globals": "^16.0.0",
     "postcss": "^8.5.3",

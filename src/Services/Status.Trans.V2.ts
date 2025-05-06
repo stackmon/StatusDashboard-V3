@@ -170,6 +170,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
                 : prev;
 
             case StatusEnum.Analyzing:
+            case StatusEnum.Analysing:
               return EventStatus.Analysing;
             case StatusEnum.Reopened:
               return EventStatus.Reopened;

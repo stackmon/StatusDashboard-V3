@@ -1,3 +1,4 @@
+import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-components";
 import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
 import dayjs from "dayjs";
@@ -109,8 +110,16 @@ export function Home() {
               <label>{state}</label>
             </div>
           ))}
+
+          <div className="flex gap-x-2 self-end">
+            <FluentProvider className="with-dot" theme={webLightTheme}>
+              <Indicator Type={EventType.Operational} />
+              <CounterBadge className="blue-dot" dot />
+            </FluentProvider>
+            <label>Planned Maintenance</label>
+          </div>
         </legend>
-      </section>
+      </section >
     </>
   );
 }

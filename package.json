@@ -16,7 +16,7 @@
     "@telekom/scale-components-react": "3.0.0-beta.155",
     "ahooks": "^3.8.4",
     "dayjs": "^1.11.13",
-    "idb": "^8.0.2",
+    "idb": "^8.0.3",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "oidc-client-ts": "^3.2.1",

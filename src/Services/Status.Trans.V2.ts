@@ -133,7 +133,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Title: event.title,
       Start: dayjs(event.start_date).toDate(),
       Type: type,
-      Status: type === EventType.Maintenance ? EventStatus.Modified : EventStatus.Analysing,
+      Status: type === EventType.Maintenance ? EventStatus.Planned : EventStatus.Analysing,
       Histories: new Set(),
       RegionServices: new Set(),
     };
@@ -186,12 +186,16 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               break;
 
             case StatusEnum.Scheduled:
+            case StatusEnum.Planned:
+              return EventStatus.Planned;
             case StatusEnum.Modified:
               return EventStatus.Modified;
             case StatusEnum.InProgress:
               return EventStatus.InProgress;
             case StatusEnum.Completed:
               return EventStatus.Completed;
+            case StatusEnum.Cancelled:
+              return EventStatus.Cancelled;
 
             case StatusEnum.Changed:
             case StatusEnum.ImpactChanged:

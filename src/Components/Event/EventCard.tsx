@@ -31,7 +31,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
       <div className="flex gap-x-2.5">
         <div className="flex flex-col gap-y-2">
-          <label className="text-xl font-medium text-slate-600">
+          <label className="text-xl font-medium text-slate-600 whitespace-nowrap">
             Impact Type:
           </label>
 

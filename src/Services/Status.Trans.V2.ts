@@ -111,7 +111,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Title: event.title,
       Start: dayjs(event.start_date).toDate(),
       Type: type,
-      Status: type === EventType.Maintenance ? EventStatus.Modified : EventStatus.Analysing,
+      Status: type === EventType.Maintenance ? EventStatus.Planned : EventStatus.Analysing,
       Histories: new Set(),
       RegionServices: new Set(),
     };

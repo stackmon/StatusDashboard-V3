@@ -75,7 +75,7 @@ export enum EventStatus {
  * @version 0.1.0
  */
 export function IsOpenStatus(status: EventStatus): boolean {
-  return ![EventStatus.Completed, EventStatus.Resolved].includes(status);
+  return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
 }
 
 /**

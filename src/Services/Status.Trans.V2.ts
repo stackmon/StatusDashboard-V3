@@ -164,12 +164,16 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
               break;
 
             case StatusEnum.Scheduled:
+            case StatusEnum.Planned:
+              return EventStatus.Planned;
             case StatusEnum.Modified:
               return EventStatus.Modified;
             case StatusEnum.InProgress:
               return EventStatus.InProgress;
             case StatusEnum.Completed:
               return EventStatus.Completed;
+            case StatusEnum.Cancelled:
+              return EventStatus.Cancelled;
 
             case StatusEnum.Changed:
             case StatusEnum.ImpactChanged:

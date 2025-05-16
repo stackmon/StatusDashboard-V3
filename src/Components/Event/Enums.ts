@@ -60,9 +60,11 @@ export enum EventStatus {
   Observing = "Observing",
   Resolved = "Resolved",
 
+  Planned = "Planned",
   Modified = "Modified",
   InProgress = "InProgress",
   Completed = "Completed",
+  Cancelled = "Cancelled",
 
   Reopened = "Reopened",
 }
@@ -99,5 +101,9 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Completed;
     case EventStatus.Reopened:
       return StatusEnum.Reopened;
+    case EventStatus.Planned:
+      return StatusEnum.Planned;
+    case EventStatus.Cancelled:
+      return StatusEnum.Cancelled;
   }
 }

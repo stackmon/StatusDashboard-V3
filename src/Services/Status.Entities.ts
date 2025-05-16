@@ -79,4 +79,6 @@ export const enum StatusEnum {
   Resolved = "resolved",
   Scheduled = "scheduled",
   System = "SYSTEM",
+  Planned = "planned",
+  Cancelled = "cancelled",
 }

@@ -47,10 +47,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             Impact Type:
           </label>
 
-          {Event.Type !== EventType.Maintenance &&
-            <label className="text-xl font-medium text-slate-600 whitespace-nowrap">
-              Current Status:
-            </label>}
+          <label className="text-xl font-medium text-slate-600 whitespace-nowrap">
+            Current Status:
+          </label>
 
           <label className="text-xl font-medium text-slate-600">
             Start At:
@@ -73,10 +72,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             {Event.Type}
           </label>
 
-          {Event.Type !== EventType.Maintenance &&
-            <label className="text-xl font-medium text-slate-700">
-              {Event.Status}
-            </label>}
+          <label className="text-xl font-medium text-slate-700">
+            {Event.Status}
+          </label>
 
           <label className="text-xl font-medium text-slate-700">
             {dayjs(Event.Start).tz(Dic.TZ).format(Dic.TimeTZ)}

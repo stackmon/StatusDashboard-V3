@@ -60,9 +60,11 @@ export enum EventStatus {
   Observing = "Observing",
   Resolved = "Resolved",
 
+  Planned = "Planned",
   Modified = "Modified",
   InProgress = "InProgress",
   Completed = "Completed",
+  Cancelled = "Cancelled",
 
   Reopened = "Reopened",
   Changed = "Changed",
@@ -74,7 +76,7 @@ export enum EventStatus {
  * @version 0.1.0
  */
 export function IsOpenStatus(status: EventStatus): boolean {
-  return ![EventStatus.Completed, EventStatus.Resolved].includes(status);
+  return ![EventStatus.Completed, EventStatus.Resolved, EventStatus.Cancelled].includes(status);
 }
 
 /**
@@ -102,5 +104,9 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Reopened;
     case EventStatus.Changed:
       return StatusEnum.Changed;
+    case EventStatus.Planned:
+      return StatusEnum.Planned;
+    case EventStatus.Cancelled:
+      return StatusEnum.Cancelled;
   }
 }

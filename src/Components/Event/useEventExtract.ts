@@ -1,7 +1,9 @@
 import { useRequest } from "ahooks";
 import { useState } from "react";
+import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
+import { useRouter } from "../Router";
 
 /**
  * @author Aloento
@@ -27,10 +29,12 @@ export function useEventExtract(event: Models.IEvent) {
   }
 
   const getToken = useAccessToken();
+  const { Nav } = useRouter();
+  const { Refresh } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
     if (!setServices()) {
-      return;
+      return false;
     }
 
     const url = process.env.SD_BACKEND_URL!;
@@ -49,11 +53,14 @@ export function useEventExtract(event: Models.IEvent) {
     });
 
     const res = await raw.json();
-    const id = res.result.id;
+    const id = res.id;
 
     if (id) {
-      window.location.href = `/Event/${id}`;
+      await Refresh();
+      Nav(`/Event/${id}`);
     }
+
+    return true;
   }, {
     manual: true
   });

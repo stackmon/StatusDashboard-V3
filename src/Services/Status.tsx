@@ -28,6 +28,7 @@ const db = new DB(EmptyDB);
 interface IContext {
   DB: IStatusContext;
   Update: (data?: IStatusContext) => void;
+  Refresh: () => Promise<unknown>;
 }
 
 const CTX = createContext<IContext>({} as IContext);
@@ -110,6 +111,6 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   }
 
   return (
-    <CTX.Provider value={{ DB: ins, Update: update }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ DB: ins, Update: update, Refresh: runAsync }}>{children}</CTX.Provider>
   );
 }

@@ -32,7 +32,7 @@ export function EventExtract({ Event }: { Event: Models.IEvent }) {
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
-          OnSubmit().then(() => setFalse());
+          OnSubmit().then((ok) => ok && setFalse());
         }}>
         <ScaleTable>
           <div className="max-h-96 overflow-auto">

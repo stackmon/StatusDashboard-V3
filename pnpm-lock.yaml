@@ -18,8 +18,8 @@ importers:
         specifier: 3.0.0-beta.155
         version: 3.0.0-beta.155(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       ahooks:
-        specifier: ^3.8.4
-        version: 3.8.4(react@19.1.0)
+        specifier: ^3.8.5
+        version: 3.8.5(react@19.1.0)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -67,8 +67,8 @@ importers:
         specifier: ^4.17.16
         version: 4.17.16
       '@types/node':
-        specifier: ^22.15.18
-        version: 22.15.18
+        specifier: ^22.15.19
+        version: 22.15.19
       '@types/react':
         specifier: ^19.1.4
         version: 19.1.4
@@ -936,8 +936,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.15.18':
-    resolution: {integrity: sha512-v1DKRfUdyW+jJhZNEI1PYy29S2YRxMV5AOO/x/SjKmW0acCIOqmbj6Haf9eHAhsPmrhlHSxEhv/1WszcLWV4cg==}
+  '@types/node@22.15.19':
+    resolution: {integrity: sha512-3vMNr4TzNQyjHcRZadojpRaD9Ofr6LsonZAoQ+HMUa/9ORTPoxVIw0e0mpqWpdjj8xybyCM+oKOUH2vwFu/oEw==}
 
   '@types/object-path@0.11.4':
     resolution: {integrity: sha512-4tgJ1Z3elF/tOMpA8JLVuR9spt9Ynsf7+JjqsQ2IqtiPJtcLoHoXcT6qU4E10cPFqyXX5HDm9QwIzZhBSkLxsw==}
@@ -975,11 +975,11 @@ packages:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
 
-  ahooks@3.8.4:
-    resolution: {integrity: sha512-39wDEw2ZHvypaT14EpMMk4AzosHWt0z9bulY0BeDsvc9PqJEV+Kjh/4TZfftSsotBMq52iYIOFPd3PR56e0ZJg==}
+  ahooks@3.8.5:
+    resolution: {integrity: sha512-Y+MLoJpBXVdjsnnBjE5rOSPkQ4DK+8i5aPDzLJdIOsCpo/fiAeXcBY1Y7oWgtOK0TpOz0gFa/XcyO1UGdoqLcw==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   ansi-colors@4.1.3:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
@@ -2423,8 +2423,8 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@3.24.4:
-    resolution: {integrity: sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==}
+  zod@3.25.7:
+    resolution: {integrity: sha512-YGdT1cVRmKkOg6Sq7vY7IkxdphySKnXhaUmFI4r4FcuFVNgpCb9tZfNwXbT6BPjD5oz0nubFsoo9pIqKrDcCvg==}
 
 snapshots:
 
@@ -2643,8 +2643,8 @@ snapshots:
       loglevel: 1.9.2
       open: 9.1.0
       ws: 8.18.2
-      zod: 3.24.4
-      zod-validation-error: 1.5.0(zod@3.24.4)
+      zod: 3.25.7
+      zod-validation-error: 1.5.0(zod@3.25.7)
     optionalDependencies:
       '@farmfe/core-darwin-arm64': 1.7.5
       '@farmfe/core-darwin-x64': 1.7.5
@@ -3971,13 +3971,13 @@ snapshots:
 
   '@types/http-proxy@1.17.16':
     dependencies:
-      '@types/node': 22.15.18
+      '@types/node': 22.15.19
 
   '@types/lodash@4.17.16': {}
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.15.18':
+  '@types/node@22.15.19':
     dependencies:
       undici-types: 6.21.0
 
@@ -4014,7 +4014,7 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  ahooks@3.8.4(react@19.1.0):
+  ahooks@3.8.5(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.27.1
       dayjs: 1.11.13
@@ -5375,8 +5375,8 @@ snapshots:
 
   ylru@1.4.0: {}
 
-  zod-validation-error@1.5.0(zod@3.24.4):
+  zod-validation-error@1.5.0(zod@3.25.7):
     dependencies:
-      zod: 3.24.4
+      zod: 3.25.7
 
-  zod@3.24.4: {}
+  zod@3.25.7: {}

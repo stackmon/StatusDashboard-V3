@@ -81,7 +81,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           {Object.values(EventStatus)
             .slice(
               State.type === EventType.Maintenance ? 4 : 0,
-              State.type === EventType.Maintenance ? 7 : 4
+              State.type === EventType.Maintenance ? 9 : 4
             ).map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}

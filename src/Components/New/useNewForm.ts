@@ -150,7 +150,7 @@ export function useNewForm() {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setDescription(), setStart, setEnd(), setServices()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart(), setEnd(), setServices()].every(Boolean)) {
       return;
     }
 

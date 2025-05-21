@@ -6,6 +6,7 @@ import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType } from "./Enums";
 import { EventAffected } from "./EventAffected";
 import { EventEditor } from "./EventEditor";
+import { EventExtract } from "./EventExtract";
 
 /**
  * Represents an EventCard component that displays detailed information about a specific event.
@@ -37,7 +38,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         </div>
 
         <Authorized>
-          <EventEditor Event={Event} />
+          <div className="flex gap-x-3">
+            {
+              Event.RegionServices.size > 1 &&
+              <EventExtract Event={Event} />
+            }
+            <EventEditor Event={Event} />
+          </div>
         </Authorized>
       </div>
 

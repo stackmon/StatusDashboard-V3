@@ -62,7 +62,7 @@ interface UpdateEntityV2 extends UpdateEntityV1 {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export const enum StatusEnum {
   Analyzing = "analyzing",
@@ -81,4 +81,5 @@ export const enum StatusEnum {
   System = "SYSTEM",
   Planned = "planned",
   Cancelled = "cancelled",
+  Active = "active",
 }

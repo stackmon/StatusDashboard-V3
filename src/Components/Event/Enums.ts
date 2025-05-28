@@ -3,7 +3,7 @@ import { StatusEnum } from "~/Services/Status.Entities";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export enum EventType {
   Operational = "Operational",
@@ -11,12 +11,13 @@ export enum EventType {
   Minor = "Minor Incident",
   Major = "Major Incident",
   Outage = "Service Outage",
+  Information = "Information",
 }
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetEventType(impact: number): EventType {
   switch (impact) {
@@ -26,15 +27,17 @@ export function GetEventType(impact: number): EventType {
       return EventType.Minor;
     case 2:
       return EventType.Major;
-    default:
+    case 3:
       return EventType.Outage;
+    default:
+      return EventType.Information;
   }
 }
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetEventImpact(type: EventType): number {
   switch (type) {
@@ -44,15 +47,17 @@ export function GetEventImpact(type: EventType): number {
       return 1;
     case EventType.Major:
       return 2;
-    default:
+    case EventType.Outage:
       return 3;
+    default:
+      return 4;
   }
 }
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export enum EventStatus {
   Analysing = "Analysing",
@@ -66,6 +71,7 @@ export enum EventStatus {
   Completed = "Completed",
   Cancelled = "Cancelled",
 
+  Active = "Active",
   Reopened = "Reopened",
   Changed = "Changed",
 }
@@ -82,7 +88,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
@@ -108,5 +114,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Planned;
     case EventStatus.Cancelled:
       return StatusEnum.Cancelled;
+    case EventStatus.Active:
+      return StatusEnum.Active;
   }
 }

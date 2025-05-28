@@ -30,8 +30,9 @@ export function useNewForm() {
     }
 
     _setTitle(value);
-    !err && setValTitle(undefined);
-
+    if (!err) {
+      setValTitle(undefined);
+    }
     return !err;
   }
 
@@ -69,8 +70,9 @@ export function useNewForm() {
     }
 
     _setDescription(value);
-    !err && setValDescription(undefined);
-
+    if (!err) {
+      setValDescription(undefined);
+    }
     return !err;
   }
 
@@ -89,7 +91,9 @@ export function useNewForm() {
       err = true;
     }
 
-    !err && setValStart(undefined);
+    if (!err) {
+      setValStart(undefined);
+    }
     _setStart(value);
 
     return !err;
@@ -105,7 +109,9 @@ export function useNewForm() {
       err = true;
     }
 
-    !err && setValEnd(undefined);
+    if (!err) {
+      setValEnd(undefined);
+    }
     _setEnd(value);
 
     return !err;
@@ -128,8 +134,9 @@ export function useNewForm() {
     }
 
     _setServices(updated);
-    !err && setValServices(undefined);
-
+    if (!err) {
+      setValServices(undefined);
+    }
     return !err;
   }
 

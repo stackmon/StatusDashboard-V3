@@ -56,6 +56,15 @@ export function GetEventImpact(type: EventType): number {
 
 /**
  * @author Aloento
+ * @since 1.1.0
+ * @version 0.1.0
+ */
+export function IsIncident(type: EventType): boolean {
+  return [EventType.Minor, EventType.Major, EventType.Outage].includes(type);
+}
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 0.2.0
  */

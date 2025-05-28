@@ -4,12 +4,12 @@ import { useStatus } from "~/Services/Status";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
-import { EventStatus, EventType, GetEventImpact, GetStatusString, IsOpenStatus } from "./Enums";
+import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, IsOpenStatus } from "./Enums";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -46,12 +46,12 @@ export function useEditForm(event: Models.IEvent) {
       return false;
     }
 
-    if (type === EventType.Maintenance && value !== EventType.Maintenance) {
+    if (!IsIncident(type) && IsIncident(value)) {
       _setStatus(EventStatus.Analysing);
     }
 
-    if (type !== EventType.Maintenance && value === EventType.Maintenance) {
-      _setStatus(EventStatus.Modified);
+    if (IsIncident(type) && !IsIncident(value)) {
+      _setStatus(EventStatus.Planned);
     }
 
     _setType(value);
@@ -110,7 +110,7 @@ export function useEditForm(event: Models.IEvent) {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
-    if (value > now && type !== EventType.Maintenance) {
+    if (value > now && IsIncident(type)) {
       setValStart("Start Date cannot be in the future.");
       err = true;
     }
@@ -180,7 +180,7 @@ export function useEditForm(event: Models.IEvent) {
       body.status = StatusEnum.ImpactChanged;
     }
 
-    if (event.Type === EventType.Maintenance) {
+    if (!IsIncident(event.Type)) {
       body.start_date = start.toISOString();
     }
 
@@ -188,7 +188,7 @@ export function useEditForm(event: Models.IEvent) {
       body.end_date = end.toISOString();
     }
 
-    if (!IsOpenStatus(event.Status) && event.Type !== EventType.Maintenance) {
+    if (!IsOpenStatus(event.Status) && IsIncident(event.Type)) {
       if (event.Status !== status) {
         body.end_date = undefined;
         body.status = StatusEnum.Reopened;

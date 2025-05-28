@@ -10,7 +10,7 @@ import { EventType, IsOpenStatus } from "../Event/Enums";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -107,9 +107,11 @@ export function EventGrid() {
           case EventType.Outage:
             tag = { content: EventType.Outage, color: "red" };
             break;
-          default:
+          case EventType.Maintenance:
             tag = { content: EventType.Maintenance, color: "cyan" };
             break;
+          default:
+            tag = { content: EventType.Information, color: "standard" };
         }
 
         return [

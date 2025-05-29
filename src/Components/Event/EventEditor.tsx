@@ -54,7 +54,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           invalid={!!Validation.type}
           helperText={Validation.type}
         >
-          {Object.values(EventType).slice(2).map((type, i) =>
+          {Object.values(EventType).slice(2, 5).map((type, i) =>
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
             </ScaleDropdownSelectItem>)}

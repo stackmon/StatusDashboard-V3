@@ -87,6 +87,22 @@ export enum EventStatus {
 
 /**
  * @author Aloento
+ * @since 1.1.0
+ * @version 0.1.0
+ */
+export function GetStatusList(type: EventType): EventStatus[] {
+  switch (type) {
+    case EventType.Maintenance:
+      return Object.values(EventStatus).slice(4, 9);
+    case EventType.Information:
+      return [EventStatus.Planned, EventStatus.Active, EventStatus.Completed, EventStatus.Cancelled];
+    default:
+      return Object.values(EventStatus).slice(0, 4);
+  }
+}
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 0.1.0
  */

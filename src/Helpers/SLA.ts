@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { chain } from 'lodash';
-import { EventType } from '~/Components/Event/Enums';
+import { IsIncident } from '~/Components/Event/Enums';
 import { Models } from "~/Services/Status.Models";
 
 /**
@@ -14,8 +14,7 @@ export function Calc6Months(service: Models.IRegionService) {
 
   const events = chain(Array.from(service.Events))
     .filter(e =>
-      dayjs(e.Start).isAfter(sixMonth) &&
-      e.Type !== EventType.Maintenance)
+      dayjs(e.Start).isAfter(sixMonth) && IsIncident(e.Type))
     .value();
 
   const results = [];

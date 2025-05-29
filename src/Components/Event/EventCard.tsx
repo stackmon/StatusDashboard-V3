@@ -3,7 +3,7 @@ import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { Authorized } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
-import { EventStatus, EventType } from "./Enums";
+import { EventStatus, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
 import { EventEditor } from "./EventEditor";
 import { EventExtract } from "./EventExtract";
@@ -11,7 +11,7 @@ import { EventExtract } from "./EventExtract";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
   return (
@@ -51,12 +51,12 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           <label className="text-xl font-medium text-slate-600 whitespace-nowrap">
-            {Event.Type === EventType.Maintenance &&
+            {!IsIncident(Event.Type) &&
               Event.Status !== EventStatus.Completed &&
               "(Plan)"} End At:
           </label>
 
-          {Event.Type === EventType.Maintenance && Event.Description &&
+          {!IsIncident(Event.Type) && Event.Description &&
             <label className="text-xl font-medium text-slate-600">
               Description:
             </label>}
@@ -79,7 +79,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
 
-          {Event.Type === EventType.Maintenance && Event.Description &&
+          {!IsIncident(Event.Type) && Event.Description &&
             <label className="text-xl font-medium text-slate-700 break-all">
               {Event.Description}
             </label>}

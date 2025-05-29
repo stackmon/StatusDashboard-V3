@@ -5,7 +5,7 @@ import { chain } from "lodash";
 import { useEffect, useRef } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventType, IsOpenStatus } from "../Event/Enums";
+import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 
 /**
  * @author Aloento
@@ -87,7 +87,7 @@ export function EventGrid() {
         }
       })
       .filter(x => {
-        if (x.Type !== EventType.Maintenance && x.End) {
+        if (IsIncident(x.Type) && x.End) {
           return false;
         }
 

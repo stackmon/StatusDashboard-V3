@@ -6,7 +6,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject, Subject } from "rxjs";
-import { EventType, IsOpenStatus } from "~/Components/Event/Enums";
+import { EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
@@ -21,7 +21,7 @@ const log = new Logger("Home");
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function Home() {
   const { DB } = useStatus();
@@ -60,7 +60,7 @@ export function Home() {
   const abnormalCount = useMemo(() => {
     const service = chain(DB.Events)
       .filter(e => !e.End)
-      .filter(e => e.Type !== EventType.Maintenance)
+      .filter(e => IsIncident(e.Type))
       .filter(e => IsOpenStatus(e.Status))
       .flatMap(e => [...e.RegionServices])
       .map(rs => rs.Service)

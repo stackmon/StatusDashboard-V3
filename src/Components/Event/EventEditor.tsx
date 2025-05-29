@@ -3,7 +3,7 @@ import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { EventStatus, EventType, IsOpenStatus } from "./Enums";
+import { EventStatus, EventType, GetStatusList, IsIncident, IsOpenStatus } from "./Enums";
 import { useEditForm } from "./useEditForm";
 
 /**
@@ -20,7 +20,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -60,12 +60,12 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         <ScaleDropdownSelect
           label="Type"
           value={State.type}
-          disabled={Event.Type === EventType.Maintenance}
+          disabled={!IsIncident(Event.Type)}
           onScale-change={(e) => Actions.setType(e.target.value as EventType)}
           invalid={!!Validation.type}
           helperText={Validation.type}
         >
-          {Object.values(EventType).slice(2).map((type, i) =>
+          {Object.values(EventType).slice(2, 5).map((type, i) =>
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
             </ScaleDropdownSelectItem>)}
@@ -78,11 +78,8 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           invalid={!!Validation.status}
           helperText={Validation.status}
         >
-          {Object.values(EventStatus)
-            .slice(
-              State.type === EventType.Maintenance ? 4 : 0,
-              State.type === EventType.Maintenance ? 9 : 4
-            ).map((status, i) =>
+          {GetStatusList(State.type)
+            .map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}
               </ScaleDropdownSelectItem>)}
@@ -91,7 +88,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         <ScaleTextField
           type="datetime-local"
           label="Start CET"
-          disabled={State.type !== EventType.Maintenance && IsOpenStatus(Event.Status)}
+          disabled={IsIncident(State.type) && IsOpenStatus(Event.Status)}
           value={dayjs(State.start).format(Dic.Picker)}
           onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
           invalid={!!Validation.start}
@@ -101,7 +98,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         <ScaleTextField
           type="datetime-local"
           label="(Plan) End CET"
-          disabled={!(State.type === EventType.Maintenance || !IsOpenStatus(State.status))}
+          disabled={!(!IsIncident(State.type) || !IsOpenStatus(State.status))}
           value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}

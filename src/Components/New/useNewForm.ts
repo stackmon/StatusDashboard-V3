@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
-import { EventStatus, EventType, GetEventImpact } from "../Event/Enums";
+import { EventStatus, EventType, GetEventImpact, IsIncident } from "../Event/Enums";
 import { useRouter } from "../Router";
 
 /**
@@ -15,7 +15,7 @@ import { useRouter } from "../Router";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useNewForm() {
   const { DB, Update } = useStatus();
@@ -58,7 +58,7 @@ export function useNewForm() {
     _setType(value);
     setValType(undefined);
 
-    if (value !== EventType.Maintenance) {
+    if (IsIncident(value)) {
       _setEnd(undefined);
     }
 
@@ -92,7 +92,7 @@ export function useNewForm() {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
-    if (value > now && type !== EventType.Maintenance) {
+    if (value > now && IsIncident(type)) {
       setValStart("Start Date cannot be in the future.");
       err = true;
     }
@@ -154,8 +154,8 @@ export function useNewForm() {
       return;
     }
 
-    const status = type === EventType.Maintenance
-      ? EventStatus.Modified : EventStatus.Analysing
+    const status = IsIncident(type)
+      ? EventStatus.Analysing : EventStatus.Planned
 
     const event: Models.IEvent = {
       Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
@@ -168,7 +168,7 @@ export function useNewForm() {
       Histories: new Set()
     };
 
-    if (type === EventType.Maintenance)
+    if (!IsIncident(type))
       event.Description = description;
     else
       event.Histories.add({
@@ -189,7 +189,7 @@ export function useNewForm() {
       start_date: start.toISOString()
     }
 
-    if (type === EventType.Maintenance && end) {
+    if (!IsIncident(type) && end) {
       body.end_date = end
     }
 

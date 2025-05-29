@@ -5,12 +5,12 @@ import { chain } from "lodash";
 import { useEffect, useRef } from "react";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventType, IsOpenStatus } from "../Event/Enums";
+import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -87,7 +87,7 @@ export function EventGrid() {
         }
       })
       .filter(x => {
-        if (x.Type !== EventType.Maintenance && x.End) {
+        if (IsIncident(x.Type) && x.End) {
           return false;
         }
 
@@ -107,9 +107,11 @@ export function EventGrid() {
           case EventType.Outage:
             tag = { content: EventType.Outage, color: "red" };
             break;
-          default:
+          case EventType.Maintenance:
             tag = { content: EventType.Maintenance, color: "cyan" };
             break;
+          default:
+            tag = { content: EventType.Information, color: "standard" };
         }
 
         return [

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
-import { EventStatus, EventType, GetEventType } from "~/Components/Event/Enums";
+import { EventStatus, GetEventType, IsIncident } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
 import { IncidentEntityV2, NameEnum, StatusEntityV2, StatusEnum } from "./Status.Entities";
@@ -33,7 +33,7 @@ const log = new Logger("Service", "Status", "TransformerV2");
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function TransformerV2({ Components, Events }: { Components: StatusEntityV2[], Events: IncidentEntityV2[] }): IStatusContext {
   let id = 0;
@@ -133,7 +133,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Title: event.title,
       Start: dayjs(event.start_date).toDate(),
       Type: type,
-      Status: type === EventType.Maintenance ? EventStatus.Planned : EventStatus.Analysing,
+      Status: IsIncident(type) ? EventStatus.Analysing : EventStatus.Planned,
       Histories: new Set(),
       RegionServices: new Set(),
     };
@@ -166,7 +166,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
           switch (update.status) {
             case StatusEnum.System:
               return event.end_date
-                ? type === EventType.Maintenance ? EventStatus.Completed : EventStatus.Resolved
+                ? IsIncident(type) ? EventStatus.Resolved : EventStatus.Completed
                 : prev;
 
             case StatusEnum.Analyzing:
@@ -232,7 +232,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
     }
 
     if (dbEvent.End &&
-      type === EventType.Maintenance &&
+      !IsIncident(type) &&
       dayjs(dbEvent.End).isBefore(dayjs())) {
       dbEvent.Status = EventStatus.Completed;
     }

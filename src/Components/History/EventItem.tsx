@@ -15,7 +15,7 @@ interface IEventItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventItem({ Prev, Curr }: IEventItem) {
   const isBegin = useMemo(() => {
@@ -68,9 +68,23 @@ export function EventItem({ Prev, Curr }: IEventItem) {
 
   switch (Curr.Status) {
     case EventStatus.Analysing:
+      color = "red";
+      break;
+
     case EventStatus.Fixing:
+      color = "orange";
+      break;
+
     case EventStatus.Observing:
       color = "yellow";
+      break;
+
+    case EventStatus.Planned:
+      color = "cyan";
+      break;
+
+    case EventStatus.Active:
+      color = "teal";
       break;
 
     case EventStatus.Modified:

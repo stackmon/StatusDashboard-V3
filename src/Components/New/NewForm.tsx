@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { orderBy } from "lodash";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventType } from "../Event/Enums";
+import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
 
 /**
@@ -134,7 +134,7 @@ export function NewForm() {
         helperText={Validation.start}
       />
 
-      {State.type === EventType.Maintenance && (
+      {!IsIncident(State.type) && (
         <ScaleTextField
           type="datetime-local"
           label="(Plan) End CET"

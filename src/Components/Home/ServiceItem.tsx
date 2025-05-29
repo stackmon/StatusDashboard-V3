@@ -4,7 +4,7 @@ import { chain } from "lodash";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventType, IsOpenStatus } from "../Event/Enums";
+import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
 import "./ServiceItem.css";
 
@@ -15,7 +15,7 @@ interface IServiceItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
@@ -27,7 +27,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   useEffect(() => {
     const res = chain([...RegionService.Events])
       .filter(x => {
-        if (x.Type !== EventType.Maintenance && x.End) {
+        if (IsIncident(x.Type) && x.End) {
           return false;
         }
 

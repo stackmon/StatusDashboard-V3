@@ -10,7 +10,7 @@ interface IIndicator {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function Indicator({ Type, Size, Class }: IIndicator) {
   const scaleIcon = "scale-icon-";
@@ -28,6 +28,8 @@ export function Indicator({ Type, Size, Class }: IIndicator) {
         return "alert-warning";
       case EventType.Outage:
         return "action-circle-close";
+      case EventType.Information:
+        return "alert-information";
       default:
         return "action-success";
     }
@@ -43,6 +45,8 @@ export function Indicator({ Type, Size, Class }: IIndicator) {
         return `${text}warning)`;
       case EventType.Outage:
         return `${text}danger)`;
+      case EventType.Information:
+        return `${text}disabled)`;
       default:
         return `${text}success)`;
     }

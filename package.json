@@ -34,7 +34,7 @@
     "@tailwindcss/postcss": "^4.1.8",
     "@testing-library/react": "^16.3.0",
     "@types/lodash": "^4.17.17",
-    "@types/node": "^22.15.24",
+    "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@types/react-helmet": "^6.1.11",

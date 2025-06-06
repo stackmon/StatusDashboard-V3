@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
-import { EventStatus, EventType, GetEventImpact } from "../Event/Enums";
+import { EventStatus, EventType, GetEventImpact, IsIncident } from "../Event/Enums";
 import { useRouter } from "../Router";
 
 /**
@@ -184,6 +184,7 @@ export function useNewForm() {
     const body: Record<string, any> = {
       title,
       description,
+      type: IsIncident(type) ? "incident" : type === EventType.Maintenance ? "maintenance" : "info",
       impact: GetEventImpact(type),
       components: services.map(s => s.Id),
       start_date: start.toISOString()

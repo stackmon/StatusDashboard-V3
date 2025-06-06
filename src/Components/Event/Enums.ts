@@ -3,7 +3,7 @@ import { StatusEnum } from "~/Services/Status.Entities";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export enum EventType {
   Operational = "Operational",
@@ -11,12 +11,13 @@ export enum EventType {
   Minor = "Minor Incident",
   Major = "Major Incident",
   Outage = "Service Outage",
+  Information = "Information",
 }
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetEventType(impact: number): EventType {
   switch (impact) {
@@ -26,15 +27,17 @@ export function GetEventType(impact: number): EventType {
       return EventType.Minor;
     case 2:
       return EventType.Major;
-    default:
+    case 3:
       return EventType.Outage;
+    default:
+      return EventType.Information;
   }
 }
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetEventImpact(type: EventType): number {
   switch (type) {
@@ -44,15 +47,26 @@ export function GetEventImpact(type: EventType): number {
       return 1;
     case EventType.Major:
       return 2;
-    default:
+    case EventType.Outage:
       return 3;
+    default:
+      return 4;
   }
 }
 
 /**
  * @author Aloento
- * @since 1.0.0
+ * @since 1.1.0
  * @version 0.1.0
+ */
+export function IsIncident(type: EventType): boolean {
+  return [EventType.Minor, EventType.Major, EventType.Outage].includes(type);
+}
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.2.0
  */
 export enum EventStatus {
   Analysing = "Analysing",
@@ -72,6 +86,22 @@ export enum EventStatus {
 
 /**
  * @author Aloento
+ * @since 1.1.0
+ * @version 0.1.0
+ */
+export function GetStatusList(type: EventType): EventStatus[] {
+  switch (type) {
+    case EventType.Maintenance:
+      return Object.values(EventStatus).slice(4, 9);
+    case EventType.Information:
+      return [EventStatus.Planned, EventStatus.Completed, EventStatus.Cancelled];
+    default:
+      return Object.values(EventStatus).slice(0, 4);
+  }
+}
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 0.1.0
  */
@@ -82,7 +112,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {

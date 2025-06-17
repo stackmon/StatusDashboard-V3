@@ -34,6 +34,7 @@ export interface IncidentEntityV2 {
   impact: number;
   start_date: string;
   updates?: UpdateEntityV2[];
+  type: string;
 }
 
 interface UpdateEntityV2 {

@@ -47,6 +47,7 @@ export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates" | "te
   components: number[];
   system: boolean;
   updates?: UpdateEntityV2[];
+  type: string;
 }
 
 interface UpdateEntityV1 {

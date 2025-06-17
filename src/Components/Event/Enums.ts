@@ -74,7 +74,7 @@ export enum EventStatus {
 
   Planned = "Planned",
   Modified = "Modified",
-  InProgress = "InProgress",
+  InProgress = "In Progress",
   Completed = "Completed",
   Cancelled = "Cancelled",
 

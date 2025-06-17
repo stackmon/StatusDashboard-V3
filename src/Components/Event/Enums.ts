@@ -41,8 +41,6 @@ export function GetEventType(impact: number): EventType {
  */
 export function GetEventImpact(type: EventType): number {
   switch (type) {
-    case EventType.Maintenance:
-      return 0;
     case EventType.Minor:
       return 1;
     case EventType.Major:
@@ -50,7 +48,7 @@ export function GetEventImpact(type: EventType): number {
     case EventType.Outage:
       return 3;
     default:
-      return 4;
+      return 0;
   }
 }
 
@@ -76,10 +74,11 @@ export enum EventStatus {
 
   Planned = "Planned",
   Modified = "Modified",
-  InProgress = "InProgress",
+  InProgress = "In Progress",
   Completed = "Completed",
   Cancelled = "Cancelled",
 
+  Active = "Active",
   Reopened = "Reopened",
   Changed = "Changed",
 }
@@ -94,7 +93,7 @@ export function GetStatusList(type: EventType): EventStatus[] {
     case EventType.Maintenance:
       return Object.values(EventStatus).slice(4, 9);
     case EventType.Information:
-      return [EventStatus.Planned, EventStatus.Completed, EventStatus.Cancelled];
+      return [EventStatus.Planned, EventStatus.Active, EventStatus.Completed, EventStatus.Cancelled];
     default:
       return Object.values(EventStatus).slice(0, 4);
   }
@@ -138,5 +137,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Planned;
     case EventStatus.Cancelled:
       return StatusEnum.Cancelled;
+    case EventStatus.Active:
+      return StatusEnum.Active;
   }
 }

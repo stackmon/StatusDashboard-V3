@@ -41,8 +41,6 @@ export function GetEventType(impact: number): EventType {
  */
 export function GetEventImpact(type: EventType): number {
   switch (type) {
-    case EventType.Maintenance:
-      return 0;
     case EventType.Minor:
       return 1;
     case EventType.Major:
@@ -50,7 +48,7 @@ export function GetEventImpact(type: EventType): number {
     case EventType.Outage:
       return 3;
     default:
-      return 4;
+      return 0;
   }
 }
 
@@ -76,7 +74,7 @@ export enum EventStatus {
 
   Planned = "Planned",
   Modified = "Modified",
-  InProgress = "InProgress",
+  InProgress = "In Progress",
   Completed = "Completed",
   Cancelled = "Cancelled",
 

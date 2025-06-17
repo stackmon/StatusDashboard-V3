@@ -27,7 +27,7 @@ export function GetEventType(impact: number): EventType {
       return EventType.Minor;
     case 2:
       return EventType.Major;
-    default:
+    case 3:
       return EventType.Outage;
     default:
       return EventType.Information;

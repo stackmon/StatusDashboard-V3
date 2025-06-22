@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fluentui/react-components':
-        specifier: ^9.66.1
-        version: 9.66.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+        specifier: ^9.66.2
+        version: 9.66.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
       '@telekom/scale-components':
         specifier: 3.0.0-beta.155
         version: 3.0.0-beta.155
@@ -52,29 +52,26 @@ importers:
         version: 7.8.2
     devDependencies:
       '@farmfe/cli':
-        specifier: ^1.0.4
-        version: 1.0.4
+        specifier: ^1.0.5
+        version: 1.0.5
       '@farmfe/core':
-        specifier: ^1.7.5
-        version: 1.7.5
+        specifier: ^1.7.6
+        version: 1.7.6
       '@farmfe/js-plugin-postcss':
         specifier: ^1.12.0
-        version: 1.12.0(@farmfe/core@1.7.5)(postcss@8.5.6)
+        version: 1.12.0(@farmfe/core@1.7.6)(postcss@8.5.6)
       '@farmfe/plugin-react':
         specifier: ^1.2.6
         version: 1.2.6
       '@tailwindcss/postcss':
         specifier: ^4.1.10
         version: 4.1.10
-      '@testing-library/react':
-        specifier: ^16.3.0
-        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/lodash':
-        specifier: ^4.17.17
-        version: 4.17.17
+        specifier: ^4.17.18
+        version: 4.17.18
       '@types/node':
-        specifier: ^22.15.32
-        version: 22.15.32
+        specifier: ^24.0.3
+        version: 24.0.3
       '@types/react':
         specifier: ^19.1.8
         version: 19.1.8
@@ -122,14 +119,6 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@babel/code-frame@7.27.1':
-    resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.27.1':
-    resolution: {integrity: sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
     engines: {node: '>=6.9.0'}
@@ -137,14 +126,14 @@ packages:
   '@changesets/apply-release-plan@7.0.12':
     resolution: {integrity: sha512-EaET7As5CeuhTzvXTQCRZeBUcisoYPDDcXvgTE/2jmmypKp0RC7LxKj/yzqeh/1qFTZI7oDGFcL1PHRuQuketQ==}
 
-  '@changesets/assemble-release-plan@6.0.8':
-    resolution: {integrity: sha512-y8+8LvZCkKJdbUlpXFuqcavpzJR80PN0OIfn8HZdwK7Sh6MgLXm4hKY5vu6/NDoKp8lAlM4ERZCqRMLxP4m+MQ==}
+  '@changesets/assemble-release-plan@6.0.9':
+    resolution: {integrity: sha512-tPgeeqCHIwNo8sypKlS3gOPmsS3wP0zHt67JDuL20P4QcXiw/O4Hl7oXiuLnP9yg+rXLQ2sScdV1Kkzde61iSQ==}
 
   '@changesets/changelog-git@0.2.1':
     resolution: {integrity: sha512-x/xEleCFLH28c3bQeQIyeZf8lFXyDFVn1SgcBiR2Tw/r4IAWlk1fzxCEZ6NxQAjF2Nwtczoen3OA2qR+UawQ8Q==}
 
-  '@changesets/cli@2.29.4':
-    resolution: {integrity: sha512-VW30x9oiFp/un/80+5jLeWgEU6Btj8IqOgI+X/zAYu4usVOWXjPIK5jSSlt5jsCU7/6Z7AxEkarxBxGUqkAmNg==}
+  '@changesets/cli@2.29.5':
+    resolution: {integrity: sha512-0j0cPq3fgxt2dPdFsg4XvO+6L66RC0pZybT9F4dG5TBrLA3jA/1pNkdTXH9IBBVHkgsKrNKenI3n1mPyPlIydg==}
     hasBin: true
 
   '@changesets/config@3.1.1':
@@ -156,8 +145,8 @@ packages:
   '@changesets/get-dependents-graph@2.1.3':
     resolution: {integrity: sha512-gphr+v0mv2I3Oxt19VdWRRUxq3sseyUpX9DaHpTUmLj92Y10AGy+XOtV+kbM6L/fDcpx7/ISDFK6T8A/P3lOdQ==}
 
-  '@changesets/get-release-plan@4.0.12':
-    resolution: {integrity: sha512-KukdEgaafnyGryUwpHG2kZ7xJquOmWWWk5mmoeQaSvZTWH1DC5D/Sw6ClgGFYtQnOMSQhgoEbDxAbpIIayKH1g==}
+  '@changesets/get-release-plan@4.0.13':
+    resolution: {integrity: sha512-DWG1pus72FcNeXkM12tx+xtExyH/c9I1z+2aXlObH3i9YA7+WZEVaiHzHl03thpvAgWTRaH64MpfHxozfF7Dvg==}
 
   '@changesets/get-version-range-type@0.4.0':
     resolution: {integrity: sha512-hwawtob9DryoGTpixy1D3ZXbGgJu1Rhr+ySH2PvTLHvkZuQ7sRT4oQwMh0hbqZH1weAooedEjRsbrWcGLCeyVQ==}
@@ -242,67 +231,67 @@ packages:
     resolution: {integrity: sha512-4SaFZCNfJqvk/kenHpI8xvN42DMaoycy4PzKc5otHxRswww1kAt82OlBuwRVLofCACCTZEcla2Ydxv8scMXaTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@farmfe/cli@1.0.4':
-    resolution: {integrity: sha512-bau/2P7DylHUDksUvbvJod/Ew4dl5ZICYVgTNn0EfrJM/ZuwLaV8LjmPo0pM4y1QOZmg/N3B9DwkXO89DrutYQ==}
+  '@farmfe/cli@1.0.5':
+    resolution: {integrity: sha512-PRZ3eopMRefJggSysJ9mdEepSjmZkAHP82ZoZV+vIVp9m+ifVlGN1BxvbkQBDqRKo5quW+6iKLW741n3aDXrHg==}
     engines: {node: '>= 16'}
     hasBin: true
 
-  '@farmfe/core-darwin-arm64@1.7.5':
-    resolution: {integrity: sha512-w5ypLyBXvS+mhSBSYqMs0F3acQ0jnAURymnxw8AEx/BPbYxYKpI5SEQ6YJoiHNaKI80YYMPmjMNXl8GN5s4rWA==}
+  '@farmfe/core-darwin-arm64@1.7.6':
+    resolution: {integrity: sha512-eTdXi3nVm+NGFSWBdawykACXn/vZAd4cjHBy0wPyXK93IgiE+zGPOCAKm2wCeT26NnvdIjgRMFBR10WzoegUCA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@farmfe/core-darwin-x64@1.7.5':
-    resolution: {integrity: sha512-RHjPbM4RgOzlbDtGPaACI8hiO1napNcbHTSo5LrTIRVeKmhMAIDs12gvyrp3oQI5mVCuIPzbeQU0/3AUOuzKoA==}
+  '@farmfe/core-darwin-x64@1.7.6':
+    resolution: {integrity: sha512-v1wJxJPwqPv4tMfbJh6ZlflnT5fyrjRTGanHlkGgl6Ilzm0fayn/Z98e/KYiAFd0VeOE1TpZvjacRX1/cZNR9w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@farmfe/core-linux-arm64-gnu@1.7.5':
-    resolution: {integrity: sha512-ckWMZA4FJp2N9Lzn5aoR0fc9ORGUvLe/Nt2EhoI7ZYWO25igkLQUABF/N1vzFCg7bQ/RCYISELuNVhvT1Ho66A==}
+  '@farmfe/core-linux-arm64-gnu@1.7.6':
+    resolution: {integrity: sha512-QuIGLLQ0X3vM5amvnU4uMswcaXw60W47P331tdwmN2HFrdir2uwYc2HwwiFmYSdXT5ZdUHEGTAhd/mFcvmGJ1g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-arm64-musl@1.7.5':
-    resolution: {integrity: sha512-RP+z1lQibUanbsyrwwxbFXpT8hEPlWR4zBZWGyl2xTMzMuU4WnYex3xGLlGWc4SzBrVWqm6tpF5hDPdvaCw9Ww==}
+  '@farmfe/core-linux-arm64-musl@1.7.6':
+    resolution: {integrity: sha512-myhViDFB1/zpgdgtGZd8NCeLmb/dJIq09WGzMCyXF6p6ezYLP8GwcjSars8LIFsDOgEY1xI7Swvc/Bu06sl6vQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-x64-gnu@1.7.5':
-    resolution: {integrity: sha512-gYGiYrZgIVEZdUNyNIFx7BX0GVo+qm0zr1+WCzw20ocPw7x0VDfjAnF8lV0B7TUtbEgfk4xWpIxHwa5EArfm8w==}
+  '@farmfe/core-linux-x64-gnu@1.7.6':
+    resolution: {integrity: sha512-O7WV8i8Cgsgjh5UlfMrQp7nj3OP8r4htecab5dW7Wo7OYDuzTB5YHonoNJ20h/IRh7GGd9B9/U19GuAbxGSzBQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@farmfe/core-linux-x64-musl@1.7.5':
-    resolution: {integrity: sha512-JKrPxuopLL5W0+lFxMm/0sIw+j0u+pwWf9rGWZ39T+YJVq4JUP5VnIz6HHsWgV2UB6018HzcIKJzBt+PQxVFcA==}
+  '@farmfe/core-linux-x64-musl@1.7.6':
+    resolution: {integrity: sha512-REG1SkHgpwfcDrTgD3fQKHfUilB3M7uoXh/Goy3XKExBPB6WgKBaC1GnhuJBnJg8SP0CxBeL5p1Odf58kmiF0Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@farmfe/core-win32-arm64-msvc@1.7.5':
-    resolution: {integrity: sha512-la5OM+dw2etuImJUvir7LPPYmSTqLgbhxyva1NDT7mpG5tRmXvvFqQw8j1UfZBuLJIjmzmgX8c51vqE+7vjr9w==}
+  '@farmfe/core-win32-arm64-msvc@1.7.6':
+    resolution: {integrity: sha512-K/axF06aScP91FCd9wNiLZT0ntG2AKy3H0qj8egd858sVkK57Dp81El4EOAsPY7YI68RTU5zBcxCHUEE5Wrq2g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@farmfe/core-win32-ia32-msvc@1.7.5':
-    resolution: {integrity: sha512-r8gpAunlkxLTJOfiy/uMPCqhQuHd+6OKYMwAQ3HAtYcJAcSP5vcbWkStaGXwevtibKvXAjao56Z2ggylavYPSQ==}
+  '@farmfe/core-win32-ia32-msvc@1.7.6':
+    resolution: {integrity: sha512-qj7+9Gt3Xt9J32nSSIkng9KiURs7JWxwiD/QjbVTjsvelkj/p9FUMtkNISN8wrGhltSCYXgvZN4tAG1ufIBFNw==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@farmfe/core-win32-x64-msvc@1.7.5':
-    resolution: {integrity: sha512-fRhHXFlda/oI1YIMKm2c+vFCjpkKJHTp0GZOho1R2clP6MD9sIMPh+KYIMHzn+FJFuH7Ku5+t7zhtpP1hqsn1Q==}
+  '@farmfe/core-win32-x64-msvc@1.7.6':
+    resolution: {integrity: sha512-2SjIJQfNrKLr4W9uajuG/6J+utGaRH7h6Gsaq3jznNv3/SOTV/Xv/8VZHO+J1pm+w6PJZH1/9WyC2lfWa/XGgQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@farmfe/core@1.7.5':
-    resolution: {integrity: sha512-Hv9BwNOzoS8y83U0uxyR3s8iIUJSiTc1rnB7h146SNNzhVjRgVBvlbyj1TDBOiiEBx2KxSO0ACJxXbYcowfR3g==}
+  '@farmfe/core@1.7.6':
+    resolution: {integrity: sha512-mGMV2Q5Pj+YH8jrv0CU8Zvq1+y3Lewth8zFcKjrdgsCGXL1+888KfxG8ERD2kvGoZcSbX1evu9HCoNgpMJ/mcA==}
     engines: {node: '>=16.15.1'}
 
   '@farmfe/js-plugin-postcss@1.12.0':
@@ -403,8 +392,8 @@ packages:
   '@fluentui/priority-overflow@9.1.15':
     resolution: {integrity: sha512-/3jPBBq64hRdA416grVj+ZeMBUIaKZk2S5HiRg7CKCAV1JuyF84Do0rQI6ns8Vb9XOGuc4kurMcL/UEftoEVrg==}
 
-  '@fluentui/react-accordion@9.7.0':
-    resolution: {integrity: sha512-DzWK3RBWlREn9EUYEXdYZhC6cjJLAm2u21qqofovrIlU/LDUUCC1cPxJHycdi9KwP7mDZdhXSqQG6LLe9xIeMQ==}
+  '@fluentui/react-accordion@9.7.1':
+    resolution: {integrity: sha512-JNFs6FggF0Y/3EwfWQ0YQXJ1ffuqQMk0ZkwgSIv0PzDxbv9iANapgBitH9VoqxpYXadNgMtg6YjX9p63c1PXhg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -419,96 +408,96 @@ packages:
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-aria@9.15.0':
-    resolution: {integrity: sha512-8cN9/5+XHL3mzp1gNIj0ZXuPTioYALO/1FCWugkOF5JP8PVkV3HDX3ezRq2Bk44PS2YK98tjffTiBzFeanHxug==}
+  '@fluentui/react-aria@9.15.1':
+    resolution: {integrity: sha512-+PyjxwkaEGLsgat4M+1vm9A6AuaU7KCLuD0zg75olt2b8cipTpUTwfMlwHobDUN32/NNWdSgDzVfJ0zb/Of7Lg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-avatar@9.8.1':
-    resolution: {integrity: sha512-hLOFxN8oqRkO8lBqGhXLONtI4LRWf/16TJDiizWbfep33NMS/rpHl+PijwO873CXRxSDnR1z3sENHpVInILtug==}
+  '@fluentui/react-avatar@9.8.2':
+    resolution: {integrity: sha512-0uDsLgf2jwmtc3qUjrwfn995jO6Qsit9fpSDuHCqA5PeFiiIjUuFAN8B9ugcHzoAtO0XWK7SNFKRVJIBQnbE0Q==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-badge@9.3.0':
-    resolution: {integrity: sha512-BFONtrI0SZmM+j+wR8tb5S43qodY5AydKMCJ35e02rR1/nyizg4tA3g/3iujGHAAsXPX04D20W4QMcy9LyRAXA==}
+  '@fluentui/react-badge@9.3.1':
+    resolution: {integrity: sha512-0Vcgbqci+qbaKOQVfgZfGdgphUDl2ar8FPbFngfCh93CPRboNTcqM77YEk+S2Mr6xJWG6Uhv4kdPXyC1bpBulA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-breadcrumb@9.2.1':
-    resolution: {integrity: sha512-xwrwLz8AbvfcbESviNOrQD4GZ8YeabDK/WLzVXPf+sWsnPnnYx+j/+EgnsbTjJ8FtYKkak1pMq6KwLC1mzWQnQ==}
+  '@fluentui/react-breadcrumb@9.2.2':
+    resolution: {integrity: sha512-7eYA/WyhUvJKlbrOTTRPZowEiiMFFScPW8XrTBsArYeT80qdES0iun9Gvw58C+LFGNXa3Hh3QGPqHRainVv6Vg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-button@9.5.0':
-    resolution: {integrity: sha512-J4Tdxcey6cjyxKuRAQkUynAwBwLnuTmGry9APGddbnGPGXBDNqjHIqqMDua5lOSIINSIiQHTNdg7fZWoETSZ4Q==}
+  '@fluentui/react-button@9.5.1':
+    resolution: {integrity: sha512-wAqn1OLS510mqCJk4Sb3CZ130K2jvicrPQRcYWrfk/+pv0f9wzgDERpGO7e+f8ji6GAFNkSzbCCl/bjx/AEFYQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-card@9.3.0':
-    resolution: {integrity: sha512-ZvCuFta3X2HaLTU0fdpbHCz/j+jGYRhwC0CVcxK1u4cXb74r4V2DfXaNYI9vXw9ELGe3YoiOE7xmDdDL0sRUYQ==}
+  '@fluentui/react-card@9.3.1':
+    resolution: {integrity: sha512-eTBL9FTdzDQJLn0hV4Gjt5Wp+h7PewVDHEGmu2mOSdoD445RJMqoz47HyrCP2CkydHcAC6AUY44D+8gYiEUr1Q==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-carousel@9.7.1':
-    resolution: {integrity: sha512-nmr1QCzH5vZHZ6KQ50YK+1obfKr/hejgqSMu1Ze/CwZ2/louEYzN2bhibtJfW6b3PpBeowL+S26jbdNWtI78yg==}
+  '@fluentui/react-carousel@9.7.2':
+    resolution: {integrity: sha512-e+EEjHBmZDD7NQkNSCO6hqYjDmvOGpr3Zaa3oLpYC0wc2dx79SZdC8P/P6MF2ai0LqjLlicWoRAko7XFFRt5cQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-checkbox@9.4.1':
-    resolution: {integrity: sha512-lrf4I12fGMrodQODjrwTgDl5bOssXuEzg+ioMh/ldWQGD6xPjoqrznLusfjj+Ua1qR6k2bHnHuSDoH7E1vzlng==}
+  '@fluentui/react-checkbox@9.4.2':
+    resolution: {integrity: sha512-/IZnR3gQt5Nq6J9T/80obkExFHDANRSI6Z8D2Sh/wRDwZASRxgfYrur1KAaXQPUpgXfapl3xEFY4BrGGytqmIQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-color-picker@9.1.0':
-    resolution: {integrity: sha512-Tm85dMk0XPUZDCybjd0sa+1txR38ejLL+MG/Z03cpC41GxihDh5+4dPAqSfPzfezbENNoFsqfjKiKhw0Un96Rg==}
+  '@fluentui/react-color-picker@9.1.1':
+    resolution: {integrity: sha512-E1yCjtMeCTs1usKrSTYs6D9GNRoVtpIhon5IERYawipJAygcAVe7/XAsbjqNcLgTKNAdTVAIjfzVKmBFIud3pA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-combobox@9.15.1':
-    resolution: {integrity: sha512-/WmfxkrYwe3/XU4gan56tjEBVdBmG43tW247vqXHQiC/e3q/dsqwQNhCO/VVr2pTS/Y3xhorMML63Azh9WXJ4A==}
+  '@fluentui/react-combobox@9.15.2':
+    resolution: {integrity: sha512-Mlz4I1zXHSyn1Bz348TUS+ondQzJGQC3JCmvlhrGvm7n+1rtPB+lAukrmjGYaKWr2EwY8Zg27OHGJ7LEWCBsvw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-components@9.66.1':
-    resolution: {integrity: sha512-Rzh+QL2reQEMaFLu+h314ic7w8W9TbDcyDpohb+CRODgT3YCw+Gt+SVbR3Yi+8Cf3kwtokDQIC3ki6iBQ9g/Tg==}
+  '@fluentui/react-components@9.66.2':
+    resolution: {integrity: sha512-bqqEl4HwsfFzBaMSFh7o2hinc+B6E7sFmeB3zlSbYkJ6DzshxKvmhR+hqlFgw8MEdrE3FWswDI03jy8bB+dAQw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-context-selector@9.2.0':
-    resolution: {integrity: sha512-s35dNhIcHGm6SmmQr04vATaogQZ2Wvl1zi4/xgZ4/6V8XAGPBqRRTkutjkWgW4u4WZDriWdWNL62ju3hGDpE9g==}
+  '@fluentui/react-context-selector@9.2.1':
+    resolution: {integrity: sha512-bT3Z/jCSQPI9sbbS+Upko8SoRPb0W+w56eCRLgiLpjYxr7ypLquljS1DcBfOED1u1QQ7GjGN+vzzU7NujdVRwA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -516,45 +505,45 @@ packages:
       react-dom: '>=16.14.0 <19.0.0'
       scheduler: '>=0.19.0 <=0.23.0'
 
-  '@fluentui/react-dialog@9.13.1':
-    resolution: {integrity: sha512-YCGTh4IPaHQH1LTLoD5D5Ql7DK+1ytMHYL4kQ9O8CmSu3WntjUSmOKGxWDHqHLEX0gRz86fPy49/u5NDDhLfFA==}
+  '@fluentui/react-dialog@9.13.2':
+    resolution: {integrity: sha512-jGWH8ylT8qCAFDH/+xRxVLZqRSe49S0In+iUwIblRvyI+AHrmBW+sc5TCXuwbSp8FkhPwISLtR9wuHzKz27vhg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-divider@9.3.0':
-    resolution: {integrity: sha512-8MvWlNcYQBIpIH8d90PRLYvqTA53t0Folv1xf2isC+YWeTm5J1siZtPRiZ9+K0uqI9Y+RD4fnWN8HfMeyOAjlw==}
+  '@fluentui/react-divider@9.3.1':
+    resolution: {integrity: sha512-g2zb71RFYSSvup1jbghozv37Q9HwfpHe1DzRS5z0doO+f0Vf642IQa/r+vG/pSjdCEdYRHXAIn/aMKLAgjp9dA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-drawer@9.8.1':
-    resolution: {integrity: sha512-VjzG0qAXN7eXiBbFzM7YHpNes05YIdY3WHJD6V2FheHvmthzhw8GFqDnRHsZ581Wb9uB9xqi+WJ69vNJ9tS48Q==}
+  '@fluentui/react-drawer@9.8.2':
+    resolution: {integrity: sha512-xhTKm7YQRup4ngLKvwJQilecuwyq1FKVYBRZJGfTU4pf0K1MYvkbUCDt/chQM6lRPuxKkjW+5MLx1v9YWC6q1A==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-field@9.3.1':
-    resolution: {integrity: sha512-9bzicAbR5+AtboowO6akbJsoMWDGUtbGenQT81mXt7HGg6RP86gpodgcr/4f1OG1w5VtrfoA/aoNExP/XzUeGg==}
+  '@fluentui/react-field@9.3.2':
+    resolution: {integrity: sha512-MdlJTvk5G2yhBWyjc5nG7hfN1LhLlYkGHGWClQHeBc8YaECaq3j4XnOV8qpSslGRIwa3b1uogRGUfcCU+Oy8wg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-icons@2.0.303':
-    resolution: {integrity: sha512-XsPCS6ZWpXytoYSiRAZY1De82JXdkEhmn82cNWsnxlixQATCOv5+JTW1Isogp84eISYVZE3KkXPwqye8fpKnjg==}
+  '@fluentui/react-icons@2.0.304':
+    resolution: {integrity: sha512-8Pooy3e7NZUBcvBEpJUy1xmapS1ouT9s42rcNgOvou4wmcv10n+iFtsUUHswJ9Zr8F/gn1V0YcA2SqtFbu7P8Q==}
     peerDependencies:
       react: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-image@9.2.0':
-    resolution: {integrity: sha512-vP26rQDNx5LevbEKbf6dLjTx4uOZWIopjx6HQYSLk8axGWmjXe21t6BXRa9iTiPfibwJmWwzXvqGHxYR/as/wA==}
+  '@fluentui/react-image@9.2.1':
+    resolution: {integrity: sha512-MBvB61RlSFQ2REgFCHpVlVdEFFjtCBvsUR67M7BAmdUAn9c4sOjvmsMLuO9WNvphrHbYFB/eCNOulE0NiLvajw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -569,292 +558,292 @@ packages:
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-infolabel@9.3.1':
-    resolution: {integrity: sha512-fL2J3PJy6ylPQrFFwAJgFoACxRk5d/PtzjL7JlmM1OCaUmUD2FuUovDYpubw9r36OemVOHTB/oXhpitlS3BoPQ==}
+  '@fluentui/react-infolabel@9.3.2':
+    resolution: {integrity: sha512-KzIwHFne37Drlm328uHreWjcqAVgtJCvyT2vCdzFknx1eOQ0521syY4uKHIctqRDs8kN4wXDPx8/lCvLymOu6Q==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-input@9.6.1':
-    resolution: {integrity: sha512-IMwJxKjZYznlKFrZ6MoKpFXJxfGoJBJux4hDZzqDWyDafDSvjmTpiiutJbQmMRQpxQ4pPuaHBwcSScfExAf69g==}
+  '@fluentui/react-input@9.6.2':
+    resolution: {integrity: sha512-imIe0wyb66xLuAr3SpmDRIP6wIbwzLqChXzn9LzaAKM11MpsJekvO4PcxTPr0XRfUhRlPUOZxyj7dlulmiTPiw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-jsx-runtime@9.1.0':
-    resolution: {integrity: sha512-HB4+1ofzmweSWrFPZeoeepzNNHu54jplCfPLlppBoHx1MZ11RR9w2uIsLjfSDrEPIZnXbQxVBItvDh9ZrU9new==}
+  '@fluentui/react-jsx-runtime@9.1.1':
+    resolution: {integrity: sha512-dglV5E5sPsR5OVk/S3QyedRc0Qwk6Fyp5MhkULMnGnM09Wh4lZyywDrYeW3D3KMTypJPHyM6rzx/wZKnnsYp5Q==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-label@9.2.0':
-    resolution: {integrity: sha512-WDaBR9AmdPvJ0vXN9WicOlHFhI6BKgQXULl0YjMXuL51tl37txyvY2crv+YNeVsfykI18h6LOPxltPeEdAsxag==}
-    peerDependencies:
-      '@types/react': '>=16.14.0 <19.0.0'
-      '@types/react-dom': '>=16.9.0 <19.0.0'
-      react: '>=16.14.0 <19.0.0'
-      react-dom: '>=16.14.0 <19.0.0'
-
-  '@fluentui/react-link@9.5.0':
-    resolution: {integrity: sha512-bdEFARlbnTyzrKHKv7wvLMRua7/gUX1dOzBG+1tfmJFuFkE2gz7rxABBVdlaI1PHsgAbGnzQnSzl6C5DOPgqcA==}
+  '@fluentui/react-label@9.2.1':
+    resolution: {integrity: sha512-b70RgSHIzKWfvNrw8MSf/i1wbMB8RvJ41PMFM/Vp74vYQFvrE1AYVMyeTz2vpCNIi2DYupZYK37tEcgwZr6W2g==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-list@9.2.1':
-    resolution: {integrity: sha512-UGRD+oBNtSRA+GH7n3qC07AatNvRLBQwSCoaza9ElYWsh4eWQzbp/zkurLWIM0PrAUd4JHuMswHARRBlJeY5gg==}
+  '@fluentui/react-link@9.5.1':
+    resolution: {integrity: sha512-3GJzh0vhHzpuUF37xi/b+rIv0YfdrGi4cHTjp6DmqD08IQ1NGywvHL2NnWZi1tWMnakI75H3XDyR+KroS5l37A==}
+    peerDependencies:
+      '@types/react': '>=16.14.0 <19.0.0'
+      '@types/react-dom': '>=16.9.0 <19.0.0'
+      react: '>=16.14.0 <19.0.0'
+      react-dom: '>=16.14.0 <19.0.0'
+
+  '@fluentui/react-list@9.2.2':
+    resolution: {integrity: sha512-mzd9om40e2MeO5U55142GIZJsJd1+Lt6Pestds2HWCjNALAZEOIjgH1D28owYPfcXrTA/bBqMmskZrTVaLcpaA==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-menu@9.17.1':
-    resolution: {integrity: sha512-aygFQRa6Zt8sZ6aBnR+OiNaFOmykg+X5BTPBiu2m6IlJs1Z42S2AuSj8OuBUjrFQ3LnxT579AHDZuTXBngCsEQ==}
+  '@fluentui/react-menu@9.17.2':
+    resolution: {integrity: sha512-3hKTxDJyJoxwxw7o9kfFLaZEmaOtIUq+1sHjPvepRVGuDnn1qiTkaJdZ/RNLZvjBDfav4xMr3+70lp2ONIRLgw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-message-bar@9.5.0':
-    resolution: {integrity: sha512-rsJUrXQWazdQ8gUX+l4XzToA8BMOJ+8t6WjXYr48Ztp7E9oROKaralavF78yihwY3t1ceacSbKa4bQLNqONlDw==}
+  '@fluentui/react-message-bar@9.5.1':
+    resolution: {integrity: sha512-n4RAfSILcKhIKJCOa5eBB2eAHjNRrs7VtzwDxLJdNr2fk9YprmXSujWHDXvZWuc/9wZ3cTuMX5TVo77eqaQQiA==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-motion-components-preview@0.6.0':
-    resolution: {integrity: sha512-9PBaI25VGIuVKYE8Q4gew4/tsFmsOD4F1ZzHdEVkUS984pCZjC3LD5+6wrxpoJajDGk4cpWRRGl8x3DcO5CgHQ==}
+  '@fluentui/react-motion-components-preview@0.6.1':
+    resolution: {integrity: sha512-Mpe/SMILTyh/kDvylyULj0gpe7+wanDtD0z99YzBuJKXuWx/ZqmH/s67kYjJtGP2XlJBIctqFDE5LHwNdOCPow==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-motion@9.8.0':
-    resolution: {integrity: sha512-TTwJV4iw7LHesPNtQpPmEb77YplC89Vh2+ru2vWS+f5YJbmduN4V/WH/ViakHjRGj/m03jRaQruTpg3rKGUCZw==}
+  '@fluentui/react-motion@9.8.1':
+    resolution: {integrity: sha512-3pULPyZzNPXdc71HaGKMKRMSBL5HBd31eH60zrG5bF6R0VyfD8gTTn0FNXKckI4+i2gRo4Mael1LRG5B5rOGow==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-nav@9.1.1':
-    resolution: {integrity: sha512-kn+5KVDCoY/xPrpEegJv9SEVofqLOPLDWk2C5YBR0zZItzZ7cHfNxABsZ3fD0RM15ro5BaaHm6mfuDxERHluHA==}
+  '@fluentui/react-nav@9.1.2':
+    resolution: {integrity: sha512-S6iY3DEtk+Jpo+ZgBR/IY3a68bVeTLdjO6kNsqs6ApfVsyU9LQAONE8Vp5a2O3Bd9hUXiN5qkdunjMAB7PTnzQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-overflow@9.4.1':
-    resolution: {integrity: sha512-qToEgEuyBWN2Te+9gg56fib/jCDwi3gBJhvZQSL8Ywgg3nNhmyAnOfGEdaMHrVL4DpFaNEOzxoC2C9vrzCx5bQ==}
+  '@fluentui/react-overflow@9.4.2':
+    resolution: {integrity: sha512-8YWfl+KdyB8Ef+9aWC4XT+eMLC9YkV+IreWUUAFs/6UCar6t1lLyAR8DM4wr7hV5R80P3kWgdYe4R9LwsZc98g==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-persona@9.4.1':
-    resolution: {integrity: sha512-+1LLEfSEsZqcYLKt80BPT7hPXwbP49SiOb5PSHvOM58HtruWtD+rx7xLFVcR9BnlJK/oZkRjisfQlAM3zuZ3Yw==}
+  '@fluentui/react-persona@9.4.2':
+    resolution: {integrity: sha512-IhjROphtC51ts9m1NuMcaSTNO9PhiUG5DATXvjzp1EGEMgt/+GuYNm1EJMAUdIbIyqJZ+uRuRFZ9dXGiLQ9zEQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-popover@9.11.1':
-    resolution: {integrity: sha512-f+/K+8zHAlrUR16NSEtZ4rYArPtm+PpEuC9qd7+PjrlI/GytZHqVlNA8X4ddHWQy+fJoqTSA6cbB+SEYK8/yPw==}
+  '@fluentui/react-popover@9.11.2':
+    resolution: {integrity: sha512-62PkVGW2CVTvIX31XyzCpKIoDsY3BcqGcSELpMWCDEmmfZpB+dc7WeO/6sJNEWKTXEDySG6r9zsHNzxc7I5wkA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-portal@9.6.0':
-    resolution: {integrity: sha512-FiA3eM/1Um/3HZvfaGisdL7pLV4idWzlmDUIFBUOlzXsy57mIY9IwV5nDHYiJdEMkW0UstRVJB4oRaHoHGSqUg==}
+  '@fluentui/react-portal@9.6.1':
+    resolution: {integrity: sha512-9uQNYxha9oZ47KVznfZmPNaZm+B+arjmUae3au4p6yyVoHgVoEa+FugoVvE3GS7bDly+4nmz/iO4zTG+gPVGrw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-positioning@9.18.1':
-    resolution: {integrity: sha512-+ueJus7IaezMAEDrlo3G/ihd+8Voa1W4dWrswH7Jknulggp8Mfaz1wMdZq8GvMuBnifMLJ33M9svsrJJahscPw==}
+  '@fluentui/react-positioning@9.18.2':
+    resolution: {integrity: sha512-095md7vAeAHkOLZLdWPJN292seSz84K33AqVEY4FBh9pkD1XH0OO8k8O2bsfwW8JbVkqVFrg2TjY6iOl6RQTIQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-progress@9.3.1':
-    resolution: {integrity: sha512-2+jMPtuANnU7mUVEyUhhLh2LJmZNHrH4sin5rjSlsipr3ifhCoFUOoOloHw+cuVFzHeQNxIV9AuzOODii6cU3g==}
+  '@fluentui/react-progress@9.3.2':
+    resolution: {integrity: sha512-KYrxa6ZYCUGzMmrxH5jJ60VpWgqSB5lJU6ybp8KeZH8B9CwviHl/HfVBf3v3x8+7Dz9LHnzZzk3XWAPa18/AGA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-provider@9.21.0':
-    resolution: {integrity: sha512-mADFjeZKN5e6AJJ45Nc99yDMmvzDPZea7G0PznByC4H/+JuZO3oExTve2SYSmj4KECyjv3wQVlMe7os9sCLZ6w==}
+  '@fluentui/react-provider@9.21.1':
+    resolution: {integrity: sha512-DFbeyVqJZGeh9IBpdd26tgmz/ktPojDZyT7LeAL0bDWAl7sqZG6kEibHvVbBqvL6GJdikRGqLfxGfhoSDNExMQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-radio@9.4.1':
-    resolution: {integrity: sha512-uQ+BeJeESBpC+MOC1coeiUlLVshpz2fjme3SKPuGDZv1x919Mh2e8OG5R1EcNGLJBMSVrU/LT8sqAV9WJ4k2cQ==}
+  '@fluentui/react-radio@9.4.2':
+    resolution: {integrity: sha512-7hf5uZzAB4exV+45gizu8qXiOX5NDt0s9shOpxr9bbybZIveD/pFcRa6TL3tJcrqbGSXNjHOoNgkoZvwsd91Vw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-rating@9.2.0':
-    resolution: {integrity: sha512-GjEE6XmxDc8zTiQWZmiRJgXqKzreREQRUOimuBrG4exxKcoXj11Ah+oOrLJ/z/KmPyu0JGk5yHJ+VMuJeJh6gw==}
+  '@fluentui/react-rating@9.2.1':
+    resolution: {integrity: sha512-VDKvdsAunIuUx1ZOtRgGpvp/0Cst2EoST2NOdZUiVebLf69GQRDDmf1qw9v/f/w2LU2JKv0VsSRQ5RyATusmvQ==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-search@9.2.1':
-    resolution: {integrity: sha512-tFfo72YnBLK4nIIpaL8IE0Qu1hHGOjbbl2TxM6NN9qddp0s+5WeUHtpE1auyMeY4s1UQNbZbtjmsBpzicCAlaQ==}
+  '@fluentui/react-search@9.2.2':
+    resolution: {integrity: sha512-+b353UX94MljeGo1JY4P98CSO4fPy5kduQirNdv7eRy9VinNg96SRBoXx5wvPUUTX6/mvS1n+VNdDPqxTIIhXA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-select@9.3.1':
-    resolution: {integrity: sha512-BvylsBcUzH8t/miTo/kesuv6GgTW6AiipFkTFsoeKqXS4kWYOZx3+ufVytdU9Pcowr0WrSBy6s/206JCQR3nVg==}
+  '@fluentui/react-select@9.3.2':
+    resolution: {integrity: sha512-HEkgEnpJLIDarXvAPZCu0KcyfETnhjtuo3J/wo7ius3etSGCwzg6oKraYXZsuPY0JlbFXDL1Z6k4+FeQtMIlWQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-shared-contexts@9.23.1':
-    resolution: {integrity: sha512-mP+7talxLz7n0G36o7Asdvst+JPzUbqbnoMKUWRVB5YwzlOXumEgaQDgL1BkRUJYaDGOjIiSTUjHOEkBt7iSdg==}
+  '@fluentui/react-shared-contexts@9.24.0':
+    resolution: {integrity: sha512-GA+uLv711E+YGrAP/aVB15ozvNCiuB2ZrPDC9aYF+A6sRDxoZZG8VgHjhQ/YWJfVjDXLky4ihirknzsW1sjGtg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-skeleton@9.3.1':
-    resolution: {integrity: sha512-gI05SgPkrACHH7dy2ZM5had1/Px99Wpvsxl+gzBCzloqeNlm0Eh1H/TH5UdFOm+0IA/Lit/8crwqSNRmHL/Viw==}
-    peerDependencies:
-      '@types/react': '>=16.14.0 <19.0.0'
-      '@types/react-dom': '>=16.9.0 <19.0.0'
-      react: '>=16.14.0 <19.0.0'
-      react-dom: '>=16.14.0 <19.0.0'
-
-  '@fluentui/react-slider@9.4.1':
-    resolution: {integrity: sha512-pJeh2gRXV4/uDbT2HAcWmp7zxq3Bwr48/LHzsPngwKP6W8Pgw7NysMZimJVs3B5nL4KXZyyH/ArDy6IV7pl/Aw==}
+  '@fluentui/react-skeleton@9.3.2':
+    resolution: {integrity: sha512-JYrOLmlHbbwSgZ+MTreVYBBRuGh2ZsUIUOXKZPd5mf3z3PaxKG/7l+AT+wHtVsPpQaswwtXglnrbXmQv7PlKFA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-spinbutton@9.4.1':
-    resolution: {integrity: sha512-dUj4XEocE5Uy0TWFxFNVGyRZpNJCHNl/VNWwJcDPNf6Jb5ThqGcXZ4IgWO00GoucwTkUzIHE37SSBGatL3ANsA==}
+  '@fluentui/react-slider@9.4.2':
+    resolution: {integrity: sha512-LBRThNgRcBthg5GX63ZPZwOrO6/sZw2gW/JrxnsfDG/2nqqiJeri6LhX02NQPaq03ZSlh+eGClH8pqxFC9UgCw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-spinner@9.6.0':
-    resolution: {integrity: sha512-yRUozOphh92DMM/hZLp2aF12vWGpz70M7ya//E0PVhwXMD2zJf7EvK/HvgdtMNoiSkM9nYrEoe4HuEialn2WQQ==}
+  '@fluentui/react-spinbutton@9.4.2':
+    resolution: {integrity: sha512-y/V8gBH3cfDI1R7jCZbeO7YDrDkQQzsV+Q4iWhK4g+WhzaJQn6mEjw9euQDdKG/qU3FaXcjK5JylBH+sbuddMA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-swatch-picker@9.3.1':
-    resolution: {integrity: sha512-W7Dz9pF39KdNdYLFR6ySa13et/i+5LLkY6HrGg9k3LxtAYwCeooy++4FBYpWE87i+FcuiAGKmzhy6vHM5i2TBA==}
+  '@fluentui/react-spinner@9.6.1':
+    resolution: {integrity: sha512-ND5FSD/7OAl60ryfgFumxytKn1w7iYmhsKzIBKDz/WdCyACb2z9j124beDc0S4RfqRZ0IwBSjGZRfdZzfb9JWw==}
+    peerDependencies:
+      '@types/react': '>=16.14.0 <19.0.0'
+      '@types/react-dom': '>=16.9.0 <19.0.0'
+      react: '>=16.14.0 <19.0.0'
+      react-dom: '>=16.14.0 <19.0.0'
+
+  '@fluentui/react-swatch-picker@9.3.2':
+    resolution: {integrity: sha512-5zp0F6XSVKBNp8xdt7YRXEtLojjJiXfSCOjkSRCL1D3RbTLIKAVuL/vYwIdDGFA1tzDzeVKxuM4U2KOC8ZHV+g==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-switch@9.3.1':
-    resolution: {integrity: sha512-QxmTGQQdUWpfGe40RafooeHeM8evAz6dItDsEEenu4h8KbrD0fztBjDG51fjuAPsrbYzoPS1o684+dD8pl2tNw==}
+  '@fluentui/react-switch@9.3.2':
+    resolution: {integrity: sha512-eUR21u6XKkNfngQbq9hcwIRE34liWKDnUlzYWP9k8Dzw9mHMFJtiUY5ckLJrGi1ijgqhHW9P4VIHTDBM8KNeYQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-table@9.17.1':
-    resolution: {integrity: sha512-iDaX/wK4UmxYoqUPNK84553UTiYBB3YwPPjIkpxoxlv+RnjnPDshmDRT4KzCDNI2NvuhinwaKtj+b8DvMnFwHA==}
+  '@fluentui/react-table@9.17.2':
+    resolution: {integrity: sha512-RBYiKZFEmZXi78KY4XP9MsVwHfBNjUbUvILWJoWQoHucczxyG9PHIp3+wZqTjqK2yQTsPS9dqIBXcAebAp7/bA==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tabs@9.8.0':
-    resolution: {integrity: sha512-0dwF8v2rSRd7c3XV+LiHlf4eetXf79S2iBmLUZKmi+BQHWZv9NhmDLOw6DE8yidcHvlKlvXcUz+UNmVLXdmsCw==}
+  '@fluentui/react-tabs@9.8.1':
+    resolution: {integrity: sha512-bI+QjNdQIOdSrhdCAlsIoCLopt2YD9ixz3Sfb9EesngSxgIBaeM7dREEpgP7PTxKwiJgOqloqjX8g0ISmJh73A==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tabster@9.25.0':
-    resolution: {integrity: sha512-V0f0lWt/PZZ0ZDTz47qdvf4vQ5v0W2EZwhZlE2DTSiQ2U5hLAZhXKwCoM6T0nN+mviplQshNWBenbI6HS1RKgg==}
+  '@fluentui/react-tabster@9.25.1':
+    resolution: {integrity: sha512-bFubydQjgvPtN35vo5L1FhbCSFUXznhrpfnqsqOXjraILBXExDfJdMfkjUU2PT0aKQrxXfCiXNj3M1HHKh+hGg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tag-picker@9.6.1':
-    resolution: {integrity: sha512-eQJHWpc8IfA/D/tsJZ2LOrPsm3CykRrRwIOl4qmRpxGF7jpjc9TTgv/x65xhNAV1zlHkn/kdeF3c6fg51ZPZYQ==}
+  '@fluentui/react-tag-picker@9.6.2':
+    resolution: {integrity: sha512-rBOcBxkcKqBq87dK6v62yTOcPf3BQkNhzr6Hpgt21ZLq29D3SsAdggrfsbJVXl6A1B16GeRwhfjTUH00nyNLsw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tags@9.6.1':
-    resolution: {integrity: sha512-h511CaowCakh1jXWFk7J2iy/7iXie0EafJqSYkES0fD/3whJOdos355veYkUqdD8G7BaMjL5n9Bkj3OjlxrMJw==}
+  '@fluentui/react-tags@9.6.2':
+    resolution: {integrity: sha512-7o89GCRaXUo+sCsnFlEEkdvxBEu32gaLMKml6mtyG4maARDP2+Mgqq6dUcKngwbZhBvzLcibExkic5ESYQd6Ug==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-teaching-popover@9.5.1':
-    resolution: {integrity: sha512-4YUcfbu/y2uY/gJGwo8EwcqegGBaFc6Mt4pKHLgUJd3m+26YDuHFEwpWEN/gHZ1nKsAXg/zlPpaPuDOwzFZFtQ==}
+  '@fluentui/react-teaching-popover@9.5.2':
+    resolution: {integrity: sha512-TqbwXYTL+ZiQ9jKURa6eFXiigw5acK8KJrKfGlmACD8ZK0Tm/DXHgU+mTxrG8uh28w+2DDdYDlh5BLlcT/zYIA==}
     peerDependencies:
       '@types/react': '>=16.8.0 <19.0.0'
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
 
-  '@fluentui/react-text@9.5.0':
-    resolution: {integrity: sha512-mT//jeZDafU2zEBkSsRjLWtwJ6jyj/f5DPRZQ7/sA9yeQ4YDoXoJ2+x5IoG4VX4tkK1CRvmR4LA/V8JvrWjVyg==}
+  '@fluentui/react-text@9.5.1':
+    resolution: {integrity: sha512-0kGU7oBiVvinlphjco1ijaheJQTb9hRMF6xMIJCsf8+jO1zuhYTAsfilSkqzGN/6goAbRsqGHPz0qK/stks/Yg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-textarea@9.5.1':
-    resolution: {integrity: sha512-wGl2rHdv1ZONOSyIjjjbTI/SDRKV89rWF6yVS2qcCI5TFC5SoxadqG+u/9Fuy3kpv69WwRU8Op3mDSz+GYFa/A==}
+  '@fluentui/react-textarea@9.5.2':
+    resolution: {integrity: sha512-vPl1xPWs3f0utJ0HDATR5yW8dwbVUCZzrkzUmce7bpwt0Vh3hDVEekNcT5Nb8xUnxNoSnOQ7/PiT3WpTg/OQYw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -864,46 +853,46 @@ packages:
   '@fluentui/react-theme@9.1.24':
     resolution: {integrity: sha512-OhVKYD7CMYHxzJEn4PtIszledj8hbQJNWBMfIZsp4Sytdp9vCi0txIQUx4BhS1WqtQPhNGCF16eW9Q3NRrnIrQ==}
 
-  '@fluentui/react-toast@9.5.0':
-    resolution: {integrity: sha512-TPgNNxfP5X80Pl/H7jVgreGKfDdEkN/L6G1rnjM18emsIw0DYB+B46JoBwmrPCvISZJNnLstSftwwDSqQEO2hg==}
+  '@fluentui/react-toast@9.5.1':
+    resolution: {integrity: sha512-JWizs6Ur4kTIPlSs13h2aQKZeHnUGDV2tdN/Bx0ZdGOgsSx5yZBbzwYpZ7OUrlwQHpsj290HetmwPUsJAXQNbg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-toolbar@9.5.1':
-    resolution: {integrity: sha512-8lI8lrRMdm3q9K31iKrOXbC+65OnSi+GtO06FjcKd413x0fBAYbWweRciAh3IyIAiU38RdjIvLKiIs92TuqUpg==}
+  '@fluentui/react-toolbar@9.5.2':
+    resolution: {integrity: sha512-8fkcmJ5Ivyx1tGr/bfXezJIdRc2VI6rIeKdJwvYhSlL/R+5pDTZ0OBM0gcIC5fjhCN62zq9/S3xyBOvCA3M2bQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tooltip@9.7.1':
-    resolution: {integrity: sha512-LiIQDOGEsGeuAbiQItOL/OvSiX9gY5wKgUCduv1cSqQ2J/f3FbsPudBlQJs8UhukdT1jTqF7sjoNel6rMg/rNQ==}
+  '@fluentui/react-tooltip@9.7.2':
+    resolution: {integrity: sha512-JUEVxeW2T1E4C8nmEp3oK6vvcQW6hLna1TXKtABDI0K1k2GvCpWF5UU4oqUUQK9pjgt6Q+RuQU4nfLRmibidRQ==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-tree@9.11.1':
-    resolution: {integrity: sha512-ORRyUoDZzo0GOmiZKwnFlompCjVDi++5tBzf0o/8YQ0xOIlyuCp12oK0UI0AKATXC3lldTupmk0XSorbI4z4qg==}
+  '@fluentui/react-tree@9.11.2':
+    resolution: {integrity: sha512-M1dejx8LAj3AltTzsvyKcOtMXl+N2VRT3dJ413wnMbocLuhdB4mpdBPt0PPje4qlnKrbevkzVgt38hyYcUwFLw==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
       react-dom: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-utilities@9.21.0':
-    resolution: {integrity: sha512-xViS1WwKIdPza+syMsfh1i3hNgssWgLtbevEeGb6DS/q13UKXaw9P/vezPUs6kSolnSD/juWZGP6u8ytkI1W7g==}
+  '@fluentui/react-utilities@9.21.1':
+    resolution: {integrity: sha512-hlKxACZ4RF95DoM3ccOxCwDYVgTgxaHuodyvpkWA/VE1QbX/ou2tYobJW+JeaANihN1f4APPJs/5h+zVjLjohg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       react: '>=16.14.0 <19.0.0'
 
-  '@fluentui/react-virtualizer@9.0.0-alpha.98':
-    resolution: {integrity: sha512-BXLXsQPOS+IXrOoH0ZFBbEH6HI7zwGjWoiCPCkqexQYa54flDI8jo2xU7FrvYKVLVNK5oa+UA9jxw5GqDah8QQ==}
+  '@fluentui/react-virtualizer@9.0.0-alpha.99':
+    resolution: {integrity: sha512-ZBxLktrpWVaZZLvMQy0MlwoeHwiNMNOyiX2DYX9EqrYoY/NCovsOmG8Snd6b7Pg6bKEHmz6gyuEEJSe8wwTLEg==}
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -1116,28 +1105,6 @@ packages:
   '@telekom/scale-components@3.0.0-beta.155':
     resolution: {integrity: sha512-yxlX8wxTcM4B2Fw3UMDO/yvbNQDo4cijC7QfqjoMtv/BtR/fVWI6BEtxBD/J6OE4I2j95e2NsVtF1R/Tbpg6gQ==}
 
-  '@testing-library/dom@10.4.0':
-    resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
-    engines: {node: '>=18'}
-
-  '@testing-library/react@16.3.0':
-    resolution: {integrity: sha512-kFSyxiEDwv1WLl2fgsq6pPBbw5aWKrsY2/noi1Id0TK0UParSF62oFQFGHXIyaG4pp2tEub/Zlel+fjjZILDsw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@testing-library/dom': ^10.0.0
-      '@types/react': ^18.0.0 || ^19.0.0
-      '@types/react-dom': ^18.0.0 || ^19.0.0
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@types/aria-query@5.0.4':
-    resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
-
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
@@ -1147,14 +1114,14 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/lodash@4.17.17':
-    resolution: {integrity: sha512-RRVJ+J3J+WmyOTqnz3PiBLA501eKwXl2noseKOrNo/6+XEHjTAxO4xHvxQB6QuNm+s4WRbn6rSiap8+EA+ykFQ==}
+  '@types/lodash@4.17.18':
+    resolution: {integrity: sha512-KJ65INaxqxmU6EoCiJmRPZC9H9RVWCRd349tXM2M3O5NA7cY6YL7c0bHAHQ93NOfTObEQ004kd2QVHs/r0+m4g==}
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.15.32':
-    resolution: {integrity: sha512-3jigKqgSjsH6gYZv2nEsqdXfZqIFGAV36XYYjf9KGZ3PSG+IhLecqPnI310RvjutyMwifE2hhhNEklOUrvx/wA==}
+  '@types/node@24.0.3':
+    resolution: {integrity: sha512-R4I/kzCYAdRLzfiCabn9hxWfbuHS573x+r0dJMkkzThEa7pbrcDWK+9zu3e7aBOouf+rQAciqPFMnxwr0aWgKg==}
 
   '@types/object-path@0.11.4':
     resolution: {integrity: sha512-4tgJ1Z3elF/tOMpA8JLVuR9spt9Ynsf7+JjqsQ2IqtiPJtcLoHoXcT6qU4E10cPFqyXX5HDm9QwIzZhBSkLxsw==}
@@ -1290,10 +1257,6 @@ packages:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
 
-  ansi-styles@5.2.0:
-    resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==}
-    engines: {node: '>=10'}
-
   ansi-styles@6.2.1:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
@@ -1313,9 +1276,6 @@ packages:
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-
-  aria-query@5.3.0:
-    resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
 
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -1407,8 +1367,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001723:
-    resolution: {integrity: sha512-1R/elMjtehrFejxwmexeXAtae5UO9iSyFn6G/I806CYC/BLyyBk1EPhrKBkWhy6wM6Xnm47dSJQec+tLJ39WHw==}
+  caniuse-lite@1.0.30001724:
+    resolution: {integrity: sha512-WqJo7p0TbHDOythNTqYujmaJTvtYRZrjpP8TCvH6Vb9CYJerJNKamKzIWOM4BkQatWj9H2lYulpdAQNBe7QhNA==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1564,10 +1524,6 @@ packages:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
 
-  dequal@2.0.3:
-    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
-    engines: {node: '>=6'}
-
   destroy@1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
@@ -1590,9 +1546,6 @@ packages:
   dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
-  dom-accessibility-api@0.5.16:
-    resolution: {integrity: sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==}
-
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
@@ -1614,8 +1567,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  electron-to-chromium@1.5.168:
-    resolution: {integrity: sha512-RUNQmFLNIWVW6+z32EJQ5+qx8ci6RGvdtDC0Ls+F89wz6I2AthpXF0w0DIrn2jpLX0/PU9ZCo+Qp7bg/EckJmA==}
+  electron-to-chromium@1.5.171:
+    resolution: {integrity: sha512-scWpzXEJEMrGJa4Y6m/tVotb0WuvNmasv3wWVzUAeCgKU0ToFOhUW6Z+xWnRQANMYGxN4ngJXIThgBJOqzVPCQ==}
 
   embla-carousel-autoplay@8.6.0:
     resolution: {integrity: sha512-OBu5G3nwaSXkZCo1A6LTaFMZ8EpkYbwIaH+bPqdBnDGQ2fh4+NbzjXjs2SktoPNKCtflfVMc75njaDHOYXcrsA==}
@@ -2304,10 +2257,6 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lz-string@1.5.0:
-    resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
-    hasBin: true
-
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
@@ -2602,10 +2551,6 @@ packages:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-
-  pretty-format@27.5.1:
-    resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
-    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2943,8 +2888,8 @@ packages:
     resolution: {integrity: sha512-z6PJ8Lml+v3ichVojCiB8toQJBuwR42ySM4ezjXIqXK3M0HczmKQ3LF4rhU55PfD99KEEXQG6yb7iOMyvYuHew==}
     hasBin: true
 
-  undici-types@6.21.0:
-    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+  undici-types@7.8.0:
+    resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
 
   unist-util-stringify-position@4.0.0:
     resolution: {integrity: sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==}
@@ -3060,14 +3005,6 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@babel/code-frame@7.27.1':
-    dependencies:
-      '@babel/helper-validator-identifier': 7.27.1
-      js-tokens: 4.0.0
-      picocolors: 1.1.1
-
-  '@babel/helper-validator-identifier@7.27.1': {}
-
   '@babel/runtime@7.27.6': {}
 
   '@changesets/apply-release-plan@7.0.12':
@@ -3086,7 +3023,7 @@ snapshots:
       resolve-from: 5.0.0
       semver: 7.7.2
 
-  '@changesets/assemble-release-plan@6.0.8':
+  '@changesets/assemble-release-plan@6.0.9':
     dependencies:
       '@changesets/errors': 0.2.0
       '@changesets/get-dependents-graph': 2.1.3
@@ -3099,15 +3036,15 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.29.4':
+  '@changesets/cli@2.29.5':
     dependencies:
       '@changesets/apply-release-plan': 7.0.12
-      '@changesets/assemble-release-plan': 6.0.8
+      '@changesets/assemble-release-plan': 6.0.9
       '@changesets/changelog-git': 0.2.1
       '@changesets/config': 3.1.1
       '@changesets/errors': 0.2.0
       '@changesets/get-dependents-graph': 2.1.3
-      '@changesets/get-release-plan': 4.0.12
+      '@changesets/get-release-plan': 4.0.13
       '@changesets/git': 3.0.4
       '@changesets/logger': 0.1.1
       '@changesets/pre': 2.0.2
@@ -3151,9 +3088,9 @@ snapshots:
       picocolors: 1.1.1
       semver: 7.7.2
 
-  '@changesets/get-release-plan@4.0.12':
+  '@changesets/get-release-plan@4.0.13':
     dependencies:
-      '@changesets/assemble-release-plan': 6.0.8
+      '@changesets/assemble-release-plan': 6.0.9
       '@changesets/config': 3.1.1
       '@changesets/pre': 2.0.2
       '@changesets/read': 0.6.5
@@ -3268,41 +3205,41 @@ snapshots:
       '@eslint/core': 0.15.0
       levn: 0.4.1
 
-  '@farmfe/cli@1.0.4':
+  '@farmfe/cli@1.0.5':
     dependencies:
       cac: 6.7.14
       cross-spawn: 7.0.6
       inquirer: 9.2.12
       walkdir: 0.4.1
 
-  '@farmfe/core-darwin-arm64@1.7.5':
+  '@farmfe/core-darwin-arm64@1.7.6':
     optional: true
 
-  '@farmfe/core-darwin-x64@1.7.5':
+  '@farmfe/core-darwin-x64@1.7.6':
     optional: true
 
-  '@farmfe/core-linux-arm64-gnu@1.7.5':
+  '@farmfe/core-linux-arm64-gnu@1.7.6':
     optional: true
 
-  '@farmfe/core-linux-arm64-musl@1.7.5':
+  '@farmfe/core-linux-arm64-musl@1.7.6':
     optional: true
 
-  '@farmfe/core-linux-x64-gnu@1.7.5':
+  '@farmfe/core-linux-x64-gnu@1.7.6':
     optional: true
 
-  '@farmfe/core-linux-x64-musl@1.7.5':
+  '@farmfe/core-linux-x64-musl@1.7.6':
     optional: true
 
-  '@farmfe/core-win32-arm64-msvc@1.7.5':
+  '@farmfe/core-win32-arm64-msvc@1.7.6':
     optional: true
 
-  '@farmfe/core-win32-ia32-msvc@1.7.5':
+  '@farmfe/core-win32-ia32-msvc@1.7.6':
     optional: true
 
-  '@farmfe/core-win32-x64-msvc@1.7.5':
+  '@farmfe/core-win32-x64-msvc@1.7.6':
     optional: true
 
-  '@farmfe/core@1.7.5':
+  '@farmfe/core@1.7.6':
     dependencies:
       '@farmfe/runtime': 0.12.10
       '@farmfe/runtime-plugin-hmr': 3.5.10
@@ -3332,23 +3269,23 @@ snapshots:
       zod: 3.25.67
       zod-validation-error: 1.5.0(zod@3.25.67)
     optionalDependencies:
-      '@farmfe/core-darwin-arm64': 1.7.5
-      '@farmfe/core-darwin-x64': 1.7.5
-      '@farmfe/core-linux-arm64-gnu': 1.7.5
-      '@farmfe/core-linux-arm64-musl': 1.7.5
-      '@farmfe/core-linux-x64-gnu': 1.7.5
-      '@farmfe/core-linux-x64-musl': 1.7.5
-      '@farmfe/core-win32-arm64-msvc': 1.7.5
-      '@farmfe/core-win32-ia32-msvc': 1.7.5
-      '@farmfe/core-win32-x64-msvc': 1.7.5
+      '@farmfe/core-darwin-arm64': 1.7.6
+      '@farmfe/core-darwin-x64': 1.7.6
+      '@farmfe/core-linux-arm64-gnu': 1.7.6
+      '@farmfe/core-linux-arm64-musl': 1.7.6
+      '@farmfe/core-linux-x64-gnu': 1.7.6
+      '@farmfe/core-linux-x64-musl': 1.7.6
+      '@farmfe/core-win32-arm64-msvc': 1.7.6
+      '@farmfe/core-win32-ia32-msvc': 1.7.6
+      '@farmfe/core-win32-x64-msvc': 1.7.6
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@farmfe/js-plugin-postcss@1.12.0(@farmfe/core@1.7.5)(postcss@8.5.6)':
+  '@farmfe/js-plugin-postcss@1.12.0(@farmfe/core@1.7.6)(postcss@8.5.6)':
     dependencies:
-      '@farmfe/core': 1.7.5
+      '@farmfe/core': 1.7.6
       postcss: 8.5.6
 
   '@farmfe/plugin-react-darwin-arm64@1.2.6':
@@ -3429,18 +3366,18 @@ snapshots:
     dependencies:
       '@swc/helpers': 0.5.17
 
-  '@fluentui/react-accordion@9.7.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-accordion@9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-motion-components-preview': 0.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion-components-preview': 0.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3452,13 +3389,13 @@ snapshots:
 
   '@fluentui/react-alert@9.0.0-beta.124(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3468,31 +3405,31 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-aria@9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-aria@9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-avatar@9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-avatar@9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-badge': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-popover': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-badge': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-popover': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-tooltip': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tooltip': 9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3502,13 +3439,13 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-badge@9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-badge@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3516,17 +3453,17 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-breadcrumb@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-breadcrumb@9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-link': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-link': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3534,16 +3471,16 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-button@9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-button@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3551,15 +3488,15 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-card@9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-card@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-text': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-text': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3567,18 +3504,18 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-carousel@9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-carousel@9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-tooltip': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tooltip': 9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3591,16 +3528,16 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-checkbox@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-checkbox@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3610,15 +3547,15 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-color-picker@9.1.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-color-picker@9.1.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@ctrl/tinycolor': 3.6.1
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3628,20 +3565,20 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-combobox@9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-combobox@9.15.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3651,68 +3588,68 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-components@9.66.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-components@9.66.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-accordion': 9.7.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-accordion': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
       '@fluentui/react-alert': 9.0.0-beta.124(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-badge': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-breadcrumb': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-card': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-carousel': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-checkbox': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-color-picker': 9.1.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-combobox': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-dialog': 9.13.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-divider': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-drawer': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-image': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-badge': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-breadcrumb': 9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-card': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-carousel': 9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-checkbox': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-color-picker': 9.1.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-combobox': 9.15.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-dialog': 9.13.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-divider': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-drawer': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-image': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-infobutton': 9.0.0-beta.102(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-infolabel': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-input': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-link': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-list': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-menu': 9.17.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-message-bar': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-nav': 9.1.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-overflow': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-persona': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-popover': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-progress': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-provider': 9.21.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-radio': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-rating': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-search': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-select': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-skeleton': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-slider': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-spinbutton': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-spinner': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-swatch-picker': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-switch': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-table': 9.17.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-tabs': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-tag-picker': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-tags': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-teaching-popover': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-text': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-textarea': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-infolabel': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-input': 9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-link': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-list': 9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-menu': 9.17.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-message-bar': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-nav': 9.1.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-overflow': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-persona': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-popover': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-progress': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-provider': 9.21.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-radio': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-rating': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-search': 9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-select': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-skeleton': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-slider': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-spinbutton': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-spinner': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-swatch-picker': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-switch': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-table': 9.17.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-tabs': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-tag-picker': 9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-tags': 9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-teaching-popover': 9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-text': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-textarea': 9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-toast': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-toolbar': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-tooltip': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-tree': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-virtualizer': 9.0.0-alpha.98(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-toast': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-toolbar': 9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-tooltip': 9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-tree': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-virtualizer': 9.0.0-alpha.99(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3722,9 +3659,9 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-context-selector@9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-context-selector@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
@@ -3732,20 +3669,20 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       scheduler: 0.26.0
 
-  '@fluentui/react-dialog@9.13.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-dialog@9.13.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-motion-components-preview': 0.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion-components-preview': 0.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3755,12 +3692,12 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-divider@9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-divider@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3768,34 +3705,16 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-drawer@9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-drawer@9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-dialog': 9.13.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-dialog': 9.13.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@griffel/react': 1.5.30(react@19.1.0)
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-    transitivePeerDependencies:
-      - scheduler
-
-  '@fluentui/react-field@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
-    dependencies:
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3805,18 +3724,36 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-icons@2.0.303(react@19.1.0)':
+  '@fluentui/react-field@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+    dependencies:
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@griffel/react': 1.5.30(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - scheduler
+
+  '@fluentui/react-icons@2.0.304(react@19.1.0)':
     dependencies:
       '@griffel/react': 1.5.30(react@19.1.0)
       react: 19.1.0
       tslib: 2.8.1
 
-  '@fluentui/react-image@9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-image@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3826,13 +3763,13 @@ snapshots:
 
   '@fluentui/react-infobutton@9.0.0-beta.102(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-popover': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-popover': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3842,16 +3779,16 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-infolabel@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-infolabel@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-popover': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-popover': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3861,13 +3798,13 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-input@9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-input@9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3877,20 +3814,20 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-jsx-runtime@9.1.0(@types/react@19.1.8)(react@19.1.0)':
+  '@fluentui/react-jsx-runtime@9.1.1(@types/react@19.1.8)(react@19.1.0)':
     dependencies:
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       react: 19.1.0
       react-is: 17.0.2
 
-  '@fluentui/react-label@9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-label@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3898,14 +3835,14 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-link@9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-link@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3913,16 +3850,16 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-list@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-list@9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-checkbox': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-checkbox': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3932,19 +3869,19 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-menu@9.17.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-menu@9.17.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3954,15 +3891,15 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-message-bar@9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-message-bar@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-link': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-link': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -3971,39 +3908,39 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       react-transition-group: 4.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@fluentui/react-motion-components-preview@0.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-motion-components-preview@0.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-motion@9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-motion@9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-nav@9.1.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-nav@9.1.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-divider': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-drawer': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-divider': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-drawer': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-tooltip': 9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tooltip': 9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4013,12 +3950,12 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-overflow@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-overflow@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/priority-overflow': 9.1.15
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4028,14 +3965,14 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-persona@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-persona@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-badge': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-badge': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4045,18 +3982,18 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-popover@9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-popover@9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4066,11 +4003,11 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-portal@9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-portal@9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4078,13 +4015,13 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-positioning@9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-positioning@9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@floating-ui/devtools': 0.2.1(@floating-ui/dom@1.7.1)
       '@floating-ui/dom': 1.7.1
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4093,13 +4030,13 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       use-sync-external-store: 1.5.0(react@19.1.0)
 
-  '@fluentui/react-progress@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-progress@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4109,14 +4046,14 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-provider@9.21.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-provider@9.21.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/core': 1.19.2
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
@@ -4125,15 +4062,15 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-radio@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-radio@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4143,14 +4080,14 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-rating@9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-rating@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4158,31 +4095,14 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-search@9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-search@9.2.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-input': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-input': 9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@griffel/react': 1.5.30(react@19.1.0)
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-    transitivePeerDependencies:
-      - scheduler
-
-  '@fluentui/react-select@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
-    dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4192,20 +4112,14 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-shared-contexts@9.23.1(@types/react@19.1.8)(react@19.1.0)':
+  '@fluentui/react-select@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      react: 19.1.0
-
-  '@fluentui/react-skeleton@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
-    dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4215,14 +4129,20 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-slider@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-shared-contexts@9.24.0(@types/react@19.1.8)(react@19.1.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      react: 19.1.0
+
+  '@fluentui/react-skeleton@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+    dependencies:
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4232,15 +4152,32 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-spinbutton@9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-slider@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+    dependencies:
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@griffel/react': 1.5.30(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - scheduler
+
+  '@fluentui/react-spinbutton@9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4250,13 +4187,13 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-spinner@9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-spinner@9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4264,35 +4201,16 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-swatch-picker@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-swatch-picker@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@griffel/react': 1.5.30(react@19.1.0)
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-    transitivePeerDependencies:
-      - scheduler
-
-  '@fluentui/react-switch@9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
-    dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-label': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4302,20 +4220,39 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-table@9.17.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-switch@9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+    dependencies:
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-label': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@griffel/react': 1.5.30(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - scheduler
+
+  '@fluentui/react-table@9.17.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-checkbox': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-radio': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-checkbox': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-radio': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4325,14 +4262,14 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-tabs@9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-tabs@9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4342,11 +4279,11 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-tabster@9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-tabster@9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4356,22 +4293,22 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       tabster: 8.5.6
 
-  '@fluentui/react-tag-picker@9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-tag-picker@9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-combobox': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-tags': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-combobox': 9.15.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-tags': 9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4381,17 +4318,17 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-tags@9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-tags@9.6.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4401,18 +4338,18 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-teaching-popover@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-teaching-popover@9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-popover': 9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-popover': 9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4423,12 +4360,12 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-text@9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-text@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4436,13 +4373,13 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-textarea@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-textarea@9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-field': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-field': 9.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4457,19 +4394,19 @@ snapshots:
       '@fluentui/tokens': 1.0.0-alpha.21
       '@swc/helpers': 0.5.17
 
-  '@fluentui/react-toast@9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-toast@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-motion-components-preview': 0.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion-components-preview': 0.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4477,60 +4414,17 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@fluentui/react-toolbar@9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+  '@fluentui/react-toolbar@9.5.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
     dependencies:
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-divider': 9.3.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-radio': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-divider': 9.3.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-radio': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@griffel/react': 1.5.30(react@19.1.0)
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-    transitivePeerDependencies:
-      - scheduler
-
-  '@fluentui/react-tooltip@9.7.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-portal': 9.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-positioning': 9.18.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
-      '@griffel/react': 1.5.30(react@19.1.0)
-      '@swc/helpers': 0.5.17
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-
-  '@fluentui/react-tree@9.11.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
-    dependencies:
-      '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-aria': 9.15.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-avatar': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-button': 9.5.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-checkbox': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-context-selector': 9.2.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-icons': 2.0.303(react@19.1.0)
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-motion': 9.8.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-motion-components-preview': 0.6.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-radio': 9.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-tabster': 9.25.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@fluentui/react-theme': 9.1.24
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4540,19 +4434,62 @@ snapshots:
     transitivePeerDependencies:
       - scheduler
 
-  '@fluentui/react-utilities@9.21.0(@types/react@19.1.8)(react@19.1.0)':
+  '@fluentui/react-tooltip@9.7.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@fluentui/keyboard-keys': 9.0.8
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-portal': 9.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-positioning': 9.18.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@griffel/react': 1.5.30(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
+  '@fluentui/react-tree@9.11.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)':
+    dependencies:
+      '@fluentui/keyboard-keys': 9.0.8
+      '@fluentui/react-aria': 9.15.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-avatar': 9.8.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-button': 9.5.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-checkbox': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-context-selector': 9.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-icons': 2.0.304(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-motion': 9.8.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-motion-components-preview': 0.6.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-radio': 9.4.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-tabster': 9.25.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@fluentui/react-theme': 9.1.24
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
+      '@griffel/react': 1.5.30(react@19.1.0)
+      '@swc/helpers': 0.5.17
+      '@types/react': 19.1.8
+      '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - scheduler
+
+  '@fluentui/react-utilities@9.21.1(@types/react@19.1.8)(react@19.1.0)':
+    dependencies:
+      '@fluentui/keyboard-keys': 9.0.8
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
       react: 19.1.0
 
-  '@fluentui/react-virtualizer@9.0.0-alpha.98(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@fluentui/react-virtualizer@9.0.0-alpha.99(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@fluentui/react-jsx-runtime': 9.1.0(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-shared-contexts': 9.23.1(@types/react@19.1.8)(react@19.1.0)
-      '@fluentui/react-utilities': 9.21.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-jsx-runtime': 9.1.1(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-shared-contexts': 9.24.0(@types/react@19.1.8)(react@19.1.0)
+      '@fluentui/react-utilities': 9.21.1(@types/react@19.1.8)(react@19.1.0)
       '@griffel/react': 1.5.30(react@19.1.0)
       '@swc/helpers': 0.5.17
       '@types/react': 19.1.8
@@ -4769,44 +4706,21 @@ snapshots:
       composed-offset-position: 0.0.4
       stencil-inline-svg: 1.1.0
 
-  '@testing-library/dom@10.4.0':
-    dependencies:
-      '@babel/code-frame': 7.27.1
-      '@babel/runtime': 7.27.6
-      '@types/aria-query': 5.0.4
-      aria-query: 5.3.0
-      chalk: 4.1.2
-      dom-accessibility-api: 0.5.16
-      lz-string: 1.5.0
-      pretty-format: 27.5.1
-
-  '@testing-library/react@16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      '@babel/runtime': 7.27.6
-      '@testing-library/dom': 10.4.0
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-    optionalDependencies:
-      '@types/react': 19.1.8
-      '@types/react-dom': 19.1.6(@types/react@19.1.8)
-
-  '@types/aria-query@5.0.4': {}
-
   '@types/estree@1.0.8': {}
 
   '@types/http-proxy@1.17.16':
     dependencies:
-      '@types/node': 22.15.32
+      '@types/node': 24.0.3
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/lodash@4.17.17': {}
+  '@types/lodash@4.17.18': {}
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.15.32':
+  '@types/node@24.0.3':
     dependencies:
-      undici-types: 6.21.0
+      undici-types: 7.8.0
 
   '@types/object-path@0.11.4': {}
 
@@ -4973,8 +4887,6 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
-  ansi-styles@5.2.0: {}
-
   ansi-styles@6.2.1: {}
 
   any-promise@1.3.0: {}
@@ -4992,16 +4904,12 @@ snapshots:
 
   argparse@2.0.1: {}
 
-  aria-query@5.3.0:
-    dependencies:
-      dequal: 2.0.3
-
   array-union@2.1.0: {}
 
   autoprefixer@10.4.21(postcss@8.5.6):
     dependencies:
       browserslist: 4.25.0
-      caniuse-lite: 1.0.30001723
+      caniuse-lite: 1.0.30001724
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -5045,8 +4953,8 @@ snapshots:
 
   browserslist@4.25.0:
     dependencies:
-      caniuse-lite: 1.0.30001723
-      electron-to-chromium: 1.5.168
+      caniuse-lite: 1.0.30001724
+      electron-to-chromium: 1.5.171
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.0)
 
@@ -5089,7 +4997,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001723: {}
+  caniuse-lite@1.0.30001724: {}
 
   chalk@4.1.2:
     dependencies:
@@ -5215,8 +5123,6 @@ snapshots:
 
   depd@2.0.0: {}
 
-  dequal@2.0.3: {}
-
   destroy@1.2.0: {}
 
   detect-indent@6.1.0: {}
@@ -5230,8 +5136,6 @@ snapshots:
       path-type: 4.0.0
 
   dlv@1.1.3: {}
-
-  dom-accessibility-api@0.5.16: {}
 
   dom-helpers@5.2.1:
     dependencies:
@@ -5254,7 +5158,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  electron-to-chromium@1.5.168: {}
+  electron-to-chromium@1.5.171: {}
 
   embla-carousel-autoplay@8.6.0(embla-carousel@8.6.0):
     dependencies:
@@ -5410,7 +5314,7 @@ snapshots:
       '@types/semver': 7.7.0
       '@types/ua-parser-js': 0.7.39
       browserslist: 4.25.0
-      caniuse-lite: 1.0.30001723
+      caniuse-lite: 1.0.30001724
       isbot: 3.8.0
       object-path: 0.11.8
       semver: 7.7.2
@@ -5445,7 +5349,7 @@ snapshots:
 
   farm-plugin-replace-dirname@0.2.1:
     dependencies:
-      '@changesets/cli': 2.29.4
+      '@changesets/cli': 2.29.5
       '@farmfe/utils': 0.0.1
       cac: 6.7.14
     optionalDependencies:
@@ -5964,8 +5868,6 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lz-string@1.5.0: {}
-
   magic-string@0.30.17:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
@@ -6202,12 +6104,6 @@ snapshots:
   prelude-ls@1.2.1: {}
 
   prettier@2.8.8: {}
-
-  pretty-format@27.5.1:
-    dependencies:
-      ansi-regex: 5.0.1
-      ansi-styles: 5.2.0
-      react-is: 17.0.2
 
   prop-types@15.8.1:
     dependencies:
@@ -6540,7 +6436,7 @@ snapshots:
 
   ua-parser-js@1.0.40: {}
 
-  undici-types@6.21.0: {}
+  undici-types@7.8.0: {}
 
   unist-util-stringify-position@4.0.0:
     dependencies:

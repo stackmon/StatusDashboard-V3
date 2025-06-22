@@ -37,10 +37,10 @@ export function EventGrid() {
                 }
               });
 
-              const mobileTitle = node.querySelector('h5.tbody__mobile-title');
-              if (mobileTitle && mobileTitle.innerHTML === '&nbsp;') {
-                mobileTitle.remove();
-              }
+              const mobileTitles = node.querySelectorAll('h5.tbody__mobile-title');
+              mobileTitles.forEach((title) => {
+                title.remove();
+              });
             }
           });
         }
@@ -151,7 +151,7 @@ export function EventGrid() {
 
   return (
     <ScaleDataGrid
-      className="rounded-lg bg-white shadow-md"
+      className="sm:rounded-lg sm:bg-white sm:shadow-md"
       pageSize={4}
       heading="Current Events"
       hideBorder

@@ -36,6 +36,11 @@ export function EventGrid() {
                   cell.style.maxWidth = "510px";
                 }
               });
+
+              const mobileTitle = node.querySelector('h5.tbody__mobile-title');
+              if (mobileTitle && mobileTitle.innerHTML === '&nbsp;') {
+                mobileTitle.remove();
+              }
             }
           });
         }

@@ -10,7 +10,7 @@ import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -35,6 +35,11 @@ export function EventGrid() {
                   cell.style.textWrap = "auto";
                   cell.style.maxWidth = "510px";
                 }
+              });
+
+              const mobileTitles = node.querySelectorAll('h5.tbody__mobile-title');
+              mobileTitles.forEach((title) => {
+                title.remove();
               });
             }
           });
@@ -146,7 +151,7 @@ export function EventGrid() {
 
   return (
     <ScaleDataGrid
-      className="rounded-lg bg-white shadow-md"
+      className="sm:rounded-lg sm:bg-white sm:shadow-md"
       pageSize={4}
       heading="Current Events"
       hideBorder

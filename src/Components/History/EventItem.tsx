@@ -117,7 +117,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
           {servicesTxt} {regionsTxt} {Curr.Type}
         </a>
 
-        <div className="flex gap-x-2.5">
+        <div className="flex gap-x-2.5 gap-y-1.5 flex-wrap">
           <ScaleTag color={color}>
             {Curr.Status}
           </ScaleTag>

@@ -18,7 +18,7 @@ import { Models } from "~/Services/Status.Models";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventLog({ Event }: { Event: Models.IEvent }) {
   const list = chain(Array.from(Event.Histories))
@@ -38,12 +38,16 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
         <tbody>
           {list.map((history, i) => (
             <tr key={i}>
-              <td className="flex flex-col">
-                <label className="font-medium">{history.Status}</label>
+              <td className="relative">
+                <div className="flex flex-col min-h-full">
+                  <label className="font-medium">
+                    {history.Status}
+                  </label>
 
-                <label>
-                  {dayjs(history.Created).tz(Dic.TZ).format(Dic.TimeTZ)}
-                </label>
+                  <label>
+                    {dayjs(history.Created).tz(Dic.TZ).format(Dic.TimeTZ)}
+                  </label>
+                </div>
               </td>
 
               <td className="text-pretty break-all">{history.Message}</td>

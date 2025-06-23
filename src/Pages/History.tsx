@@ -22,7 +22,7 @@ export function History() {
       </h3>
     </section>
 
-    <ol className="flex flex-col">
+    <ol className="flex flex-col pl-3 xl:pl-0">
       {chain(DB.Events)
         .orderBy(x => x.Start, "desc")
         .map((event, index, events) => [events[index - 1], event])

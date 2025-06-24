@@ -40,15 +40,6 @@ export function History() {
       }
     }
 
-    if (endDate) {
-      const end = dayjs(endDate);
-      const now = dayjs();
-
-      if (end.isAfter(now)) {
-        errors.endDate = "End date cannot be in the future.";
-      }
-    }
-
     setValidation(errors);
     return !errors.startDate && !errors.endDate;
   }

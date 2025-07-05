@@ -40,7 +40,7 @@ interface IncidentEntityV1 {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates" | "text"> {
   title: string;
@@ -48,6 +48,7 @@ export interface IncidentEntityV2 extends Omit<IncidentEntityV1, "updates" | "te
   system: boolean;
   updates?: UpdateEntityV2[];
   type: string;
+  description?: string;
 }
 
 interface UpdateEntityV1 {

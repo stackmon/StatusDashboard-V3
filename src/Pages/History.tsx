@@ -159,6 +159,7 @@ export function History() {
           label="Service Name"
           placeholder="Search service name"
           value={filters.serviceName}
+          inputAutocomplete="off"
           onScale-input={(e) => setFilters(prev => ({
             ...prev,
             serviceName: e.target.value as string

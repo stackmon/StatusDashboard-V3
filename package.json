@@ -38,7 +38,7 @@
     "core-js": "^3.43.0",
     "postcss": "^8.5.6",
     "react-refresh": "^0.17.0",
-    "tailwindcss": "4.1.11",
+    "tailwindcss": "3.4.17",
     "tailwindcss-scoped-preflight": "^3.4.12"
   },
   "packageManager": "pnpm@10.12.4"

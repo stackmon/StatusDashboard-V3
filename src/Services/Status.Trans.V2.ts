@@ -118,6 +118,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Status: IsIncident(type) ? EventStatus.Analysing : EventStatus.Planned,
       Histories: new Set(),
       RegionServices: new Set(),
+      Description: event.description
     };
 
     if (event.end_date) {
@@ -215,6 +216,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
     if (dbEvent.End &&
       !IsIncident(type) &&
+      dbEvent.Status !== EventStatus.Cancelled &&
       dayjs(dbEvent.End).isBefore(dayjs())) {
       dbEvent.Status = EventStatus.Completed;
     }

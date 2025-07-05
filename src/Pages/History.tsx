@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { EventType } from "~/Components/Event/Enums";
+import { EventStatus, EventType } from "~/Components/Event/Enums";
 import { EventItem } from "~/Components/History/EventItem";
 import { useStatus } from "~/Services/Status";
 
@@ -21,6 +21,7 @@ export function History() {
     serviceName: "",
     region: "",
     eventType: "",
+    eventStatus: "",
   });
 
   const [validation, setValidation] = useState({
@@ -51,6 +52,7 @@ export function History() {
       serviceName: "",
       region: "",
       eventType: "",
+      eventStatus: "",
     });
     setValidation({
       startDate: "",
@@ -97,6 +99,10 @@ export function History() {
         return false;
       }
 
+      if (filters.eventStatus && event.Status !== filters.eventStatus) {
+        return false;
+      }
+
       return true;
     })
     .orderBy(x => x.Start, "desc")
@@ -114,7 +120,7 @@ export function History() {
     </section>
 
     <section className="flex flex-col rounded-lg bg-white shadow-md p-5 gap-y-1.5">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <ScaleTextField
           type="date"
           label="Start Date"
@@ -187,6 +193,22 @@ export function History() {
           {Object.values(EventType).slice(1).map((type, i) => (
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
+            </ScaleDropdownSelectItem>
+          ))}
+        </ScaleDropdownSelect>
+
+        <ScaleDropdownSelect
+          label="Event Status"
+          value={filters.eventStatus}
+          onScale-change={(e) => setFilters(prev => ({
+            ...prev,
+            eventStatus: e.target.value as string
+          }))}
+        >
+          <ScaleDropdownSelectItem value="">All Status</ScaleDropdownSelectItem>
+          {Object.values(EventStatus).map((status, i) => (
+            <ScaleDropdownSelectItem value={status} key={i}>
+              {status}
             </ScaleDropdownSelectItem>
           ))}
         </ScaleDropdownSelect>

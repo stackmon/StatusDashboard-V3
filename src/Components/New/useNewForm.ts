@@ -70,8 +70,8 @@ export function useNewForm() {
   function setDescription(value = description) {
     let err: boolean = false;
 
-    if (value && (value.length < 10 || value.length > 200)) {
-      setValDescription("Description must be between 10 and 200 characters.");
+    if (value && (value.length < 10 || value.length > 500)) {
+      setValDescription("Description must be between 10 and 500 characters.");
       err = true;
     }
 

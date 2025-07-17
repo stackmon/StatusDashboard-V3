@@ -95,7 +95,7 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
-  const [status, _setStatus] = useState(event.Status);
+  const [status, _setStatus] = useState<EventStatus>();
   const [valStatus, setValStatus] = useState<string>();
   function setStatus(value = status) {
     if (!value) {
@@ -156,7 +156,7 @@ export function useEditForm(event: Models.IEvent) {
   function setUpdateAt(value = updateAt) {
     let err: boolean = false;
 
-    if (value && value < start) {
+    if (type !== EventType.Maintenance && value && value < start) {
       setValUpdateAt("Update Date cannot be earlier than Start Date.");
       err = true;
     }
@@ -184,7 +184,7 @@ export function useEditForm(event: Models.IEvent) {
 
     const body: Record<string, any> = {
       title,
-      status: GetStatusString(status),
+      status: GetStatusString(status!),
       impact: GetEventImpact(type),
       message: update,
       update_date: updateAt.toISOString(),
@@ -230,7 +230,7 @@ export function useEditForm(event: Models.IEvent) {
       const updatedEvent = { ...DB.Events[eventIndex] };
       updatedEvent.Title = title;
       updatedEvent.Type = type;
-      updatedEvent.Status = status;
+      updatedEvent.Status = status!;
       updatedEvent.Start = start;
       updatedEvent.End = end;
 
@@ -238,7 +238,7 @@ export function useEditForm(event: Models.IEvent) {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
         Message: update,
         Created: updateAt,
-        Status: status,
+        Status: status!,
         Event: updatedEvent
       };
       updatedEvent.Histories.add(newHistory);

@@ -85,7 +85,9 @@ export function Home() {
   }, [DB]);
 
   const heading = abnormalCount > 0
-    ? `${abnormalCount} components have issue, but don't worry, we are working on it.`
+    ? abnormalCount === 1
+      ? `${abnormalCount} component has an issue, but don't worry, we are working on it.`
+      : `${abnormalCount} components have issues, but don't worry, we are working on it.`
     : "All Systems Operational";
 
   return (

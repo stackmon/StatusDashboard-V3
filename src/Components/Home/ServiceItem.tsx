@@ -15,7 +15,7 @@ interface IServiceItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
@@ -31,7 +31,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
           return false;
         }
 
-        return IsOpenStatus(x.Status);
+        return x.Type !== EventType.Information && IsOpenStatus(x.Status);
       })
       .orderBy(x => x.Type, 'desc')
       .head()

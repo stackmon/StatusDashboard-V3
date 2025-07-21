@@ -40,21 +40,6 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       class="absolute"
       onScale-before-close={(e) => e.preventDefault()}
     >
-
-      <ScaleDropdownSelect
-        label="Type"
-        value={State.type}
-        disabled={!IsIncident(Event.Type)}
-        onScale-change={(e) => Actions.setType(e.target.value as EventType)}
-        invalid={!!Validation.type}
-        helperText={Validation.type}
-      >
-        {Object.values(EventType).slice(2, 5).map((type, i) =>
-          <ScaleDropdownSelectItem value={type} key={i}>
-            {type}
-          </ScaleDropdownSelectItem>)}
-      </ScaleDropdownSelect>
-
       <form
         className="flex flex-col gap-y-6"
         autoComplete="off"
@@ -62,6 +47,21 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           e.preventDefault();
           OnSubmit().then(() => setFalse());
         }}>
+
+        <ScaleDropdownSelect
+          label="Type"
+          value={State.type}
+          disabled={!IsIncident(Event.Type)}
+          onScale-change={(e) => Actions.setType(e.target.value as EventType)}
+          invalid={!!Validation.type}
+          helperText={Validation.type}
+        >
+          {Object.values(EventType).slice(2, 5).map((type, i) =>
+            <ScaleDropdownSelectItem value={type} key={i}>
+              {type}
+            </ScaleDropdownSelectItem>)}
+        </ScaleDropdownSelect>
+
         <ScaleTextField
           placeholder="Please give the title of event"
           required

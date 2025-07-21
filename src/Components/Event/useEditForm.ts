@@ -9,7 +9,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -46,12 +46,8 @@ export function useEditForm(event: Models.IEvent) {
       return false;
     }
 
-    if (!IsIncident(type) && IsIncident(value)) {
-      _setStatus(EventStatus.Analysing);
-    }
-
-    if (IsIncident(type) && !IsIncident(value)) {
-      _setStatus(EventStatus.Planned);
+    if (type !== value) {
+      _setStatus(undefined);
     }
 
     _setType(value);
@@ -81,7 +77,7 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
-  const [status, _setStatus] = useState<EventStatus>();
+  const [status, _setStatus] = useState<EventStatus | undefined>();
   const [valStatus, setValStatus] = useState<string>();
   function setStatus(value = status) {
     if (!value) {
@@ -142,7 +138,7 @@ export function useEditForm(event: Models.IEvent) {
   function setUpdateAt(value = updateAt) {
     let err: boolean = false;
 
-    if (type !== EventType.Maintenance && value && value < start) {
+    if (value && value < start) {
       setValUpdateAt("Update Date cannot be earlier than Start Date.");
       err = true;
     }
@@ -165,7 +161,6 @@ export function useEditForm(event: Models.IEvent) {
     if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
-
     const url = process.env.SD_BACKEND_URL!;
 
     const body: Record<string, any> = {

@@ -115,7 +115,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Title: event.title,
       Start: dayjs(event.start_date).toDate(),
       Type: type,
-      Status: IsIncident(type) ? EventStatus.Analysing : EventStatus.Planned,
+      Status: IsIncident(type) ? EventStatus.Detected : EventStatus.Planned,
       Histories: new Set(),
       RegionServices: new Set(),
       Description: event.description
@@ -154,7 +154,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Analyzing:
             case StatusEnum.Analysing:
-              return EventStatus.Analysing;
+            case StatusEnum.Detected:
+              return EventStatus.Detected;
             case StatusEnum.Reopened:
               return EventStatus.Reopened;
             case StatusEnum.Fixing:

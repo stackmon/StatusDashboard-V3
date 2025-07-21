@@ -64,10 +64,10 @@ export function IsIncident(type: EventType): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export enum EventStatus {
-  Analysing = "Analysing",
+  Detected = "Detected",
   Fixing = "Fixing",
   Observing = "Observing",
   Resolved = "Resolved",
@@ -115,8 +115,8 @@ export function IsOpenStatus(status: EventStatus): boolean {
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
-    case EventStatus.Analysing:
-      return StatusEnum.Analysing;
+    case EventStatus.Detected:
+      return StatusEnum.Detected;
     case EventStatus.Fixing:
       return StatusEnum.Fixing;
     case EventStatus.Observing:

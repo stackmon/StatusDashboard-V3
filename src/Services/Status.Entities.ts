@@ -64,11 +64,12 @@ interface UpdateEntityV2 extends UpdateEntityV1 {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export const enum StatusEnum {
   Analyzing = "analyzing",
   Analysing = "analysing",
+  Detected = "detected",
   Changed = "changed",
   ImpactChanged = "impact changed",
   Completed = "completed",

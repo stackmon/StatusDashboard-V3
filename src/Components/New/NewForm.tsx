@@ -9,7 +9,7 @@ import { useNewForm } from "./useNewForm";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 export function NewForm() {
   const { DB } = useStatus();

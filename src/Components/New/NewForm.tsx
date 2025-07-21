@@ -126,7 +126,7 @@ export function NewForm() {
         <ScaleTextField
           type="datetime-local"
           label="(Plan) End CET"
-          required
+          required={State.type === EventType.Maintenance}
           value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}

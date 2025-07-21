@@ -67,7 +67,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
   let color: any;
 
   switch (Curr.Status) {
-    case EventStatus.Analysing:
+    case EventStatus.Detected:
       color = "red";
       break;
 

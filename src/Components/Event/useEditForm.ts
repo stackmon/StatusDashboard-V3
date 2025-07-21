@@ -61,7 +61,7 @@ export function useEditForm(event: Models.IEvent) {
     }
 
     if (!IsIncident(type) && IsIncident(value)) {
-      _setStatus(EventStatus.Analysing);
+      _setStatus(EventStatus.Detected);
     }
 
     if (IsIncident(type) && !IsIncident(value)) {

@@ -68,6 +68,7 @@ export function IsIncident(type: EventType): boolean {
  */
 export enum EventStatus {
   Detected = "Detected",
+  Analysing = "Analysing",
   Fixing = "Fixing",
   Observing = "Observing",
   Resolved = "Resolved",
@@ -117,6 +118,8 @@ export function GetStatusString(status: EventStatus): string {
   switch (status) {
     case EventStatus.Detected:
       return StatusEnum.Detected;
+    case EventStatus.Analysing:
+      return StatusEnum.Analysing;
     case EventStatus.Fixing:
       return StatusEnum.Fixing;
     case EventStatus.Observing:

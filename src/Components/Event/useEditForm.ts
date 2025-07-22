@@ -156,7 +156,7 @@ export function useEditForm(event: Models.IEvent) {
   function setUpdateAt(value = updateAt) {
     let err: boolean = false;
 
-    if (value && value < start) {
+    if (IsIncident(type) && value && value < start) {
       setValUpdateAt("Update Date cannot be earlier than Start Date.");
       err = true;
     }

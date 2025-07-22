@@ -47,15 +47,6 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           e.preventDefault();
           OnSubmit().then(() => setFalse());
         }}>
-        <ScaleTextField
-          placeholder="Please give the title of event"
-          required
-          label="Title"
-          value={State.title}
-          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
-          invalid={!!Validation.title}
-          helperText={Validation.title}
-        />
 
         <ScaleDropdownSelect
           label="Type"
@@ -70,6 +61,16 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               {type}
             </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
+
+        <ScaleTextField
+          placeholder="Please give the title of event"
+          required
+          label="Title"
+          value={State.title}
+          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+          invalid={!!Validation.title}
+          helperText={Validation.title}
+        />
 
         <ScaleDropdownSelect
           label="Status"

@@ -68,6 +68,7 @@ export function EventItem({ Prev, Curr }: IEventItem) {
 
   switch (Curr.Status) {
     case EventStatus.Detected:
+    case EventStatus.Analysing:
       color = "red";
       break;
 

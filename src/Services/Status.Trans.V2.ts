@@ -176,6 +176,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.Analyzing:
             case StatusEnum.Analysing:
+              return EventStatus.Analysing;
             case StatusEnum.Detected:
               return EventStatus.Detected;
             case StatusEnum.Reopened:

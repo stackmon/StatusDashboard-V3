@@ -23,7 +23,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -60,12 +60,8 @@ export function useEditForm(event: Models.IEvent) {
       return false;
     }
 
-    if (!IsIncident(type) && IsIncident(value)) {
-      _setStatus(EventStatus.Detected);
-    }
-
-    if (IsIncident(type) && !IsIncident(value)) {
-      _setStatus(EventStatus.Planned);
+    if (type !== value) {
+      _setStatus(undefined);
     }
 
     _setType(value);
@@ -95,7 +91,7 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
-  const [status, _setStatus] = useState(event.Status);
+  const [status, _setStatus] = useState<EventStatus | undefined>();
   const [valStatus, setValStatus] = useState<string>();
   function setStatus(value = status) {
     if (!value) {
@@ -156,7 +152,7 @@ export function useEditForm(event: Models.IEvent) {
   function setUpdateAt(value = updateAt) {
     let err: boolean = false;
 
-    if (value && value < start) {
+    if (IsIncident(type) && value && value < start) {
       setValUpdateAt("Update Date cannot be earlier than Start Date.");
       err = true;
     }
@@ -184,7 +180,7 @@ export function useEditForm(event: Models.IEvent) {
 
     const body: Record<string, any> = {
       title,
-      status: GetStatusString(status),
+      status: GetStatusString(status!),
       impact: GetEventImpact(type),
       message: update,
       update_date: updateAt.toISOString(),
@@ -230,7 +226,7 @@ export function useEditForm(event: Models.IEvent) {
       const updatedEvent = { ...DB.Events[eventIndex] };
       updatedEvent.Title = title;
       updatedEvent.Type = type;
-      updatedEvent.Status = status;
+      updatedEvent.Status = status!;
       updatedEvent.Start = start;
       updatedEvent.End = end;
 
@@ -238,7 +234,7 @@ export function useEditForm(event: Models.IEvent) {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
         Message: update,
         Created: updateAt,
-        Status: status,
+        Status: status!,
         Event: updatedEvent
       };
       updatedEvent.Histories.add(newHistory);

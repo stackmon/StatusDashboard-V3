@@ -20,7 +20,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -47,15 +47,6 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           e.preventDefault();
           OnSubmit().then(() => setFalse());
         }}>
-        <ScaleTextField
-          placeholder="Please give the title of event"
-          required
-          label="Title"
-          value={State.title}
-          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
-          invalid={!!Validation.title}
-          helperText={Validation.title}
-        />
 
         <ScaleDropdownSelect
           label="Type"
@@ -70,6 +61,16 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               {type}
             </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
+
+        <ScaleTextField
+          placeholder="Please give the title of event"
+          required
+          label="Title"
+          value={State.title}
+          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+          invalid={!!Validation.title}
+          helperText={Validation.title}
+        />
 
         <ScaleDropdownSelect
           label="Status"
@@ -98,7 +99,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         <ScaleTextField
           type="datetime-local"
           label="(Plan) End CET"
-          disabled={!(!IsIncident(State.type) || !IsOpenStatus(State.status))}
+          disabled={!(!IsIncident(State.type) || (State.status && !IsOpenStatus(State.status)))}
           value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}

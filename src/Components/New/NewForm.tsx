@@ -36,15 +36,6 @@ export function NewForm() {
         OnSubmit();
       }}
     >
-      <ScaleTextField
-        placeholder="Please give the title of event"
-        required
-        label="Title"
-        value={State.title}
-        onScale-input={(e) => Actions.setTitle(e.target.value as string)}
-        invalid={!!Validation.title}
-        helperText={Validation.title}
-      />
 
       <ScaleDropdownSelect
         label="Type"
@@ -58,6 +49,16 @@ export function NewForm() {
             {type}
           </ScaleDropdownSelectItem>)}
       </ScaleDropdownSelect>
+
+      <ScaleTextField
+        placeholder="Please give the title of event"
+        required
+        label="Title"
+        value={State.title}
+        onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+        invalid={!!Validation.title}
+        helperText={Validation.title}
+      />
 
       <ScaleTextarea
         placeholder="If there is any known information, please write it down here."

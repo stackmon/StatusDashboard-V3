@@ -175,6 +175,7 @@ export function useEditForm(event: Models.IEvent) {
     if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
+
     const url = process.env.SD_BACKEND_URL!;
 
     const body: Record<string, any> = {

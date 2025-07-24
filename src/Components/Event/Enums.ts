@@ -64,9 +64,10 @@ export function IsIncident(type: EventType): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export enum EventStatus {
+  Detected = "Detected",
   Analysing = "Analysing",
   Fixing = "Fixing",
   Observing = "Observing",
@@ -86,16 +87,16 @@ export enum EventStatus {
 /**
  * @author Aloento
  * @since 1.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 export function GetStatusList(type: EventType): EventStatus[] {
   switch (type) {
     case EventType.Maintenance:
-      return Object.values(EventStatus).slice(4, 9);
+      return Object.values(EventStatus).slice(5, 10);
     case EventType.Information:
       return [EventStatus.Planned, EventStatus.Active, EventStatus.Completed, EventStatus.Cancelled];
     default:
-      return Object.values(EventStatus).slice(0, 4);
+      return Object.values(EventStatus).slice(0, 5);
   }
 }
 
@@ -115,6 +116,8 @@ export function IsOpenStatus(status: EventStatus): boolean {
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
+    case EventStatus.Detected:
+      return StatusEnum.Detected;
     case EventStatus.Analysing:
       return StatusEnum.Analysing;
     case EventStatus.Fixing:

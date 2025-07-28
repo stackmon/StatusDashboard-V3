@@ -68,7 +68,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
               "(Plan)"} End At:
           </label>
 
-          {!IsIncident(Event.Type) && Event.Description &&
+          {Event.Description &&
             <label className="text-xl font-medium text-slate-600">
               Description:
             </label>}
@@ -91,7 +91,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
 
-          {!IsIncident(Event.Type) && Event.Description &&
+          {Event.Description &&
             <label className="text-xl font-medium text-slate-700 break-all">
               {Event.Description}
             </label>}

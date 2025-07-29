@@ -9,7 +9,7 @@ import { useRouter } from "../Router";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function useNewForm() {
   const { DB, Update } = useStatus();
@@ -159,19 +159,9 @@ export function useNewForm() {
       End: end,
       Status: status,
       RegionServices: new Set(services),
-      Histories: new Set()
+      Histories: new Set(),
+      Description: description
     };
-
-    if (!IsIncident(type))
-      event.Description = description;
-    else
-      event.Histories.add({
-        Id: 0,
-        Message: description,
-        Created: new Date(),
-        Status: status,
-        Event: event
-      });
 
     const url = process.env.SD_BACKEND_URL!;
 

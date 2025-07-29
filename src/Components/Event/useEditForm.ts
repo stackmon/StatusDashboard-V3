@@ -242,6 +242,10 @@ export function useEditForm(event: Models.IEvent) {
       DB.Events[eventIndex] = updatedEvent;
       Update();
     }
+
+    _setUpdate("");
+    _setStatus(undefined);
+    _setUpdateAt(new Date());
   }, {
     manual: true
   });

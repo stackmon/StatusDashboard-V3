@@ -165,19 +165,9 @@ export function useNewForm() {
       End: end,
       Status: status,
       RegionServices: new Set(services),
-      Histories: new Set()
+      Histories: new Set(),
+      Description: description
     };
-
-    if (!IsIncident(type))
-      event.Description = description;
-    else
-      event.Histories.add({
-        Id: 0,
-        Message: description,
-        Created: new Date(),
-        Status: status,
-        Event: event
-      });
 
     const url = process.env.SD_BACKEND_URL!;
 

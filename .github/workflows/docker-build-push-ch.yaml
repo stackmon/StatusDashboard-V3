@@ -1,4 +1,4 @@
-name: Docker Image Build on tag or release
+name: Docker Image Build on tag or release for CH version
 
 on:
   push:
@@ -25,13 +25,7 @@ jobs:
           images: |
             "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -43,14 +37,14 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Build and push
+      - name: Build and push ch-version
         uses: docker/build-push-action@v6
         with:
           context: .
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}-ch
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           secrets: |
-            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL_PROD }}
+            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL_CH_PROD }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}

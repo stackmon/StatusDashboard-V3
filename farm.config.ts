@@ -24,8 +24,8 @@ export default defineConfig({
       }
     },
     https: {
-      key: "/home/ubuntu/.acme.sh/inf.aloen.to_ecc/inf.aloen.to.key",
-      cert: "/home/ubuntu/.acme.sh/inf.aloen.to_ecc/fullchain.cer"
+      key: "/etc/letsencrypt/archive/inf.aloen.to/privkey1.pem",
+      cert: "/etc/letsencrypt/archive/inf.aloen.to/fullchain1.pem"
     }
   }
 });

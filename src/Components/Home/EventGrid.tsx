@@ -10,7 +10,7 @@ import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -93,6 +93,10 @@ export function EventGrid() {
       })
       .filter(x => {
         if (IsIncident(x.Type) && x.End) {
+          return false;
+        }
+
+        if (x.Type === EventType.Information) {
           return false;
         }
 

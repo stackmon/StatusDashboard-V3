@@ -3,7 +3,7 @@ import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { Authorized } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
-import { EventStatus, IsIncident } from "./Enums";
+import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
 import { EventEditor } from "./EventEditor";
 import { EventExtract } from "./EventExtract";
@@ -51,7 +51,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
       <div className="flex gap-x-2.5">
         <div className="flex flex-col gap-y-2">
           <label className="text-xl font-medium text-slate-600">
-            Impact Type:
+            {Event.Type === EventType.Information ? "Type:" : "Impact Type:"}
           </label>
 
           <label className="text-xl font-medium text-slate-600 whitespace-nowrap">

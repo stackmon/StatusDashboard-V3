@@ -15,12 +15,12 @@ interface IServiceItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.2.3
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
 
-  const [status, setStatus] = useState(EventType.Operational);
+  const [type, setType] = useState(EventType.Operational);
   const [future, setFuture] = useState(false);
   const [id, setId] = useState<number>();
 
@@ -31,19 +31,19 @@ export function ServiceItem({ RegionService }: IServiceItem) {
           return false;
         }
 
-        return x.Type !== EventType.Information && IsOpenStatus(x.Status);
+        return IsOpenStatus(x.Status);
       })
       .orderBy(x => x.Type, 'desc')
       .head()
       .value();
 
     if (res) {
-      setStatus(res.Type);
+      setType(res.Type);
       setFuture(dayjs(res.Start).isAfter(dayjs()));
       setId(res.Id);
     }
     else {
-      setStatus(EventType.Operational);
+      setType(EventType.Operational);
       setFuture(false);
       setId(undefined);
     }
@@ -62,14 +62,18 @@ export function ServiceItem({ RegionService }: IServiceItem) {
       ) :
         id ? (
           <a className="flex items-center" href={`/Event/${id}`}>
-            <Indicator Type={status} />
+            <Indicator Type={type === EventType.Information ? EventType.Operational : type} />
           </a>
         ) : (
-          <Indicator Type={status} />
+          <Indicator Type={type} />
         )}
 
-      <label className="ml-2.5 text-xl font-medium text-slate-700">
-        {RegionService.Service.Name}
+      <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
+        <span>{RegionService.Service.Name}</span>
+
+        {type === EventType.Information && (
+          <Indicator Type={EventType.Information} />
+        )}
       </label>
     </li>
   );

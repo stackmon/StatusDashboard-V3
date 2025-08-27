@@ -20,7 +20,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -113,6 +113,16 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           onScale-input={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
           invalid={!!Validation.updateAt}
           helperText={Validation.updateAt}
+        />
+
+        <ScaleTextarea
+          label="Description"
+          placeholder="Optional description for the event"
+          resize="vertical"
+          value={State.description}
+          onScale-input={(e) => Actions.setDescription(e.target.value as string)}
+          invalid={!!Validation.description}
+          helperText={Validation.description}
         />
 
         <ScaleTextarea

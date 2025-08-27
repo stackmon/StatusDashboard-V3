@@ -23,7 +23,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.0
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -87,6 +87,22 @@ export function useEditForm(event: Models.IEvent) {
 
     _setUpdate(value);
     !err && setValUpdate(undefined);
+
+    return !err;
+  }
+
+  const [description, _setDescription] = useState(event.Description || "");
+  const [valDescription, setValDescription] = useState<string>();
+  function setDescription(value = description) {
+    let err: boolean = false;
+
+    if (value && value.length > 500) {
+      setValDescription("Description must be less than 500 characters.");
+      err = true;
+    }
+
+    _setDescription(value);
+    !err && setValDescription(undefined);
 
     return !err;
   }
@@ -172,10 +188,9 @@ export function useEditForm(event: Models.IEvent) {
   const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setDescription(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
-
     const url = process.env.SD_BACKEND_URL!;
 
     const body: Record<string, any> = {
@@ -184,6 +199,7 @@ export function useEditForm(event: Models.IEvent) {
       impact: GetEventImpact(type),
       message: update,
       update_date: updateAt.toISOString(),
+      description,
     };
 
     if (event.Type !== type) {
@@ -229,6 +245,7 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.Status = status!;
       updatedEvent.Start = start;
       updatedEvent.End = end;
+      updatedEvent.Description = description;
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
@@ -255,6 +272,7 @@ export function useEditForm(event: Models.IEvent) {
       title,
       type,
       update,
+      description,
       status,
       start,
       end,
@@ -264,6 +282,7 @@ export function useEditForm(event: Models.IEvent) {
       setTitle,
       setType,
       setUpdate,
+      setDescription,
       setStatus,
       setStart,
       setEnd,
@@ -273,6 +292,7 @@ export function useEditForm(event: Models.IEvent) {
       title: valTitle,
       type: valType,
       update: valUpdate,
+      description: valDescription,
       status: valStatus,
       start: valStart,
       end: valEnd,

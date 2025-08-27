@@ -77,6 +77,22 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
+  const [description, _setDescription] = useState(event.Description || "");
+  const [valDescription, setValDescription] = useState<string>();
+  function setDescription(value = description) {
+    let err: boolean = false;
+
+    if (value && value.length > 500) {
+      setValDescription("Description must be less than 500 characters.");
+      err = true;
+    }
+
+    _setDescription(value);
+    !err && setValDescription(undefined);
+
+    return !err;
+  }
+
   const [status, _setStatus] = useState<EventStatus | undefined>();
   const [valStatus, setValStatus] = useState<string>();
   function setStatus(value = status) {
@@ -158,7 +174,7 @@ export function useEditForm(event: Models.IEvent) {
   const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setDescription(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
     const url = process.env.SD_BACKEND_URL!;
@@ -169,6 +185,7 @@ export function useEditForm(event: Models.IEvent) {
       impact: GetEventImpact(type),
       message: update,
       update_date: updateAt.toISOString(),
+      description,
     };
 
     if (event.Type !== type) {
@@ -214,6 +231,7 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.Status = status!;
       updatedEvent.Start = start;
       updatedEvent.End = end;
+      updatedEvent.Description = description;
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
@@ -240,6 +258,7 @@ export function useEditForm(event: Models.IEvent) {
       title,
       type,
       update,
+      description,
       status,
       start,
       end,
@@ -249,6 +268,7 @@ export function useEditForm(event: Models.IEvent) {
       setTitle,
       setType,
       setUpdate,
+      setDescription,
       setStatus,
       setStart,
       setEnd,
@@ -258,6 +278,7 @@ export function useEditForm(event: Models.IEvent) {
       title: valTitle,
       type: valType,
       update: valUpdate,
+      description: valDescription,
       status: valStatus,
       start: valStart,
       end: valEnd,

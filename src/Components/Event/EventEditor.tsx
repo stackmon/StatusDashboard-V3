@@ -105,6 +105,16 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         />
 
         <ScaleTextarea
+          label="Description"
+          placeholder="Optional description for the event"
+          resize="vertical"
+          value={State.description}
+          onScale-input={(e) => Actions.setDescription(e.target.value as string)}
+          invalid={!!Validation.description}
+          helperText={Validation.description}
+        />
+
+        <ScaleTextarea
           label="Update Message"
           resize="vertical"
           value={State.update}

@@ -3,9 +3,10 @@ import { useBoolean, useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
+import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 
 /**
  * @author Aloento
@@ -14,6 +15,7 @@ import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
  */
 export function EventGrid() {
   const { DB } = useStatus();
+  const auth = useAuth();
   const ref = useRef<HTMLScaleDataGridElement>(null);
   const [hidden, { set }] = useBoolean();
 
@@ -97,7 +99,11 @@ export function EventGrid() {
         }
 
         if (x.Type === EventType.Information) {
-          return false;
+          if (auth.isAuthenticated) {
+            return x.Status === EventStatus.Active || x.Status === EventStatus.Planned;
+          } else {
+            return x.Status === EventStatus.Active;
+          }
         }
 
         return IsOpenStatus(x.Status);
@@ -147,7 +153,7 @@ export function EventGrid() {
 
     set(!events.length);
     grid.rows = events;
-  }, [ref.current, DB]);
+  }, [ref.current, DB, auth.isAuthenticated]);
 
   if (hidden) {
     return null;

@@ -71,8 +71,10 @@ export function ServiceItem({ RegionService }: IServiceItem) {
       <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
         <span>{RegionService.Service.Name}</span>
 
-        {type === EventType.Information && (
-          <Indicator Type={EventType.Information} />
+        {type === EventType.Information && id && (
+          <a href={`/Event/${id}`}>
+            <Indicator Type={EventType.Information} />
+          </a>
         )}
       </label>
     </li>

@@ -18,8 +18,8 @@ importers:
         specifier: 3.0.0-beta.155
         version: 3.0.0-beta.155(@types/react@19.1.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       ahooks:
-        specifier: ^3.9.4
-        version: 3.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^3.9.5
+        version: 3.9.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       dayjs:
         specifier: ^1.11.14
         version: 1.11.14
@@ -1110,6 +1110,9 @@ packages:
   '@types/http-proxy@1.17.16':
     resolution: {integrity: sha512-sdWoUajOB1cd0A8cRRQ1cfyWNbmFKLAqBB89Y8x5iYyG/mkJHc0YUH8pdWBy2omi9qtCpiIgGjuwO0dQST2l5w==}
 
+  '@types/js-cookie@3.0.6':
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -1227,8 +1230,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  ahooks@3.9.4:
-    resolution: {integrity: sha512-NkbX0mamCz4aBX27mZnObbzqcM9S4fzpjVf/6yOvmHh+McBo74xQw5Yz5ry4q2cLMkfNUjhe2q3M5RpjfMVu4g==}
+  ahooks@3.9.5:
+    resolution: {integrity: sha512-TrjXie49Q8HuHKTa84Fm9A+famMDAG1+7a9S9Gq6RQ0h90Jgqmiq3CkObuRjWT/C4d6nRZCw35Y2k2fmybb5eA==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -4723,6 +4726,8 @@ snapshots:
     dependencies:
       '@types/node': 24.3.0
 
+  '@types/js-cookie@3.0.6': {}
+
   '@types/json-schema@7.0.15': {}
 
   '@types/lodash@4.17.20': {}
@@ -4865,9 +4870,10 @@ snapshots:
 
   acorn@8.15.0: {}
 
-  ahooks@3.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  ahooks@3.9.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@babel/runtime': 7.28.3
+      '@types/js-cookie': 3.0.6
       dayjs: 1.11.14
       intersection-observer: 0.12.2
       js-cookie: 3.0.5

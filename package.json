@@ -14,7 +14,7 @@
     "@fluentui/react-components": "^9.69.0",
     "@telekom/scale-components": "3.0.0-beta.155",
     "@telekom/scale-components-react": "3.0.0-beta.155",
-    "ahooks": "^3.9.4",
+    "ahooks": "^3.9.5",
     "dayjs": "^1.11.14",
     "idb": "^8.0.3",
     "jwt-decode": "^4.0.0",

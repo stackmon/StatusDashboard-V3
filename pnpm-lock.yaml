@@ -12,8 +12,8 @@ importers:
         specifier: ^9.69.0
         version: 9.69.0(@types/react-dom@19.1.8(@types/react@19.1.11))(@types/react@19.1.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(scheduler@0.26.0)
       '@telekom/scale-components':
-        specifier: 3.0.0-beta.155
-        version: 3.0.0-beta.155
+        specifier: 3.0.0-beta.156
+        version: 3.0.0-beta.156
       '@telekom/scale-components-react':
         specifier: 3.0.0-beta.155
         version: 3.0.0-beta.155(@types/react@19.1.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -1101,8 +1101,8 @@ packages:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
 
-  '@telekom/scale-components@3.0.0-beta.155':
-    resolution: {integrity: sha512-yxlX8wxTcM4B2Fw3UMDO/yvbNQDo4cijC7QfqjoMtv/BtR/fVWI6BEtxBD/J6OE4I2j95e2NsVtF1R/Tbpg6gQ==}
+  '@telekom/scale-components@3.0.0-beta.156':
+    resolution: {integrity: sha512-H8Dml6tKjaCYDBXr4TWaGv5u457C9dMTm6ZuTnhWMzaQBESxK0lYOuUGrQmN1IiX8mHYSzjQuIpwIRlZ1nyrkw==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -4707,7 +4707,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@telekom/scale-components@3.0.0-beta.155':
+  '@telekom/scale-components@3.0.0-beta.156':
     dependencies:
       '@duetds/date-picker': 1.2.0
       '@floating-ui/dom': 1.7.4

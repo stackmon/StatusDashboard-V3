@@ -2,9 +2,10 @@ import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-com
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
 import "./ServiceItem.css";
 
@@ -19,6 +20,7 @@ interface IServiceItem {
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
+  const auth = useAuth();
 
   const [type, setType] = useState(EventType.Operational);
   const [future, setFuture] = useState(false);
@@ -43,7 +45,13 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
     const infoEvent = chain(openEvents)
       .filter(x => x.Type === EventType.Information)
-      .filter(x => IsOpenStatus(x.Status))
+      .filter(x => {
+        if (!auth.isAuthenticated) {
+          return x.Status === EventStatus.Active;
+        }
+
+        return IsOpenStatus(x.Status);
+      })
       .orderBy(x => x.Start, 'desc')
       .head()
       .value();
@@ -59,7 +67,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
     }
 
     setInfoId(infoEvent?.Id);
-  }, [DB, RegionService]);
+  }, [DB, RegionService, auth.isAuthenticated]);
 
   return (
     <li className="flex items-center py-2">

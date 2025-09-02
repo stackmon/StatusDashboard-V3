@@ -43,6 +43,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
     const infoEvent = chain(openEvents)
       .filter(x => x.Type === EventType.Information)
+      .filter(x => IsOpenStatus(x.Status))
       .orderBy(x => x.Start, 'desc')
       .head()
       .value();

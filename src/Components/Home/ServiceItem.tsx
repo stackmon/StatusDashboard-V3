@@ -74,7 +74,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
       ) :
         nonInfoId ? (
           <a className="flex items-center" href={`/Event/${nonInfoId}`}>
-            <Indicator Type={type === EventType.Information ? EventType.Operational : type} />
+            <Indicator Type={type} />
           </a>
         ) : (
           <Indicator Type={type} />

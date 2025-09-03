@@ -2,9 +2,10 @@ import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-com
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
-import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
 import "./ServiceItem.css";
 
@@ -15,44 +16,63 @@ interface IServiceItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.3
+ * @version 0.3.0
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
+  const auth = useAuth();
 
   const [type, setType] = useState(EventType.Operational);
   const [future, setFuture] = useState(false);
-  const [id, setId] = useState<number>();
+  const [nonInfoId, setNonInfoId] = useState<number>();
+  const [infoId, setInfoId] = useState<number>();
 
   useEffect(() => {
-    const res = chain([...RegionService.Events])
+    const openEvents = chain([...RegionService.Events])
       .filter(x => {
         if (IsIncident(x.Type) && x.End) {
           return false;
         }
-
         return IsOpenStatus(x.Status);
       })
+      .value();
+
+    const nonInfoEvent = chain(openEvents)
+      .filter(x => x.Type !== EventType.Information)
       .orderBy(x => x.Type, 'desc')
       .head()
       .value();
 
-    if (res) {
-      setType(res.Type);
-      setFuture(dayjs(res.Start).isAfter(dayjs()));
-      setId(res.Id);
-    }
-    else {
+    const infoEvent = chain(openEvents)
+      .filter(x => x.Type === EventType.Information)
+      .filter(x => {
+        if (!auth.isAuthenticated) {
+          return x.Status === EventStatus.Active;
+        }
+
+        return IsOpenStatus(x.Status);
+      })
+      .orderBy(x => x.Start, 'desc')
+      .head()
+      .value();
+
+    if (nonInfoEvent) {
+      setType(nonInfoEvent.Type);
+      setFuture(dayjs(nonInfoEvent.Start).isAfter(dayjs()));
+      setNonInfoId(nonInfoEvent.Id);
+    } else {
       setType(EventType.Operational);
       setFuture(false);
-      setId(undefined);
+      setNonInfoId(undefined);
     }
-  }, [DB, RegionService]);
+
+    setInfoId(infoEvent?.Id);
+  }, [DB, RegionService, auth.isAuthenticated]);
 
   return (
     <li className="flex items-center py-2">
       {future ? (
-        <a className="flex h-6" href={`/Event/${id}`}>
+        <a className="flex h-6" href={`/Event/${nonInfoId}`}>
           <FluentProvider className="with-dot" theme={webLightTheme}>
             <Indicator Type={EventType.Operational} />
 
@@ -60,9 +80,9 @@ export function ServiceItem({ RegionService }: IServiceItem) {
           </FluentProvider>
         </a>
       ) :
-        id ? (
-          <a className="flex items-center" href={`/Event/${id}`}>
-            <Indicator Type={type === EventType.Information ? EventType.Operational : type} />
+        nonInfoId ? (
+          <a className="flex items-center" href={`/Event/${nonInfoId}`}>
+            <Indicator Type={type} />
           </a>
         ) : (
           <Indicator Type={type} />
@@ -71,8 +91,10 @@ export function ServiceItem({ RegionService }: IServiceItem) {
       <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
         <span>{RegionService.Service.Name}</span>
 
-        {type === EventType.Information && (
-          <Indicator Type={EventType.Information} />
+        {infoId && (
+          <a href={`/Event/${infoId}`}>
+            <Indicator Type={EventType.Information} />
+          </a>
         )}
       </label>
     </li>

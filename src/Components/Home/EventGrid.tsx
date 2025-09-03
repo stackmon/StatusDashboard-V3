@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 
 /**
  * @author Aloento
@@ -100,10 +100,10 @@ export function EventGrid() {
 
         if (x.Type === EventType.Information) {
           if (auth.isAuthenticated) {
-            return x.Status === EventStatus.Active || x.Status === EventStatus.Planned;
-          } else {
-            return x.Status === EventStatus.Active;
+            return IsOpenStatus(x.Status);
           }
+
+          return false;
         }
 
         return IsOpenStatus(x.Status);

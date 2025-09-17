@@ -11,7 +11,7 @@ import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.2.2
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -108,7 +108,19 @@ export function EventGrid() {
 
         return IsOpenStatus(x.Status);
       })
-      .orderBy(x => x.Start, "desc")
+      .orderBy([
+        x => {
+          switch (x.Type) {
+            case EventType.Outage: return 0;
+            case EventType.Major: return 1;
+            case EventType.Minor: return 2;
+            case EventType.Maintenance: return 3;
+            case EventType.Information: return 4;
+            default: return 5;
+          }
+        },
+        x => x.Start
+      ], ["asc", "desc"])
       .map(x => {
         let tag;
 

@@ -11,9 +11,9 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.69.0",
-    "@telekom/scale-components": "3.0.0-beta.156",
-    "@telekom/scale-components-react": "3.0.0-beta.156",
+    "@fluentui/react-components": "^9.70.0",
+    "@telekom/scale-components": "3.0.0-beta.157",
+    "@telekom/scale-components-react": "3.0.0-beta.157",
     "ahooks": "^3.9.5",
     "dayjs": "^1.11.18",
     "idb": "^8.0.3",
@@ -31,21 +31,21 @@
     "@farmfe/core": "^1.7.11",
     "@farmfe/js-plugin-postcss": "^1.12.0",
     "@farmfe/plugin-react": "^1.2.6",
-    "@tailwindcss/postcss": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.13",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.3.0",
-    "@types/react": "^19.1.12",
+    "@types/node": "^24.5.1",
+    "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.21",
     "core-js": "^3.45.1",
-    "eslint": "^9.34.0",
-    "globals": "^16.3.0",
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0",
     "postcss": "^8.5.6",
     "react-refresh": "^0.17.0",
     "tailwindcss": "3.4.17",
     "tailwindcss-scoped-preflight": "^3.4.12",
-    "typescript-eslint": "^8.41.0"
+    "typescript-eslint": "^8.44.0"
   },
-  "packageManager": "pnpm@10.15.1"
+  "packageManager": "pnpm@10.17.0"
 }

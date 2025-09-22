@@ -39,7 +39,7 @@
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.21",
     "core-js": "^3.45.1",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "globals": "^16.4.0",
     "postcss": "^8.5.6",
     "react-refresh": "^0.17.0",

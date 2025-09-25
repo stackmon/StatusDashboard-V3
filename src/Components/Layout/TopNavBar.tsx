@@ -19,7 +19,7 @@ export function TopNavBar() {
       type="slim">
 
       <ScaleTelekomNavList aria-label="Main Navigation Links" slot="main-nav">
-        <NavItem Href="/History" Label="History" />
+        <NavItem Href="/Timeline" Label="Timeline" />
 
         <NavItem Href="/Availability" Label="Availability" />
 

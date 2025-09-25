@@ -21,7 +21,7 @@ export function MobileMenu() {
           <ScaleTelekomMobileMenu slot="mobile-main-nav">
 
             <ScaleTelekomMobileMenuItem>
-              <a href="/History">History</a>
+              <a href="/Timeline">Timeline</a>
             </ScaleTelekomMobileMenuItem>
 
             <ScaleTelekomMobileMenuItem>

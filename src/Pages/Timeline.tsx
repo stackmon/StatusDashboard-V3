@@ -4,7 +4,7 @@ import { chain } from "lodash";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { EventStatus, EventType } from "~/Components/Event/Enums";
-import { EventItem } from "~/Components/History/EventItem";
+import { EventItem } from "~/Components/Timeline/EventItem";
 import { useStatus } from "~/Services/Status";
 
 /**
@@ -12,7 +12,7 @@ import { useStatus } from "~/Services/Status";
  * @since 1.0.0
  * @version 1.0.0
  */
-export function History() {
+export function Timeline() {
   const { DB } = useStatus();
 
   const [filters, setFilters] = useState({

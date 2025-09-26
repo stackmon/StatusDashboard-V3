@@ -24,8 +24,8 @@ export default defineConfig({
       }
     },
     https: {
-      key: "/etc/letsencrypt/archive/inf.aloen.to/privkey1.pem",
-      cert: "/etc/letsencrypt/archive/inf.aloen.to/fullchain1.pem"
+      key: "/etc/letsencrypt/live/inf.aloen.to/privkey.pem",
+      cert: "/etc/letsencrypt/live/inf.aloen.to/fullchain.pem"
     }
   }
 });

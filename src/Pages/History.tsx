@@ -188,12 +188,6 @@ export function History() {
       <title>History - OTC Status Dashboard</title>
     </Helmet>
 
-    <section className="flex-shrink-0">
-      <h3 className="text-3xl font-medium text-slate-800">
-        OTC Event History
-      </h3>
-    </section>
-
     <section className="flex-shrink-0 rounded-lg bg-white shadow-md p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <ScaleTextField
@@ -308,12 +302,8 @@ export function History() {
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
         pageSize={10}
-        heading="Event History"
+        heading="OTC Event History"
         hideBorder
-        style={{
-          minHeight: "400px",
-          minWidth: "800px"
-        }}
         ref={gridRef}
       />
     </section>

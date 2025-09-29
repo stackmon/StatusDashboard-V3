@@ -8,6 +8,7 @@ import { useRouter } from "~/Components/Router";
 import { NotFound } from "./404";
 import { Availability } from "./Availability";
 import { Event } from "./Event";
+import { History } from "./History";
 import { Home } from "./Home";
 import { NewEvent } from "./NewEvent";
 import { Timeline } from "./Timeline";
@@ -42,6 +43,9 @@ export function Layout() {
 
       case "Timeline":
         return <Timeline />;
+
+      case "History":
+        return <History />;
 
       case "Availability":
         return <Availability />;

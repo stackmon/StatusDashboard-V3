@@ -5,6 +5,7 @@ import { useAuth } from "react-oidc-context";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
+import { useConditionalAnalytics } from "~/Helpers/Analytics";
 import { NotFound } from "./404";
 import { Availability } from "./Availability";
 import { Event } from "./Event";
@@ -16,9 +17,11 @@ import { Timeline } from "./Timeline";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 export function Layout() {
+  useConditionalAnalytics();
+
   const { Paths } = useRouter();
   const path = Paths.at(0);
   const auth = useAuth();

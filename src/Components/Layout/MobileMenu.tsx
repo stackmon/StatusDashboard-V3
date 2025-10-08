@@ -5,7 +5,7 @@ import { Authorized } from "../Auth/With";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 1.0.0
  */
 export function MobileMenu() {
   const auth = useAuth();
@@ -19,6 +19,9 @@ export function MobileMenu() {
       <ScaleTelekomNavFlyout>
         <ScaleTelekomMobileFlyoutCanvas>
           <ScaleTelekomMobileMenu slot="mobile-main-nav">
+            <ScaleTelekomMobileMenuItem>
+              <a href="/History">History</a>
+            </ScaleTelekomMobileMenuItem>
 
             <ScaleTelekomMobileMenuItem>
               <a href="/Timeline">Timeline</a>

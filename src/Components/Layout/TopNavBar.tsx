@@ -7,7 +7,7 @@ import { ProfileMenu } from "./ProfileMenu";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 1.0.0
  */
 export function TopNavBar() {
   return (
@@ -19,6 +19,8 @@ export function TopNavBar() {
       type="slim">
 
       <ScaleTelekomNavList aria-label="Main Navigation Links" slot="main-nav">
+        <NavItem Href="/History" Label="History" />
+
         <NavItem Href="/Timeline" Label="Timeline" />
 
         <NavItem Href="/Availability" Label="Availability" />

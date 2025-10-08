@@ -1,112 +1,26 @@
-import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleTextField } from "@telekom/scale-components-react";
-import dayjs from "dayjs";
 import { chain } from "lodash";
-import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { EventStatus, EventType } from "~/Components/Event/Enums";
-import { EventItem } from "~/Components/Timeline/EventItem";
+import { EventFilters } from "~/Components/History/EventFilters";
+import { EventItem } from "~/Components/History/EventItem";
+import { useEventFilters } from "~/Components/History/useEventFilters";
 import { useStatus } from "~/Services/Status";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.1.0
  */
 export function Timeline() {
   const { DB } = useStatus();
 
-  const [filters, setFilters] = useState({
-    startDate: dayjs().add(-6, 'month').format('YYYY-MM-DD'),
-    endDate: "",
-    serviceName: "",
-    region: "",
-    eventType: "",
-    eventStatus: "",
-  });
-
-  const [validation, setValidation] = useState({
-    startDate: "",
-    endDate: "",
-  });
-
-  function validateDates(startDate: string, endDate: string) {
-    const errors = { startDate: "", endDate: "" };
-
-    if (startDate && endDate) {
-      const start = dayjs(startDate);
-      const end = dayjs(endDate);
-
-      if (start.isAfter(end)) {
-        errors.startDate = "Start date cannot be later than end date.";
-      }
-    }
-
-    setValidation(errors);
-    return !errors.startDate && !errors.endDate;
-  }
-
-  function clearFilters() {
-    setFilters({
-      startDate: dayjs().add(-6, 'month').format('YYYY-MM-DD'),
-      endDate: "",
-      serviceName: "",
-      region: "",
-      eventType: "",
-      eventStatus: "",
-    });
-    setValidation({
-      startDate: "",
-      endDate: "",
-    });
-  }
-
-  const filteredEvents = chain(DB.Events)
-    .filter(event => {
-      if (filters.startDate) {
-        const filterStart = dayjs(filters.startDate).startOf('day');
-        const eventStart = dayjs(event.Start);
-        if (eventStart.isBefore(filterStart)) return false;
-      }
-
-      if (filters.endDate) {
-        const filterEnd = dayjs(filters.endDate).endOf('day');
-        const eventStart = dayjs(event.Start);
-        const eventEnd = event.End ? dayjs(event.End) : eventStart;
-        if (eventEnd.isAfter(filterEnd)) return false;
-      }
-
-      if (filters.serviceName) {
-        const serviceNames = Array.from(event.RegionServices)
-          .map(rs => ({
-            name: rs.Service.Name.toLowerCase(),
-            abbr: rs.Service.Abbr.toLowerCase()
-          }));
-        const searchTerm = filters.serviceName.toLowerCase();
-        const hasService = serviceNames.some(service =>
-          service.name.includes(searchTerm) || service.abbr.includes(searchTerm)
-        );
-        if (!hasService) return false;
-      }
-
-      if (filters.region) {
-        const regionNames = Array.from(event.RegionServices)
-          .map(rs => rs.Region.Name);
-        const hasRegion = regionNames.includes(filters.region);
-        if (!hasRegion) return false;
-      }
-
-      if (filters.eventType && event.Type !== filters.eventType) {
-        return false;
-      }
-
-      if (filters.eventStatus && event.Status !== filters.eventStatus) {
-        return false;
-      }
-
-      return true;
-    })
-    .orderBy(x => x.Start, "desc")
-    .value();
+  const {
+    filters,
+    validation,
+    filteredEvents,
+    setFilters,
+    setValidation,
+    clearFilters,
+  } = useEventFilters(DB.Events);
 
   return <>
     <Helmet>
@@ -119,115 +33,16 @@ export function Timeline() {
       </h3>
     </section>
 
-    <section className="flex flex-col rounded-lg bg-white shadow-md p-5 gap-y-1.5">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <ScaleTextField
-          type="date"
-          label="Start Date"
-          placeholder="Select start date"
-          value={filters.startDate}
-          invalid={!!validation.startDate}
-          helperText={validation.startDate}
-          onScale-input={(e) => {
-            const newStartDate = e.target.value as string;
-            setFilters(prev => ({
-              ...prev,
-              startDate: newStartDate
-            }));
-            validateDates(newStartDate, filters.endDate);
-          }}
-        />
-
-        <ScaleTextField
-          type="date"
-          label="End Date"
-          placeholder="Select end date"
-          value={filters.endDate}
-          invalid={!!validation.endDate}
-          helperText={validation.endDate}
-          onScale-input={(e) => {
-            const newEndDate = e.target.value as string;
-            setFilters(prev => ({
-              ...prev,
-              endDate: newEndDate
-            }));
-            validateDates(filters.startDate, newEndDate);
-          }}
-        />
-
-        <ScaleTextField
-          label="Service Name"
-          placeholder="Search service name"
-          value={filters.serviceName}
-          inputAutocomplete="off"
-          onScale-input={(e) => setFilters(prev => ({
-            ...prev,
-            serviceName: e.target.value as string
-          }))}
-        />
-
-        <ScaleDropdownSelect
-          label="Region"
-          value={filters.region}
-          onScale-change={(e) => setFilters(prev => ({
-            ...prev,
-            region: e.target.value as string
-          }))}
-        >
-          <ScaleDropdownSelectItem value="">All Regions</ScaleDropdownSelectItem>
-          {DB.Regions.map((region, i) => (
-            <ScaleDropdownSelectItem value={region.Name} key={i}>
-              {region.Name}
-            </ScaleDropdownSelectItem>
-          ))}
-        </ScaleDropdownSelect>
-
-        <ScaleDropdownSelect
-          label="Event Type"
-          value={filters.eventType}
-          onScale-change={(e) => setFilters(prev => ({
-            ...prev,
-            eventType: e.target.value as string
-          }))}
-        >
-          <ScaleDropdownSelectItem value="">All Types</ScaleDropdownSelectItem>
-          {Object.values(EventType).slice(1).map((type, i) => (
-            <ScaleDropdownSelectItem value={type} key={i}>
-              {type}
-            </ScaleDropdownSelectItem>
-          ))}
-        </ScaleDropdownSelect>
-
-        <ScaleDropdownSelect
-          label="Event Status"
-          value={filters.eventStatus}
-          onScale-change={(e) => setFilters(prev => ({
-            ...prev,
-            eventStatus: e.target.value as string
-          }))}
-        >
-          <ScaleDropdownSelectItem value="">All Status</ScaleDropdownSelectItem>
-          {Object.values(EventStatus).map((status, i) => (
-            <ScaleDropdownSelectItem value={status} key={i}>
-              {status}
-            </ScaleDropdownSelectItem>
-          ))}
-        </ScaleDropdownSelect>
-      </div>
-
-      <div className="flex justify-between items-center mt-4">
-        <span className="text-sm text-gray-600">
-          Found {filteredEvents.length} events, {DB.Events.length - filteredEvents.length} filtered out
-        </span>
-        <ScaleButton
-          variant="secondary"
-          size="small"
-          onClick={clearFilters}
-        >
-          Clear Filters
-        </ScaleButton>
-      </div>
-    </section>
+    <EventFilters
+      filters={filters}
+      validation={validation}
+      regions={DB.Regions}
+      totalEvents={DB.Events.length}
+      filteredCount={filteredEvents.length}
+      onFiltersChange={setFilters}
+      onValidationChange={setValidation}
+      onClearFilters={clearFilters}
+    />
 
     <ol className="flex flex-col pl-3 xl:pl-0">
       {chain(filteredEvents)

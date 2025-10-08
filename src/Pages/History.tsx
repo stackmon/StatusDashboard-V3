@@ -1,7 +1,7 @@
 import { ScaleDataGrid, ScaleIconActionCheckmark, ScaleIconActionMenu, ScaleMenuFlyoutItem, ScaleMenuFlyoutList } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { chain } from "lodash";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { EventType } from "~/Components/Event/Enums";
 import { EventFilters } from "~/Components/History/EventFilters";
@@ -9,14 +9,22 @@ import { useEventFilters } from "~/Components/History/useEventFilters";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
+const PAGE_SIZE_KEY = "historyPageSize";
+const PAGE_SIZE_OPTIONS = [15, 30, 50, 100];
+
 /**
  * @author Aloento
  * @since 1.2.0
- * @version 1.1.0
+ * @version 1.2.0
  */
 export function History() {
   const { DB } = useStatus();
   const gridRef = useRef<HTMLScaleDataGridElement>(null);
+
+  const [pageSize, setPageSize] = useState<number>(() => {
+    const stored = localStorage.getItem(PAGE_SIZE_KEY);
+    return stored ? parseInt(stored, 10) : 15;
+  });
 
   const {
     filters,
@@ -120,7 +128,7 @@ export function History() {
     <section className="flex-grow min-h-0">
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
-        pageSize={10}
+        pageSize={pageSize}
         heading="OTC Event History"
         hideBorder
         ref={gridRef}
@@ -130,25 +138,20 @@ export function History() {
           <ScaleIconActionMenu slot="prefix" style={{ display: "inline-flex" }} />
 
           <ScaleMenuFlyoutList slot="sublist">
-            <ScaleMenuFlyoutItem>
-              15
-              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
-            </ScaleMenuFlyoutItem>
-
-            <ScaleMenuFlyoutItem>
-              30
-              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
-            </ScaleMenuFlyoutItem>
-
-            <ScaleMenuFlyoutItem>
-              50
-              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
-            </ScaleMenuFlyoutItem>
-
-            <ScaleMenuFlyoutItem>
-              100
-              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
-            </ScaleMenuFlyoutItem>
+            {PAGE_SIZE_OPTIONS.map((size) => (
+              <ScaleMenuFlyoutItem
+                key={size}
+                onScale-select={() => {
+                  setPageSize(size);
+                  localStorage.setItem(PAGE_SIZE_KEY, size.toString());
+                }}
+              >
+                {size}
+                {pageSize === size && (
+                  <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
+                )}
+              </ScaleMenuFlyoutItem>
+            ))}
           </ScaleMenuFlyoutList>
         </ScaleMenuFlyoutItem>
       </ScaleDataGrid>

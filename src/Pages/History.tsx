@@ -1,4 +1,4 @@
-import { ScaleDataGrid } from "@telekom/scale-components-react";
+import { ScaleDataGrid, ScaleIconActionCheckmark, ScaleIconActionMenu, ScaleMenuFlyoutItem, ScaleMenuFlyoutList } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
@@ -124,7 +124,34 @@ export function History() {
         heading="OTC Event History"
         hideBorder
         ref={gridRef}
-      />
+      >
+        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger" style={{ marginLeft: "0" }}>
+          Page Size
+          <ScaleIconActionMenu slot="prefix" style={{ display: "inline-flex" }} />
+
+          <ScaleMenuFlyoutList slot="sublist">
+            <ScaleMenuFlyoutItem>
+              15
+              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
+            </ScaleMenuFlyoutItem>
+
+            <ScaleMenuFlyoutItem>
+              30
+              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
+            </ScaleMenuFlyoutItem>
+
+            <ScaleMenuFlyoutItem>
+              50
+              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
+            </ScaleMenuFlyoutItem>
+
+            <ScaleMenuFlyoutItem>
+              100
+              <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
+            </ScaleMenuFlyoutItem>
+          </ScaleMenuFlyoutList>
+        </ScaleMenuFlyoutItem>
+      </ScaleDataGrid>
     </section>
   </div>;
 }

@@ -147,9 +147,14 @@ export function History() {
                 }}
               >
                 {size}
-                {pageSize === size && (
-                  <ScaleIconActionCheckmark slot="prefix" size={16} style={{ display: "inline-flex" }} />
-                )}
+                <ScaleIconActionCheckmark
+                  slot="prefix"
+                  size={16}
+                  style={{
+                    display: "inline-flex",
+                    visibility: pageSize === size ? "visible" : "hidden"
+                  }}
+                />
               </ScaleMenuFlyoutItem>
             ))}
           </ScaleMenuFlyoutList>

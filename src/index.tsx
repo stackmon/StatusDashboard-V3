@@ -20,9 +20,7 @@ s.async = true;
 s.src = process.env.SD_ANALYTICS_URL || "";
 s.setAttribute("data-website-id", process.env.SD_ANALYTICS_ID || "");
 
-const { hostname, href } = window.location;
-
-if (/otc-service\.com$/i.test(hostname) && !/test/i.test(href)) {
+if (s.src) {
   document.head.appendChild(s);
 }
 

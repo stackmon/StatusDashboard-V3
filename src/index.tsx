@@ -20,6 +20,13 @@ if (!/otc-service\.com$/i.test(hostname) || /test/i.test(href)) {
   localStorage.removeItem('umami.disabled');
 }
 
+const s = document.createElement("script");
+s.async = true;
+s.src = process.env.SD_ANALYTICS_URL || "";
+s.setAttribute("data-website-id", process.env.SD_ANALYTICS_ID || "");
+
+document.head.appendChild(s);
+
 const container = document.querySelector("#root")!;
 const root = createRoot(container);
 

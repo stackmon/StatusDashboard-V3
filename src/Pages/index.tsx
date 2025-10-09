@@ -5,7 +5,7 @@ import { useAuth } from "react-oidc-context";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
-import { useConditionalAnalytics } from "~/Helpers/Analytics";
+import { useAnalytics } from "~/Helpers/Analytics";
 import { NotFound } from "./404";
 import { Availability } from "./Availability";
 import { Event } from "./Event";
@@ -19,7 +19,7 @@ import { NewEvent } from "./NewEvent";
  * @version 0.1.1
  */
 export function Layout() {
-  useConditionalAnalytics();
+  useAnalytics();
 
   const { Paths } = useRouter();
   const path = Paths.at(0);

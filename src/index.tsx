@@ -12,6 +12,14 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 defineCustomElements();
 
+const { hostname, href } = window.location;
+
+if (!/otc-service\.com$/i.test(hostname) || /test/i.test(href)) {
+  localStorage.setItem('umami.disabled', "1");
+} else {
+  localStorage.removeItem('umami.disabled');
+}
+
 const container = document.querySelector("#root")!;
 const root = createRoot(container);
 

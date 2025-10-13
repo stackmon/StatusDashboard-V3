@@ -12,6 +12,15 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 defineCustomElements();
 
+const s = document.createElement("script");
+s.async = true;
+s.src = process.env.SD_ANALYTICS_URL || "";
+s.setAttribute("data-website-id", process.env.SD_ANALYTICS_ID || "");
+
+if (s.src) {
+  document.head.appendChild(s);
+}
+
 const container = document.querySelector("#root")!;
 const root = createRoot(container);
 

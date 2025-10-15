@@ -10,7 +10,7 @@ import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
 const PAGE_SIZE_KEY = "historyPageSize";
-const PAGE_SIZE_OPTIONS = [15, 30, 50, 100];
+const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
 /**
  * @author Aloento
@@ -23,7 +23,7 @@ export function History() {
 
   const [pageSize, setPageSize] = useState<number>(() => {
     const stored = localStorage.getItem(PAGE_SIZE_KEY);
-    return stored ? parseInt(stored, 10) : 15;
+    return stored ? parseInt(stored, 10) : 20;
   });
 
   const {

@@ -52,3 +52,5 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL_PROD }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_ANALYTICS_URL=${{ secrets.SD_ANALYTICS_URL }}
+            SD_ANALYTICS_ID=${{ secrets.SD_ANALYTICS_ID_PROD }}

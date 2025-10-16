@@ -10,8 +10,6 @@ export default defineConfig((cfg) => {
       SD_BACKEND_URL: process.env.SD_BACKEND_URL,
       SD_CLIENT_ID: process.env.SD_CLIENT_ID,
       SD_AUTHORITY_URL: process.env.SD_AUTHORITY_URL,
-      SD_ANALYTICS_URL: process.env.SD_ANALYTICS_URL,
-      SD_ANALYTICS_ID: process.env.SD_ANALYTICS_ID,
     };
 
     for (const [key, value] of Object.entries(env)) {

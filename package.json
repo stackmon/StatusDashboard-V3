@@ -33,7 +33,7 @@
     "@farmfe/plugin-react": "^1.2.6",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.7.0",
+    "@types/node": "^24.9.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/react-helmet": "^6.1.11",

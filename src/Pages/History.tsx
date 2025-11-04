@@ -15,7 +15,7 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
 /**
  * @author Aloento
  * @since 1.2.0
- * @version 1.2.0
+ * @version 1.2.1
  */
 export function History() {
   const { DB } = useStatus();
@@ -85,9 +85,12 @@ export function History() {
             tag = { content: EventType.Information, color: "standard" };
         }
 
+        const tagArray: any = [tag];
+        tagArray.toLowerCase = () => tag.content.toLowerCase();
+
         return [
           x.Id,
-          [tag],
+          tagArray,
           dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
           x.End ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time) : "-",
           x.Status,

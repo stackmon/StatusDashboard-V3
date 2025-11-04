@@ -9,11 +9,11 @@
     "clean": "farm clean"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.72.1",
-    "@telekom/scale-components": "3.0.0-beta.157",
-    "@telekom/scale-components-react": "3.0.0-beta.157",
-    "ahooks": "^3.9.5",
-    "dayjs": "^1.11.18",
+    "@fluentui/react-components": "^9.72.4",
+    "@telekom/scale-components": "3.0.0-beta.156",
+    "@telekom/scale-components-react": "3.0.0-beta.158",
+    "ahooks": "^3.9.6",
+    "dayjs": "^1.11.19",
     "idb": "^8.0.3",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
@@ -30,16 +30,16 @@
     "@farmfe/js-plugin-postcss": "^1.12.0",
     "@farmfe/plugin-react": "^1.2.6",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.7.0",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.21",
-    "core-js": "^3.45.1",
+    "core-js": "^3.46.0",
     "postcss": "^8.5.6",
     "react-refresh": "^0.17.0",
     "tailwindcss": "3.4.17",
-    "tailwindcss-scoped-preflight": "^3.4.12"
+    "tailwindcss-scoped-preflight": "^3.5.3"
   },
   "packageManager": "pnpm@10.17.0"
 }

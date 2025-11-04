@@ -7,6 +7,7 @@ import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { getEventTag } from "../History/EventTag";
 
 /**
  * @author Aloento
@@ -64,10 +65,10 @@ export function EventGrid() {
     });
 
     grid.fields = [
-      { type: "number", label: "ID" },
-      { type: "tags", label: "Type" },
+      { type: "number", label: "ID", sortable: true },
+      { type: "tags", label: "Type", sortable: true },
       { type: "date", label: "Start CET", sortable: true },
-      { type: "text", label: "Status / Plan CET" },
+      { type: "text", label: "Status / Plan CET", sortable: true },
       { type: "text", label: "Region", sortable: true },
       { type: "text", label: "Service", sortable: true, stretchWeight: 0.7 },
       { type: "actions", label: "Detail" },
@@ -122,28 +123,11 @@ export function EventGrid() {
         x => x.Start
       ], ["asc", "desc"])
       .map(x => {
-        let tag;
-
-        switch (x.Type) {
-          case EventType.Minor:
-            tag = { content: EventType.Minor, color: "yellow" };
-            break;
-          case EventType.Major:
-            tag = { content: EventType.Major, color: "orange" };
-            break;
-          case EventType.Outage:
-            tag = { content: EventType.Outage, color: "red" };
-            break;
-          case EventType.Maintenance:
-            tag = { content: EventType.Maintenance, color: "cyan" };
-            break;
-          default:
-            tag = { content: EventType.Information, color: "standard" };
-        }
+        const tagArray = getEventTag(x.Type);
 
         return [
           x.Id,
-          [tag],
+          tagArray,
           dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
           x.End
             ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time)

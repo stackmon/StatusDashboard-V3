@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
-import { EventType } from "~/Components/Event/Enums";
 import { EventFilters } from "~/Components/History/EventFilters";
+import { getEventTag } from "~/Components/History/EventTag";
 import { useEventFilters } from "~/Components/History/useEventFilters";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
@@ -15,7 +15,7 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
 /**
  * @author Aloento
  * @since 1.2.0
- * @version 1.2.0
+ * @version 1.2.2
  */
 export function History() {
   const { DB } = useStatus();
@@ -67,27 +67,11 @@ export function History() {
           .uniq()
           .value();
 
-        let tag;
-        switch (x.Type) {
-          case EventType.Minor:
-            tag = { content: EventType.Minor, color: "yellow" };
-            break;
-          case EventType.Major:
-            tag = { content: EventType.Major, color: "orange" };
-            break;
-          case EventType.Outage:
-            tag = { content: EventType.Outage, color: "red" };
-            break;
-          case EventType.Maintenance:
-            tag = { content: EventType.Maintenance, color: "cyan" };
-            break;
-          default:
-            tag = { content: EventType.Information, color: "standard" };
-        }
+        const tagArray = getEventTag(x.Type);
 
         return [
           x.Id,
-          [tag],
+          tagArray,
           dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
           x.End ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time) : "-",
           x.Status,

@@ -1,0 +1,1005 @@
+openapi: 3.0.3
+info:
+  title: Status Dashboard API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: authentication
+    description: Authentication operations
+  - name: incidents
+    description: Incident management
+  - name: components
+    description: Operations about components
+  - name: v1
+    description: Deprecated API schema for backward compatibility
+paths:
+  /auth/login:
+    get:
+      summary: Redirect to the keycloak auth realm.
+      tags:
+        - authentication
+      parameters:
+        - name: state
+          in: query
+          description: The state for oauth2 request. It's a base64 encoded JSON object. The object should contain the `code_challenge` and `callback_url`.
+          required: true
+          schema:
+            type: string
+            example: eyJjb2RlX2NoYWxsZW5nZSI6IjY0Y2MwYWIxYTg4ZWZlYWNkNjRmYTc5ZWNlMzRlZGUwNDRjZDZkMWMzMmMyYTFjMjc5MWU1YmEyMDYzYzFiZWEiLCJjYWxsYmFja191cmwiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMvY2FsbGJhY2sifQ
+      responses:
+        "303":
+          description: The redirect to a keycloak auth page.
+        "400":
+          description: The request is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestGeneralError"
+  /auth/callback:
+    get:
+      summary: The callback URL for the keycloak auth realm. It exchanges the code from keycloak and store tokens for a user. It redirects to the frontend callback URL from the state parameter.
+      tags:
+        - authentication
+      parameters:
+        - name: code
+          in: query
+          description: The code from the keycloak auth realm.
+          required: true
+          schema:
+            type: string
+            example: 7b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+        - name: state
+          in: query
+          description: The state from the authentication request.
+          required: true
+          schema:
+            type: string
+            example: eyJjb2RlX2NoYWxsZW5nZSI6IjY0Y2MwYWIxYTg4ZWZlYWNkNjRmYTc5ZWNlMzRlZGUwNDRjZDZkMWMzMmMyYTFjMjc5MWU1YmEyMDYzYzFiZWEiLCJjYWxsYmFja191cmwiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMvY2FsbGJhY2sifQ
+      responses:
+        "303":
+          description: The redirect to a frontend callback url.
+        "400":
+          description: Return this code with a redirect to a frontend url.
+          headers:
+            Set-Cookie:
+              description: Error cookie set by the server.
+              schema:
+                type: string
+                example: error=some_error_message; Path=/; HttpOnly
+  /auth/token:
+    post:
+      summary: Retrieve a token for an authorised client.
+      tags:
+        - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenPostRequest"
+        required: true
+      responses:
+        "200":
+          description: Return access and refresh tokens for a user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPostResponse"
+        "400":
+          description: The request is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestGeneralError"
+  /auth/logout:
+    put:
+      summary: Logout user session.
+      tags:
+        - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenPutRequest"
+        required: true
+      responses:
+        "204":
+          description: The request is successful.
+        "400":
+          description: The request is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestGeneralError"
+  /auth/refresh:
+    post:
+      summary: Refresh an access token using a refresh token.
+      tags:
+        - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenRefreshRequest"
+        required: true
+      responses:
+        "200":
+          description: Return new access and refresh tokens.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPostResponse"
+        "400":
+          description: The request is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestGeneralError"
+  /v2/components:
+    get:
+      summary: Get all components.
+      tags:
+        - components
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Component"
+    post:
+      summary: In development.
+      tags:
+        - components
+      responses:
+        "200":
+          description: API under development.
+  /v2/components/{component_id}:
+    get:
+      summary: Get target component.
+      tags:
+        - components
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Component"
+        "404":
+          description: The component is not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errMsg:
+                    type: string
+                    example: component does not exist
+
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    patch:
+      summary: Update target component.
+      tags:
+        - components
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Component"
+        "404":
+          description: The component is not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errMsg:
+                    type: string
+                    example: component does not exist
+
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  /v2/availability:
+    get:
+      summary: Get availability.
+      tags:
+        - availability
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ComponentAvailability"
+  /v2/incidents:
+    get:
+      summary: Get all incidents.
+      tags:
+        - incidents
+      parameters:
+        - $ref: "#/components/parameters/IncidentFilterType"
+        - $ref: "#/components/parameters/IncidentFilterActive"
+        - $ref: "#/components/parameters/IncidentFilterStatus"
+        - $ref: "#/components/parameters/IncidentFilterStartDate"
+        - $ref: "#/components/parameters/IncidentFilterEndDate"
+        - $ref: "#/components/parameters/IncidentFilterImpact"
+        - $ref: "#/components/parameters/IncidentFilterSystem"
+        - $ref: "#/components/parameters/IncidentFilterComponents"
+      responses:
+        "200":
+          description: Successful operation. Returns a list of incidents matching the criteria. If none match, data is an empty array.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incidents"
+    post:
+      summary: Create an incident.
+      tags:
+        - incidents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentPost"
+        required: true
+      responses:
+        "200":
+          description: Create an incident.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IncidentPostResponse"
+  /v2/events:
+    get:
+      summary: Get all events with pagination.
+      tags:
+        - incidents
+      parameters:
+        - $ref: "#/components/parameters/IncidentFilterType"
+        - $ref: "#/components/parameters/IncidentFilterActive"
+        - $ref: "#/components/parameters/IncidentFilterStatus"
+        - $ref: "#/components/parameters/IncidentFilterStartDate"
+        - $ref: "#/components/parameters/IncidentFilterEndDate"
+        - $ref: "#/components/parameters/IncidentFilterImpact"
+        - $ref: "#/components/parameters/IncidentFilterSystem"
+        - $ref: "#/components/parameters/IncidentFilterComponents"
+        - $ref: "#/components/parameters/PaginationLimit"
+        - $ref: "#/components/parameters/PaginationPage"
+      responses:
+        "200":
+          description: Successful operation. Returns a list of events matching the criteria. If none match, data is an empty array.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedEvents"
+
+  /v2/incidents/{incident_id}:
+    get:
+      summary: Find an incident by id.
+      description: Returns a single incident.
+      tags:
+        - incidents
+      parameters:
+        - name: incident_id
+          in: path
+          description: ID of incident to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incident"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Incident not found.
+    patch:
+      summary: Update an incident.
+      tags:
+        - incidents
+      parameters:
+        - name: incident_id
+          in: path
+          description: ID of incident to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentPatch"
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incident"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Incident not found.
+  /v2/incidents/{incident_id}/extract:
+    post:
+      summary: extract components to the new incident
+      tags:
+        - incidents
+      parameters:
+        - name: incident_id
+          in: path
+          description: ID of incident to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentPostExtract"
+        required: true
+      responses:
+        "200":
+          description: successful operation, return the new incident id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incident"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Incident not found.
+  /v2/incidents/{incident_id}/updates/{update_id}:
+    patch:
+      summary: Update the text of an incident update.
+      tags:
+        - incidents
+      parameters:
+        - name: incident_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: update_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: "Updated status text"
+      responses:
+        "200":
+          description: Update successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventUpdateData"
+        "400":
+          description: Invalid input.
+        "404":
+          description: Not found.
+  /v1/component_status:
+    get:
+      summary: Get all components.
+      tags:
+        - v1
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ComponentV1"
+    post:
+      summary: Update component status.
+      tags:
+        - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComponentPostV1"
+      responses:
+        "201":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IncidentV1"
+  /v1/incidents:
+    get:
+      summary: Get all incidents.
+      tags:
+        - v1
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IncidentsV1"
+
+components:
+  schemas:
+    TokenPostRequest:
+      type: object
+      required:
+        - code_verifier
+      properties:
+        code_verifier:
+          type: string
+          example: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    TokenPostResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+    TokenPutRequest:
+      type: object
+      required:
+        - refresh_token
+      properties:
+        refresh_token:
+          type: string
+    TokenRefreshRequest:
+      type: object
+      required:
+        - refresh_token
+      properties:
+        refresh_token:
+          type: string
+          example: "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjOTBjZjFhOC1kNjcxLTRjNzktYTBlYi0yYmI3Y2M2NThiNzIifQ..."
+    Component:
+      type: object
+      required:
+        - id
+        - name
+        - attributes
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 218
+        name:
+          type: string
+          example: "Object Storage Service"
+        attributes:
+          $ref: "#/components/schemas/ComponentAttr"
+    ComponentAttr:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - category
+            - region
+            - type
+          example: "category"
+        value:
+          type: string
+          example: "Storage"
+    ComponentNotFound:
+      type: object
+      properties:
+        errMsg:
+          type: string
+          example: internal server error
+    ComponentAvailability:
+      type: object
+      required:
+        - id
+        - name
+        - region
+        - availability
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 218
+        name:
+          type: string
+          example: "Auto Scaling"
+        region:
+          type: string
+          example: "EU-DE"
+        availability:
+          type: array
+          items:
+            type: object
+            required:
+              - year
+              - month
+              - percentage
+            properties:
+              year:
+                type: integer
+                example: 2024
+              month:
+                type: integer
+                example: 5
+              percentage:
+                type: number
+                format: float
+                example: 99.999666
+    Incidents:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Incident"
+    PaginatedEvents:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Incident"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+    Pagination:
+      type: object
+      description: Pagination object
+      properties:
+        pageIndex:
+          type: integer
+          example: 1
+        recordsPerPage:
+          type: integer
+          enum: [10, 20, 50]
+          example: 50
+        totalRecords:
+          type: integer
+          example: 500
+        totalPages:
+          type: integer
+          example: 10
+      required:
+        - pageIndex
+        - recordsPerPage
+        - totalRecords
+        - totalPages
+    Incident:
+      type: object
+      required:
+        - title
+        - description
+        - impact
+        - components
+        - start_date
+        - system
+        - type
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 200
+        title:
+          type: string
+          example: "OpenStack Upgrade in regions EU-DE/EU-NL"
+        description:
+          type: string
+          example: "The service is partially unavailable or its performance has decreased."
+        impact:
+          type: integer
+          enum: [0, 1, 2, 3]
+          example: 1
+        components:
+          type: array
+          items:
+            type: string
+          example: [218, 254]
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        system:
+          type: boolean
+          example: false
+        type:
+          type: string
+          enum:
+            - "incident"
+            - "maintenance"
+            - "info"
+          example: "incident"
+        updates:
+          type: array
+          items:
+            $ref: "#/components/schemas/IncidentStatus"
+        status:
+          type: string
+          enum:
+            - "analysing"
+            - "fixing"
+            - "impact changed"
+            - "observing"
+            - "resolved"
+            - "reopened"
+            - "changed"
+            - "in progress"
+            - "modified"
+            - "completed"
+            - "planned"
+            - "active"
+            - "cancelled"
+          example: "in progress"
+    IncidentPost:
+      type: object
+      required:
+        - title
+        - impact
+        - components
+        - start_date
+        - type
+      properties:
+        title:
+          type: string
+          example: "OpenStack Upgrade in regions EU-DE/EU-NL"
+        description:
+          type: string
+          example: "Any description for maintenance incident."
+        impact:
+          type: integer
+          enum: [0, 1, 2, 3]
+          example: 1
+        components:
+          type: array
+          items:
+            type: string
+          example: [218, 254]
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        system:
+          type: boolean
+          example: false
+        type:
+          type: string
+          enum:
+            - "incident"
+            - "maintenance"
+          example: "incident"
+    IncidentPostResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "#/components/schemas/IncidentPostResult"
+    IncidentPostResult:
+      type: object
+      properties:
+        component_id:
+          type: integer
+          format: int64
+          nullable: false
+          example: 254
+        incident_id:
+          type: integer
+          format: int64
+          nullable: false
+          example: 123
+    IncidentPatch:
+      type: object
+      required:
+        - message
+        - status
+        - update_date
+      properties:
+        title:
+          type: string
+          example: "OpenStack Upgrade in regions EU-DE/EU-NL"
+        impact:
+          type: integer
+          enum: [0, 1, 2, 3]
+          example: 1
+        message:
+          type: string
+          example: "Any message why the incident was updated."
+        status:
+          type: string
+          enum:
+            - "in progress"
+            - "modified"
+            - "completed"
+            - "analyzing"
+            - "fixing"
+            - "impact changed"
+            - "observing"
+            - "resolved"
+            - "reopened"
+            - "changed"
+        update_date:
+          type: string
+          format: date-time
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    IncidentPostExtract:
+      type: object
+      required:
+        - components
+      properties:
+        components:
+          type: array
+          items:
+            type: string
+          example: [218, 254]
+    IncidentStatus:
+      type: object
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+              nullable: true
+              example: 0
+        - $ref: "#/components/schemas/IncidentStatusPost"
+    IncidentStatusPost:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "resolved"
+        text:
+          type: string
+          example: "issue resolved"
+        timestamp:
+          type: string
+          format: date-time
+    IncidentsV1:
+      type: array
+      items:
+        $ref: "#/components/schemas/IncidentV1"
+    IncidentV1:
+      type: object
+      required:
+        - text
+        - impact
+        - start_date
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 200
+        text:
+          type: string
+          example: "OpenStack Upgrade in regions EU-DE/EU-NL"
+        impact:
+          type: integer
+          enum: [0, 1, 2, 3]
+          example: 1
+        start_date:
+          type: string
+          example: "2006-01-13 17:02"
+        end_date:
+          type: string
+          example: "2006-01-14 17:10"
+        updates:
+          type: array
+          items:
+            $ref: "#/components/schemas/IncidentStatusPostV1"
+    IncidentStatusPostV1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "resolved"
+        text:
+          type: string
+          example: "issue resolved"
+        timestamp:
+          type: string
+          example: "2006-01-14 17:10"
+    ComponentV1:
+      type: object
+      required:
+        - id
+        - name
+        - attributes
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 218
+        name:
+          type: string
+          example: "Object Storage Service"
+        attributes:
+          type: array
+          items:
+            $ref: "#/components/schemas/ComponentAttrV1"
+        incidents:
+          $ref: "#/components/schemas/IncidentsV1"
+    ComponentPostV1:
+      type: object
+      required:
+        - name
+        - impact
+      properties:
+        text:
+          type: string
+          example: Incident
+        name:
+          type: string
+          example: "cmp1"
+        impact:
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+          example: 1
+        attributes:
+          $ref: "#/components/schemas/ComponentAttrV1"
+    ComponentAttrV1:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - category
+            - region
+            - type
+          example: "category"
+        value:
+          type: string
+          example: "Storage"
+    InternalServerError:
+      type: object
+      properties:
+        errMsg:
+          type: string
+          example: internal server error
+    BadRequestGeneralError:
+      type: object
+      properties:
+        errMsg:
+          type: string
+          example: "any error message"
+    EventUpdateData:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        text:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+  parameters:
+    IncidentFilterType:
+      name: type
+      in: query
+      description: Filter by incident type ('incident', 'maintenance' or 'info'). Can be a comma-separated list of types.
+      required: false
+      schema:
+        type: string
+        example: "incident,maintenance"
+    IncidentFilterActive:
+      name: active
+      in: query
+      description: Filter by active status for events. For incidents, this means the incident is currently ongoing. For maintenance, it means the maintenance is currently in progress. And for info, it means the info event is currently active. Supporting only 'true' value.
+      required: false
+      schema:
+        type: boolean
+    IncidentFilterStatus:
+      name: status
+      in: query
+      description: Filter by the latest incident status (e.g., 'resolved', 'fixing', 'completed'). See backend implementation for all valid statuses.
+      required: false
+      schema:
+        type: string
+    IncidentFilterStartDate:
+      name: start_date
+      in: query
+      description: Filter incidents active on or after this date (RFC3339 format).
+      required: false
+      schema:
+        type: string
+        format: date-time
+        example: "2023-10-26T00:00:00Z"
+    IncidentFilterEndDate:
+      name: end_date
+      in: query
+      description: Filter incidents active on or before this date (RFC3339 format). Must be after start_date if both are provided.
+      required: false
+      schema:
+        type: string
+        format: date-time
+        example: "2023-10-27T23:59:59Z"
+    IncidentFilterImpact:
+      name: impact
+      in: query
+      description: Filter by specific impact level (0=Maintenance, 1=Minor, 2=Major, 3=Outage).
+      required: false
+      schema:
+        type: integer
+        enum: [0, 1, 2, 3]
+        example: 2
+    IncidentFilterSystem:
+      name: system
+      in: query
+      description: Filter by whether the incident was system-generated ('true') or manually created ('false').
+      required: false
+      schema:
+        type: boolean
+    IncidentFilterComponents:
+      name: components
+      in: query
+      description: Filter by associated component IDs (comma-separated list of positive integers).
+      required: false
+      schema:
+        type: string
+        example: "1,5,23"
+    PaginationPage:
+      name: page
+      in: query
+      description: The page number for pagination.
+      required: false
+      schema:
+        type: integer
+        example: 1
+    PaginationLimit:
+      name: limit
+      in: query
+      description: The numbers of items to return.
+      required: false
+      schema:
+        type: integer
+        example: 0

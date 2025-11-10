@@ -108,15 +108,47 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
       log.debug("Components Status loaded.", compData);
 
-      const eventLink = `${url}/v2/incidents`;
-      const eventRes = await fetch(eventLink);
-      const eventData = (await eventRes.json()).data;
+      const first = await fetch(`${url}/v2/events?page=1&limit=50`);
+      const firstData = await first.json();
 
-      log.debug("Events loaded.", eventData);
+      const allEvents: IncidentEntityV2[] = [];
+
+      if (firstData.data && Array.isArray(firstData.data)) {
+        allEvents.push(...firstData.data);
+      }
+
+      const totalPages = firstData.pagination?.totalPages || 1;
+      log.debug(`Total pages: ${totalPages}`);
+
+      if (totalPages > 1) {
+        const pagePromises = [];
+
+        for (let page = 2; page <= totalPages; page++) {
+          const eventLink = `${url}/v2/events?page=${page}&limit=50`;
+
+          pagePromises.push(
+            fetch(eventLink)
+              .then(res => res.json())
+              .then(data => {
+                log.debug(`Loaded page ${page}/${totalPages}, events: ${data.data?.length || 0}`);
+                return data.data || [];
+              })
+          );
+        }
+
+        const remainingPages = await Promise.all(pagePromises);
+        remainingPages.forEach(pageData => {
+          if (Array.isArray(pageData)) {
+            allEvents.push(...pageData);
+          }
+        });
+      }
+
+      log.debug("Events loaded.", { total: allEvents.length });
 
       return {
         Components: compData as StatusEntityV2[],
-        Events: eventData as IncidentEntityV2[]
+        Events: allEvents as IncidentEntityV2[]
       };
     },
     {
@@ -127,9 +159,15 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
   useMount(() => {
     const sub = Station.get<Subject<Date>>("Update", () => new Subject());
-    setInterval(() => {
-      runAsync().then(() => sub.next(new Date()));
-    }, 60000);
+
+    const scheduleNext = () => {
+      runAsync().then(() => {
+        sub.next(new Date());
+        setTimeout(scheduleNext, 60000);
+      });
+    };
+
+    scheduleNext();
   });
 
   function update(data: IStatusContext = ins) {

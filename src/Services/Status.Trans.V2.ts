@@ -216,7 +216,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         })();
 
         if (!status) {
-          log.debug("Skipped Unknown Status.", update, event);
+          if (update.status !== StatusEnum.Description)
+            log.debug("Skipped Unknown Status.", update, event);
           continue;
         }
 

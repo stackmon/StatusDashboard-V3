@@ -89,7 +89,12 @@ export function ServiceItem({ RegionService }: IServiceItem) {
         )}
 
       <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
-        <span>{RegionService.Service.Name}</span>
+        <a
+          href={`https://docs.otc.t-systems.com/${RegionService.Service.Name.replace(/\s+/g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`}
+          target="_blank"
+        >
+          {RegionService.Service.Name}
+        </a>
 
         {infoId && (
           <a href={`/Event/${infoId}`}>

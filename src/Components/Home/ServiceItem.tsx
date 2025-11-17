@@ -27,6 +27,29 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   const [nonInfoId, setNonInfoId] = useState<number>();
   const [infoId, setInfoId] = useState<number>();
 
+  const getServiceSlug = (serviceName: string): string => {
+    const specialCases: Record<string, string> = {
+      'Map Reduce Service': 'mapreduce-service',
+      'ModelArts': 'modelarts',
+      'Software Repository for Containers': 'software-repository-container',
+      'GeminiDB Service': 'geminidb',
+      'Enterprise Virtual Private Network': 'enterprise-router',
+      'Anti DDoS': 'anti-ddos',
+      'Dedicated Web Application Firewall': 'web-application-firewall-dedicated',
+      'Identity and Access Management': 'identity-access-management',
+      'Cloud Backup and Recovery': 'cloud-backup-recovery',
+    };
+
+    if (specialCases[serviceName]) {
+      return specialCases[serviceName];
+    }
+
+    return serviceName
+      .replace(/\s+/g, '-')
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .toLowerCase();
+  };
+
   useEffect(() => {
     const openEvents = chain([...RegionService.Events])
       .filter(x => {
@@ -90,7 +113,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
       <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
         <a
-          href={`https://docs.otc.t-systems.com/${RegionService.Service.Name.replace(/\s+/g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`}
+          href={`https://docs.otc.t-systems.com/${getServiceSlug(RegionService.Service.Name)}`}
           target="_blank"
         >
           {RegionService.Service.Name}

@@ -1,0 +1,15 @@
+{
+  "Map Reduce Service": "mapreduce-service",
+  "ModelArts": "modelarts",
+  "Software Repository for Containers": "software-repository-container",
+  "GeminiDB Service": "geminidb",
+  "Enterprise Virtual Private Network": "enterprise-router",
+  "Anti DDoS": "anti-ddos",
+  "Dedicated Web Application Firewall": "web-application-firewall-dedicated",
+  "Identity and Access Management": "identity-access-management",
+  "Cloud Backup and Recovery": "cloud-backup-recovery",
+  "HelpCenter": "",
+  "Open Telekom Cloud": "",
+  "Open Telekom Cloud Community": "",
+  "Open Telekom Cloud Console": ""
+}

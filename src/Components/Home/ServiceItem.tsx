@@ -8,6 +8,7 @@ import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
 import "./ServiceItem.css";
+import serviceSlugMap from "./serviceSlugMap.json";
 
 interface IServiceItem {
   RegionService: Models.IRegionService;
@@ -27,28 +28,16 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   const [nonInfoId, setNonInfoId] = useState<number>();
   const [infoId, setInfoId] = useState<number>();
 
-  const getServiceSlug = (serviceName: string): string => {
-    const specialCases: Record<string, string> = {
-      'Map Reduce Service': 'mapreduce-service',
-      'ModelArts': 'modelarts',
-      'Software Repository for Containers': 'software-repository-container',
-      'GeminiDB Service': 'geminidb',
-      'Enterprise Virtual Private Network': 'enterprise-router',
-      'Anti DDoS': 'anti-ddos',
-      'Dedicated Web Application Firewall': 'web-application-firewall-dedicated',
-      'Identity and Access Management': 'identity-access-management',
-      'Cloud Backup and Recovery': 'cloud-backup-recovery',
-    };
-
-    if (specialCases[serviceName]) {
-      return specialCases[serviceName];
+  function getServiceSlug(serviceName: string): string {
+    if (serviceName in serviceSlugMap) {
+      return serviceSlugMap[serviceName as keyof typeof serviceSlugMap];
     }
 
     return serviceName
       .replace(/\s+/g, '-')
       .replace(/([a-z])([A-Z])/g, '$1-$2')
       .toLowerCase();
-  };
+  }
 
   useEffect(() => {
     const openEvents = chain([...RegionService.Events])

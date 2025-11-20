@@ -5,6 +5,7 @@ import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
 import { IncidentEntityV2, NameEnum, StatusEntityV2, StatusEnum } from "./Status.Entities";
 import { IStatusContext, Models } from "./Status.Models";
+import regionIdMap from "./regionIdMap.json";
 
 const log = new Logger("Service", "Status", "TransformerV2");
 
@@ -52,7 +53,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
     let dbRegion = db.Regions.find((x) => x.Name === targetRegion);
     if (!dbRegion) {
-      dbRegion = { Id: id++, Name: targetRegion, Services: new Set() };
+      const regionId = regionIdMap[targetRegion as keyof typeof regionIdMap] ?? id++;
+      dbRegion = { Id: regionId, Name: targetRegion, Services: new Set() };
       db.Regions.push(dbRegion);
     }
 
@@ -95,6 +97,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       db.RegionService.push(regionService);
     }
   }
+
+  db.Regions.sort((a, b) => a.Id - b.Id);
 
   log.debug("Component data loaded.");
 

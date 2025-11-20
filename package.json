@@ -1,6 +1,6 @@
 {
   "name": "statusdashboard",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "type": "module",
   "scripts": {
     "dev": "farm start",
@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.72.6",
+    "@fluentui/react-components": "^9.72.7",
     "@telekom/scale-components": "3.0.0-beta.156",
     "@telekom/scale-components-react": "3.0.0-beta.158",
     "ahooks": "^3.9.6",
@@ -33,11 +33,11 @@
     "@farmfe/plugin-react": "^1.2.6",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.10.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.22",
     "core-js": "^3.46.0",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",

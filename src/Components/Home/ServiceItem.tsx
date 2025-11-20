@@ -17,7 +17,7 @@ interface IServiceItem {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function ServiceItem({ RegionService }: IServiceItem) {
   const { DB } = useStatus();
@@ -28,15 +28,27 @@ export function ServiceItem({ RegionService }: IServiceItem) {
   const [nonInfoId, setNonInfoId] = useState<number>();
   const [infoId, setInfoId] = useState<number>();
 
-  function getServiceSlug(serviceName: string): string {
+  function getServiceUrl(serviceName: string): string {
     if (serviceName in serviceSlugMap) {
-      return serviceSlugMap[serviceName as keyof typeof serviceSlugMap];
+      const value = serviceSlugMap[serviceName as keyof typeof serviceSlugMap];
+
+      if (!value) {
+        return "";
+      }
+
+      if (value.startsWith('http')) {
+        return value;
+      }
+
+      return `https://docs.otc.t-systems.com/${value}`;
     }
 
-    return serviceName
+    const slug = serviceName
       .replace(/\s+/g, '-')
       .replace(/([a-z])([A-Z])/g, '$1-$2')
       .toLowerCase();
+
+    return `https://docs.otc.t-systems.com/${slug}`;
   }
 
   useEffect(() => {
@@ -102,7 +114,7 @@ export function ServiceItem({ RegionService }: IServiceItem) {
 
       <label className="ml-2.5 text-xl font-medium text-slate-700 flex items-center justify-between w-full">
         <a
-          href={`https://docs.otc.t-systems.com/${getServiceSlug(RegionService.Service.Name)}`}
+          href={getServiceUrl(RegionService.Service.Name)}
           target="_blank"
         >
           {RegionService.Service.Name}

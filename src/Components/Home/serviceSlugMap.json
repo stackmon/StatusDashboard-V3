@@ -8,8 +8,10 @@
   "Dedicated Web Application Firewall": "web-application-firewall-dedicated",
   "Identity and Access Management": "identity-access-management",
   "Cloud Backup and Recovery": "cloud-backup-recovery",
-  "HelpCenter": "",
-  "Open Telekom Cloud": "",
-  "Open Telekom Cloud Community": "",
-  "Open Telekom Cloud Console": ""
+  "HelpCenter": "index.html",
+  "Open Telekom Cloud": "https://www.open-telekom-cloud.com/",
+  "Open Telekom Cloud Community": "https://community.open-telekom-cloud.com/",
+  "Open Telekom Cloud Console": "https://console.otc.t-systems.com/",
+  "Financial Dashboard": "",
+  "Invoicing": ""
 }

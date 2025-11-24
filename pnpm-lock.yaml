@@ -103,8 +103,8 @@ importers:
         specifier: 3.4.18
         version: 3.4.18(yaml@2.8.1)
       tailwindcss-scoped-preflight:
-        specifier: ^3.5.3
-        version: 3.5.3(postcss@8.5.6)(tailwindcss@3.4.18(yaml@2.8.1))
+        specifier: ^3.5.4
+        version: 3.5.4(postcss@8.5.6)(tailwindcss@3.4.18(yaml@2.8.1))
       typescript-eslint:
         specifier: ^8.46.4
         version: 8.46.4(eslint@9.39.1(jiti@1.21.7))(typescript@5.6.3)
@@ -2796,8 +2796,8 @@ packages:
   tabster@8.5.6:
     resolution: {integrity: sha512-2vfrRGrx8O9BjdrtSlVA5fvpmbq5HQBRN13XFRg6LAvZ1Fr3QdBnswgT4YgFS5Bhoo5nxwgjRaRueI2Us/dv7g==}
 
-  tailwindcss-scoped-preflight@3.5.3:
-    resolution: {integrity: sha512-Wsag8lxNTwpw16zUqB54n8cdNjKrFjwmUKtF+vJlvqRuZBkSEsM0VwfirSO5fi0xQ7ftt/CZh5mIXXSs9Iyylw==}
+  tailwindcss-scoped-preflight@3.5.4:
+    resolution: {integrity: sha512-fTb000/8BxNBuu6/jlws+pDbLfjVABR53BzhZovlYwBBCyzbgefeEAv7311WEpWrbJENv1LsdY3iWWVu2Bb7Vw==}
     peerDependencies:
       postcss: ^8
       tailwindcss: ^3
@@ -6329,7 +6329,7 @@ snapshots:
     optionalDependencies:
       '@rollup/rollup-linux-x64-gnu': 4.40.0
 
-  tailwindcss-scoped-preflight@3.5.3(postcss@8.5.6)(tailwindcss@3.4.18(yaml@2.8.1)):
+  tailwindcss-scoped-preflight@3.5.4(postcss@8.5.6)(tailwindcss@3.4.18(yaml@2.8.1)):
     dependencies:
       postcss: 8.5.6
       tailwindcss: 3.4.18(yaml@2.8.1)

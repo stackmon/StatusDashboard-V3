@@ -20,7 +20,7 @@ export default defineConfig({
       },
       "/v2": {
         // target: "http://localhost:8000",
-        target: "https://api.status.otc-service.com",
+        target: "https://api.test.status.otc-service.com",
         changeOrigin: true
       }
     },

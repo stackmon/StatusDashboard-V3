@@ -60,7 +60,7 @@ export function EventFilters({
   }
 
   return (
-    <section className="flex-shrink-0 rounded-lg bg-white shadow-md p-5">
+    <section className="shrink-0 rounded-lg bg-white shadow-md p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <ScaleTextField
           type="date"

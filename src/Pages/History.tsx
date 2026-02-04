@@ -109,7 +109,7 @@ export function History() {
       onClearFilters={clearFilters}
     />
 
-    <section className="flex-grow min-h-0">
+    <section className="grow min-h-0">
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
         pageSize={pageSize}

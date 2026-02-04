@@ -1,6 +1,6 @@
 import { ODSPaginationTableChangeEventOptions, ODSTable, ODSTableBody, ODSTableHead, ODSTableHeadCell, ODSTableHeadCellProps, ODSTableHeadCellType, ODSTableHeadRow, ODSTableRow, ODSTableRowCell, ODSTableRowCellProps, ODSTableRowProps } from "@telekom-ods/react-ui-kit";
 import { orderBy } from "lodash";
-import { FC, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Dic } from "~/Helpers/Entities";
 import reviewsHistoryMock from "./reviewsHistoryMock.json";
@@ -11,12 +11,12 @@ import reviewsHistoryMock from "./reviewsHistoryMock.json";
  * @version 0.2.0
  */
 export function Reviews() {
-  const [order, setOrder] = useState<"asc" | "desc" | undefined>();
-  const [orderByIndex, setOrderByIndex] = useState<number | undefined>();
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [order, setOrder] = useState<"asc" | "desc" | undefined>()
+  const [orderByIndex, setOrderByIndex] = useState<number | undefined>()
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
 
-  const handleSortChange = (index: number) => {
+  function handleSortChange(index: number) {
     let newOrder: "asc" | "desc" | undefined;
     let newOrderByIndex: number | undefined;
 
@@ -28,85 +28,74 @@ export function Reviews() {
       newOrderByIndex = order === "asc" ? index : undefined;
     }
 
-    setOrder(newOrder);
-    setOrderByIndex(newOrderByIndex);
-  };
+    setOrder(newOrder)
+    setOrderByIndex(newOrderByIndex)
+  }
 
-  const generateRowDataSort = (
-    cellsProps: ODSTableRowCellProps[]
-  ): Record<number, string | number> =>
-    cellsProps.reduce<Record<number, string | number>>(
-      (dataSort, cellProps, index) => {
-        dataSort[index] = cellProps["data-sort-content"] as string | number;
-        return dataSort;
-      },
-      {}
-    );
-
-  const paginationChange = (event: ODSPaginationTableChangeEventOptions) => {
-    if (page !== event.page) setPage(event.page);
-    if (pageSize !== event.pageSize) setPageSize(event.pageSize);
-  };
+  function paginationChange(event: ODSPaginationTableChangeEventOptions) {
+    if (page !== event.page) setPage(event.page)
+    if (pageSize !== event.pageSize) setPageSize(event.pageSize)
+  }
 
   const tableHeadRowCells: ODSTableHeadCellProps[] = [
-    { id: "head_cell_0", label: "ID", alignment: "left" },
-    { id: "head_cell_1", label: "Plan Start CET" },
-    { id: "head_cell_2", label: "Plan End CET" },
-    { id: "head_cell_3", label: "Region" },
-    { id: "head_cell_4", label: "Service" },
+    { id: "0", label: "ID", alignment: "left", showSortIndicator: true },
+    { id: "1", label: "Plan Start CET", showSortIndicator: true },
+    { id: "2", label: "Plan End CET", showSortIndicator: true },
+    { id: "3", label: "Region", showSortIndicator: true },
+    { id: "4", label: "Service", showSortIndicator: true },
     {
-      id: "head_cell_5",
+      id: "5",
       label: "Detail",
       alignment: "right",
       showSortIndicator: false,
     },
-  ];
+  ]
 
-  type ReviewsHistoryItem = {
+  interface ReviewItem {
     id: number;
     planStartCET: string;
     planEndCET: string;
     region: string;
     service: string;
-  };
+  }
 
-  const historyItems = reviewsHistoryMock as ReviewsHistoryItem[];
+  const historyItems = reviewsHistoryMock as ReviewItem[]
 
   const tableRowCells: Record<number, ODSTableRowCellProps[]> = historyItems.reduce(
     (rows, item, index) => {
       rows[index] = [
         {
-          id: `row_${index}_cell_0`,
+          id: `0`,
           type: "label",
           label: item.id,
-          "data-sort-content": item.id,
+          "data-content": item.id,
         },
         {
-          id: `row_${index}_cell_1`,
+          id: `1`,
           type: "label",
           label: item.planStartCET,
-          "data-sort-content": item.planStartCET,
+          "data-content": item.planStartCET,
         },
         {
-          id: `row_${index}_cell_2`,
+          id: `2`,
           type: "label",
           label: item.planEndCET,
-          "data-sort-content": item.planEndCET,
+          "data-content": item.planEndCET,
         },
         {
-          id: `row_${index}_cell_3`,
+          id: `3`,
           type: "label",
           label: item.region,
-          "data-sort-content": item.region,
+          "data-content": item.region,
         },
         {
-          id: `row_${index}_cell_4`,
+          id: `4`,
           type: "label",
           label: item.service,
-          "data-sort-content": item.service,
+          "data-content": item.service,
         },
         {
-          id: `row_${index}_cell_5`,
+          id: `5`,
           type: "action",
           alignment: "right",
           actionProps: {
@@ -119,89 +108,45 @@ export function Reviews() {
             leftIcon: true
           }
         },
-      ];
+      ]
       return rows;
     },
     {} as Record<number, ODSTableRowCellProps[]>
-  );
+  )
 
   const tableRows: ODSTableRowProps[] = historyItems.map((_, index) => ({
     id: `row_${index}`,
     "aria-rowindex": index,
-  }));
+  }))
 
-  type ProductRow = {
+  interface ProductRow {
     props: ODSTableRowProps;
-    cells: ODSTableRowCellProps[];
-  };
-
-  const generateProductRow = (
-    rowProps: ODSTableRowProps,
     cells: ODSTableRowCellProps[]
-  ): ProductRow => {
-    return {
-      props: {
-        ...rowProps,
-        "data-sort": generateRowDataSort(cells),
-      },
-      cells,
-    };
-  };
+  }
 
-  const productRows = tableRows.map((rowProps, index) =>
-    generateProductRow(rowProps, tableRowCells[index])
-  );
+  const productRows: ProductRow[] = tableRows.map((rowProps, index) => ({
+    props: rowProps,
+    cells: tableRowCells[index],
+  }))
 
-  type ProductTableHeadProps = {
-    onSort: (index: number) => void;
-  };
-
-  const ProductTableHead: FC<ProductTableHeadProps> = ({
-    onSort,
-    ...rest
-  }) => {
-    const getCellType = (index: number): ODSTableHeadCellType => {
-      if (orderByIndex !== index) return "unsorted";
-      if (order === "asc") return "sortedUp";
-      return "sortedDown";
-    };
-
-    return (
-      <ODSTableHead {...rest}>
-        <ODSTableHeadRow>
-          {tableHeadRowCells.map((props, cellIndex) => (
-            <ODSTableHeadCell
-              {...props}
-              key={props.id}
-              type={getCellType(cellIndex)}
-              onSort={() => onSort(cellIndex)}
-            />
-          ))}
-        </ODSTableHeadRow>
-      </ODSTableHead>
-    );
-  };
-
-  const sortProductRows = (productRows: ProductRow[]): ProductRow[] => {
-    if (!order) return productRows;
-
-    return orderBy(
-      productRows,
-      (productRow) =>
-        (productRow.props["data-sort"] as Record<number, string | number>)[
-        orderByIndex ?? -1
-        ],
-      [order]
-    );
-  };
+  function getCellType(index: number): ODSTableHeadCellType {
+    if (orderByIndex !== index) return "unsorted";
+    if (order === "asc") return "sortedUp";
+    return "sortedDown";
+  }
 
   const visibleProductRows = useMemo(
-    () => [
-      ...sortProductRows(productRows).slice(
-        page * pageSize,
-        page * pageSize + pageSize
-      ),
-    ],
+    () => {
+      let sorted = productRows;
+      if (order) {
+        sorted = orderBy(
+          productRows,
+          (productRow) => productRow.cells[orderByIndex ?? -1]["data-content"],
+          [order]
+        );
+      }
+      return sorted.slice(page * pageSize, page * pageSize + pageSize);
+    },
     [order, orderByIndex, page, pageSize]
   );
 
@@ -215,20 +160,29 @@ export function Reviews() {
 
       <ODSTable
         onPaginationChange={paginationChange}
-        aria-rowcount={productRows.length}
+        totalRows={productRows.length}
         initialPage={0}
         initialPageSize={10}
         pagination
         pageSizeOptions={[10, 20, 50]}
       >
-        <ProductTableHead
-          onSort={handleSortChange}
-        />
+        <ODSTableHead>
+          <ODSTableHeadRow>
+            {tableHeadRowCells.map((props, cellIndex) => (
+              <ODSTableHeadCell
+                {...props}
+                key={props.id}
+                type={getCellType(cellIndex)}
+                onSort={() => handleSortChange(cellIndex)} />
+            ))}
+          </ODSTableHeadRow>
+        </ODSTableHead>
+
         <ODSTableBody>
-          {visibleProductRows.map(({ props: rowProps, cells }) => (
+          {visibleProductRows.map(({ props, cells }) => (
             <ODSTableRow
-              {...rowProps}
-              key={rowProps.id}
+              {...props}
+              key={props.id}
             >
               {cells.map((cellProps) => (
                 <ODSTableRowCell {...cellProps} key={cellProps.id} />
@@ -238,5 +192,5 @@ export function Reviews() {
         </ODSTableBody>
       </ODSTable>
     </>
-  );
+  )
 }

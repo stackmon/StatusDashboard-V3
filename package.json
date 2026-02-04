@@ -46,8 +46,5 @@
     "tailwindcss-scoped-preflight": "^3.5.7",
     "typescript-eslint": "^8.54.0"
   },
-  "optionalDependencies": {
-    "@telekom-ods/react-ui-kit": "^2.4.5"
-  },
   "packageManager": "pnpm@10.28.2"
 }

@@ -32,7 +32,6 @@
     "@farmfe/js-plugin-postcss": "^1.12.0",
     "@farmfe/plugin-react": "^1.2.6",
     "@tailwindcss/postcss": "^4.1.18",
-    "@telekom-ods/react-ui-kit": "^2.4.5",
     "@types/lodash": "^4.17.23",
     "@types/node": "^25.2.0",
     "@types/react": "^19.2.11",
@@ -46,6 +45,9 @@
     "tailwindcss": "4.1.18",
     "tailwindcss-scoped-preflight": "^3.5.7",
     "typescript-eslint": "^8.54.0"
+  },
+  "optionalDependencies": {
+    "@telekom-ods/react-ui-kit": "^2.4.5"
   },
   "packageManager": "pnpm@10.28.2"
 }

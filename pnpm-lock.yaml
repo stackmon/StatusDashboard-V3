@@ -66,9 +66,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18
-      '@telekom-ods/react-ui-kit':
-        specifier: ^2.4.5
-        version: 2.4.5(@types/react@19.2.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/lodash':
         specifier: ^4.17.23
         version: 4.17.23
@@ -108,6 +105,10 @@ importers:
       typescript-eslint:
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.6.3)
+    optionalDependencies:
+      '@telekom-ods/react-ui-kit':
+        specifier: ^2.4.5
+        version: 2.4.5(@types/react@19.2.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
 packages:
 
@@ -3250,6 +3251,7 @@ snapshots:
       '@floating-ui/dom': 1.7.5
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
+    optional: true
 
   '@floating-ui/react@0.26.28(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -3258,6 +3260,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       tabbable: 6.4.0
+    optional: true
 
   '@floating-ui/utils@0.2.10': {}
 
@@ -4469,7 +4472,8 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@kurkle/color@0.3.4': {}
+  '@kurkle/color@0.3.4':
+    optional: true
 
   '@ljharb/through@2.3.14':
     dependencies:
@@ -4510,6 +4514,7 @@ snapshots:
       react: 19.2.4
     optionalDependencies:
       '@types/react': 19.2.11
+    optional: true
 
   '@radix-ui/react-slot@1.1.2(@types/react@19.2.11)(react@19.2.4)':
     dependencies:
@@ -4517,6 +4522,7 @@ snapshots:
       react: 19.2.4
     optionalDependencies:
       '@types/react': 19.2.11
+    optional: true
 
   '@rollup/rollup-linux-x64-gnu@4.53.3':
     optional: true
@@ -4596,15 +4602,18 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.18
 
-  '@telekom-ods/design-tokens-base@2.0.1': {}
+  '@telekom-ods/design-tokens-base@2.0.1':
+    optional: true
 
-  '@telekom-ods/design-tokens@2.0.2': {}
+  '@telekom-ods/design-tokens@2.0.2':
+    optional: true
 
   '@telekom-ods/react-icons@1.0.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       classnames: 2.5.1
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
+    optional: true
 
   '@telekom-ods/react-ui-kit@2.4.5(@types/react@19.2.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -4623,6 +4632,7 @@ snapshots:
       tocbot: 4.35.0
     transitivePeerDependencies:
       - '@types/react'
+    optional: true
 
   '@telekom/design-tokens@1.0.0-beta.10': {}
 
@@ -4938,6 +4948,7 @@ snapshots:
   chart.js@4.5.1:
     dependencies:
       '@kurkle/color': 0.3.4
+    optional: true
 
   chokidar@3.6.0:
     dependencies:
@@ -5002,7 +5013,8 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  dayjs@1.11.13: {}
+  dayjs@1.11.13:
+    optional: true
 
   dayjs@1.11.19: {}
 
@@ -5955,6 +5967,7 @@ snapshots:
     dependencies:
       chart.js: 4.5.1
       react: 19.2.4
+    optional: true
 
   react-dom@19.2.4(react@19.2.4):
     dependencies:
@@ -5976,6 +5989,7 @@ snapshots:
       react: 19.2.4
     optionalDependencies:
       react-dom: 19.2.4(react@19.2.4)
+    optional: true
 
   react-is@16.13.1: {}
 
@@ -6063,7 +6077,8 @@ snapshots:
 
   screenfull@5.2.0: {}
 
-  scrollyfills@1.0.3: {}
+  scrollyfills@1.0.3:
+    optional: true
 
   semver@7.7.3: {}
 
@@ -6133,7 +6148,8 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  tabbable@6.4.0: {}
+  tabbable@6.4.0:
+    optional: true
 
   tabster@8.7.0:
     dependencies:
@@ -6168,7 +6184,8 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  tocbot@4.35.0: {}
+  tocbot@4.35.0:
+    optional: true
 
   toidentifier@1.0.1: {}
 

@@ -62,7 +62,7 @@ export function Layout() {
     <div className="absolute flex min-h-full w-full min-w-96 flex-col bg-zinc-50">
       <TopNavBar />
 
-      <main className="mx-auto flex w-full max-w-screen-xl flex-col gap-y-8 px-3 pt-8">
+      <main className="mx-auto flex w-full max-w-(--breakpoint-xl) flex-col gap-y-8 px-3 pt-8">
         <Suspense fallback={<ScaleLoadingSpinner size="large" text="Loading..." />}>
           {match}
         </Suspense>

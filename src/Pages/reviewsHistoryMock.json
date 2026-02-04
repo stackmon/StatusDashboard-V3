@@ -10,14 +10,14 @@
     "id": 702,
     "planStartCET": "2026-02-02 14:00:00",
     "planEndCET": "2026-02-02 18:00:00",
-    "region": "AP-SG",
+    "region": "EU-DE, EU-NL",
     "service": "Network"
   },
   {
     "id": 703,
     "planStartCET": "2026-02-03 08:15:00",
     "planEndCET": "-",
-    "region": "US-EAST",
+    "region": "EU-NL",
     "service": "Database, API Gateway +2"
   },
   {
@@ -31,7 +31,7 @@
     "id": 705,
     "planStartCET": "2026-01-28 16:00:00",
     "planEndCET": "2026-01-28 20:00:00",
-    "region": "AP-SG, AP-HK",
+    "region": "EU-DE",
     "service": "Load Balancer"
   }
 ]

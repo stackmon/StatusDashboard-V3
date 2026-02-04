@@ -1,6 +1,6 @@
 import { ODSPaginationTableChangeEventOptions, ODSTable, ODSTableBody, ODSTableHead, ODSTableHeadCell, ODSTableHeadCellProps, ODSTableHeadCellType, ODSTableHeadRow, ODSTableRow, ODSTableRowCell, ODSTableRowCellProps, ODSTableRowProps } from "@telekom-ods/react-ui-kit";
 import { orderBy } from "lodash";
-import { ChangeEvent, FC, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Dic } from "~/Helpers/Entities";
 import reviewsHistoryMock from "./reviewsHistoryMock.json";
@@ -11,39 +11,10 @@ import reviewsHistoryMock from "./reviewsHistoryMock.json";
  * @version 0.2.0
  */
 export function Reviews() {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [order, setOrder] = useState<"asc" | "desc" | undefined>();
   const [orderByIndex, setOrderByIndex] = useState<number | undefined>();
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-
-  const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
-    const selected = event.target.checked;
-    if (selected) {
-      const newSelected = tableRows.map((row) => row.id as string);
-      setSelectedRows(newSelected);
-      return;
-    }
-    setSelectedRows([]);
-  };
-
-  const handleSelectRow = (rowId: string) => {
-    const selectedIndex = selectedRows.indexOf(rowId);
-    let newSelectedRows: string[] = [];
-    if (selectedIndex === -1) {
-      newSelectedRows = newSelectedRows.concat(selectedRows, rowId);
-    } else if (selectedIndex === 0) {
-      newSelectedRows = newSelectedRows.concat(selectedRows.slice(1));
-    } else if (selectedIndex === selectedRows.length - 1) {
-      newSelectedRows = newSelectedRows.concat(selectedRows.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedRows = newSelectedRows.concat(
-        selectedRows.slice(0, selectedIndex),
-        selectedRows.slice(selectedIndex + 1)
-      );
-    }
-    setSelectedRows(newSelectedRows);
-  };
 
   const handleSortChange = (index: number) => {
     let newOrder: "asc" | "desc" | undefined;
@@ -182,21 +153,13 @@ export function Reviews() {
   );
 
   type ProductTableHeadProps = {
-    selectedRowsNumber: number;
-    totalRows: number;
-    onSelectAllChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onSort: (index: number) => void;
   };
 
   const ProductTableHead: FC<ProductTableHeadProps> = ({
-    selectedRowsNumber = 0,
-    totalRows = 0,
-    onSelectAllChange,
+    onSort,
     ...rest
   }) => {
-    const headChecked = totalRows > 0 && selectedRowsNumber === totalRows;
-    const headIndeterminate =
-      selectedRowsNumber > 0 && selectedRowsNumber < totalRows;
-
     const getCellType = (index: number): ODSTableHeadCellType => {
       if (orderByIndex !== index) return "unsorted";
       if (order === "asc") return "sortedUp";
@@ -205,19 +168,13 @@ export function Reviews() {
 
     return (
       <ODSTableHead {...rest}>
-        <ODSTableHeadRow
-          checkboxProps={{
-            checked: headChecked,
-            indeterminate: headIndeterminate,
-            onChange: onSelectAllChange,
-          }}
-        >
+        <ODSTableHeadRow>
           {tableHeadRowCells.map((props, cellIndex) => (
             <ODSTableHeadCell
               {...props}
               key={props.id}
               type={getCellType(cellIndex)}
-              onSort={() => handleSortChange(cellIndex)}
+              onSort={() => onSort(cellIndex)}
             />
           ))}
         </ODSTableHeadRow>
@@ -254,7 +211,7 @@ export function Reviews() {
         <title>Reviews - {Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
-      <h3 className="text-3xl font-medium text-slate-800 mb-6">Pending Review Events</h3>
+      <h3 className="text-3xl font-medium text-slate-800">Pending Review Maintenances</h3>
 
       <ODSTable
         onPaginationChange={paginationChange}
@@ -265,19 +222,13 @@ export function Reviews() {
         pageSizeOptions={[10, 20, 50]}
       >
         <ProductTableHead
-          onSelectAllChange={handleSelectAll}
-          selectedRowsNumber={selectedRows.length}
-          totalRows={tableRows.length}
+          onSort={handleSortChange}
         />
         <ODSTableBody>
           {visibleProductRows.map(({ props: rowProps, cells }) => (
             <ODSTableRow
               {...rowProps}
               key={rowProps.id}
-              checkboxProps={{
-                checked: selectedRows.includes(rowProps.id as string),
-                onChange: () => handleSelectRow(rowProps.id as string),
-              }}
             >
               {cells.map((cellProps) => (
                 <ODSTableRowCell {...cellProps} key={cellProps.id} />

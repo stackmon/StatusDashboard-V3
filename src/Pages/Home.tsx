@@ -93,7 +93,7 @@ export function Home() {
   return (
     <>
       <Helmet>
-        <title>OTC Status Dashboard</title>
+        <title>{Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
       <ScaleNotification
@@ -104,7 +104,7 @@ export function Home() {
 
       <EventGrid />
 
-      <RegionSelector Title="OTC Current Status" Topic={topic} />
+      <RegionSelector Title={`${Dic.Name} Current Status`} Topic={topic} />
 
       <section className="grid-cols-1 grid gap-x-7 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
         {categories.map((cate, i) => (

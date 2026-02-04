@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import { Authorized } from "~/Components/Auth/With";
 import { NewForm } from "~/Components/New/NewForm";
+import { Dic } from "~/Helpers/Entities";
 
 /**
  * @author Aloento
@@ -11,7 +12,7 @@ export function NewEvent() {
   return (
     <Authorized>
       <Helmet>
-        <title>New Event - OTC Status Dashboard</title>
+        <title>New Event - {Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
       <h3 className="text-3xl font-medium text-slate-800">Create New Event</h3>

@@ -17,15 +17,15 @@ export function AvailaMatrix() {
       <table>
         <thead className="sticky top-16">
           <tr>
-            <th className="!text-lg" rowSpan={2} scope="col">
+            <th className="text-lg!" rowSpan={2} scope="col">
               Category
             </th>
 
-            <th className="!text-lg" rowSpan={2} scope="col">
+            <th className="text-lg!" rowSpan={2} scope="col">
               Service
             </th>
 
-            <th className="!py-2 !text-center !text-lg" colSpan={6} scope="colgroup">
+            <th className="py-2! text-center! text-lg!" colSpan={6} scope="colgroup">
               Availability, %
             </th>
           </tr>
@@ -37,7 +37,7 @@ export function AvailaMatrix() {
               const year = date.year();
 
               return (
-                <th key={i} className="!pb-1 !text-lg !text-center w-1/12" scope="col">
+                <th key={i} className="pb-1! text-lg! text-center! w-1/12" scope="col">
                   {year} <br /> {month}
                 </th>
               );

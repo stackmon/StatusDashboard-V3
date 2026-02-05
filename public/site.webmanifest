@@ -1,6 +1,6 @@
 {
-  "name": "Open Telekom Cloud Status Dashboard",
-  "short_name": "OTC Status",
+  "name": "T Cloud Public Status Dashboard",
+  "short_name": "T Cloud Status",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

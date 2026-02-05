@@ -1,3 +1,4 @@
+import "@telekom-ods/react-ui-kit/style.css";
 import "@telekom/scale-components/dist/scale-components/scale-components.css";
 import "./index.css";
 

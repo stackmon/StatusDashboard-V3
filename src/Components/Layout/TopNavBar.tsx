@@ -1,4 +1,5 @@
 import { ScaleTelekomHeader, ScaleTelekomNavItem, ScaleTelekomNavList } from "@telekom/scale-components-react";
+import { Dic } from "~/Helpers/Entities";
 import { Authorized } from "../Auth/With";
 import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
@@ -12,7 +13,7 @@ import { ProfileMenu } from "./ProfileMenu";
 export function TopNavBar() {
   return (
     <ScaleTelekomHeader
-      appName="Open Telekom Cloud"
+      appName={Dic.Name}
       appNameLink="/"
       logoHref="/"
       slot="header"

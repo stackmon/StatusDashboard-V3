@@ -16,7 +16,7 @@ export function Availability() {
     </Helmet>
 
     <RegionSelector
-      Title={`${Dic.Name} Availability Matrix`}
+      Title="Availability Matrix"
       Topic="Availability"
     />
 

@@ -113,7 +113,7 @@ export function History() {
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
         pageSize={pageSize}
-        heading={`${Dic.Name} Event History`}
+        heading="Event History"
         hideBorder
         ref={gridRef}
       >

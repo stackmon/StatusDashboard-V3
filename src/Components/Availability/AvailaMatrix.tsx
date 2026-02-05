@@ -13,7 +13,7 @@ export function AvailaMatrix() {
   const { Region } = useAvailability();
 
   return (
-    <ScaleTable className="relative">
+    <ScaleTable className="overflow-visible!">
       <table>
         <thead className="sticky top-16">
           <tr>

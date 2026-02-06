@@ -15,18 +15,18 @@ export class DB<T> {
 
   constructor(factory: () => T) {
     this.Ins = factory();
-    this.dbName = Dic.Name;
-    this.storeName = Dic.Name;
+    this.dbName = Dic.Symbol;
+    this.storeName = Dic.Symbol;
   }
 
   public async init() {
     try {
       return openDB(this.dbName, DB_VERSION, {
         upgrade(db) {
-          if (db.objectStoreNames.contains(Dic.Name)) {
-            db.deleteObjectStore(Dic.Name);
+          if (db.objectStoreNames.contains(Dic.Symbol)) {
+            db.deleteObjectStore(Dic.Symbol);
           }
-          db.createObjectStore(Dic.Name);
+          db.createObjectStore(Dic.Symbol);
         },
       });
     } catch (error) {
@@ -34,7 +34,7 @@ export class DB<T> {
 
       return openDB(this.dbName, DB_VERSION, {
         upgrade(db) {
-          db.createObjectStore(Dic.Name);
+          db.createObjectStore(Dic.Symbol);
         },
       });
     }

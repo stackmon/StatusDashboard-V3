@@ -3,10 +3,12 @@ import { SubjectLike } from "rxjs";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 1.0.0
+ * @version 2.0.0
  */
 export const Dic = {
-  Name: "SD3",
+  Symbol: "SD3",
+  Name: process.env.SD_NAME || "T Cloud Public",
+  Prod: "Status Dashboard",
   TZ: "Europe/Berlin",
   Time: "DD MMM YY, HH:mm",
   TimeTZ: "DD MMM YYYY, HH:mm [CET]",

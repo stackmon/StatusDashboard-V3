@@ -95,7 +95,7 @@ export function History() {
 
   return <div className="h-full flex flex-col gap-4">
     <Helmet>
-      <title>History - OTC Status Dashboard</title>
+      <title>History - {Dic.Name} {Dic.Prod}</title>
     </Helmet>
 
     <EventFilters
@@ -113,7 +113,7 @@ export function History() {
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
         pageSize={pageSize}
-        heading="OTC Event History"
+        heading="Event History"
         hideBorder
         ref={gridRef}
       >

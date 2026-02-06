@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import { AvailaMatrix } from "~/Components/Availability/AvailaMatrix";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
+import { Dic } from "~/Helpers/Entities";
 import { AvailaContext } from "~/Services/Availability";
 
 /**
@@ -11,11 +12,11 @@ import { AvailaContext } from "~/Services/Availability";
 export function Availability() {
   return <>
     <Helmet>
-      <title>Availability - OTC Status Dashboard</title>
+      <title>Availability - {Dic.Name} {Dic.Prod}</title>
     </Helmet>
 
     <RegionSelector
-      Title="OTC Availability Matrix"
+      Title="Availability Matrix"
       Topic="Availability"
     />
 

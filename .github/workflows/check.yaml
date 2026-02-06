@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: "24"
           cache: "pnpm"
+          registry-url: "https://artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/"
+          scope: "@telekom-ods"
+
+      - name: Configure npm auth
+        run: npm config set //artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Install dependencies
         run: pnpm install

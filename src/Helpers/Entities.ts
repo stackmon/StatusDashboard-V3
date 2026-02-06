@@ -7,7 +7,7 @@ import { SubjectLike } from "rxjs";
  */
 export const Dic = {
   Symbol: "SD3",
-  Name: "T Cloud Public",
+  Name: process.env.SD_NAME || "T Cloud Public",
   Prod: "Status Dashboard",
   TZ: "Europe/Berlin",
   Time: "DD MMM YY, HH:mm",

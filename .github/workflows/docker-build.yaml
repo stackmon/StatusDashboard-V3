@@ -46,6 +46,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: false
           secrets: |
+            NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN }}
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
@@ -90,6 +91,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           secrets: |
+            NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN }}
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}

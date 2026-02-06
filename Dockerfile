@@ -9,7 +9,9 @@ FROM base AS prod
 WORKDIR /app
 COPY . .
 
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=secret,id=NPM_AUTH_TOKEN \
+  pnpm config set //artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/:_authToken=$(cat /run/secrets/NPM_AUTH_TOKEN) && \
+  pnpm install --frozen-lockfile
 
 RUN --mount=type=secret,id=SD_BACKEND_URL,env=SD_BACKEND_URL \
   --mount=type=secret,id=SD_CLIENT_ID,env=SD_CLIENT_ID \

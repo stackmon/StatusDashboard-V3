@@ -107,6 +107,27 @@ export function useEditForm(event: Models.IEvent) {
     return !err;
   }
 
+  const [contactEmail, _setContactEmail] = useState(event.ContactEmail || "");
+  const [valContactEmail, setValContactEmail] = useState<string>();
+  function setContactEmail(value = contactEmail) {
+    let err: boolean = false;
+
+    if (value && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setValContactEmail("Please enter a valid email address.");
+      err = true;
+    }
+
+    if (value && value.length > 100) {
+      setValContactEmail("Email must be less than 100 characters.");
+      err = true;
+    }
+
+    _setContactEmail(value);
+    !err && setValContactEmail(undefined);
+
+    return !err;
+  }
+
   const [status, _setStatus] = useState<EventStatus | undefined>();
   const [valStatus, setValStatus] = useState<string>();
   function setStatus(value = status) {
@@ -188,7 +209,7 @@ export function useEditForm(event: Models.IEvent) {
   const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setDescription(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setDescription(), setContactEmail(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
     const url = process.env.SD_BACKEND_URL!;
@@ -200,6 +221,10 @@ export function useEditForm(event: Models.IEvent) {
       message: update,
       update_date: updateAt.toISOString(),
       description,
+    };
+
+    if (contactEmail) {
+      body.contact_email = contactEmail;
     };
 
     if (event.Type !== type) {
@@ -246,6 +271,7 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.Start = start;
       updatedEvent.End = end;
       updatedEvent.Description = description;
+      updatedEvent.ContactEmail = contactEmail;
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
@@ -273,6 +299,7 @@ export function useEditForm(event: Models.IEvent) {
       type,
       update,
       description,
+      contactEmail,
       status,
       start,
       end,
@@ -283,6 +310,7 @@ export function useEditForm(event: Models.IEvent) {
       setType,
       setUpdate,
       setDescription,
+      setContactEmail,
       setStatus,
       setStart,
       setEnd,
@@ -293,6 +321,7 @@ export function useEditForm(event: Models.IEvent) {
       type: valType,
       update: valUpdate,
       description: valDescription,
+      contactEmail: valContactEmail,
       status: valStatus,
       start: valStart,
       end: valEnd,

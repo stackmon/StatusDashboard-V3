@@ -9,7 +9,7 @@ import { useAuth } from "react-oidc-context";
 export function Authorized({ children }: { children: ReactNode }): ReactNode {
   const auth = useAuth();
 
-  if (auth.isAuthenticated) {
+  if (auth.isAuthenticated || process.env.NODE_ENV === "development") {
     return children;
   }
 

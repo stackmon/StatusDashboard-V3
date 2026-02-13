@@ -97,6 +97,12 @@ export function Home() {
       </Helmet>
 
       <ScaleNotification
+        heading="You have 6 maintenance events for the review."
+        opened
+        variant="informational"
+      />
+
+      <ScaleNotification
         heading={heading}
         opened
         variant={abnormalCount > 0 ? "warning" : "success"}

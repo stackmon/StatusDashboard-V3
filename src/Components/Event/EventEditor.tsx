@@ -20,7 +20,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -125,15 +125,17 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.description}
         />
 
-        <ScaleTextField
-          placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
-          label="Contact Email"
-          type="email"
-          value={State.contactEmail || ""}
-          onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
-          invalid={!!Validation.contactEmail}
-          helperText={Validation.contactEmail}
-        />
+        {State.type === EventType.Maintenance && (
+          <ScaleTextField
+            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+            label="Contact Email"
+            type="email"
+            value={State.contactEmail || ""}
+            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+            invalid={!!Validation.contactEmail}
+            helperText={Validation.contactEmail}
+          />
+        )}
 
         <ScaleTextarea
           label="Update Message"

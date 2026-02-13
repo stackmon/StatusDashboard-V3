@@ -23,7 +23,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -111,6 +111,11 @@ export function useEditForm(event: Models.IEvent) {
   const [valContactEmail, setValContactEmail] = useState<string>();
   function setContactEmail(value = contactEmail) {
     let err: boolean = false;
+
+    if (type === EventType.Maintenance && !value) {
+      setValContactEmail("Contact Email is required for maintenance.");
+      err = true;
+    }
 
     if (value && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       setValContactEmail("Please enter a valid email address.");
@@ -223,7 +228,7 @@ export function useEditForm(event: Models.IEvent) {
       description,
     };
 
-    if (contactEmail) {
+    if (type === EventType.Maintenance && contactEmail) {
       body.contact_email = contactEmail;
     };
 

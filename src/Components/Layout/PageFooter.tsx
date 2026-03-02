@@ -3,25 +3,25 @@ import { ScaleTelekomFooter, ScaleTelekomFooterContent } from "@telekom/scale-co
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function PageFooter() {
   return (
     <ScaleTelekomFooter slot="footer" type="minimal" class="mt-auto pt-8" data-mode="dark">
       <ScaleTelekomFooterContent>
-        <span slot="notice"> © Deutsche Telekom AG </span>
+        <span slot="notice"> © T-Systems International GmbH </span>
         <ul slot="navigation">
           <li>
-            <a href="https://open-telekom-cloud.com/en/imprint">Imprint</a>
+            <a href="https://public.t-cloud.com/en/imprint">Imprint</a>
           </li>
           <li>
-            <a href="https://open-telekom-cloud.com/en/data-protection">Data privacy</a>
+            <a href="https://public.t-cloud.com/en/data-privacy">Data privacy</a>
           </li>
           <li>
-            <a href="https://open-telekom-cloud.com/en/disclaimer-of-liability">Disclaimer of liability</a>
+            <a href="https://public.t-cloud.com/en/disclaimer-of-liability">Disclaimer of liability</a>
           </li>
           <li>
-            <a href="https://open-telekom-cloud.com/en/contact">Contact</a>
+            <a href="https://public.t-cloud.com/en/contact">Contact</a>
           </li>
         </ul>
       </ScaleTelekomFooterContent>

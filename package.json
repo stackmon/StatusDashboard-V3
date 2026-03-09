@@ -11,10 +11,9 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.73.1",
-    "@telekom-ods/react-ui-kit": "^2.5.2",
+    "@fluentui/react-components": "^9.73.2",
     "@telekom/scale-components": "3.0.0-beta.156",
-    "@telekom/scale-components-react": "3.0.0-beta.159",
+    "@telekom/scale-components-react": "3.0.0-beta.156",
     "ahooks": "^3.9.6",
     "dayjs": "^1.11.19",
     "idb": "^8.0.3",
@@ -41,7 +40,7 @@
     "core-js": "^3.48.0",
     "eslint": "^10.0.2",
     "globals": "^17.4.0",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.8",
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.2.1",
     "tailwindcss-scoped-preflight": "^3.5.7",

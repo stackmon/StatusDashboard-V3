@@ -39,6 +39,10 @@ export function MobileMenu() {
                 <a href="/NewEvent">New Event</a>
               </ScaleTelekomMobileMenuItem>
 
+              <ScaleTelekomMobileMenuItem>
+                <a href="/Reviews">Reviews</a>
+              </ScaleTelekomMobileMenuItem>
+
               <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutSilent()}>
                 Logout {auth.user?.profile.name}
               </ScaleTelekomMobileMenuItem>

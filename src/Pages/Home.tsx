@@ -121,10 +121,10 @@ export function Home() {
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">
           <div className="Blink" />
-          <label>{update ? `Last Auto Update at ${dayjs(update).format(Dic.Time)}` : "Auto Refresh Enabled"}</label>
+          <label>{update ? `Last Auto Update at ${dayjs(update).format("HH:mm")}` : "Auto Refresh Enabled"}</label>
         </div>
 
-        <legend className="flex flex-wrap items-center gap-x-6 gap-y-2.5">
+        <legend className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
           {Object.values(EventType).map((state, i) => (
             <div key={i} className="flex gap-x-2">
               <Indicator Type={state} />

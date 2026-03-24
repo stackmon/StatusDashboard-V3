@@ -8,7 +8,7 @@ import { ProfileMenu } from "./ProfileMenu";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function TopNavBar() {
   return (
@@ -29,6 +29,12 @@ export function TopNavBar() {
             Docs
           </a>
         </ScaleTelekomNavItem>
+
+        <Authorized>
+          <NavItem Href="/NewEvent" Label="New Event" />
+
+          <NavItem Href="/Reviews" Label="Reviews" />
+        </Authorized>
       </ScaleTelekomNavList>
 
       <ScaleTelekomNavList alignment="right" aria-label="Functions Menu" slot="functions" variant="functions">

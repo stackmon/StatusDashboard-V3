@@ -1,3 +1,4 @@
+import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
@@ -23,7 +24,7 @@ import { EventExtract } from "./EventExtract";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
   return (
@@ -39,10 +40,16 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
         <Authorized>
           <div className="flex gap-x-3">
+            <ScaleButton size="small" variant="secondary">
+              <ScaleIconActionCheckmark />
+              &nbsp;Approve
+            </ScaleButton>
+
             {
               Event.RegionServices.size > 1 &&
               <EventExtract Event={Event} />
             }
+
             <EventEditor Event={Event} />
           </div>
         </Authorized>

@@ -29,7 +29,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
   return <>
     <ScaleButton onClick={setTrue} size="small">
       <ScaleIconActionEdit />
-      Edit
+      &nbsp;Edit
     </ScaleButton>
 
     <ScaleModal

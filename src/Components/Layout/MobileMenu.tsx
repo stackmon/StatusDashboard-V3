@@ -5,7 +5,7 @@ import { Authorized } from "../Auth/With";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function MobileMenu() {
   const auth = useAuth();

@@ -37,7 +37,7 @@ function AuthHandler() {
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
       userMgr.signinCallback();
-      return
+      return;
     }
 
     if (Paths.at(0) === "signout-callback-oidc") {

@@ -146,14 +146,20 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.update}
         />
 
-        <div className="flex gap-x-3 self-end">
+        <div className="flex justify-between">
           <ScaleButton onClick={setFalse} variant="secondary" type="button">
-            Cancel
+            Delete
           </ScaleButton>
 
-          <ScaleButton type="submit" disabled={Loading}>
-            Submit
-          </ScaleButton>
+          <div className="flex gap-x-3">
+            <ScaleButton onClick={setFalse} variant="secondary" type="button">
+              Cancel
+            </ScaleButton>
+
+            <ScaleButton type="submit" disabled={Loading}>
+              Submit
+            </ScaleButton>
+          </div>
         </div>
       </form>
     </ScaleModal>

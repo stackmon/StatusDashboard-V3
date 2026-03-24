@@ -3,7 +3,7 @@ import { ScaleTelekomFooter, ScaleTelekomFooterContent } from "@telekom/scale-co
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function PageFooter() {
   return (

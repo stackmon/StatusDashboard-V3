@@ -24,6 +24,10 @@ export function ProfileMenu() {
             Hi, {auth.user?.profile.name}
           </ScaleMenuFlyoutItem>
 
+          <ScaleMenuFlyoutItem>
+            You're {((auth.user?.profile as any)?.groups as string[])?.filter(x => x.includes("sd"))}
+          </ScaleMenuFlyoutItem>
+
           <ScaleMenuFlyoutItem onScale-select={() => auth.signoutSilent()}>
             Logout
           </ScaleMenuFlyoutItem>

@@ -40,7 +40,11 @@ export function MobileMenu() {
               </ScaleTelekomMobileMenuItem>
 
               <ScaleTelekomMobileMenuItem>
-                <a href="/Reviews">Reviews</a>
+                <a href="/Reviews">Reviews: 6</a>
+              </ScaleTelekomMobileMenuItem>
+
+              <ScaleTelekomMobileMenuItem>
+                You're {((auth.user?.profile as any)?.groups as string[])?.filter(x => x.includes("sd"))}
               </ScaleTelekomMobileMenuItem>
 
               <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutSilent()}>

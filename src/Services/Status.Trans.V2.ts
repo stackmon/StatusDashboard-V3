@@ -182,6 +182,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
             case StatusEnum.Modified:
               return EventStatus.Modified;
             case StatusEnum.InProgress:
+            case StatusEnum.InProgress2:
               return EventStatus.InProgress;
             case StatusEnum.Completed:
               return EventStatus.Completed;

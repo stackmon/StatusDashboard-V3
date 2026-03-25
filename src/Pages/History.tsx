@@ -15,7 +15,7 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
 /**
  * @author Aloento
  * @since 1.2.0
- * @version 1.2.2
+ * @version 1.3.0
  */
 export function History() {
   const { DB } = useStatus();
@@ -117,9 +117,9 @@ export function History() {
         hideBorder
         ref={gridRef}
       >
-        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger" style={{ marginLeft: "0" }}>
+        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger">
           Page Size
-          <ScaleIconActionMenu slot="prefix" style={{ display: "inline-flex" }} />
+          <ScaleIconActionMenu slot="prefix" className="mr-2" />
 
           <ScaleMenuFlyoutList slot="sublist">
             {PAGE_SIZE_OPTIONS.map((size) => (
@@ -134,8 +134,8 @@ export function History() {
                 <ScaleIconActionCheckmark
                   slot="prefix"
                   size={16}
+                  className="mr-2"
                   style={{
-                    display: "inline-flex",
                     visibility: pageSize === size ? "visible" : "hidden"
                   }}
                 />

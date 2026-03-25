@@ -77,9 +77,9 @@ export function Reviews() {
         hideBorder
         ref={gridRef}
       >
-        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger" style={{ marginLeft: "0" }}>
+        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger">
           Page Size
-          <ScaleIconActionMenu slot="prefix" style={{ display: "inline-flex" }} />
+          <ScaleIconActionMenu slot="prefix" className="mr-2" />
 
           <ScaleMenuFlyoutList slot="sublist">
             {PAGE_SIZE_OPTIONS.map((size) => (
@@ -94,8 +94,8 @@ export function Reviews() {
                 <ScaleIconActionCheckmark
                   slot="prefix"
                   size={16}
+                  className="mr-2"
                   style={{
-                    display: "inline-flex",
                     visibility: pageSize === size ? "visible" : "hidden"
                   }}
                 />

@@ -1,8 +1,11 @@
 import { ScaleDataGrid, ScaleIconActionCheckmark, ScaleIconActionMenu, ScaleMenuFlyoutItem, ScaleMenuFlyoutList } from "@telekom/scale-components-react";
+import dayjs from "dayjs";
+import { chain } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
+import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
-import reviewsHistoryMock from "./reviewsHistoryMock.json";
+import { useStatus } from "~/Services/Status";
 
 const PAGE_SIZE_KEY = "reviewsPageSize";
 const PAGE_SIZE_OPTIONS = [10, 20, 50];
@@ -13,6 +16,7 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
  * @version 0.3.0
  */
 export function Reviews() {
+  const { DB } = useStatus();
   const gridRef = useRef<HTMLScaleDataGridElement>(null);
 
   const [pageSize, setPageSize] = useState<number>(() => {
@@ -20,15 +24,7 @@ export function Reviews() {
     return stored ? parseInt(stored, 10) : 10;
   });
 
-  interface ReviewItem {
-    id: number;
-    planStartCET: string;
-    planEndCET: string;
-    region: string;
-    service: string;
-  }
-
-  const historyItems = reviewsHistoryMock as ReviewItem[];
+  const pendingEvents = DB.Events.filter((x) => x.Status === EventStatus.PendingReview);
 
   useEffect(() => {
     if (!gridRef.current) {
@@ -46,23 +42,41 @@ export function Reviews() {
       { type: "actions", label: "Detail" },
     ];
 
-    const events = historyItems.map((item) => [
-      item.id,
-      item.planStartCET,
-      item.planEndCET,
-      item.region,
-      item.service,
-      [
-        {
-          label: "↗",
-          variant: "secondary",
-          href: `/Event/${item.id}`
-        }
-      ]
-    ]);
+    const events = chain(pendingEvents)
+      .map((x) => {
+        const rs = Array.from(x.RegionServices);
+
+        const services = chain(rs)
+          .map(s => s.Service.Name)
+          .uniq()
+          .value();
+
+        const regions = chain(rs)
+          .map(r => r.Region.Name)
+          .uniq()
+          .value();
+
+        return [
+          x.Id,
+          dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
+          x.End ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time) : "-",
+          regions.join(", "),
+          services.length > 2
+            ? `${services.slice(0, 2).join(", ")} +${services.length - 2}`
+            : services.join(", "),
+          [
+            {
+              label: "↗",
+              variant: "secondary",
+              href: `/Event/${x.Id}`
+            }
+          ]
+        ];
+      })
+      .value();
 
     grid.rows = events;
-  }, [gridRef.current, historyItems]);
+  }, [gridRef.current, pendingEvents]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
+import { EventStatus } from "~/Components/Event/Enums";
 import { EventFilters } from "~/Components/History/EventFilters";
 import { getEventTag } from "~/Components/History/EventTag";
 import { useEventFilters } from "~/Components/History/useEventFilters";
@@ -26,6 +27,10 @@ export function History() {
     return stored ? parseInt(stored, 10) : 20;
   });
 
+  const events = DB.Events.filter(
+    (x) => x.Status !== EventStatus.PendingReview
+  );
+
   const {
     filters,
     validation,
@@ -33,7 +38,7 @@ export function History() {
     setFilters,
     setValidation,
     clearFilters,
-  } = useEventFilters(DB.Events);
+  } = useEventFilters(events);
 
   useEffect(() => {
     if (!gridRef.current) {
@@ -102,7 +107,7 @@ export function History() {
       filters={filters}
       validation={validation}
       regions={DB.Regions}
-      totalEvents={DB.Events.length}
+      totalEvents={events.length}
       filteredCount={filteredEvents.length}
       onFiltersChange={setFilters}
       onValidationChange={setValidation}

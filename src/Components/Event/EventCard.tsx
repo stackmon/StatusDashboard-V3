@@ -1,4 +1,3 @@
-import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
@@ -6,6 +5,7 @@ import { Authorized } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
+import { EventApprove } from "./EventApprove";
 import { EventEditor } from "./EventEditor";
 import { EventExtract } from "./EventExtract";
 
@@ -40,10 +40,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
         <Authorized>
           <div className="flex gap-x-3">
-            <ScaleButton size="small" variant="secondary">
-              <ScaleIconActionCheckmark />
-              &nbsp;Approve
-            </ScaleButton>
+            {Event.Status === EventStatus.PendingReview && (
+              <EventApprove EventId={Event.Id} />
+            )}
 
             {
               Event.RegionServices.size > 1 &&

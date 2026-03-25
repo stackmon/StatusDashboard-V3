@@ -6,7 +6,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject, Subject } from "rxjs";
-import { EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
@@ -34,7 +34,7 @@ const log = new Logger("Home");
  * @component
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function Home() {
   const { DB } = useStatus();
@@ -90,17 +90,28 @@ export function Home() {
       : `${abnormalCount} components have issues, but don't worry, we are working on it.`
     : "All Systems Operational";
 
+  const pendingCount = useMemo(() => {
+    const events = chain(DB.Events)
+      .filter(e => e.Status === EventStatus.PendingReview)
+      .value();
+
+    log.debug("Pending Maintenance", events);
+    return events.length;
+  }, [DB]);
+
   return (
     <>
       <Helmet>
         <title>{Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
-      <ScaleNotification
-        heading="You have 6 maintenance events for the review."
-        opened
-        variant="informational"
-      />
+      {pendingCount > 0 && (
+        <ScaleNotification
+          heading={`You have ${pendingCount} maintenance events pending for review.`}
+          opened
+          variant="informational"
+        />
+      )}
 
       <ScaleNotification
         heading={heading}

@@ -189,6 +189,9 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
             case StatusEnum.Cancelled:
               return EventStatus.Cancelled;
 
+            case StatusEnum.PendingReview:
+              return EventStatus.PendingReview;
+
             case StatusEnum.Changed:
             case StatusEnum.ImpactChanged:
               return prev;

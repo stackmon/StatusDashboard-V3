@@ -11,11 +11,12 @@ import { Event } from "./Event";
 import { History } from "./History";
 import { Home } from "./Home";
 import { NewEvent } from "./NewEvent";
+import { Reviews } from "./Reviews";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function Layout() {
   const { Paths } = useRouter();
@@ -48,6 +49,9 @@ export function Layout() {
 
       case "NewEvent":
         return <NewEvent />;
+
+      case "Reviews":
+        return <Reviews />;
 
       case "":
       case undefined:

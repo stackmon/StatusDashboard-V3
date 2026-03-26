@@ -21,7 +21,7 @@ import { useNewForm } from "./useNewForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.3.0
  */
 export function NewForm() {
   const { DB } = useStatus();
@@ -144,6 +144,19 @@ export function NewForm() {
           onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
           invalid={!!Validation.end}
           helperText={Validation.end}
+        />
+      )}
+
+      {State.type === EventType.Maintenance && (
+        <ScaleTextField
+          placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+          label="Contact Email"
+          type="email"
+          required
+          value={State.contactEmail || ""}
+          onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+          invalid={!!Validation.contactEmail}
+          helperText={Validation.contactEmail}
         />
       )}
 

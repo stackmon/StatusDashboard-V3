@@ -1,6 +1,6 @@
 {
   "name": "statusdashboard",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "type": "module",
   "scripts": {
     "dev": "farm start",
@@ -11,19 +11,19 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.73.2",
+    "@fluentui/react-components": "^9.73.4",
     "@telekom/scale-components": "3.0.0-beta.156",
     "@telekom/scale-components-react": "3.0.0-beta.156",
-    "ahooks": "^3.9.6",
-    "dayjs": "^1.11.19",
+    "ahooks": "^3.9.7",
+    "dayjs": "^1.11.20",
     "idb": "^8.0.3",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.23",
-    "oidc-client-ts": "^3.4.1",
+    "oidc-client-ts": "^3.5.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-helmet": "^6.1.0",
-    "react-oidc-context": "^3.3.0",
+    "react-oidc-context": "^3.3.1",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
@@ -31,20 +31,20 @@
     "@farmfe/core": "^1.7.11",
     "@farmfe/js-plugin-postcss": "^1.12.0",
     "@farmfe/plugin-react": "^1.2.6",
-    "@tailwindcss/postcss": "^4.2.1",
+    "@tailwindcss/postcss": "^4.2.2",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^25.3.3",
+    "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
-    "core-js": "^3.48.0",
-    "eslint": "^10.0.2",
+    "core-js": "^3.49.0",
+    "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "postcss": "^8.5.8",
     "react-refresh": "^0.18.0",
-    "tailwindcss": "4.2.1",
-    "tailwindcss-scoped-preflight": "^3.5.7",
-    "typescript-eslint": "^8.56.1"
+    "tailwindcss": "4.2.2",
+    "tailwindcss-scoped-preflight": "^4.0.1",
+    "typescript-eslint": "^8.57.2"
   },
-  "packageManager": "pnpm@10.30.3"
+  "packageManager": "pnpm@10.33.0"
 }

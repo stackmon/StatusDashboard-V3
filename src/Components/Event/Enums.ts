@@ -64,7 +64,7 @@ export function IsIncident(type: EventType): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.0
  */
 export enum EventStatus {
   Detected = "Detected",
@@ -82,6 +82,8 @@ export enum EventStatus {
   Active = "Active",
   Reopened = "Reopened",
   Changed = "Changed",
+
+  PendingReview = "Pending Review",
 }
 
 /**
@@ -112,7 +114,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
@@ -142,5 +144,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Cancelled;
     case EventStatus.Active:
       return StatusEnum.Active;
+    case EventStatus.PendingReview:
+      return StatusEnum.PendingReview;
   }
 }

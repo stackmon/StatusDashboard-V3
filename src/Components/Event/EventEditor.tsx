@@ -20,7 +20,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -29,7 +29,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
   return <>
     <ScaleButton onClick={setTrue} size="small">
       <ScaleIconActionEdit />
-      Edit
+      &nbsp;Edit
     </ScaleButton>
 
     <ScaleModal
@@ -125,6 +125,18 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.description}
         />
 
+        {State.type === EventType.Maintenance && (
+          <ScaleTextField
+            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+            label="Contact Email"
+            type="email"
+            value={State.contactEmail || ""}
+            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+            invalid={!!Validation.contactEmail}
+            helperText={Validation.contactEmail}
+          />
+        )}
+
         <ScaleTextarea
           label="Update Message"
           resize="vertical"
@@ -134,14 +146,20 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.update}
         />
 
-        <div className="flex gap-x-3 self-end">
+        <div className="flex justify-between">
           <ScaleButton onClick={setFalse} variant="secondary" type="button">
-            Cancel
+            Delete
           </ScaleButton>
 
-          <ScaleButton type="submit" disabled={Loading}>
-            Submit
-          </ScaleButton>
+          <div className="flex gap-x-3">
+            <ScaleButton onClick={setFalse} variant="secondary" type="button">
+              Cancel
+            </ScaleButton>
+
+            <ScaleButton type="submit" disabled={Loading}>
+              Submit
+            </ScaleButton>
+          </div>
         </div>
       </form>
     </ScaleModal>

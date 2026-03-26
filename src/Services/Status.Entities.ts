@@ -48,7 +48,7 @@ interface UpdateEntityV2 {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.0
  */
 export const enum StatusEnum {
   Analyzing = "analyzing",
@@ -60,6 +60,7 @@ export const enum StatusEnum {
   Description = "description",
   Fixing = "fixing",
   InProgress = "in progress",
+  InProgress2 = "in_progress",
   Modified = "modified",
   Observing = "observing",
   Reopened = "reopened",
@@ -69,4 +70,5 @@ export const enum StatusEnum {
   Planned = "planned",
   Cancelled = "cancelled",
   Active = "active",
+  PendingReview = "pending_review",
 }

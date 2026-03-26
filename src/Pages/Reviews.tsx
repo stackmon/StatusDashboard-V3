@@ -4,41 +4,27 @@ import { chain } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { EventStatus } from "~/Components/Event/Enums";
-import { EventFilters } from "~/Components/History/EventFilters";
-import { getEventTag } from "~/Components/History/EventTag";
-import { useEventFilters } from "~/Components/History/useEventFilters";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 
-const PAGE_SIZE_KEY = "historyPageSize";
+const PAGE_SIZE_KEY = "reviewsPageSize";
 const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
 /**
  * @author Aloento
- * @since 1.2.0
- * @version 1.3.0
+ * @since 1.3.0
+ * @version 0.3.0
  */
-export function History() {
+export function Reviews() {
   const { DB } = useStatus();
   const gridRef = useRef<HTMLScaleDataGridElement>(null);
 
   const [pageSize, setPageSize] = useState<number>(() => {
     const stored = localStorage.getItem(PAGE_SIZE_KEY);
-    return stored ? parseInt(stored, 10) : 20;
+    return stored ? parseInt(stored, 10) : 10;
   });
 
-  const events = DB.Events.filter(
-    (x) => x.Status !== EventStatus.PendingReview
-  );
-
-  const {
-    filters,
-    validation,
-    filteredEvents,
-    setFilters,
-    setValidation,
-    clearFilters,
-  } = useEventFilters(events);
+  const pendingEvents = DB.Events.filter((x) => x.Status === EventStatus.PendingReview);
 
   useEffect(() => {
     if (!gridRef.current) {
@@ -49,41 +35,35 @@ export function History() {
 
     grid.fields = [
       { type: "number", label: "ID", sortable: true },
-      { type: "tags", label: "Type", sortable: true },
-      { type: "date", label: "Start CET", sortable: true },
-      { type: "date", label: "End CET", sortable: true },
-      { type: "text", label: "Status", sortable: true },
+      { type: "text", label: "Plan Start CET", sortable: true },
+      { type: "text", label: "Plan End CET", sortable: true },
       { type: "text", label: "Region", sortable: true },
       { type: "text", label: "Service", sortable: true, stretchWeight: 0.8 },
       { type: "actions", label: "Detail" },
     ];
 
-    const events = chain(filteredEvents)
+    const events = chain(pendingEvents)
       .map((x) => {
         const rs = Array.from(x.RegionServices);
 
-        const Services = chain(rs)
+        const services = chain(rs)
           .map(s => s.Service.Name)
           .uniq()
           .value();
 
-        const Regions = chain(rs)
+        const regions = chain(rs)
           .map(r => r.Region.Name)
           .uniq()
           .value();
 
-        const tagArray = getEventTag(x.Type);
-
         return [
           x.Id,
-          tagArray,
           dayjs(x.Start).tz(Dic.TZ).format(Dic.Time),
           x.End ? dayjs(x.End).tz(Dic.TZ).format(Dic.Time) : "-",
-          x.Status,
-          Regions.join(", "),
-          Services.length > 2
-            ? `${Services.slice(0, 2).join(", ")} +${Services.length - 2}`
-            : Services.join(", "),
+          regions.join(", "),
+          services.length > 2
+            ? `${services.slice(0, 2).join(", ")} +${services.length - 2}`
+            : services.join(", "),
           [
             {
               label: "↗",
@@ -96,29 +76,18 @@ export function History() {
       .value();
 
     grid.rows = events;
-  }, [gridRef.current, filteredEvents]);
+  }, [gridRef.current, pendingEvents]);
 
-  return <div className="h-full flex flex-col gap-4">
-    <Helmet>
-      <title>History - {Dic.Name} {Dic.Prod}</title>
-    </Helmet>
+  return (
+    <>
+      <Helmet>
+        <title>Reviews - {Dic.Name} {Dic.Prod}</title>
+      </Helmet>
 
-    <EventFilters
-      filters={filters}
-      validation={validation}
-      regions={DB.Regions}
-      totalEvents={events.length}
-      filteredCount={filteredEvents.length}
-      onFiltersChange={setFilters}
-      onValidationChange={setValidation}
-      onClearFilters={clearFilters}
-    />
-
-    <section className="grow min-h-0">
       <ScaleDataGrid
         className="h-full rounded-lg bg-white shadow-md"
         pageSize={pageSize}
-        heading="Event History"
+        heading="Pending Review Maintenances"
         hideBorder
         ref={gridRef}
       >
@@ -149,6 +118,6 @@ export function History() {
           </ScaleMenuFlyoutList>
         </ScaleMenuFlyoutItem>
       </ScaleDataGrid>
-    </section>
-  </div>;
+    </>
+  );
 }

@@ -4,7 +4,7 @@ import { useAuth } from "react-oidc-context";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function ProfileMenu() {
   const auth = useAuth();
@@ -13,9 +13,11 @@ export function ProfileMenu() {
     <ScaleTelekomNavItem hideOnMobile>
       <ScaleMenuFlyout>
 
-        <ScaleButton slot="trigger" variant="secondary" iconOnly>
-          <ScaleIconUserFileUser accessibility-title="Menu" />
-        </ScaleButton>
+        <div slot="trigger" className="relative">
+          <ScaleButton variant="secondary" iconOnly>
+            <ScaleIconUserFileUser accessibility-title="Menu" />
+          </ScaleButton>
+        </div>
 
         <ScaleMenuFlyoutList>
           <ScaleMenuFlyoutItem>
@@ -23,9 +25,7 @@ export function ProfileMenu() {
           </ScaleMenuFlyoutItem>
 
           <ScaleMenuFlyoutItem>
-            <a className="text-black no-underline" href="/NewEvent">
-              New Event
-            </a>
+            You're {((auth.user?.profile as any)?.groups as string[])?.filter(x => x.includes("sd"))}
           </ScaleMenuFlyoutItem>
 
           <ScaleMenuFlyoutItem onScale-select={() => auth.signoutSilent()}>

@@ -54,6 +54,7 @@ export namespace Models {
     End?: Date;
     Status: EventStatus;
     Description?: string;
+    ContactEmail?: string;
     RegionServices: Set<IRegionService>;
     Histories: Set<IHistory>;
   }

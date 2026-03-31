@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.73.4",
+    "@fluentui/react-components": "^9.73.6",
     "@telekom/scale-components": "3.0.0-beta.156",
     "@telekom/scale-components-react": "3.0.0-beta.156",
     "ahooks": "^3.9.7",
@@ -44,7 +44,7 @@
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.2.2",
     "tailwindcss-scoped-preflight": "^4.0.1",
-    "typescript-eslint": "^8.57.2"
+    "typescript-eslint": "^8.58.0"
   },
   "packageManager": "pnpm@10.33.0"
 }

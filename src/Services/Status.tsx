@@ -46,6 +46,8 @@ await db.load(key);
 
 const log = new Logger("Service", key);
 
+let loading;
+
 /**
  * Custom hook to access the status context.
  *
@@ -58,20 +60,14 @@ const log = new Logger("Service", key);
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useStatus() {
   const ctx = useContext(CTX);
 
   if (db.Ins.Regions.length < 1) {
-    throw new Promise((res) => {
-      const i = setInterval(() => {
-        if (db.Ins.Regions.length > 0) {
-          clearInterval(i);
-          res(ctx);
-        }
-      }, 100);
-    });
+    loading ??= ctx.Refresh();
+    throw loading;
   }
 
   return ctx;

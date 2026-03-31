@@ -1,4 +1,4 @@
-import { Toast, useToastController } from "@fluentui/react-components";
+import { Toast, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -269,7 +269,8 @@ export function useEditForm(event: Models.IEvent) {
       const message = await raw.text();
       dispatchToast(
         <Toast>
-          Failed to update event: {message}
+          <ToastTitle>Failed to update event</ToastTitle>
+          {message}
         </Toast>,
         { intent: "warning" }
       );

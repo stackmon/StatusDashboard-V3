@@ -1,6 +1,7 @@
-import { Toast, useToastController } from "@fluentui/react-components";
+import { Toast, ToastTitle, useToastController } from "@fluentui/react-components";
 import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import { useRequest } from "ahooks";
+import { useAuth } from "react-oidc-context";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
@@ -12,6 +13,7 @@ import { useAccessToken } from "../Auth/useAccessToken";
  */
 export function EventApprove({ Event }: { Event: Models.IEvent }) {
   const getToken = useAccessToken();
+  const { user } = useAuth();
   const { dispatchToast } = useToastController();
 
   const { runAsync, loading } = useRequest(async () => {
@@ -24,8 +26,8 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       },
       body: JSON.stringify({
         status: StatusEnum.Reviewed,
-        version: Event.Histories.size,
-        message: "Approved by operator",
+        version: Event.Histories.size + 1,
+        message: `Approved by ${user?.profile.name}`,
         update_date: new Date().toISOString(),
       }),
     });
@@ -34,7 +36,8 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       const message = await raw.text();
       dispatchToast(
         <Toast>
-          Failed to approve event: {message}
+          <ToastTitle>Failed to approve event</ToastTitle>
+          {message}
         </Toast>,
         { intent: "warning" }
       );

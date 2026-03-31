@@ -12,7 +12,7 @@ const log = new Logger("Service", "Status", "TransformerV2");
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.0
  */
 export function TransformerV2({ Components, Events }: { Components: StatusEntityV2[], Events: IncidentEntityV2[] }): IStatusContext {
   let id = 0;
@@ -122,7 +122,9 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Status: IsIncident(type) ? EventStatus.Detected : EventStatus.Planned,
       Histories: new Set(),
       RegionServices: new Set(),
-      Description: event.description
+      Description: event.description,
+      ContactEmail: event.contact_email,
+      Creator: event.creator,
     };
 
     if (event.end_date) {
@@ -191,6 +193,8 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
 
             case StatusEnum.PendingReview:
               return EventStatus.PendingReview;
+            case StatusEnum.Reviewed:
+              return EventStatus.Reviewed;
 
             case StatusEnum.Changed:
             case StatusEnum.ImpactChanged:

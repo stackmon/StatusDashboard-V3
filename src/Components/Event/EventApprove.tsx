@@ -1,32 +1,44 @@
+import { Toast, useToastController } from "@fluentui/react-components";
 import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import { useRequest } from "ahooks";
+import { StatusEnum } from "~/Services/Status.Entities";
+import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
 
 /**
  * @author Aloento
  * @since 1.5.0
- * @version 0.1.0
+ * @version 0.2.0
  */
-export function EventApprove({ EventId }: { EventId: number }) {
+export function EventApprove({ Event }: { Event: Models.IEvent }) {
   const getToken = useAccessToken();
+  const { dispatchToast } = useToastController();
 
   const { runAsync, loading } = useRequest(async () => {
     const url = process.env.SD_BACKEND_URL!;
-    const raw = await fetch(`${url}/v2/events/${EventId}`, {
+    const raw = await fetch(`${url}/v2/events/${Event.Id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${getToken()}`,
       },
       body: JSON.stringify({
-        status: "reviewed",
+        status: StatusEnum.Reviewed,
+        version: Event.Histories.size,
         message: "Approved by operator",
         update_date: new Date().toISOString(),
       }),
     });
 
     if (!raw.ok) {
-      throw new Error("Failed to approve event: " + await raw.text());
+      const message = await raw.text();
+      dispatchToast(
+        <Toast>
+          Failed to approve event: {message}
+        </Toast>,
+        { intent: "warning" }
+      );
+      throw new Error("Failed to approve event: " + message);
     }
 
     window.location.reload();

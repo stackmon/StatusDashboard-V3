@@ -41,7 +41,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         <Authorized>
           <div className="flex gap-x-3">
             {Event.Status === EventStatus.PendingReview && (
-              <EventApprove EventId={Event.Id} />
+              <EventApprove Event={Event} />
             )}
 
             {

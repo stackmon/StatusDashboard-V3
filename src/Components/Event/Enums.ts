@@ -64,7 +64,7 @@ export function IsIncident(type: EventType): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.3.1
  */
 export enum EventStatus {
   Detected = "Detected",
@@ -84,6 +84,7 @@ export enum EventStatus {
   Changed = "Changed",
 
   PendingReview = "Pending Review",
+  Reviewed = "Reviewed",
 }
 
 /**

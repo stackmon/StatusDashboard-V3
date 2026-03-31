@@ -1,3 +1,4 @@
+import { Toast, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -23,7 +24,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.4.0
+ * @version 0.4.1
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -211,6 +212,7 @@ export function useEditForm(event: Models.IEvent) {
   }, [start, end]);
 
   const getToken = useAccessToken();
+  const { dispatchToast } = useToastController();
   const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
@@ -264,7 +266,14 @@ export function useEditForm(event: Models.IEvent) {
     });
 
     if (!raw.ok) {
-      throw new Error("Failed to update event: " + await raw.text());
+      const message = await raw.text();
+      dispatchToast(
+        <Toast>
+          Failed to update event: {message}
+        </Toast>,
+        { intent: "warning" }
+      );
+      throw new Error("Failed to update event: " + message);
     }
 
     const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);

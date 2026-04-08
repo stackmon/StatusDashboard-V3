@@ -12,7 +12,7 @@ const log = new Logger("Service", "Status", "TransformerV2");
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.3.1
  */
 export function TransformerV2({ Components, Events }: { Components: StatusEntityV2[], Events: IncidentEntityV2[] }): IStatusContext {
   let id = 0;
@@ -125,6 +125,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       Description: event.description,
       ContactEmail: event.contact_email,
       Creator: event.creator,
+      Version: event.version
     };
 
     if (event.end_date) {

@@ -9,7 +9,7 @@ import { useAccessToken } from "../Auth/useAccessToken";
 /**
  * @author Aloento
  * @since 1.5.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function EventApprove({ Event }: { Event: Models.IEvent }) {
   const getToken = useAccessToken();
@@ -26,7 +26,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       },
       body: JSON.stringify({
         status: StatusEnum.Reviewed,
-        version: Event.Histories.size + 1,
+        version: Event.Version ? Event.Version + 1 : Event.Histories.size + 1,
         message: `Approved by ${user?.profile.name}`,
         update_date: new Date().toISOString(),
       }),

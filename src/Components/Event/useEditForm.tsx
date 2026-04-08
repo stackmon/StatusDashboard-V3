@@ -24,7 +24,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.4.1
+ * @version 0.4.2
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -232,6 +232,7 @@ export function useEditForm(event: Models.IEvent) {
 
     if (type === EventType.Maintenance && contactEmail) {
       body.contact_email = contactEmail;
+      body.version = event.Version ? event.Version + 1 : event.Histories.size + 1;
     };
 
     if (event.Type !== type) {

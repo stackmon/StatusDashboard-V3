@@ -16,7 +16,7 @@ export interface IStatusContext {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export namespace Models {
   export interface IService {
@@ -58,6 +58,7 @@ export namespace Models {
     ContactEmail?: string;
     RegionServices: Set<IRegionService>;
     Histories: Set<IHistory>;
+    Version?: number;
   }
 
   export interface IHistory {

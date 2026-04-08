@@ -15,7 +15,7 @@ import { NewEvent } from "./NewEvent";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function Layout() {
   const { Paths } = useRouter();
@@ -26,9 +26,6 @@ export function Layout() {
     switch (path) {
       case "signin-oidc":
         return <ScaleLoadingSpinner size="large" text="Login Redirecting..." />;
-
-      case "signout-callback-oidc":
-        return <ScaleLoadingSpinner size="large" text="Logout Redirecting..." />;
 
       case "login":
         auth.signinRedirect();

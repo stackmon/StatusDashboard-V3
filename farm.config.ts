@@ -33,7 +33,8 @@ export default defineConfig((cfg) => {
     server: {
       proxy: {
         "/auth": {
-          target: "http://localhost:8000",
+          // target: "http://localhost:8000",
+          target: "https://api.test.status.otc-service.com",
           changeOrigin: true
         },
         "/v2": {

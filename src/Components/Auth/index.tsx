@@ -31,18 +31,13 @@ const log = new Logger("Auth");
  */
 function AuthHandler() {
   const auth = useAuth();
-  const { Paths, Reload } = useRouter();
+  const { Paths } = useRouter();
   const { dispatchToast } = useToastController();
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
       userMgr.signinCallback();
       return;
-    }
-
-    if (Paths.at(0) === "signout-callback-oidc") {
-      auth.removeUser();
-      return Reload("/");
     }
   });
 

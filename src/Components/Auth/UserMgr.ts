@@ -138,4 +138,25 @@ export class UserMgr extends UserManager {
 
     return null;
   }
+
+  override async signoutSilent(): Promise<void> {
+    const user = await this.getUser();
+
+    if (user?.refresh_token) {
+      const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/logout`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token: user.refresh_token,
+        }),
+      });
+
+      if (!res.ok)
+        throw new Error("Failed to logout");
+    }
+
+    window.location.href = this.settings.post_logout_redirect_uri!;
+  }
 }

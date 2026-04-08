@@ -88,8 +88,13 @@ export function useNewForm() {
     let err: boolean = false;
 
     const now = new Date();
+    const minMaintenanceStart = new Date(now.getTime() + 36 * 60 * 60 * 1000);
     if (end && value > end) {
       setValStart("Start Date cannot be later than End Date.");
+      err = true;
+    }
+    if (type === EventType.Maintenance && value < minMaintenanceStart) {
+      setValStart("Maintenance start time must be at least 36 hours from now.");
       err = true;
     }
     if (value > now && IsIncident(type)) {
@@ -126,7 +131,8 @@ export function useNewForm() {
   useEffect(() => {
     setStart();
     setEnd();
-  }, [start, end]);
+    setContactEmail();
+  }, [start, end, type]);
 
   const [contactEmail, _setContactEmail] = useState("");
   const [valContactEmail, setValContactEmail] = useState<string>();

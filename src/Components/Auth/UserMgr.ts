@@ -17,7 +17,7 @@ import { SigninRedirectArgs, User, UserManager, WebStorageStateStore } from "oid
  *
  * @author Aloento
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.1.0
  */
 export class UserMgr extends UserManager {
   constructor() {
@@ -26,7 +26,6 @@ export class UserMgr extends UserManager {
       scope: "openid profile email",
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: process.env.SD_AUTHORITY_URL!,
-      post_logout_redirect_uri: `${window.location.origin}/signout-callback-oidc`,
       redirect_uri: `${window.location.origin}/signin-oidc`
     });
   }
@@ -137,5 +136,27 @@ export class UserMgr extends UserManager {
     }
 
     return null;
+  }
+
+  override async signoutSilent(): Promise<void> {
+    const user = await this.getUser();
+
+    if (user?.refresh_token) {
+      const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/logout`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token: user.refresh_token,
+        }),
+      });
+
+      if (!res.ok)
+        throw new Error("Failed to logout");
+    }
+
+    await this.removeUser();
+    window.location.href = "/";
   }
 }

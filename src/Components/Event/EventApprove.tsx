@@ -1,4 +1,4 @@
-import { Toast, ToastTitle, useToastController } from "@fluentui/react-components";
+import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import { useRequest } from "ahooks";
 import { useAuth } from "react-oidc-context";
@@ -26,7 +26,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       },
       body: JSON.stringify({
         status: StatusEnum.Reviewed,
-        version: Event.Version ? Event.Version + 1 : Event.Histories.size + 1,
+        version: Event.Version ?? Event.Histories.size + 1,
         message: `Approved by ${user?.profile.name}`,
         update_date: new Date().toISOString(),
       }),
@@ -37,7 +37,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       dispatchToast(
         <Toast>
           <ToastTitle>Failed to approve event</ToastTitle>
-          {message}
+          <ToastBody>{message}</ToastBody>
         </Toast>,
         { intent: "warning" }
       );

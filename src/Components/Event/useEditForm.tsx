@@ -1,4 +1,4 @@
-import { Toast, ToastTitle, useToastController } from "@fluentui/react-components";
+import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -232,7 +232,7 @@ export function useEditForm(event: Models.IEvent) {
 
     if (type === EventType.Maintenance && contactEmail) {
       body.contact_email = contactEmail;
-      body.version = event.Version ? event.Version + 1 : event.Histories.size + 1;
+      body.version = event.Version ?? event.Histories.size + 1;
     };
 
     if (event.Type !== type) {
@@ -271,7 +271,7 @@ export function useEditForm(event: Models.IEvent) {
       dispatchToast(
         <Toast>
           <ToastTitle>Failed to update event</ToastTitle>
-          {message}
+          <ToastBody>{message}</ToastBody>
         </Toast>,
         { intent: "warning" }
       );

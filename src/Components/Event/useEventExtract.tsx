@@ -1,4 +1,4 @@
-import { Toast, ToastTitle, useToastController } from "@fluentui/react-components";
+import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -59,7 +59,7 @@ export function useEventExtract(event: Models.IEvent) {
       dispatchToast(
         <Toast>
           <ToastTitle>Failed to extract event</ToastTitle>
-          {message}
+          <ToastBody>{message}</ToastBody>
         </Toast>,
         { intent: "warning" }
       );

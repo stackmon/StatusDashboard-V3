@@ -225,7 +225,7 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       }
 
       const status = orderBy(
-        Array.from(dbEvent.Histories), x => x.Created, "desc"
+        Array.from(dbEvent.Histories), x => x.Id
       ).at(0)?.Status;
       if (status) {
         dbEvent.Status = status;

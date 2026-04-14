@@ -187,7 +187,7 @@ export function useNewForm() {
     }
 
     const status = IsIncident(type)
-      ? EventStatus.Detected : EventStatus.Planned
+      ? EventStatus.Detected : EventStatus.PendingReview
 
     const event: Models.IEvent = {
       Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,

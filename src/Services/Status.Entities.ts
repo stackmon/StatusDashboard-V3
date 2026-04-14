@@ -23,7 +23,7 @@ export const enum NameEnum {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.1
+ * @version 0.3.2
  */
 export interface IncidentEntityV2 {
   title: string;
@@ -39,6 +39,7 @@ export interface IncidentEntityV2 {
   creator?: string;
   contact_email?: string;
   version?: number;
+  status?: StatusEnum;
 }
 
 interface UpdateEntityV2 {

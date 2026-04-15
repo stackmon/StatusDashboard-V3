@@ -40,9 +40,12 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
         <Authorized>
           <div className="flex gap-x-3">
-            {Event.Status === EventStatus.PendingReview && (
+            <Authorized rules={(groups) => {
+              return Event.Status === EventStatus.PendingReview &&
+                groups.some(g => g === "/sd_operators" || g === "/sd_admins");
+            }}>
               <EventApprove Event={Event} />
-            )}
+            </Authorized>
 
             {
               Event.RegionServices.size > 1 &&

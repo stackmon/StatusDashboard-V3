@@ -10,7 +10,7 @@ export function Authorized({ children, rules }: { children: ReactNode, rules?: (
   const auth = useAuth();
 
   if (auth.isAuthenticated || process.env.NODE_ENV === "development") {
-    if (rules && !rules((auth.user?.profile as any)?.groups as string[])) {
+    if (rules && !rules((auth.user?.profile as any)?.groups as string[] || [])) {
       return null;
     }
     return children;

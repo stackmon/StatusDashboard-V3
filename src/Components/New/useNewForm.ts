@@ -57,9 +57,11 @@ export function useNewForm() {
 
     _setType(value);
     setValType(undefined);
+    setIsShortConfirmed(false);
 
     if (IsIncident(value)) {
       _setEnd(undefined);
+      setWarnStart(undefined);
     }
 
     return true;
@@ -84,7 +86,11 @@ export function useNewForm() {
 
   const [start, _setStart] = useState(new Date());
   const [valStart, setValStart] = useState<string>();
-  function setStart(value = start) {
+  const [warnStart, setWarnStart] = useState<string>();
+  const [isShortConfirmed, setIsShortConfirmed] = useState(false);
+
+  function setStart(value = start, options: { resetConfirm?: boolean } = {}) {
+    const { resetConfirm = true } = options;
     let err: boolean = false;
 
     const now = new Date();
@@ -93,19 +99,24 @@ export function useNewForm() {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
     }
-    if (type === EventType.Maintenance && value < minMaintenanceStart) {
-      setValStart("Maintenance start time must be at least 36 hours from now.");
-      err = true;
-    }
     if (value > now && IsIncident(type)) {
       setValStart("Start Date cannot be in the future.");
       err = true;
+    }
+
+    if (type === EventType.Maintenance && value < minMaintenanceStart) {
+      setWarnStart("Maintenance start time is recommended to be at least 36 hours from now.");
+    } else {
+      setWarnStart(undefined);
     }
 
     if (!err) {
       setValStart(undefined);
     }
     _setStart(value);
+    if (resetConfirm) {
+      setIsShortConfirmed(false);
+    }
 
     return !err;
   }
@@ -182,9 +193,21 @@ export function useNewForm() {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setDescription(), setStart(), setEnd(), setServices(), setContactEmail()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices(), setContactEmail()].every(Boolean)) {
       return;
     }
+
+    const now = new Date();
+    const minMaintenanceStart = new Date(now.getTime() + 36 * 60 * 60 * 1000);
+    const isShortMaintenanceStart = type === EventType.Maintenance && start < minMaintenanceStart;
+
+    if (isShortMaintenanceStart && !isShortConfirmed) {
+      setWarnStart("Maintenance start time is recommended to be at least 36 hours from now. Click Submit again to confirm.");
+      setIsShortConfirmed(true);
+      return;
+    }
+
+    setIsShortConfirmed(false);
 
     const status = IsIncident(type)
       ? EventStatus.Detected : EventStatus.PendingReview
@@ -268,6 +291,7 @@ export function useNewForm() {
       type: valType,
       description: valDescription,
       start: valStart,
+      startWarning: warnStart,
       end: valEnd,
       services: valServices,
       contactEmail: valContactEmail

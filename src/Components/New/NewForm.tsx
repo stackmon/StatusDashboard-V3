@@ -131,8 +131,8 @@ export function NewForm() {
         required
         value={dayjs(State.start).format(Dic.Picker)}
         onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
-        invalid={!!Validation.start}
-        helperText={Validation.start}
+        invalid={!!Validation.start || !!Validation.startWarning}
+        helperText={Validation.start || Validation.startWarning}
       />
 
       {!IsIncident(State.type) && (

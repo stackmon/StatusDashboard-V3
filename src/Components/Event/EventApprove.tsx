@@ -2,16 +2,20 @@ import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/reac
 import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import { useRequest } from "ahooks";
 import { useAuth } from "react-oidc-context";
+import { useStatus } from "~/Services/Status";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
+import { EventStatus } from "./Enums";
 
 /**
  * @author Aloento
  * @since 1.5.0
- * @version 0.2.1
+ * @version 0.2.2
  */
 export function EventApprove({ Event }: { Event: Models.IEvent }) {
+  const { Update } = useStatus();
+
   const getToken = useAccessToken();
   const { user } = useAuth();
   const { dispatchToast } = useToastController();
@@ -44,7 +48,15 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       throw new Error("Failed to approve event: " + message);
     }
 
-    window.location.reload();
+    Event.Status = EventStatus.Reviewed;
+    Event.Histories.add({
+      Id: Event.Histories.size + 1,
+      Created: new Date(),
+      Event,
+      Message: `Approved by ${user?.profile.name}`,
+      Status: EventStatus.Reviewed,
+    });
+    Update();
   }, {
     manual: true,
   });

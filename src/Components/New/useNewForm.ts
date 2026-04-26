@@ -62,7 +62,6 @@ export function useNewForm() {
 
     if (IsIncident(value)) {
       _setEnd(undefined);
-      setWarnStart(undefined);
     }
 
     return true;
@@ -87,7 +86,6 @@ export function useNewForm() {
 
   const [start, _setStart] = useState(new Date());
   const [valStart, setValStart] = useState<string>();
-  const [warnStart, setWarnStart] = useState<string>();
   const [isShortConfirmed, setIsShortConfirmed] = useState(false);
   const [startNeedsConfirm, setStartNeedsConfirm] = useState(false);
 
@@ -101,7 +99,6 @@ export function useNewForm() {
     let err: boolean = false;
 
     const now = new Date();
-    const minMaintenanceStart = new Date(now.getTime() + 36 * 60 * 60 * 1000);
     if (end && value > end) {
       setValStart("Start Date cannot be later than End Date.");
       err = true;
@@ -109,12 +106,6 @@ export function useNewForm() {
     if (value > now && IsIncident(type)) {
       setValStart("Start Date cannot be in the future.");
       err = true;
-    }
-
-    if (type === EventType.Maintenance && value < minMaintenanceStart) {
-      setWarnStart("Maintenance start time is recommended to be at least 36 hours from now.");
-    } else {
-      setWarnStart(undefined);
     }
 
     if (!err) {
@@ -301,7 +292,6 @@ export function useNewForm() {
       type: valType,
       description: valDescription,
       start: valStart,
-      startWarning: warnStart,
       startNeedsConfirm,
       end: valEnd,
       services: valServices,

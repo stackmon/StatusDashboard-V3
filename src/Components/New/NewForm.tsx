@@ -132,8 +132,8 @@ export function NewForm() {
           required
           value={dayjs(State.start).format(Dic.Picker)}
           onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
-          invalid={!!Validation.start || !!Validation.startWarning}
-          helperText={Validation.start || Validation.startWarning}
+          invalid={!!Validation.start}
+          helperText={Validation.start}
         />
 
         {!IsIncident(State.type) && (
@@ -180,19 +180,18 @@ export function NewForm() {
         onScale-before-close={(e) => e.preventDefault()}
       >
         <div className="flex flex-col gap-y-4">
-          <p className="text-sm font-medium text-red-700">
+          <p className="text-base font-semibold text-red-700">
             Maintenance start time is earlier than the recommended 36 hours.
           </p>
-          <p className="text-sm text-slate-700">
+          <p className="text-base text-slate-700">
             Selected: {dayjs(State.start).format("YYYY-MM-DD HH:mm")}
           </p>
-          <p className="text-sm text-slate-700">
+          <p className="text-base text-slate-700">
             Recommended after: {dayjs().add(36, "hour").format("YYYY-MM-DD HH:mm")}
           </p>
 
           <div className="flex gap-x-3 self-end">
             <ScaleButton
-              variant="secondary"
               type="button"
               onClick={Actions.dismissStartConfirm}
             >
@@ -200,6 +199,7 @@ export function NewForm() {
             </ScaleButton>
 
             <ScaleButton
+              variant="secondary"
               type="button"
               disabled={Loading}
               onClick={OnSubmit}

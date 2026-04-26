@@ -58,6 +58,7 @@ export function useNewForm() {
     _setType(value);
     setValType(undefined);
     setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
 
     if (IsIncident(value)) {
       _setEnd(undefined);
@@ -88,6 +89,12 @@ export function useNewForm() {
   const [valStart, setValStart] = useState<string>();
   const [warnStart, setWarnStart] = useState<string>();
   const [isShortConfirmed, setIsShortConfirmed] = useState(false);
+  const [startNeedsConfirm, setStartNeedsConfirm] = useState(false);
+
+  function dismissStartConfirm() {
+    setStartNeedsConfirm(false);
+    setIsShortConfirmed(false);
+  }
 
   function setStart(value = start, options: { resetConfirm?: boolean } = {}) {
     const { resetConfirm = true } = options;
@@ -116,6 +123,7 @@ export function useNewForm() {
     _setStart(value);
     if (resetConfirm) {
       setIsShortConfirmed(false);
+      setStartNeedsConfirm(false);
     }
 
     return !err;
@@ -202,12 +210,13 @@ export function useNewForm() {
     const isShortMaintenanceStart = type === EventType.Maintenance && start < minMaintenanceStart;
 
     if (isShortMaintenanceStart && !isShortConfirmed) {
-      setWarnStart("Maintenance start time is recommended to be at least 36 hours from now. Click Submit again to confirm.");
+      setStartNeedsConfirm(true);
       setIsShortConfirmed(true);
       return;
     }
 
     setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
 
     const status = IsIncident(type)
       ? EventStatus.Detected : EventStatus.PendingReview
@@ -284,7 +293,8 @@ export function useNewForm() {
       setStart,
       setEnd,
       setServices,
-      setContactEmail
+      setContactEmail,
+      dismissStartConfirm
     },
     Validation: {
       title: valTitle,
@@ -292,6 +302,7 @@ export function useNewForm() {
       description: valDescription,
       start: valStart,
       startWarning: warnStart,
+      startNeedsConfirm,
       end: valEnd,
       services: valServices,
       contactEmail: valContactEmail

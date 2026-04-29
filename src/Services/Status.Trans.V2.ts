@@ -9,6 +9,70 @@ import regionIdMap from "./regionIdMap.json";
 
 const log = new Logger("Service", "Status", "TransformerV2");
 
+function ResolveEventStatus({
+  source,
+  prev,
+  type,
+  endDate,
+}: {
+  source?: StatusEnum;
+  prev: EventStatus;
+  type: EventType;
+  endDate: null | string;
+}): EventStatus | undefined {
+  if (!source) {
+    return undefined;
+  }
+
+  switch (source) {
+    case StatusEnum.System:
+      return endDate
+        ? IsIncident(type) ? EventStatus.Resolved : EventStatus.Completed
+        : prev;
+
+    case StatusEnum.Analyzing:
+    case StatusEnum.Analysing:
+      return EventStatus.Analysing;
+    case StatusEnum.Detected:
+      return EventStatus.Detected;
+    case StatusEnum.Reopened:
+      return EventStatus.Reopened;
+    case StatusEnum.Fixing:
+      return EventStatus.Fixing;
+    case StatusEnum.Observing:
+      return EventStatus.Observing;
+    case StatusEnum.Resolved:
+      return EventStatus.Resolved;
+
+    case StatusEnum.Scheduled:
+    case StatusEnum.Planned:
+      return EventStatus.Planned;
+    case StatusEnum.Active:
+      return EventStatus.Active;
+    case StatusEnum.Modified:
+      return EventStatus.Modified;
+    case StatusEnum.InProgress:
+    case StatusEnum.InProgress2:
+      return EventStatus.InProgress;
+    case StatusEnum.Completed:
+      return EventStatus.Completed;
+    case StatusEnum.Cancelled:
+      return EventStatus.Cancelled;
+
+    case StatusEnum.PendingReview:
+      return EventStatus.PendingReview;
+    case StatusEnum.Reviewed:
+      return EventStatus.Reviewed;
+
+    case StatusEnum.Changed:
+    case StatusEnum.ImpactChanged:
+      return prev;
+
+    default:
+      return undefined;
+  }
+}
+
 /**
  * @author Aloento
  * @since 1.0.0
@@ -132,6 +196,17 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       dbEvent.End = dayjs(event.end_date).toDate();
     }
 
+    const statusFromEvent = ResolveEventStatus({
+      source: event.status,
+      prev: dbEvent.Status,
+      type,
+      endDate: event.end_date,
+    });
+    const shouldInferStatusFromUpdates = !statusFromEvent;
+    if (statusFromEvent) {
+      dbEvent.Status = statusFromEvent;
+    }
+
     for (const rsId of event.components) {
       const rs = db.RegionService.find((x) => x.Id === rsId);
       if (!rs) {
@@ -152,63 +227,20 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       let prev = dbEvent.Status;
 
       for (const update of event.updates) {
-        const status = (() => {
-          switch (update.status) {
-            case StatusEnum.System:
-              return event.end_date
-                ? IsIncident(type) ? EventStatus.Resolved : EventStatus.Completed
-                : prev;
+        if (update.status === StatusEnum.Description) {
+          dbEvent.Description = update.text;
+          continue;
+        }
 
-            case StatusEnum.Analyzing:
-            case StatusEnum.Analysing:
-              return EventStatus.Analysing;
-            case StatusEnum.Detected:
-              return EventStatus.Detected;
-            case StatusEnum.Reopened:
-              return EventStatus.Reopened;
-            case StatusEnum.Fixing:
-              return EventStatus.Fixing;
-            case StatusEnum.Observing:
-              return EventStatus.Observing;
-            case StatusEnum.Resolved:
-              return EventStatus.Resolved;
-
-            case StatusEnum.Description:
-              dbEvent.Description = update.text;
-              break;
-
-            case StatusEnum.Scheduled:
-            case StatusEnum.Planned:
-              return EventStatus.Planned;
-            case StatusEnum.Active:
-              return EventStatus.Active;
-            case StatusEnum.Modified:
-              return EventStatus.Modified;
-            case StatusEnum.InProgress:
-            case StatusEnum.InProgress2:
-              return EventStatus.InProgress;
-            case StatusEnum.Completed:
-              return EventStatus.Completed;
-            case StatusEnum.Cancelled:
-              return EventStatus.Cancelled;
-
-            case StatusEnum.PendingReview:
-              return EventStatus.PendingReview;
-            case StatusEnum.Reviewed:
-              return EventStatus.Reviewed;
-
-            case StatusEnum.Changed:
-            case StatusEnum.ImpactChanged:
-              return prev;
-
-            default:
-              break;
-          }
-        })();
+        const status = ResolveEventStatus({
+          source: update.status,
+          prev,
+          type,
+          endDate: event.end_date,
+        });
 
         if (!status) {
-          if (update.status !== StatusEnum.Description)
-            log.debug("Skipped Unknown Status.", update, event);
+          log.debug("Skipped Unknown Status.", update, event);
           continue;
         }
 
@@ -224,11 +256,13 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
         prev = status;
       }
 
-      const status = orderBy(
-        Array.from(dbEvent.Histories), x => x.Id
-      ).at(0)?.Status;
-      if (status) {
-        dbEvent.Status = status;
+      if (shouldInferStatusFromUpdates) {
+        const status = orderBy(
+          Array.from(dbEvent.Histories), x => x.Id
+        ).at(0)?.Status;
+        if (status) {
+          dbEvent.Status = status;
+        }
       }
     }
 

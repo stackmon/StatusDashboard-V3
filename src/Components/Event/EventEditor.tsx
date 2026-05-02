@@ -1,6 +1,7 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
+import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, GetStatusList, IsIncident, IsOpenStatus } from "./Enums";
@@ -25,6 +26,7 @@ import { useEditForm } from "./useEditForm";
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
+  const auth = useAuth();
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
@@ -79,7 +81,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           invalid={!!Validation.status}
           helperText={Validation.status}
         >
-          {GetStatusList(State.type)
+          {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
             .map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}

@@ -90,9 +90,13 @@ export enum EventStatus {
 /**
  * @author Aloento
  * @since 1.1.0
- * @version 0.1.1
+ * @version 0.2.0
  */
-export function GetStatusList(type: EventType): EventStatus[] {
+export function GetStatusList(type: EventType, status?: EventStatus, groups?: string[]): EventStatus[] {
+  if (groups && status === EventStatus.PendingReview && groups.some(g => g === "/sd_creators")) {
+    return [EventStatus.PendingReview, EventStatus.Cancelled];
+  }
+
   switch (type) {
     case EventType.Maintenance:
       return Object.values(EventStatus).slice(5, 10);
@@ -147,5 +151,7 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Active;
     case EventStatus.PendingReview:
       return StatusEnum.PendingReview;
+    case EventStatus.Reviewed:
+      return StatusEnum.Reviewed;
   }
 }

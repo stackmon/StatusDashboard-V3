@@ -4,7 +4,7 @@ import { Subject } from "rxjs";
 import { Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
 import { DB } from "./DB";
-import { IncidentEntityV2, StatusEntityV2 } from "./Status.Entities";
+import { EventEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
 import { TransformerV2 } from "./Status.Trans.V2";
 
@@ -111,7 +111,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       const first = await fetch(`${url}/v2/events?page=1&limit=50`);
       const firstData = await first.json();
 
-      const allEvents: IncidentEntityV2[] = [];
+      const allEvents: EventEntityV2[] = [];
 
       if (firstData.data && Array.isArray(firstData.data)) {
         allEvents.push(...firstData.data);
@@ -148,7 +148,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
       return {
         Components: compData as StatusEntityV2[],
-        Events: allEvents as IncidentEntityV2[]
+        Events: allEvents as EventEntityV2[]
       };
     },
     {

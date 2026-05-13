@@ -25,7 +25,7 @@ export const enum NameEnum {
  * @since 1.0.0
  * @version 0.2.0
  */
-export interface IncidentEntityV2 {
+export interface EventEntityV2 {
   title: string;
   components: number[];
   system: boolean;

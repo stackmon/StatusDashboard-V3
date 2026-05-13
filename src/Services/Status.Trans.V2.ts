@@ -3,7 +3,7 @@ import { orderBy } from "lodash";
 import { EventStatus, EventType, GetEventType, IsIncident } from "~/Components/Event/Enums";
 import { Logger } from "~/Helpers/Logger";
 import { EmptyDB } from "./Status";
-import { IncidentEntityV2, NameEnum, StatusEntityV2, StatusEnum } from "./Status.Entities";
+import { EventEntityV2, NameEnum, StatusEntityV2, StatusEnum } from "./Status.Entities";
 import { IStatusContext, Models } from "./Status.Models";
 import regionIdMap from "./regionIdMap.json";
 
@@ -78,7 +78,7 @@ function ResolveEventStatus({
  * @since 1.0.0
  * @version 0.3.1
  */
-export function TransformerV2({ Components, Events }: { Components: StatusEntityV2[], Events: IncidentEntityV2[] }): IStatusContext {
+export function TransformerV2({ Components, Events }: { Components: StatusEntityV2[], Events: EventEntityV2[] }): IStatusContext {
   let id = 0;
   const db = EmptyDB();
 

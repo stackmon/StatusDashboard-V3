@@ -257,7 +257,7 @@ export function useEditForm(event: Models.IEvent) {
       }
     }
 
-    const raw = await fetch(`${url}/v2/incidents/${event.Id}`, {
+    const raw = await fetch(`${url}/v2/events/${event.Id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

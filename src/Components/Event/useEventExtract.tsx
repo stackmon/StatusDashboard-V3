@@ -45,7 +45,7 @@ export function useEventExtract(event: Models.IEvent) {
       components: services.map(s => s.Id),
     }
 
-    const raw = await fetch(`${url}/v2/incidents/${event.Id}/extract`, {
+    const raw = await fetch(`${url}/v2/events/${event.Id}/extract`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

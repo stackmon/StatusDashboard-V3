@@ -12,8 +12,8 @@ importers:
         specifier: ^9.73.8
         version: 9.73.8(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(scheduler@0.27.0)
       '@telekom/scale-components':
-        specifier: 3.0.0-beta.156
-        version: 3.0.0-beta.156
+        specifier: 3.0.0-beta.160
+        version: 3.0.0-beta.160
       '@telekom/scale-components-react':
         specifier: 3.0.0-beta.156
         version: 3.0.0-beta.156(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -973,9 +973,58 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@rollup/rollup-darwin-arm64@4.44.0':
+    resolution: {integrity: sha512-VGF3wy0Eq1gcEIkSCr8Ke03CWT+Pm2yveKLaDvq51pPpZza3JX/ClxXOCmTYYq3us5MvEuNRTaeyFThCKRQhOA==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@rollup/rollup-darwin-x64@4.44.0':
+    resolution: {integrity: sha512-fBkyrDhwquRvrTxSGH/qqt3/T0w5Rg0L7ZIDypvBPc1/gzjJle6acCpZ36blwuwcKD/u6oCE/sRWlUAcxLWQbQ==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@rollup/rollup-linux-arm64-gnu@4.44.0':
+    resolution: {integrity: sha512-ZTR2mxBHb4tK4wGf9b8SYg0Y6KQPjGpR4UWwTFdnmjB4qRtoATZ5dWn3KsDwGa5Z2ZBOE7K52L36J9LueKBdOQ==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@rollup/rollup-linux-arm64-musl@4.44.0':
+    resolution: {integrity: sha512-GFWfAhVhWGd4r6UxmnKRTBwP1qmModHtd5gkraeW2G490BpFOZkFtem8yuX2NyafIP/mGpRJgTJ2PwohQkUY/Q==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@rollup/rollup-linux-x64-gnu@4.44.0':
+    resolution: {integrity: sha512-iUVJc3c0o8l9Sa/qlDL2Z9UP92UZZW1+EmQ4xfjTc1akr0iUFZNfxrXJ/R1T90h/ILm9iXEY6+iPrmYB3pXKjw==}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@rollup/rollup-linux-x64-musl@4.44.0':
+    resolution: {integrity: sha512-PQUobbhLTQT5yz/SPg116VJBgz+XOtXt8D1ck+sfJJhuEsMj2jSej5yTdp8CvWBSceu+WW+ibVL6dm0ptG5fcA==}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@rollup/rollup-win32-arm64-msvc@4.44.0':
+    resolution: {integrity: sha512-M0CpcHf8TWn+4oTxJfh7LQuTuaYeXGbk0eageVjQCKzYLsajWS/lFC94qlRqOlyC2KvRT90ZrfXULYmukeIy7w==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@rollup/rollup-win32-x64-msvc@4.44.0':
+    resolution: {integrity: sha512-Q2Mgwt+D8hd5FIPUuPDsvPR7Bguza6yTkJxspDGkZj7tBRn2y4KSWYuIXpftFSjBra76TbKerCV7rgFPQrn+wQ==}
+    cpu: [x64]
+    os: [win32]
+
   '@stencil/core@2.22.3':
     resolution: {integrity: sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==}
     engines: {node: '>=12.10.0', npm: '>=6.0.0'}
+    hasBin: true
+
+  '@stencil/core@4.43.4':
+    resolution: {integrity: sha512-QWawMM1XIpSz4k+k+VyHZMr2YSxlCNAPWO/jTdJ+2kdgdN7ZQVEFZpc4WBm3E3mrDPTZ79lLcnIPa399bg4XOg==}
+    engines: {node: '>=16.0.0', npm: '>=7.10.0'}
     hasBin: true
 
   '@swc/helpers@0.5.21':
@@ -1073,8 +1122,8 @@ packages:
   '@tailwindcss/postcss@4.3.0':
     resolution: {integrity: sha512-Jm05Tjx+9yCLGv5qw1c+84Psds8MnyrEQYCB+FFk2lgGiUjlRqdxke4mVTuYrj2xnVZqKim2Apr5ySuQRYAw/w==}
 
-  '@telekom/design-tokens@1.0.0-beta.10':
-    resolution: {integrity: sha512-57BFgDxDkvOOrQf7wmS1u5jQmPRdhh6Y/qOHwTvYlS5GwGlkr3EeGeuwePL5pJ7z0jTnxEIVhmwbZnIx9AIX8w==}
+  '@telekom/design-tokens@1.0.0-beta.12':
+    resolution: {integrity: sha512-bsR4fnhsOpwVPrgPI4mj/0ZSPO8db9r4F2AC3kdUCtXbBTMbJxSW5rM42Gs4zjkfFI+VehSVOBIquqjfn/FhBw==}
 
   '@telekom/scale-components-react@3.0.0-beta.156':
     resolution: {integrity: sha512-0BNRz3C47CNa0wahUpdzDsQXiNBYWjac+oxPT8dNk/q2ke23+p82D4Sm3g1Zrrhh+7be5kKsUqyOvVTo//wlsg==}
@@ -1082,8 +1131,8 @@ packages:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
 
-  '@telekom/scale-components@3.0.0-beta.156':
-    resolution: {integrity: sha512-H8Dml6tKjaCYDBXr4TWaGv5u457C9dMTm6ZuTnhWMzaQBESxK0lYOuUGrQmN1IiX8mHYSzjQuIpwIRlZ1nyrkw==}
+  '@telekom/scale-components@3.0.0-beta.160':
+    resolution: {integrity: sha512-+1sqkEbYFFj3YenjboZxYDxg+Tcpo0UNfYL83wsBS31IrIG1LaEo6UNIlFM6e4fUToXhVHnGUo4SQF98L6rEHA==}
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -4365,7 +4414,42 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
+  '@rollup/rollup-darwin-arm64@4.44.0':
+    optional: true
+
+  '@rollup/rollup-darwin-x64@4.44.0':
+    optional: true
+
+  '@rollup/rollup-linux-arm64-gnu@4.44.0':
+    optional: true
+
+  '@rollup/rollup-linux-arm64-musl@4.44.0':
+    optional: true
+
+  '@rollup/rollup-linux-x64-gnu@4.44.0':
+    optional: true
+
+  '@rollup/rollup-linux-x64-musl@4.44.0':
+    optional: true
+
+  '@rollup/rollup-win32-arm64-msvc@4.44.0':
+    optional: true
+
+  '@rollup/rollup-win32-x64-msvc@4.44.0':
+    optional: true
+
   '@stencil/core@2.22.3': {}
+
+  '@stencil/core@4.43.4':
+    optionalDependencies:
+      '@rollup/rollup-darwin-arm64': 4.44.0
+      '@rollup/rollup-darwin-x64': 4.44.0
+      '@rollup/rollup-linux-arm64-gnu': 4.44.0
+      '@rollup/rollup-linux-arm64-musl': 4.44.0
+      '@rollup/rollup-linux-x64-gnu': 4.44.0
+      '@rollup/rollup-linux-x64-musl': 4.44.0
+      '@rollup/rollup-win32-arm64-msvc': 4.44.0
+      '@rollup/rollup-win32-x64-msvc': 4.44.0
 
   '@swc/helpers@0.5.21':
     dependencies:
@@ -4440,7 +4524,7 @@ snapshots:
       postcss: 8.5.14
       tailwindcss: 4.3.0
 
-  '@telekom/design-tokens@1.0.0-beta.10': {}
+  '@telekom/design-tokens@1.0.0-beta.12': {}
 
   '@telekom/scale-components-react@3.0.0-beta.156(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
@@ -4451,12 +4535,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@telekom/scale-components@3.0.0-beta.156':
+  '@telekom/scale-components@3.0.0-beta.160':
     dependencies:
       '@duetds/date-picker': 1.2.0
       '@floating-ui/dom': 1.7.6
-      '@stencil/core': 2.22.3
-      '@telekom/design-tokens': 1.0.0-beta.10
+      '@stencil/core': 4.43.4
+      '@telekom/design-tokens': 1.0.0-beta.12
       classnames: 2.5.1
       composed-offset-position: 0.0.4
       stencil-inline-svg: 1.1.0

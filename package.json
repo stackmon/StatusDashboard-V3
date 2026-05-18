@@ -38,7 +38,7 @@
     "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
     "core-js": "^3.49.0",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "globals": "^17.6.0",
     "postcss": "^8.5.14",
     "react-refresh": "^0.18.0",

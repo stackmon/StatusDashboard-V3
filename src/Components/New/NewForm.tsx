@@ -4,6 +4,7 @@ import { orderBy } from "lodash";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
 import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident } from "../Event/Enums";
@@ -67,7 +68,7 @@ export function NewForm() {
         <label className="text-sm font-medium text-gray-700">Description</label>
         <MdEditor
           placeholder="If there is any known information, please write it down here."
-          renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
+          renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
           value={State.description}
           onChange={({ text }) => Actions.setDescription(text)}
           plugins={MDDecsPlugins}

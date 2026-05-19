@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
 import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins, MDUpdatePlugins } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, GetStatusList, IsIncident, IsOpenStatus } from "./Enums";
@@ -122,7 +123,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           <label className="text-sm font-medium text-gray-700">Description</label>
           <MdEditor
             placeholder="Optional description for the event"
-            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
+            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
             value={State.description}
             onChange={({ text }) => Actions.setDescription(text)}
             plugins={MDDecsPlugins}
@@ -143,7 +144,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           <label className="text-sm font-medium text-gray-700">Update Message</label>
           <MdEditor
             placeholder="Message detailing the updates"
-            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
+            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
             value={State.update}
             onChange={({ text }) => Actions.setUpdate(text)}
             plugins={MDUpdatePlugins}

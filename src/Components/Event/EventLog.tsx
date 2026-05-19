@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 
@@ -52,8 +53,8 @@ export function EventLog({ Event }: { Event: Models.IEvent }) {
                 </div>
               </td>
 
-              <td className="text-pretty break-all w-full">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{history.Message}</ReactMarkdown>
+              <td className="prose text-pretty w-full">
+                <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{history.Message}</ReactMarkdown>
               </td>
             </tr>
           ))}

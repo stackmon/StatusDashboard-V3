@@ -56,6 +56,9 @@ importers:
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1
+      remark-ins:
+        specifier: ^1.2.4
+        version: 1.2.4(unified@11.0.5)
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
@@ -63,6 +66,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
+      '@tailwindcss/typography':
+        specifier: ^0.5.19
+        version: 0.5.19(tailwindcss@4.3.0)
       '@types/lodash':
         specifier: ^4.17.24
         version: 4.17.24
@@ -953,6 +959,11 @@ packages:
   '@tailwindcss/postcss@4.3.0':
     resolution: {integrity: sha512-Jm05Tjx+9yCLGv5qw1c+84Psds8MnyrEQYCB+FFk2lgGiUjlRqdxke4mVTuYrj2xnVZqKim2Apr5ySuQRYAw/w==}
 
+  '@tailwindcss/typography@0.5.19':
+    resolution: {integrity: sha512-w31dd8HOx3k9vPtcQh5QHP9GwKcgbMp87j58qi6xgiBnFFtKEAgCWnDw4qUT8aHwkCp8bKvb/KGKWWHedP0AAg==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
+
   '@telekom/design-tokens@1.0.0-beta.10':
     resolution: {integrity: sha512-57BFgDxDkvOOrQf7wmS1u5jQmPRdhh6Y/qOHwTvYlS5GwGlkr3EeGeuwePL5pJ7z0jTnxEIVhmwbZnIx9AIX8w==}
 
@@ -1165,6 +1176,11 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
+
+  cssesc@3.0.0:
+    resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
+    engines: {node: '>=4'}
+    hasBin: true
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
@@ -1696,6 +1712,10 @@ packages:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
 
+  postcss-selector-parser@6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+
   postcss@8.5.14:
     resolution: {integrity: sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -1768,6 +1788,11 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
+
+  remark-ins@1.2.4:
+    resolution: {integrity: sha512-ZVGiyuAB2dIGCgOly2ikI+CjT63N84z7OG3tdpZyrAMF8xSAR1HiVGpYg/BQlIQizu2SCfdemC9hYIl/7kKr8w==}
+    peerDependencies:
+      unified: ^11
 
   remark-parse@11.0.0:
     resolution: {integrity: sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==}
@@ -1891,6 +1916,21 @@ packages:
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
+  unist-builder@4.0.0:
+    resolution: {integrity: sha512-wmRFnH+BLpZnTKpc5L7O67Kac89s9HMrtELpnNaE6TAobq5DTZZs5YaTQfAZBA9bFPECx2uVAPO31c+GVug8mg==}
+
+  unist-util-find-after@5.0.0:
+    resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
+
+  unist-util-find-all-after@5.0.0:
+    resolution: {integrity: sha512-nGmOYvTSdGcI4RvrUNfe0mOsqqbbJOtqCQsppsY9KZjmv3nwM3YRgNBwFPdZ8Y+iv9Z/2PDjR9u6u+uK62XTTg==}
+
+  unist-util-find-all-before@5.0.0:
+    resolution: {integrity: sha512-zir6a7GsXfdn4YAWR4F3hLNKZjTjLBJurdyquysvmX38xbftS1+qwvEhutxxHLq0Pp1tW5V1TDiuj+qluuOnKw==}
+
+  unist-util-find-between@1.2.1:
+    resolution: {integrity: sha512-40W6SCvWk8MO+OyAzM1Ap6nKawyM7klSapiKGZQAgyZNbyIFibKAjMk+fct9nC6GcIPRfthBh6udKYrggjnGhQ==}
+
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
 
@@ -1913,6 +1953,9 @@ packages:
     resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  util-deprecate@1.0.2:
+    resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
   vfile-message@4.0.3:
     resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==}
@@ -3395,6 +3438,11 @@ snapshots:
       postcss: 8.5.14
       tailwindcss: 4.3.0
 
+  '@tailwindcss/typography@0.5.19(tailwindcss@4.3.0)':
+    dependencies:
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 4.3.0
+
   '@telekom/design-tokens@1.0.0-beta.10': {}
 
   '@telekom/scale-components-react@3.0.0-beta.156(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
@@ -3638,6 +3686,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  cssesc@3.0.0: {}
 
   csstype@3.2.3: {}
 
@@ -4337,6 +4387,11 @@ snapshots:
 
   picomatch@4.0.4: {}
 
+  postcss-selector-parser@6.0.10:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+
   postcss@8.5.14:
     dependencies:
       nanoid: 3.3.12
@@ -4427,6 +4482,17 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-ins@1.2.4(unified@11.0.5):
+    dependencies:
+      '@types/mdast': 4.0.4
+      unified: 11.0.5
+      unist-builder: 4.0.0
+      unist-util-find-after: 5.0.0
+      unist-util-find-all-after: 5.0.0
+      unist-util-find-all-before: 5.0.0
+      unist-util-find-between: 1.2.1
+      unist-util-visit: 5.1.0
 
   remark-parse@11.0.0:
     dependencies:
@@ -4573,6 +4639,30 @@ snapshots:
       trough: 2.2.0
       vfile: 6.0.3
 
+  unist-builder@4.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+
+  unist-util-find-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-all-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-all-before@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-between@1.2.1:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
   unist-util-is@6.0.1:
     dependencies:
       '@types/unist': 3.0.3
@@ -4603,6 +4693,8 @@ snapshots:
   use-sync-external-store@1.6.0(react@19.2.6):
     dependencies:
       react: 19.2.6
+
+  util-deprecate@1.0.2: {}
 
   vfile-message@4.0.3:
     dependencies:

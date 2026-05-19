@@ -3,28 +3,11 @@ import dayjs from "dayjs";
 import { orderBy } from "lodash";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
-import { Dic } from "~/Helpers/Entities";
+import remarkGfm from 'remark-gfm';
+import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
-
-const descPlugins = [
-  'font-bold',
-  'font-italic',
-  'font-underline',
-  'font-strikethrough',
-  'list-unordered',
-  'list-ordered',
-  'block-quote',
-  'block-wrap',
-  'block-code-inline',
-  'block-code-block',
-  'table',
-  'link',
-  'clear',
-  'logger',
-  'mode-toggle'
-];
 
 /**
  * Represents a form component for creating a new event.
@@ -83,12 +66,18 @@ export function NewForm() {
       <div className="flex flex-col gap-y-2">
         <label className="text-sm font-medium text-gray-700">Description</label>
         <MdEditor
-          style={{ width: '100%' }}
           placeholder="If there is any known information, please write it down here."
-          renderHTML={(text) => <ReactMarkdown>{text}</ReactMarkdown>}
+          renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
           value={State.description}
           onChange={({ text }) => Actions.setDescription(text)}
-          plugins={descPlugins}
+          plugins={MDDecsPlugins}
+          config={{
+            view: {
+              menu: true,
+              md: true,
+              html: false
+            }
+          }}
         />
         {Validation.description && (
           <ScaleHelperText variant="danger" helperText={Validation.description} />

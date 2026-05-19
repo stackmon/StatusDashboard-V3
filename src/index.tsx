@@ -1,4 +1,5 @@
 import "@telekom/scale-components/dist/scale-components/scale-components.css";
+import 'react-markdown-editor-lite/lib/index.css';
 import "./index.css";
 
 import { defineCustomElements } from "@telekom/scale-components/loader";

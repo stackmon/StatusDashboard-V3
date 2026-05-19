@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import ReactMarkdown from "react-markdown";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { Authorized } from "../Auth/With";
@@ -92,9 +93,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           {Event.Description &&
-            <label className="text-xl font-medium text-slate-700 break-all">
-              {Event.Description}
-            </label>}
+            <div className="text-xl font-medium text-slate-700 w-full">
+              <ReactMarkdown>{Event.Description}</ReactMarkdown>
+            </div>}
         </div>
       </div>
 

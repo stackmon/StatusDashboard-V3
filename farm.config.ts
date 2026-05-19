@@ -23,6 +23,7 @@ export default defineConfig((cfg) => {
     plugins: ["@farmfe/plugin-react", farmPostcssPlugin()],
     compilation: {
       resolve: {
+        symlinks: false,
         alias: {
           "~/": path.join(process.cwd(), "src"),
         }
@@ -33,7 +34,8 @@ export default defineConfig((cfg) => {
     server: {
       proxy: {
         "/auth": {
-          target: "http://localhost:8000",
+          // target: "http://localhost:8000",
+          target: "https://api.test.status.otc-service.com",
           changeOrigin: true
         },
         "/v2": {

@@ -1,10 +1,30 @@
-import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextField } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
+import ReactMarkdown from 'react-markdown';
+import MdEditor from 'react-markdown-editor-lite';
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
+
+const descPlugins = [
+  'font-bold',
+  'font-italic',
+  'font-underline',
+  'font-strikethrough',
+  'list-unordered',
+  'list-ordered',
+  'block-quote',
+  'block-wrap',
+  'block-code-inline',
+  'block-code-block',
+  'table',
+  'link',
+  'clear',
+  'logger',
+  'mode-toggle'
+];
 
 /**
  * Represents a form component for creating a new event.
@@ -60,15 +80,20 @@ export function NewForm() {
         helperText={Validation.title}
       />
 
-      <ScaleTextarea
-        placeholder="If there is any known information, please write it down here."
-        resize="vertical"
-        label="Description"
-        value={State.description}
-        onScale-input={(e) => Actions.setDescription(e.target.value as string)}
-        invalid={!!Validation.description}
-        helperText={Validation.description}
-      />
+      <div className="flex flex-col gap-y-2">
+        <label className="text-sm font-medium text-gray-700">Description</label>
+        <MdEditor
+          style={{ width: '100%' }}
+          placeholder="If there is any known information, please write it down here."
+          renderHTML={(text) => <ReactMarkdown>{text}</ReactMarkdown>}
+          value={State.description}
+          onChange={({ text }) => Actions.setDescription(text)}
+          plugins={descPlugins}
+        />
+        {Validation.description && (
+          <ScaleHelperText variant="danger" helperText={Validation.description} />
+        )}
+      </div>
 
       <ScaleTable>
         <div className="max-h-64 overflow-auto">

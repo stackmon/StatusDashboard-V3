@@ -1,2 +1,7 @@
 allowBuilds:
   core-js: true
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@types/node@25.9.1'
+  - '@types/react@19.2.15'
+  - postcss@8.5.15

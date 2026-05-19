@@ -23,6 +23,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-helmet": "^6.1.0",
+    "react-markdown-editor-lite": "^1.4.2",
     "react-oidc-context": "^3.3.1",
     "rxjs": "^7.8.2"
   },
@@ -33,18 +34,18 @@
     "@farmfe/plugin-react": "^1.2.6",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
     "core-js": "^3.49.0",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "globals": "^17.6.0",
     "postcss": "^8.5.14",
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.3.0",
     "tailwindcss-scoped-preflight": "^4.0.6",
-    "typescript-eslint": "^8.59.3"
+    "typescript-eslint": "^8.59.4"
   },
   "packageManager": "pnpm@11.1.1"
 }

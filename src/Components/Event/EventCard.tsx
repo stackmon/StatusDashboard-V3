@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { Authorized } from "../Auth/With";
+import { Authorized, Roles } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
@@ -42,7 +42,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           <div className="flex gap-x-3">
             <Authorized rules={(groups) => {
               return Event.Status === EventStatus.PendingReview &&
-                groups.some(g => g === "/sd_operators" || g === "/sd_admins");
+                groups.some(g => g === Roles.Operators || g === Roles.Admins);
             }}>
               <EventApprove Event={Event} />
             </Authorized>

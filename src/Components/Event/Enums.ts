@@ -1,4 +1,5 @@
 import { StatusEnum } from "~/Services/Status.Entities";
+import { Roles } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -90,11 +91,16 @@ export enum EventStatus {
 /**
  * @author Aloento
  * @since 1.1.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function GetStatusList(type: EventType, status?: EventStatus, groups?: string[]): EventStatus[] {
-  if (groups && status === EventStatus.PendingReview && groups.some(g => g === "/sd_creators")) {
-    return [EventStatus.PendingReview, EventStatus.Cancelled];
+  if (groups && status === EventStatus.PendingReview) {
+    if (groups.some(g => g === Roles.Creators)) {
+      return [EventStatus.PendingReview, EventStatus.Cancelled];
+    }
+    if (groups.some(g => g === Roles.Operators || g === Roles.Admins)) {
+      return [EventStatus.PendingReview, ...Object.values(EventStatus).slice(5, 10)];
+    }
   }
 
   switch (type) {

@@ -45,10 +45,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
                 groups.some(g => g === Roles.Operators || g === Roles.Admins);
             }}>
               <EventApprove Event={Event} />
-              {
-                Event.RegionServices.size > 1 &&
-                <EventExtract Event={Event} />
-              }
+            </Authorized>
+
+            <Authorized rules={(groups) => {
+              return Event.RegionServices.size > 1 &&
+                groups.some(g => g === Roles.Operators || g === Roles.Admins);
+            }}>
+              <EventExtract Event={Event} />
             </Authorized>
 
             <EventEditor Event={Event} />

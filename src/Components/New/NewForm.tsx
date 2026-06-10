@@ -181,7 +181,7 @@ export function NewForm() {
       >
         <div className="flex flex-col gap-y-4">
           <p className="text-base font-semibold text-red-700">
-            Maintenance start time is earlier than the recommended 36 hours.
+            The maintenance start time is earlier than the recommended 36-hour notice period, to give customers a chance to plan accordingly.
           </p>
           <p className="text-base text-slate-700">
             Selected: {dayjs(State.start).format("YYYY-MM-DD HH:mm")}

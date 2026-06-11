@@ -15,7 +15,7 @@ import { useRouter } from "../Router";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function useNewForm() {
   const { DB, Update } = useStatus();
@@ -57,6 +57,8 @@ export function useNewForm() {
 
     _setType(value);
     setValType(undefined);
+    setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
 
     if (IsIncident(value)) {
       _setEnd(undefined);
@@ -69,6 +71,11 @@ export function useNewForm() {
   const [valDescription, setValDescription] = useState<string>();
   function setDescription(value = description) {
     let err: boolean = false;
+
+    if (type === EventType.Maintenance && !value) {
+      setValDescription("Description is required for maintenance.");
+      err = true;
+    }
 
     if (value && (value.length < 10 || value.length > 500)) {
       setValDescription("Description must be between 10 and 500 characters.");
@@ -84,7 +91,16 @@ export function useNewForm() {
 
   const [start, _setStart] = useState(new Date());
   const [valStart, setValStart] = useState<string>();
-  function setStart(value = start) {
+  const [isShortConfirmed, setIsShortConfirmed] = useState(false);
+  const [startNeedsConfirm, setStartNeedsConfirm] = useState(false);
+
+  function dismissStartConfirm() {
+    setStartNeedsConfirm(false);
+    setIsShortConfirmed(false);
+  }
+
+  function setStart(value = start, options: { resetConfirm?: boolean } = {}) {
+    const { resetConfirm = true } = options;
     let err: boolean = false;
 
     const now = new Date();
@@ -101,6 +117,10 @@ export function useNewForm() {
       setValStart(undefined);
     }
     _setStart(value);
+    if (resetConfirm) {
+      setIsShortConfirmed(false);
+      setStartNeedsConfirm(false);
+    }
 
     return !err;
   }
@@ -126,7 +146,34 @@ export function useNewForm() {
   useEffect(() => {
     setStart();
     setEnd();
-  }, [start, end]);
+    setContactEmail();
+  }, [start, end, type]);
+
+  const [contactEmail, _setContactEmail] = useState("");
+  const [valContactEmail, setValContactEmail] = useState<string>();
+  function setContactEmail(value = contactEmail) {
+    let err: boolean = false;
+
+    if (type === EventType.Maintenance && !value) {
+      setValContactEmail("Contact Email is required for maintenance.");
+      err = true;
+    }
+
+    if (value && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setValContactEmail("Please enter a valid email address.");
+      err = true;
+    }
+
+    if (value && value.length > 100) {
+      setValContactEmail("Email must be less than 100 characters.");
+      err = true;
+    }
+
+    _setContactEmail(value);
+    !err && setValContactEmail(undefined);
+
+    return !err;
+  }
 
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
   const [valServices, setValServices] = useState<string>();
@@ -150,12 +197,25 @@ export function useNewForm() {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setDescription(), setStart(), setEnd(), setServices()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices(), setContactEmail()].every(Boolean)) {
       return;
     }
 
+    const now = new Date();
+    const minMaintenanceStart = new Date(now.getTime() + 36 * 60 * 60 * 1000);
+    const isShortMaintenanceStart = type === EventType.Maintenance && start < minMaintenanceStart;
+
+    if (isShortMaintenanceStart && !isShortConfirmed) {
+      setStartNeedsConfirm(true);
+      setIsShortConfirmed(true);
+      return;
+    }
+
+    setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
+
     const status = IsIncident(type)
-      ? EventStatus.Detected : EventStatus.Planned
+      ? EventStatus.Detected : EventStatus.PendingReview
 
     const event: Models.IEvent = {
       Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
@@ -178,6 +238,10 @@ export function useNewForm() {
       impact: GetEventImpact(type),
       components: services.map(s => s.Id),
       start_date: start.toISOString()
+    }
+
+    if (type === EventType.Maintenance && contactEmail) {
+      body.contact_email = contactEmail;
     }
 
     if (!IsIncident(type) && end) {
@@ -215,7 +279,8 @@ export function useNewForm() {
       description,
       start,
       end,
-      services
+      services,
+      contactEmail
     },
     Actions: {
       setTitle,
@@ -223,15 +288,19 @@ export function useNewForm() {
       setDescription,
       setStart,
       setEnd,
-      setServices
+      setServices,
+      setContactEmail,
+      dismissStartConfirm
     },
     Validation: {
       title: valTitle,
       type: valType,
       description: valDescription,
       start: valStart,
+      startNeedsConfirm,
       end: valEnd,
-      services: valServices
+      services: valServices,
+      contactEmail: valContactEmail
     },
     OnSubmit: runAsync,
     Loading: loading

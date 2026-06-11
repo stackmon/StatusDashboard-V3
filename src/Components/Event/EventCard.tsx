@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { Authorized } from "../Auth/With";
+import { Authorized, Roles } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
+import { EventApprove } from "./EventApprove";
 import { EventEditor } from "./EventEditor";
 import { EventExtract } from "./EventExtract";
 
@@ -23,7 +24,7 @@ import { EventExtract } from "./EventExtract";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
   return (
@@ -39,10 +40,20 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
         <Authorized>
           <div className="flex gap-x-3">
-            {
-              Event.RegionServices.size > 1 &&
+            <Authorized rules={(groups) => {
+              return Event.Status === EventStatus.PendingReview &&
+                groups.some(g => g === Roles.Operators || g === Roles.Admins);
+            }}>
+              <EventApprove Event={Event} />
+            </Authorized>
+
+            <Authorized rules={(groups) => {
+              return Event.RegionServices.size > 1 &&
+                groups.some(g => g === Roles.Operators || g === Roles.Admins);
+            }}>
               <EventExtract Event={Event} />
-            }
+            </Authorized>
+
             <EventEditor Event={Event} />
           </div>
         </Authorized>
@@ -72,6 +83,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             <label className="text-xl font-medium text-slate-600">
               Description:
             </label>}
+
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-600">
+                Contact Email:
+              </label>}
+          </Authorized>
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -95,6 +113,15 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             <label className="text-xl font-medium text-slate-700 break-all">
               {Event.Description}
             </label>}
+
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-700 break-all">
+                <a href={`mailto:${Event.ContactEmail}`} className="text-blue-600 hover:text-blue-800 underline">
+                  {Event.ContactEmail}
+                </a>
+              </label>}
+          </Authorized>
         </div>
       </div>
 

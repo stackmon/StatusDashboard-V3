@@ -7,7 +7,7 @@ import { useEventExtract } from "./useEventExtract";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function EventExtract({ Event }: { Event: Models.IEvent }) {
   const { services, setServices, valServices, OnSubmit, Loading } = useEventExtract(Event);
@@ -16,7 +16,7 @@ export function EventExtract({ Event }: { Event: Models.IEvent }) {
   return <>
     <ScaleButton onClick={setTrue} size="small" variant="secondary">
       <ScaleIconActionExport />
-      Extract
+      &nbsp;Split Services
     </ScaleButton>
 
     <ScaleModal

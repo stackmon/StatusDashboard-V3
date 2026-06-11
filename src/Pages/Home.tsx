@@ -6,7 +6,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject, Subject } from "rxjs";
-import { EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
@@ -34,7 +34,7 @@ const log = new Logger("Home");
  * @component
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function Home() {
   const { DB } = useStatus();
@@ -90,11 +90,28 @@ export function Home() {
       : `${abnormalCount} components have issues, but don't worry, we are working on it.`
     : "All Systems Operational";
 
+  const pendingCount = useMemo(() => {
+    const events = chain(DB.Events)
+      .filter(e => e.Status === EventStatus.PendingReview)
+      .value();
+
+    log.debug("Pending Maintenance", events);
+    return events.length;
+  }, [DB]);
+
   return (
     <>
       <Helmet>
         <title>{Dic.Name} {Dic.Prod}</title>
       </Helmet>
+
+      {pendingCount > 0 && (
+        <ScaleNotification
+          heading={`You have ${pendingCount} maintenance events pending for review.`}
+          opened
+          variant="informational"
+        />
+      )}
 
       <ScaleNotification
         heading={heading}
@@ -115,10 +132,10 @@ export function Home() {
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
         <div className="flex items-center gap-x-2">
           <div className="Blink" />
-          <label>{update ? `Last Auto Update at ${dayjs(update).format(Dic.Time)}` : "Auto Refresh Enabled"}</label>
+          <label>{update ? `Last Auto Update at ${dayjs(update).format("HH:mm")}` : "Auto Refresh Enabled"}</label>
         </div>
 
-        <legend className="flex flex-wrap items-center gap-x-6 gap-y-2.5">
+        <legend className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
           {Object.values(EventType).map((state, i) => (
             <div key={i} className="flex gap-x-2">
               <Indicator Type={state} />

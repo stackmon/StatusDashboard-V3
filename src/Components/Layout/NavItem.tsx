@@ -16,7 +16,7 @@ export function NavItem({ Href, Label }: INavItem) {
   const path = Paths.at(0);
 
   return (
-    <ScaleTelekomNavItem aria-label={Label} {...Href.includes(path!) ? { active: true } : {}}>
+    <ScaleTelekomNavItem aria-label={Label} {...Href.startsWith(`/${path}`) ? { active: true } : {}}>
       <a href={Href}>{Label}</a>
     </ScaleTelekomNavItem>
   );

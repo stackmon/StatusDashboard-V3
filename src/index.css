@@ -14,3 +14,13 @@ img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
+
+.blue-dot {
+  position: absolute !important;
+  top: -10%;
+  right: -10%;
+}
+
+.with-dot {
+  position: relative;
+}

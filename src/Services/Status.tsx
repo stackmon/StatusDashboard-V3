@@ -1,5 +1,6 @@
 import { useMount, useRequest } from "ahooks";
-import { createContext, JSX, useContext, useState } from "react";
+import { createContext, JSX, useContext, useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { Subject } from "rxjs";
 import { Station } from "~/Helpers/Entities";
 import { Logger } from "~/Helpers/Logger";
@@ -46,6 +47,8 @@ await db.load(key);
 
 const log = new Logger("Service", key);
 
+let loading;
+
 /**
  * Custom hook to access the status context.
  *
@@ -58,20 +61,14 @@ const log = new Logger("Service", key);
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useStatus() {
   const ctx = useContext(CTX);
 
   if (db.Ins.Regions.length < 1) {
-    throw new Promise((res) => {
-      const i = setInterval(() => {
-        if (db.Ins.Regions.length > 0) {
-          clearInterval(i);
-          res(ctx);
-        }
-      }, 100);
-    });
+    loading ??= ctx.Refresh();
+    throw loading;
   }
 
   return ctx;
@@ -91,24 +88,26 @@ export function useStatus() {
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
+  const { isLoading, user } = useAuth();
 
   const url = process.env.SD_BACKEND_URL;
 
   const { runAsync } = useRequest(
     async () => {
       log.info(`Loading status data from v2...`);
+      const token = user?.access_token ? { headers: { Authorization: `Bearer ${user.access_token}` } } : {};
 
       const compLink = `${url}/v2/components`;
-      const compRes = await fetch(compLink);
+      const compRes = await fetch(compLink, token);
       const compData = await compRes.json();
 
       log.debug("Components Status loaded.", compData);
 
-      const first = await fetch(`${url}/v2/events?page=1&limit=50`);
+      const first = await fetch(`${url}/v2/events?page=1&limit=50`, token);
       const firstData = await first.json();
 
       const allEvents: EventEntityV2[] = [];
@@ -127,7 +126,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
           const eventLink = `${url}/v2/events?page=${page}&limit=50`;
 
           pagePromises.push(
-            fetch(eventLink)
+            fetch(eventLink, token)
               .then(res => res.json())
               .then(data => {
                 log.debug(`Loaded page ${page}/${totalPages}, events: ${data.data?.length || 0}`);
@@ -157,17 +156,21 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     }
   );
 
+  useEffect(() => {
+    if (!isLoading && user?.access_token) {
+      runAsync();
+    }
+  }, [user?.access_token, isLoading]);
+
   useMount(() => {
     const sub = Station.get<Subject<Date>>("Update", () => new Subject());
 
-    const scheduleNext = () => {
-      runAsync().then(() => {
-        sub.next(new Date());
-        setTimeout(scheduleNext, 60000);
-      });
-    };
+    const interval = setInterval(() => {
+      runAsync();
+      sub.next(new Date());
+    }, 60000);
 
-    scheduleNext();
+    return () => clearInterval(interval);
   });
 
   function update(data: IStatusContext = ins) {

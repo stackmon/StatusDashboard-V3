@@ -5,7 +5,7 @@ import { Models } from "~/Services/Status.Models";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function CategoryGroup({ Category }: { Category: Models.ICategory }) {
   const { Availa, Region } = useAvailability();
@@ -24,6 +24,10 @@ export function CategoryGroup({ Category }: { Category: Models.ICategory }) {
         ? "amber" : "rose";
 
     return `bg-${color}-100 hover:bg-${color}-200`;
+  }
+
+  if (!avas.length) {
+    return null;
   }
 
   return <>

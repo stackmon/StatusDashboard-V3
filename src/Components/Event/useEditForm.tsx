@@ -1,3 +1,4 @@
+import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -23,7 +24,7 @@ import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, Is
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.2
  */
 export function useEditForm(event: Models.IEvent) {
   const [title, _setTitle] = useState(event.Title);
@@ -96,6 +97,11 @@ export function useEditForm(event: Models.IEvent) {
   function setDescription(value = description) {
     let err: boolean = false;
 
+    if (type === EventType.Maintenance && !value) {
+      setValDescription("Description is required for maintenance.");
+      err = true;
+    }
+
     if (value && value.length > 500) {
       setValDescription("Description must be less than 500 characters.");
       err = true;
@@ -103,6 +109,32 @@ export function useEditForm(event: Models.IEvent) {
 
     _setDescription(value);
     !err && setValDescription(undefined);
+
+    return !err;
+  }
+
+  const [contactEmail, _setContactEmail] = useState(event.ContactEmail || "");
+  const [valContactEmail, setValContactEmail] = useState<string>();
+  function setContactEmail(value = contactEmail) {
+    let err: boolean = false;
+
+    if (type === EventType.Maintenance && !value) {
+      setValContactEmail("Contact Email is required for maintenance.");
+      err = true;
+    }
+
+    if (value && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setValContactEmail("Please enter a valid email address.");
+      err = true;
+    }
+
+    if (value && value.length > 100) {
+      setValContactEmail("Email must be less than 100 characters.");
+      err = true;
+    }
+
+    _setContactEmail(value);
+    !err && setValContactEmail(undefined);
 
     return !err;
   }
@@ -185,10 +217,11 @@ export function useEditForm(event: Models.IEvent) {
   }, [start, end]);
 
   const getToken = useAccessToken();
+  const { dispatchToast } = useToastController();
   const { DB, Update } = useStatus();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setUpdate(), setDescription(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
+    if (![setTitle(), setType(), setUpdate(), setDescription(), setContactEmail(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
     const url = process.env.SD_BACKEND_URL!;
@@ -200,6 +233,11 @@ export function useEditForm(event: Models.IEvent) {
       message: update,
       update_date: updateAt.toISOString(),
       description,
+    };
+
+    if (type === EventType.Maintenance && contactEmail) {
+      body.contact_email = contactEmail;
+      body.version = event.Version ?? event.Histories.size + 1;
     };
 
     if (event.Type !== type) {
@@ -234,7 +272,15 @@ export function useEditForm(event: Models.IEvent) {
     });
 
     if (!raw.ok) {
-      throw new Error("Failed to update event: " + await raw.text());
+      const message = await raw.text();
+      dispatchToast(
+        <Toast>
+          <ToastTitle>Failed to update event</ToastTitle>
+          <ToastBody>{message}</ToastBody>
+        </Toast>,
+        { intent: "warning" }
+      );
+      throw new Error("Failed to update event: " + message);
     }
 
     const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);
@@ -246,6 +292,7 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.Start = start;
       updatedEvent.End = end;
       updatedEvent.Description = description;
+      updatedEvent.ContactEmail = contactEmail;
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,
@@ -273,6 +320,7 @@ export function useEditForm(event: Models.IEvent) {
       type,
       update,
       description,
+      contactEmail,
       status,
       start,
       end,
@@ -283,6 +331,7 @@ export function useEditForm(event: Models.IEvent) {
       setType,
       setUpdate,
       setDescription,
+      setContactEmail,
       setStatus,
       setStart,
       setEnd,
@@ -293,6 +342,7 @@ export function useEditForm(event: Models.IEvent) {
       type: valType,
       update: valUpdate,
       description: valDescription,
+      contactEmail: valContactEmail,
       status: valStatus,
       start: valStart,
       end: valEnd,

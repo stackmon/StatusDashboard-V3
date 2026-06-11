@@ -121,6 +121,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           label="Description"
           placeholder="Optional description for the event"
           resize="vertical"
+          required={State.type === EventType.Maintenance}
           value={State.description}
           onScale-input={(e) => Actions.setDescription(e.target.value as string)}
           invalid={!!Validation.description}

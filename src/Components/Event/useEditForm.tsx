@@ -97,6 +97,11 @@ export function useEditForm(event: Models.IEvent) {
   function setDescription(value = description) {
     let err: boolean = false;
 
+    if (type === EventType.Maintenance && !value) {
+      setValDescription("Description is required for maintenance.");
+      err = true;
+    }
+
     if (value && value.length > 500) {
       setValDescription("Description must be less than 500 characters.");
       err = true;

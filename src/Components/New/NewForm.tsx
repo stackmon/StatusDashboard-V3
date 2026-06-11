@@ -65,6 +65,7 @@ export function NewForm() {
           placeholder="If there is any known information, please write it down here."
           resize="vertical"
           label="Description"
+          required={State.type === EventType.Maintenance}
           value={State.description}
           onScale-input={(e) => Actions.setDescription(e.target.value as string)}
           invalid={!!Validation.description}

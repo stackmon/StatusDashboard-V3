@@ -1,4 +1,7 @@
 import dayjs from "dayjs";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { Authorized } from "../Auth/With";
@@ -92,9 +95,9 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </label>
 
           {Event.Description &&
-            <label className="text-xl font-medium text-slate-700 break-all">
-              {Event.Description}
-            </label>}
+            <div className="prose prose-sm w-full text-pretty text-xl font-medium text-slate-700">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{Event.Description}</ReactMarkdown>
+            </div>}
         </div>
       </div>
 

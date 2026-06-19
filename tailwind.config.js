@@ -10,9 +10,12 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [scopedPreflightStyles({
-    isolationStrategy: isolateOutsideOfContainer([
-      '[class^="scale-"]',
-    ])
-  })],
+  plugins: [
+    scopedPreflightStyles({
+      isolationStrategy: isolateOutsideOfContainer([
+        '[class^="scale-"]',
+      ])
+    }),
+    require('@tailwindcss/typography')
+  ],
 };

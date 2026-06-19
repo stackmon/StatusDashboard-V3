@@ -1,7 +1,11 @@
-import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleTable, ScaleTextField } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
-import { Dic } from "~/Helpers/Entities";
+import ReactMarkdown from 'react-markdown';
+import MdEditor from 'react-markdown-editor-lite';
+import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
+import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
@@ -60,15 +64,26 @@ export function NewForm() {
         helperText={Validation.title}
       />
 
-      <ScaleTextarea
-        placeholder="If there is any known information, please write it down here."
-        resize="vertical"
-        label="Description"
-        value={State.description}
-        onScale-input={(e) => Actions.setDescription(e.target.value as string)}
-        invalid={!!Validation.description}
-        helperText={Validation.description}
-      />
+      <div className="flex flex-col gap-y-2">
+        <label className="text-sm font-medium text-gray-700">Description</label>
+        <MdEditor
+          placeholder="If there is any known information, please write it down here."
+          renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+          value={State.description}
+          onChange={({ text }) => Actions.setDescription(text)}
+          plugins={MDDecsPlugins}
+          config={{
+            view: {
+              menu: true,
+              md: true,
+              html: false
+            }
+          }}
+        />
+        {Validation.description && (
+          <ScaleHelperText variant="danger" helperText={Validation.description} />
+        )}
+      </div>
 
       <ScaleTable>
         <div className="max-h-64 overflow-auto">

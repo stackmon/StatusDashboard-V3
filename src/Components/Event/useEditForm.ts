@@ -96,8 +96,8 @@ export function useEditForm(event: Models.IEvent) {
   function setDescription(value = description) {
     let err: boolean = false;
 
-    if (value && value.length > 500) {
-      setValDescription("Description must be less than 500 characters.");
+    if (value && value.length > 1500) {
+      setValDescription("Description must be less than 1500 characters.");
       err = true;
     }
 

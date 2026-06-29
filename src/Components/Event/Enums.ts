@@ -1,4 +1,5 @@
 import { StatusEnum } from "~/Services/Status.Entities";
+import { Roles } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -64,7 +65,7 @@ export function IsIncident(type: EventType): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.1
  */
 export enum EventStatus {
   Detected = "Detected",
@@ -82,14 +83,26 @@ export enum EventStatus {
   Active = "Active",
   Reopened = "Reopened",
   Changed = "Changed",
+
+  PendingReview = "Pending Review",
+  Reviewed = "Reviewed",
 }
 
 /**
  * @author Aloento
  * @since 1.1.0
- * @version 0.1.1
+ * @version 0.3.0
  */
-export function GetStatusList(type: EventType): EventStatus[] {
+export function GetStatusList(type: EventType, status?: EventStatus, groups?: string[]): EventStatus[] {
+  if (groups && status === EventStatus.PendingReview) {
+    if (groups.some(g => g === Roles.Creators)) {
+      return [EventStatus.PendingReview, EventStatus.Cancelled];
+    }
+    if (groups.some(g => g === Roles.Operators || g === Roles.Admins)) {
+      return [EventStatus.PendingReview, ...Object.values(EventStatus).slice(5, 10)];
+    }
+  }
+
   switch (type) {
     case EventType.Maintenance:
       return Object.values(EventStatus).slice(5, 10);
@@ -112,7 +125,7 @@ export function IsOpenStatus(status: EventStatus): boolean {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function GetStatusString(status: EventStatus): string {
   switch (status) {
@@ -142,5 +155,9 @@ export function GetStatusString(status: EventStatus): string {
       return StatusEnum.Cancelled;
     case EventStatus.Active:
       return StatusEnum.Active;
+    case EventStatus.PendingReview:
+      return StatusEnum.PendingReview;
+    case EventStatus.Reviewed:
+      return StatusEnum.Reviewed;
   }
 }

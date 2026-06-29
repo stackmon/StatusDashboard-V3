@@ -75,6 +75,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             <label className="text-xl font-medium text-slate-600">
               Description:
             </label>}
+
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-600">
+                Contact Email:
+              </label>}
+          </Authorized>
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -98,6 +105,15 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             <div className="prose prose-sm w-full text-pretty text-xl font-medium text-slate-700">
               <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{Event.Description}</ReactMarkdown>
             </div>}
+
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-700 break-all">
+                <a href={`mailto:${Event.ContactEmail}`} className="text-blue-600 hover:text-blue-800 underline">
+                  {Event.ContactEmail}
+                </a>
+              </label>}
+          </Authorized>
         </div>
       </div>
 

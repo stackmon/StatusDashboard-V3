@@ -33,7 +33,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
   return <>
     <ScaleButton onClick={setTrue} size="small">
       <ScaleIconActionEdit />
-      Edit
+      &nbsp;Edit
     </ScaleButton>
 
     <ScaleModal
@@ -139,6 +139,18 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             <ScaleHelperText variant="danger" helperText={Validation.description} />
           )}
         </div>
+
+        {State.type === EventType.Maintenance && (
+          <ScaleTextField
+            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+            label="Contact Email"
+            type="email"
+            value={State.contactEmail || ""}
+            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+            invalid={!!Validation.contactEmail}
+            helperText={Validation.contactEmail}
+          />
+        )}
 
         <div className="flex flex-col gap-y-2">
           <label className="text-sm font-medium text-gray-700">Update Message</label>

@@ -15,7 +15,7 @@ import { useRouter } from "../Router";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.5
+ * @version 0.3.0
  */
 export function useNewForm() {
   const { DB, Update } = useStatus();
@@ -147,7 +147,35 @@ export function useNewForm() {
   useEffect(() => {
     setStart();
     setEnd();
-  }, [start, end]);
+    setContactEmail();
+  }, [start, end, type]);
+
+  const [contactEmail, _setContactEmail] = useState("");
+  const [valContactEmail, setValContactEmail] = useState<string>();
+
+  function setContactEmail(value = contactEmail) {
+    let err: boolean = false;
+
+    if (type === EventType.Maintenance && !value) {
+      setValContactEmail("Contact Email is required for maintenance.");
+      err = true;
+    }
+
+    if (value && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setValContactEmail("Please enter a valid email address.");
+      err = true;
+    }
+
+    if (value && value.length > 100) {
+      setValContactEmail("Email must be less than 100 characters.");
+      err = true;
+    }
+
+    _setContactEmail(value);
+    !err && setValContactEmail(undefined);
+
+    return !err;
+  }
 
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
   const [valServices, setValServices] = useState<string>();
@@ -171,7 +199,7 @@ export function useNewForm() {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices(), setContactEmail()].every(Boolean)) {
       return;
     }
 
@@ -214,6 +242,10 @@ export function useNewForm() {
       start_date: start.toISOString()
     }
 
+    if (type === EventType.Maintenance && contactEmail) {
+      body.contact_email = contactEmail;
+    }
+
     if (!IsIncident(type) && end) {
       body.end_date = end
     }
@@ -249,7 +281,8 @@ export function useNewForm() {
       description,
       start,
       end,
-      services
+      services,
+      contactEmail
     },
     Actions: {
       setTitle,
@@ -258,6 +291,7 @@ export function useNewForm() {
       setStart,
       setEnd,
       setServices,
+      setContactEmail,
       dismissStartConfirm
     },
     Validation: {
@@ -267,7 +301,8 @@ export function useNewForm() {
       start: valStart,
       startNeedsConfirm,
       end: valEnd,
-      services: valServices
+      services: valServices,
+      contactEmail: valContactEmail
     },
     OnSubmit: runAsync,
     Loading: loading

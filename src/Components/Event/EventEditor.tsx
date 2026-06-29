@@ -1,8 +1,12 @@
-import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleIconActionEdit, ScaleModal, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
+import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleIconActionEdit, ScaleModal, ScaleTextField } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
+import ReactMarkdown from 'react-markdown';
+import MdEditor from 'react-markdown-editor-lite';
 import { useAuth } from "react-oidc-context";
-import { Dic } from "~/Helpers/Entities";
+import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
+import { Dic, MDDecsPlugins, MDUpdatePlugins } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, GetStatusList, IsIncident, IsOpenStatus } from "./Enums";
 import { useEditForm } from "./useEditForm";
@@ -117,37 +121,47 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           helperText={Validation.updateAt}
         />
 
-        <ScaleTextarea
-          label="Description"
-          placeholder="Optional description for the event"
-          resize="vertical"
-          required={State.type === EventType.Maintenance}
-          value={State.description}
-          onScale-input={(e) => Actions.setDescription(e.target.value as string)}
-          invalid={!!Validation.description}
-          helperText={Validation.description}
-        />
-
-        {State.type === EventType.Maintenance && (
-          <ScaleTextField
-            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
-            label="Contact Email"
-            type="email"
-            value={State.contactEmail || ""}
-            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
-            invalid={!!Validation.contactEmail}
-            helperText={Validation.contactEmail}
+        <div className="flex flex-col gap-y-2">
+          <label className="text-sm font-medium text-gray-700">Description</label>
+          <MdEditor
+            placeholder="Optional description for the event"
+            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+            value={State.description}
+            onChange={({ text }) => Actions.setDescription(text)}
+            plugins={MDDecsPlugins}
+            config={{
+              view: {
+                menu: true,
+                md: true,
+                html: false
+              }
+            }}
           />
-        )}
+          {Validation.description && (
+            <ScaleHelperText variant="danger" helperText={Validation.description} />
+          )}
+        </div>
 
-        <ScaleTextarea
-          label="Update Message"
-          resize="vertical"
-          value={State.update}
-          onScale-input={(e) => Actions.setUpdate(e.target.value as string)}
-          invalid={!!Validation.update}
-          helperText={Validation.update}
-        />
+        <div className="flex flex-col gap-y-2">
+          <label className="text-sm font-medium text-gray-700">Update Message</label>
+          <MdEditor
+            placeholder="Message detailing the updates"
+            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+            value={State.update}
+            onChange={({ text }) => Actions.setUpdate(text)}
+            plugins={MDUpdatePlugins}
+            config={{
+              view: {
+                menu: true,
+                md: true,
+                html: false
+              }
+            }}
+          />
+          {Validation.update && (
+            <ScaleHelperText variant="danger" helperText={Validation.update} />
+          )}
+        </div>
 
         <div className="flex gap-x-3 self-end">
           <ScaleButton onClick={setFalse} variant="secondary" type="button">

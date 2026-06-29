@@ -77,8 +77,8 @@ export function useNewForm() {
       err = true;
     }
 
-    if (value && (value.length < 10 || value.length > 500)) {
-      setValDescription("Description must be between 10 and 500 characters.");
+    if (value && ([...value].length < 10 || [...value].length > 1500)) {
+      setValDescription("Description must be between 10 and 1500 characters.");
       err = true;
     }
 

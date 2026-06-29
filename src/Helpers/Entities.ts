@@ -17,6 +17,38 @@ export const Dic = {
 
 /**
  * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
+export const MDUpdatePlugins = [
+  'font-bold',
+  'font-italic',
+  'font-underline',
+  'font-strikethrough',
+  'block-code-inline',
+  'link',
+  'clear',
+  'logger',
+  'mode-toggle'
+];
+
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
+export const MDDecsPlugins = [
+  ...MDUpdatePlugins,
+  'list-unordered',
+  'list-ordered',
+  'block-quote',
+  'block-wrap',
+  'block-code-block',
+  'table',
+];
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 1.0.0
  */

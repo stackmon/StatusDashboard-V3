@@ -1,7 +1,11 @@
 import { ScaleButton, ScaleDropdownSelect, ScaleDropdownSelectItem, ScaleHelperText, ScaleModal, ScaleTable, ScaleTextarea, ScaleTextField } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
-import { Dic } from "~/Helpers/Entities";
+import ReactMarkdown from 'react-markdown';
+import MdEditor from 'react-markdown-editor-lite';
+import remarkGfm from 'remark-gfm';
+import remarkIns from 'remark-ins';
+import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
@@ -51,26 +55,26 @@ export function NewForm() {
             </ScaleDropdownSelectItem>)}
         </ScaleDropdownSelect>
 
-        <ScaleTextField
-          placeholder="Please give the title of event"
-          required
-          label="Title"
-          value={State.title}
-          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
-          invalid={!!Validation.title}
-          helperText={Validation.title}
-        />
-
-        <ScaleTextarea
-          placeholder="If there is any known information, please write it down here."
-          resize="vertical"
-          label="Description"
-          required={State.type === EventType.Maintenance}
-          value={State.description}
-          onScale-input={(e) => Actions.setDescription(e.target.value as string)}
-          invalid={!!Validation.description}
-          helperText={Validation.description}
-        />
+        <div className="flex flex-col gap-y-2">
+          <label className="text-sm font-medium text-gray-700">Description</label>
+          <MdEditor
+            placeholder="If there is any known information, please write it down here."
+            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+            value={State.description}
+            onChange={({ text }) => Actions.setDescription(text)}
+            plugins={MDDecsPlugins}
+            config={{
+              view: {
+                menu: true,
+                md: true,
+                html: false
+              }
+            }}
+          />
+          {Validation.description && (
+            <ScaleHelperText variant="danger" helperText={Validation.description} />
+          )}
+        </div>
 
         <ScaleTable>
           <div className="max-h-64 overflow-auto">
@@ -125,51 +129,116 @@ export function NewForm() {
             variant={Validation.services ? "danger" : "informational"}
             helperText={Validation.services || `Selected ${State.services.length} services`}
           />
-        </ScaleTable>
 
-        <ScaleTextField
-          type="datetime-local"
-          label="Start CET"
-          required
-          value={dayjs(State.start).format(Dic.Picker)}
-          onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
-          invalid={!!Validation.start}
-          helperText={Validation.start}
-        />
+          <ScaleTextarea
+            placeholder="If there is any known information, please write it down here."
+            resize="vertical"
+            label="Description"
+            required={State.type === EventType.Maintenance}
+            value={State.description}
+            onScale-input={(e) => Actions.setDescription(e.target.value as string)}
+            invalid={!!Validation.description}
+            helperText={Validation.description}
+          />
 
-        {!IsIncident(State.type) && (
+          <ScaleTable>
+            <div className="max-h-64 overflow-auto">
+              <table>
+                <caption className="text-left sticky top-0 bg-white">
+                  Affected Services
+                </caption>
+
+                <thead className="sticky top-6">
+                  <tr>
+                    <th>Name</th>
+                    {DB.Regions.map((region, i) => (
+                      <th key={i}>{region.Name}</th>
+                    ))}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {orderBy(DB.Services, x => x.Name).map((service, i) => (
+                    <tr key={i}>
+                      <td>{service.Name}</td>
+                      {DB.Regions.map((region, j) => {
+                        const rs = DB.RegionService.find(rs => rs.Service === service && rs.Region === region);
+
+                        return (
+                          <td key={j}>
+                            <input
+                              type="checkbox"
+                              disabled={!rs}
+                              onChange={(e) => {
+                                const checked = e.target.checked;
+
+                                Actions.setServices((curr) => {
+                                  if (checked) {
+                                    return [...curr, rs!];
+                                  }
+
+                                  return curr.filter(s => s !== rs);
+                                })
+                              }}
+                            />
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <ScaleHelperText
+              variant={Validation.services ? "danger" : "informational"}
+              helperText={Validation.services || `Selected ${State.services.length} services`}
+            />
+          </ScaleTable>
+
           <ScaleTextField
             type="datetime-local"
-            label="(Plan) End CET"
-            required={State.type === EventType.Maintenance}
-            value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
-            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
-            invalid={!!Validation.end}
-            helperText={Validation.end}
-          />
-        )}
-
-        {State.type === EventType.Maintenance && (
-          <ScaleTextField
-            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
-            label="Contact Email"
-            type="email"
+            label="Start CET"
             required
-            value={State.contactEmail || ""}
-            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
-            invalid={!!Validation.contactEmail}
-            helperText={Validation.contactEmail}
+            value={dayjs(State.start).format(Dic.Picker)}
+            onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+            invalid={!!Validation.start}
+            helperText={Validation.start}
           />
-        )}
 
-        <ScaleButton
-          class="self-end"
-          size="small"
-          type="submit"
-          disabled={Loading}
-        >
-          Submit
-        </ScaleButton>
+          {!IsIncident(State.type) && (
+            <ScaleTextField
+              type="datetime-local"
+              label="(Plan) End CET"
+              required={State.type === EventType.Maintenance}
+              value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
+              onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+              invalid={!!Validation.end}
+              helperText={Validation.end}
+            />
+          )}
+
+          {State.type === EventType.Maintenance && (
+            <ScaleTextField
+              placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+              label="Contact Email"
+              type="email"
+              required
+              value={State.contactEmail || ""}
+              onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+              invalid={!!Validation.contactEmail}
+              helperText={Validation.contactEmail}
+            />
+          )}
+
+          <ScaleButton
+            class="self-end"
+            size="small"
+            type="submit"
+            disabled={Loading}
+          >
+            Submit
+          </ScaleButton>
       </form>
 
       <ScaleModal

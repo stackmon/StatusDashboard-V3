@@ -102,8 +102,8 @@ export function useEditForm(event: Models.IEvent) {
       err = true;
     }
 
-    if (value && value.length > 500) {
-      setValDescription("Description must be less than 500 characters.");
+    if (value && ([...value].length < 10 || [...value].length > 1500)) {
+      setValDescription("Description must be between 10 and 1500 characters.");
       err = true;
     }
 

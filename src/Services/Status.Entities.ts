@@ -23,7 +23,7 @@ export const enum NameEnum {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.2
  */
 export interface EventEntityV2 {
   title: string;
@@ -36,6 +36,10 @@ export interface EventEntityV2 {
   updates?: UpdateEntityV2[];
   type: string;
   description?: string;
+  creator?: string;
+  contact_email?: string;
+  version?: number;
+  status?: StatusEnum;
 }
 
 interface UpdateEntityV2 {
@@ -48,7 +52,7 @@ interface UpdateEntityV2 {
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.1
+ * @version 0.3.1
  */
 export const enum StatusEnum {
   Analyzing = "analyzing",
@@ -60,6 +64,7 @@ export const enum StatusEnum {
   Description = "description",
   Fixing = "fixing",
   InProgress = "in progress",
+  InProgress2 = "in_progress",
   Modified = "modified",
   Observing = "observing",
   Reopened = "reopened",
@@ -69,4 +74,6 @@ export const enum StatusEnum {
   Planned = "planned",
   Cancelled = "cancelled",
   Active = "active",
+  PendingReview = "pending_review",
+  Reviewed = "reviewed",
 }

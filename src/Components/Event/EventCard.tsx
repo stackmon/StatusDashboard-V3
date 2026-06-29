@@ -71,17 +71,17 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
               "(Plan)"} End At:
           </label>
 
-          {Event.Description &&
-            <label className="text-xl font-medium text-slate-600">
-              Description:
-            </label>}
-
           <Authorized>
             {Event.ContactEmail &&
               <label className="text-xl font-medium text-slate-600">
                 Contact Email:
               </label>}
           </Authorized>
+
+          {Event.Description &&
+            <label className="text-xl font-medium text-slate-600">
+              Description:
+            </label>}
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -101,11 +101,6 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
 
-          {Event.Description &&
-            <div className="prose prose-sm w-full text-pretty text-xl font-medium text-slate-700">
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{Event.Description}</ReactMarkdown>
-            </div>}
-
           <Authorized>
             {Event.ContactEmail &&
               <label className="text-xl font-medium text-slate-700 break-all">
@@ -114,6 +109,11 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
                 </a>
               </label>}
           </Authorized>
+
+          {Event.Description &&
+            <div className="prose prose-sm w-full text-pretty text-xl font-medium text-slate-700">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{Event.Description}</ReactMarkdown>
+            </div>}
         </div>
       </div>
 

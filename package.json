@@ -10,7 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.74.1",
+    "@fluentui/react-components": "^9.74.2",
     "@telekom/scale-components": "3.0.0-beta.156",
     "@telekom/scale-components-react": "3.0.0-beta.156",
     "ahooks": "^3.9.7",
@@ -33,20 +33,20 @@
     "@tailwindcss/postcss": "^4.3.1",
     "@tailwindcss/typography": "^0.5.20",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^25.9.3",
+    "@types/node": "^25.9.4",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
-    "@vitejs/plugin-react": "^6.0.2",
+    "@vitejs/plugin-react": "^6.0.3",
     "core-js": "^3.49.0",
-    "eslint": "^10.5.0",
-    "globals": "^17.6.0",
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
     "postcss": "^8.5.15",
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.3.1",
     "tailwindcss-scoped-preflight": "^4.0.6",
-    "typescript-eslint": "^8.61.1",
-    "vite": "^8.0.16"
+    "typescript-eslint": "^8.62.0",
+    "vite": "^8.1.0"
   },
   "packageManager": "pnpm@11.8.0"
 }

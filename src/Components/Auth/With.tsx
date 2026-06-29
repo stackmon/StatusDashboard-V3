@@ -21,7 +21,7 @@ export const enum Roles {
 export function Authorized({ children, rules }: { children: ReactNode, rules?: (groups: string[]) => boolean }): ReactNode {
   const auth = useAuth();
 
-  if (auth.isAuthenticated || process.env.NODE_ENV === "development") {
+  if (auth.isAuthenticated) {
     if (rules && !rules((auth.user?.profile as any)?.groups as string[] || [])) {
       return null;
     }

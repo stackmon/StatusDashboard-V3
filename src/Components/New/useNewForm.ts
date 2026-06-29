@@ -15,7 +15,7 @@ import { useRouter } from "../Router";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.5
  */
 export function useNewForm() {
   const { DB, Update } = useStatus();
@@ -57,6 +57,8 @@ export function useNewForm() {
 
     _setType(value);
     setValType(undefined);
+    setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
 
     if (IsIncident(value)) {
       _setEnd(undefined);
@@ -89,7 +91,16 @@ export function useNewForm() {
 
   const [start, _setStart] = useState(new Date());
   const [valStart, setValStart] = useState<string>();
-  function setStart(value = start) {
+  const [isShortConfirmed, setIsShortConfirmed] = useState(false);
+  const [startNeedsConfirm, setStartNeedsConfirm] = useState(false);
+
+  function dismissStartConfirm() {
+    setStartNeedsConfirm(false);
+    setIsShortConfirmed(false);
+  }
+
+  function setStart(value = start, options: { resetConfirm?: boolean } = {}) {
+    const { resetConfirm = true } = options;
     let err: boolean = false;
 
     const now = new Date();
@@ -106,6 +117,11 @@ export function useNewForm() {
       setValStart(undefined);
     }
     _setStart(value);
+
+    if (resetConfirm) {
+      setIsShortConfirmed(false);
+      setStartNeedsConfirm(false);
+    }
 
     return !err;
   }
@@ -155,12 +171,25 @@ export function useNewForm() {
   const getToken = useAccessToken();
 
   const { runAsync, loading } = useRequest(async () => {
-    if (![setTitle(), setType(), setDescription(), setStart(), setEnd(), setServices()].every(Boolean)) {
+    if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices()].every(Boolean)) {
       return;
     }
 
+    const now = new Date();
+    const minMaintenanceStart = new Date(now.getTime() + 36 * 60 * 60 * 1000);
+    const isShortMaintenanceStart = type === EventType.Maintenance && start < minMaintenanceStart;
+
+    if (isShortMaintenanceStart && !isShortConfirmed) {
+      setStartNeedsConfirm(true);
+      setIsShortConfirmed(true);
+      return;
+    }
+
+    setIsShortConfirmed(false);
+    setStartNeedsConfirm(false);
+
     const status = IsIncident(type)
-      ? EventStatus.Detected : EventStatus.Planned
+      ? EventStatus.Detected : EventStatus.PendingReview
 
     const event: Models.IEvent = {
       Id: Math.max(...DB.Events.map(event => event.Id), 0) + 1,
@@ -228,13 +257,15 @@ export function useNewForm() {
       setDescription,
       setStart,
       setEnd,
-      setServices
+      setServices,
+      dismissStartConfirm
     },
     Validation: {
       title: valTitle,
       type: valType,
       description: valDescription,
       start: valStart,
+      startNeedsConfirm,
       end: valEnd,
       services: valServices
     },

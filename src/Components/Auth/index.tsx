@@ -27,7 +27,7 @@ const log = new Logger("Auth");
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 1.1.0
+ * @version 1.0.0
  */
 function AuthHandler() {
   const auth = useAuth();

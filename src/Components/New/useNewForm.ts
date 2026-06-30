@@ -122,6 +122,11 @@ export function useNewForm() {
       setStartNeedsConfirm(false);
     }
 
+    if (resetConfirm) {
+      setIsShortConfirmed(false);
+      setStartNeedsConfirm(false);
+    }
+
     return !err;
   }
 
@@ -151,6 +156,7 @@ export function useNewForm() {
 
   const [contactEmail, _setContactEmail] = useState("");
   const [valContactEmail, setValContactEmail] = useState<string>();
+
   function setContactEmail(value = contactEmail) {
     let err: boolean = false;
 

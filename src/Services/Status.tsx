@@ -1,5 +1,5 @@
 import { useMount, useRequest } from "ahooks";
-import { createContext, JSX, useContext, useEffect, useState } from "react";
+import { createContext, JSX, useContext, useRef, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { Subject } from "rxjs";
 import { Station } from "~/Helpers/Entities";
@@ -88,18 +88,26 @@ export function useStatus() {
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
-  const { isLoading, user } = useAuth();
+
+  const auth = useAuth();
+  const authRef = useRef(auth);
+  authRef.current = auth;
 
   const url = process.env.SD_BACKEND_URL;
 
   const { runAsync } = useRequest(
     async () => {
+      while (authRef.current.isLoading) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+
       log.info(`Loading status data from v2...`);
-      const token = user?.access_token ? { headers: { Authorization: `Bearer ${user.access_token}` } } : {};
+      const token = authRef.current?.user?.access_token ?
+        { headers: { Authorization: `Bearer ${authRef.current.user.access_token}` } } : {};
 
       const compLink = `${url}/v2/components`;
       const compRes = await fetch(compLink, token);
@@ -155,12 +163,6 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       onSuccess: (res) => update(TransformerV2(res)),
     }
   );
-
-  useEffect(() => {
-    if (!isLoading && user?.access_token) {
-      runAsync();
-    }
-  }, [user?.access_token, isLoading]);
 
   useMount(() => {
     const sub = Station.get<Subject<Date>>("Update", () => new Subject());

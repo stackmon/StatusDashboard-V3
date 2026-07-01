@@ -71,6 +71,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
               "(Plan)"} End At:
           </label>
 
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-600">
+                Contact Email:
+              </label>}
+          </Authorized>
+
           {Event.Description &&
             <label className="text-xl font-medium text-slate-600">
               Description:
@@ -93,6 +100,15 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           <label className="text-xl font-medium text-slate-700">
             {Event.End ? dayjs(Event.End).tz(Dic.TZ).format(Dic.TimeTZ) : "Still Ongoing"}
           </label>
+
+          <Authorized>
+            {Event.ContactEmail &&
+              <label className="text-xl font-medium text-slate-700 break-all">
+                <a href={`mailto:${Event.ContactEmail}`} className="text-blue-600 hover:text-blue-800 underline">
+                  {Event.ContactEmail}
+                </a>
+              </label>}
+          </Authorized>
 
           {Event.Description &&
             <div className="prose prose-sm w-full text-pretty text-xl font-medium text-slate-700">

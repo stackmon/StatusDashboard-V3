@@ -163,6 +163,19 @@ export function NewForm() {
           />
         )}
 
+        {State.type === EventType.Maintenance && (
+          <ScaleTextField
+            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+            label="Contact Email"
+            type="email"
+            required
+            value={State.contactEmail || ""}
+            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+            invalid={!!Validation.contactEmail}
+            helperText={Validation.contactEmail}
+          />
+        )}
+
         <ScaleButton
           class="self-end"
           size="small"

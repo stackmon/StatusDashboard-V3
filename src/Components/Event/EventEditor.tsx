@@ -3,6 +3,7 @@ import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
+import { useAuth } from "react-oidc-context";
 import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins, MDUpdatePlugins } from "~/Helpers/Entities";
@@ -24,16 +25,17 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
+  const auth = useAuth();
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
       <ScaleIconActionEdit />
-      Edit
+      &nbsp;Edit
     </ScaleButton>
 
     <ScaleModal
@@ -83,7 +85,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           invalid={!!Validation.status}
           helperText={Validation.status}
         >
-          {GetStatusList(State.type)
+          {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
             .map((status, i) =>
               <ScaleDropdownSelectItem value={status} key={i}>
                 {status}

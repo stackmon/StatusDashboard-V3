@@ -12,7 +12,7 @@ export const Dic = {
   TZ: "Europe/Berlin",
   Time: "DD MMM YY, HH:mm",
   TimeTZ: "DD MMM YYYY, HH:mm [CET]",
-  Picker: "YYYY-MM-DDTHH:mm:ss"
+  Picker: "YYYY-MM-DDTHH:mm"
 };
 
 /**

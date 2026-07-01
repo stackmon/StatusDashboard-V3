@@ -117,6 +117,10 @@ export function useNewForm() {
       setValStart(undefined);
     }
     _setStart(value);
+    if (resetConfirm) {
+      setIsShortConfirmed(false);
+      setStartNeedsConfirm(false);
+    }
 
     if (resetConfirm) {
       setIsShortConfirmed(false);

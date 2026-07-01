@@ -88,34 +88,40 @@ export function useStatus() {
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
 
   const auth = useAuth();
-  const authRef = useRef(auth);
-  authRef.current = auth;
-
+  const abortRef = useRef<AbortController | null>(null);
   const url = process.env.SD_BACKEND_URL;
 
   const { runAsync } = useRequest(
     async () => {
-      while (authRef.current.isLoading) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
+      abortRef.current?.abort();
+      abortRef.current = new AbortController();
+      const { signal } = abortRef.current;
 
       log.info(`Loading status data from v2...`);
-      const token = authRef.current?.user?.access_token ?
-        { headers: { Authorization: `Bearer ${authRef.current.user.access_token}` } } : {};
+      const token: RequestInit = auth.user?.access_token
+        ? {
+          headers: {
+            Authorization: `Bearer ${auth.user.access_token}`
+          },
+          signal
+        }
+        : {};
 
       const compLink = `${url}/v2/components`;
       const compRes = await fetch(compLink, token);
+      signal.throwIfAborted();
       const compData = await compRes.json();
 
       log.debug("Components Status loaded.", compData);
 
       const first = await fetch(`${url}/v2/events?page=1&limit=50`, token);
+      signal.throwIfAborted();
       const firstData = await first.json();
 
       const allEvents: EventEntityV2[] = [];
@@ -145,6 +151,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
         const remainingPages = await Promise.all(pagePromises);
         remainingPages.forEach(pageData => {
+          signal.throwIfAborted();
           if (Array.isArray(pageData)) {
             allEvents.push(...pageData);
           }
@@ -161,18 +168,16 @@ export function StatusContext({ children }: { children: JSX.Element }) {
     {
       cacheKey: key,
       onSuccess: (res) => update(TransformerV2(res)),
+      onFinally: () => subRef.current?.next(new Date()),
+      refreshDeps: [auth.user?.access_token],
+      pollingInterval: 60000,
+      pollingWhenHidden: false,
     }
   );
 
+  const subRef = useRef<Subject<Date>>(null);
   useMount(() => {
-    const sub = Station.get<Subject<Date>>("Update", () => new Subject());
-
-    const interval = setInterval(() => {
-      runAsync();
-      sub.next(new Date());
-    }, 60000);
-
-    return () => clearInterval(interval);
+    subRef.current = Station.get<Subject<Date>>("Update", () => new Subject());
   });
 
   function update(data: IStatusContext = ins) {

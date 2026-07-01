@@ -7,7 +7,7 @@ import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { Indicator } from "./Indicator";
-import "./ServiceItem.css";
+
 import serviceSlugMap from "./serviceSlugMap.json";
 
 interface IServiceItem {

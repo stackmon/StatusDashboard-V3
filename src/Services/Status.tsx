@@ -101,9 +101,9 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
   const { runAsync } = useRequest(
     async () => {
-      while (authRef.current.isLoading) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
+      // while (authRef.current.isLoading) {
+      //   await new Promise(resolve => setTimeout(resolve, 100));
+      // }
 
       log.info(`Loading status data from v2...`);
       const token = authRef.current?.user?.access_token ?

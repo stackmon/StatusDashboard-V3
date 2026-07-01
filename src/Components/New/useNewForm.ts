@@ -232,7 +232,9 @@ export function useNewForm() {
       Status: status,
       RegionServices: new Set(services),
       Histories: new Set(),
-      Description: description
+      Description: description,
+      ContactEmail: contactEmail,
+      Version: 1
     };
 
     const url = process.env.SD_BACKEND_URL!;

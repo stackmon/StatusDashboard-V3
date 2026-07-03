@@ -93,13 +93,6 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             <label className="text-xl font-medium text-slate-600">
               Description:
             </label>}
-
-          <Authorized>
-            {Event.ContactEmail &&
-              <label className="text-xl font-medium text-slate-600">
-                Contact Email:
-              </label>}
-          </Authorized>
         </div>
 
         <div className="flex flex-col gap-y-2">

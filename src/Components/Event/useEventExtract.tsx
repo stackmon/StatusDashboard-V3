@@ -1,3 +1,4 @@
+import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useState } from "react";
 import { useStatus } from "~/Services/Status";
@@ -8,7 +9,7 @@ import { useRouter } from "../Router";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 export function useEventExtract(event: Models.IEvent) {
   const [services, _setServices] = useState<Models.IRegionService[]>([]);
@@ -29,6 +30,7 @@ export function useEventExtract(event: Models.IEvent) {
   }
 
   const getToken = useAccessToken();
+  const { dispatchToast } = useToastController();
   const { Nav } = useRouter();
   const { Refresh } = useStatus();
 
@@ -51,6 +53,18 @@ export function useEventExtract(event: Models.IEvent) {
       },
       body: JSON.stringify(body)
     });
+
+    if (!raw.ok) {
+      const message = await raw.text();
+      dispatchToast(
+        <Toast>
+          <ToastTitle>Failed to extract event</ToastTitle>
+          <ToastBody>{message}</ToastBody>
+        </Toast>,
+        { intent: "warning" }
+      );
+      throw new Error("Failed to extract event: " + message);
+    }
 
     const res = await raw.json();
     const id = res.id;

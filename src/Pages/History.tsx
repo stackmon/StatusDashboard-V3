@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
+import { EventStatus } from "~/Components/Event/Enums";
 import { EventFilters } from "~/Components/History/EventFilters";
 import { getEventTag } from "~/Components/History/EventTag";
 import { useEventFilters } from "~/Components/History/useEventFilters";
@@ -15,7 +16,7 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
 /**
  * @author Aloento
  * @since 1.2.0
- * @version 1.2.2
+ * @version 1.3.0
  */
 export function History() {
   const { DB } = useStatus();
@@ -26,6 +27,10 @@ export function History() {
     return stored ? parseInt(stored, 10) : 20;
   });
 
+  const events = DB.Events.filter(
+    (x) => x.Status !== EventStatus.PendingReview
+  );
+
   const {
     filters,
     validation,
@@ -33,7 +38,7 @@ export function History() {
     setFilters,
     setValidation,
     clearFilters,
-  } = useEventFilters(DB.Events);
+  } = useEventFilters(events);
 
   useEffect(() => {
     if (!gridRef.current) {
@@ -102,7 +107,7 @@ export function History() {
       filters={filters}
       validation={validation}
       regions={DB.Regions}
-      totalEvents={DB.Events.length}
+      totalEvents={events.length}
       filteredCount={filteredEvents.length}
       onFiltersChange={setFilters}
       onValidationChange={setValidation}
@@ -117,9 +122,9 @@ export function History() {
         hideBorder
         ref={gridRef}
       >
-        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger" style={{ marginLeft: "0" }}>
+        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger">
           Page Size
-          <ScaleIconActionMenu slot="prefix" style={{ display: "inline-flex" }} />
+          <ScaleIconActionMenu slot="prefix" className="mr-2" />
 
           <ScaleMenuFlyoutList slot="sublist">
             {PAGE_SIZE_OPTIONS.map((size) => (
@@ -134,8 +139,8 @@ export function History() {
                 <ScaleIconActionCheckmark
                   slot="prefix"
                   size={16}
+                  className="mr-2"
                   style={{
-                    display: "inline-flex",
                     visibility: pageSize === size ? "visible" : "hidden"
                   }}
                 />

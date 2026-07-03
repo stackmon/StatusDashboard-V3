@@ -16,7 +16,7 @@ export function EventExtract({ Event }: { Event: Models.IEvent }) {
   return <>
     <ScaleButton onClick={setTrue} size="small" variant="secondary">
       <ScaleIconActionExport />
-      Split Services
+      Extract Services
     </ScaleButton>
 
     <ScaleModal

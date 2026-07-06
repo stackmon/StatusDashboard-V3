@@ -25,7 +25,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.4.0
+ * @version 0.4.1
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -54,19 +54,21 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           OnSubmit().then(() => setFalse());
         }}>
 
-        <ScaleDropdownSelect
-          label="Type"
-          value={State.type}
-          disabled={!IsIncident(Event.Type)}
-          onScale-change={(e) => Actions.setType(e.target.value as EventType)}
-          invalid={!!Validation.type}
-          helperText={Validation.type}
-        >
-          {Object.values(EventType).slice(2, 5).map((type, i) =>
-            <ScaleDropdownSelectItem value={type} key={i}>
-              {type}
-            </ScaleDropdownSelectItem>)}
-        </ScaleDropdownSelect>
+        {
+          IsIncident(Event.Type) &&
+          <ScaleDropdownSelect
+            label="Type"
+            value={State.type}
+            onScale-change={(e) => Actions.setType(e.target.value as EventType)}
+            invalid={!!Validation.type}
+            helperText={Validation.type}
+          >
+            {Object.values(EventType).slice(2, 5).map((type, i) =>
+              <ScaleDropdownSelectItem value={type} key={i}>
+                {type}
+              </ScaleDropdownSelectItem>)}
+          </ScaleDropdownSelect>
+        }
 
         <ScaleTextField
           placeholder="Please give the title of event"

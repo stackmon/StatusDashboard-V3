@@ -57,7 +57,12 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
               <EventExtract Event={Event} />
             </Authorized>
 
-            <EventEditor Event={Event} />
+            <Authorized rules={(groups) => {
+              return Event.Status === EventStatus.PendingReview ||
+                groups.some(g => g === Roles.Operators || g === Roles.Admins);
+            }}>
+              <EventEditor Event={Event} />
+            </Authorized>
           </div>
         </Authorized>
       </div>

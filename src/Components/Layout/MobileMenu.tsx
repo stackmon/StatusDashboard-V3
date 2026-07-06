@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
 import { useStatus } from "~/Services/Status";
-import { Authorized, Roles } from "../Auth/With";
+import { Authorized, Groups, Roles } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -58,7 +58,9 @@ export function MobileMenu() {
               </Authorized>
 
               <ScaleTelekomMobileMenuItem>
-                You're {((auth.user?.profile as any)?.groups as string[])?.filter(x => x.includes("sd"))}
+                You're {((auth.user?.profile as any)?.groups as string[])
+                  ?.filter(x => x.includes("sd"))
+                  .map(x => Groups[x as Roles])}
               </ScaleTelekomMobileMenuItem>
 
               <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutSilent()}>

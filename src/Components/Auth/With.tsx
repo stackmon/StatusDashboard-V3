@@ -15,6 +15,18 @@ export const enum Roles {
 
 /**
  * @author Aloento
+ * @since 1.5.0
+ * @version 0.1.0
+ */
+export const Groups = {
+  [Roles.Readers]: "Reader",
+  [Roles.Creators]: "Creator",
+  [Roles.Operators]: "Operator",
+  [Roles.Admins]: "Admin"
+}
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 0.2.0
  */

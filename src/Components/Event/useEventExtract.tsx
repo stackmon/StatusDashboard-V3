@@ -58,12 +58,12 @@ export function useEventExtract(event: Models.IEvent) {
       const message = await raw.text();
       dispatchToast(
         <Toast>
-          <ToastTitle>Failed to extract event</ToastTitle>
+          <ToastTitle>Failed to extract services from event</ToastTitle>
           <ToastBody>{message}</ToastBody>
         </Toast>,
         { intent: "warning" }
       );
-      throw new Error("Failed to extract event: " + message);
+      throw new Error("Failed to extract services from event: " + message);
     }
 
     const res = await raw.json();

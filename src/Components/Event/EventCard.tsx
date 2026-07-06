@@ -27,7 +27,7 @@ import { EventExtract } from "./EventExtract";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.3.1
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
   return (
@@ -41,28 +41,16 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </h3>
         </div>
 
-        <Authorized>
+        <Authorized rules={(groups) => groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
           <div className="flex gap-x-3">
-            <Authorized rules={(groups) => {
-              return Event.Status === EventStatus.PendingReview &&
-                groups.some(g => g === Roles.Operators || g === Roles.Admins);
-            }}>
-              <EventApprove Event={Event} />
-            </Authorized>
+            {Event.Status === EventStatus.PendingReview &&
+              <EventApprove Event={Event} />}
 
-            <Authorized rules={(groups) => {
-              return Event.RegionServices.size > 1 &&
-                groups.some(g => g === Roles.Operators || g === Roles.Admins);
-            }}>
-              <EventExtract Event={Event} />
-            </Authorized>
+            {Event.RegionServices.size > 1 &&
+              <EventExtract Event={Event} />}
 
-            <Authorized rules={(groups) => {
-              return Event.Status === EventStatus.PendingReview ||
-                groups.some(g => g === Roles.Operators || g === Roles.Admins);
-            }}>
-              <EventEditor Event={Event} />
-            </Authorized>
+            {Event.Status === EventStatus.PendingReview &&
+              <EventEditor Event={Event} />}
           </div>
         </Authorized>
       </div>

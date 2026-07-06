@@ -3,10 +3,12 @@ import dayjs from "dayjs";
 import { orderBy } from "lodash";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
+import { useAuth } from "react-oidc-context";
 import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
+import { Roles } from "../Auth/With";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
 
@@ -25,11 +27,19 @@ import { useNewForm } from "./useNewForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.2.1
  */
 export function NewForm() {
   const { DB } = useStatus();
   const { State, Actions, Validation, OnSubmit, Loading } = useNewForm();
+  const auth = useAuth();
+
+  const groups: string[] = (auth.user?.profile as any)?.groups || [];
+  const isCreatorOnly = !groups.includes(Roles.Operators) && !groups.includes(Roles.Admins);
+
+  const availableTypes = isCreatorOnly
+    ? [EventType.Maintenance]
+    : Object.values(EventType).slice(1);
 
   return (
     <>
@@ -48,8 +58,9 @@ export function NewForm() {
           onScale-change={(e) => Actions.setType(e.target.value as EventType)}
           invalid={!!Validation.type}
           helperText={Validation.type}
+          disabled={isCreatorOnly}
         >
-          {Object.values(EventType).slice(1).map((type, i) =>
+          {availableTypes.map((type, i) =>
             <ScaleDropdownSelectItem value={type} key={i}>
               {type}
             </ScaleDropdownSelectItem>)}

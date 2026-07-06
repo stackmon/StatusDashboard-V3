@@ -6,6 +6,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject, Subject } from "rxjs";
+import { Authorized, Roles } from "~/Components/Auth/With";
 import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
@@ -105,13 +106,16 @@ export function Home() {
         <title>{Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
-      {pendingCount > 0 && (
+      <Authorized rules={(groups) => {
+        return pendingCount > 0 &&
+          groups.some(g => g === Roles.Operators || g === Roles.Admins);
+      }}>
         <ScaleNotification
           heading={`You have ${pendingCount} maintenance events pending for review.`}
           opened
           variant="informational"
         />
-      )}
+      </Authorized>
 
       <ScaleNotification
         heading={heading}

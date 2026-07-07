@@ -41,18 +41,27 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </h3>
         </div>
 
-        <Authorized rules={(groups) => groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
-          <div className="flex gap-x-3">
-            {Event.Status === EventStatus.PendingReview &&
-              <EventApprove Event={Event} />}
+        <div className="flex gap-x-3">
+          <Authorized rules={(groups) =>
+            Event.Status === EventStatus.PendingReview &&
+            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            <EventApprove Event={Event} />
+          </Authorized>
 
-            {Event.RegionServices.size > 1 &&
-              <EventExtract Event={Event} />}
+          <Authorized rules={(groups) =>
+            Event.RegionServices.size > 1 &&
+            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            <EventExtract Event={Event} />
+          </Authorized>
 
-            {Event.Status === EventStatus.PendingReview &&
-              <EventEditor Event={Event} />}
-          </div>
-        </Authorized>
+          <Authorized rules={(groups) => (
+            Event.Status === EventStatus.PendingReview &&
+            groups.some(g => g === Roles.Creators)
+          ) ||
+            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            <EventEditor Event={Event} />
+          </Authorized>
+        </div>
       </div>
 
       <div className="flex gap-x-2.5">

@@ -11,7 +11,7 @@ import { EventStatus } from "./Enums";
 /**
  * @author Aloento
  * @since 1.5.0
- * @version 0.2.2
+ * @version 0.2.3
  */
 export function EventApprove({ Event }: { Event: Models.IEvent }) {
   const { Update } = useStatus();
@@ -31,7 +31,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       body: JSON.stringify({
         status: StatusEnum.Reviewed,
         version: Event.Version ?? Event.Histories.size + 1,
-        message: `Approved by ${user?.profile.name}`,
+        message: `Approved by ${user?.profile.name || user?.profile.preferred_username}`,
         update_date: new Date().toISOString(),
       }),
     });
@@ -53,7 +53,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       Id: Event.Histories.size + 1,
       Created: new Date(),
       Event,
-      Message: `Approved by ${user?.profile.name}`,
+      Message: `Approved by ${user?.profile.name || user?.profile.preferred_username}`,
       Status: EventStatus.Reviewed,
     });
     Update();

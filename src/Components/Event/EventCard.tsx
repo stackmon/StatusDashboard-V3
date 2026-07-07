@@ -58,7 +58,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             Event.Status === EventStatus.PendingReview &&
             groups.some(g => g === Roles.Creators)
           ) ||
-            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            !groups.some(g => g === Roles.Creators)}>
             <EventEditor Event={Event} />
           </Authorized>
         </div>

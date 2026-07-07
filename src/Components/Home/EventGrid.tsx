@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
+import { EventStatus, EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { getEventTag } from "../History/EventTag";
 
 /**
@@ -95,7 +95,7 @@ export function EventGrid() {
         }
       })
       .filter(x => {
-        if (IsIncident(x.Type) && x.End) {
+        if (x.Status === EventStatus.PendingReview || (IsIncident(x.Type) && x.End)) {
           return false;
         }
 

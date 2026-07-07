@@ -1,6 +1,5 @@
 import { ScaleButton, ScaleIconUserFileUser, ScaleMenuFlyout, ScaleMenuFlyoutItem, ScaleMenuFlyoutList, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
-import { Groups, Roles } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -23,12 +22,6 @@ export function ProfileMenu() {
         <ScaleMenuFlyoutList>
           <ScaleMenuFlyoutItem>
             Hi, {auth.user?.profile.name || auth.user?.profile.preferred_username}
-          </ScaleMenuFlyoutItem>
-
-          <ScaleMenuFlyoutItem>
-            You're {((auth.user?.profile as any)?.groups as string[])
-              ?.filter(x => x.includes("sd"))
-              .map(x => Groups[x as Roles])}
           </ScaleMenuFlyoutItem>
 
           <ScaleMenuFlyoutItem onScale-select={() => auth.signoutSilent()}>

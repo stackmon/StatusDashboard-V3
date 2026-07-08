@@ -108,7 +108,7 @@ export function Home() {
 
       <Authorized rules={(groups) => {
         return pendingCount > 0 &&
-          groups.some(g => g === Roles.Operators || g === Roles.Admins);
+          groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
       }}>
         <ScaleNotification
           heading={`You have ${pendingCount} maintenance events pending for review.`}

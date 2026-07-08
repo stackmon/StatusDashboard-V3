@@ -50,7 +50,7 @@ export function MobileMenu() {
 
               <Authorized rules={(groups) => {
                 return pendingCount > 0 &&
-                  groups.some(g => g === Roles.Operators || g === Roles.Admins);
+                  groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
               }}>
                 <ScaleTelekomMobileMenuItem>
                   <a href="/Reviews">Reviews: {pendingCount}</a>

@@ -35,7 +35,7 @@ export function NewForm() {
   const auth = useAuth();
 
   const groups: string[] = (auth.user?.profile as any)?.groups || [];
-  const isCreatorOnly = !groups.includes(Roles.Operators) && !groups.includes(Roles.Admins);
+  const isCreatorOnly = !groups.includes(Roles.Operators) && !groups.includes(Roles.Admins) && !groups.includes(Roles.GitHub);
 
   const availableTypes = isCreatorOnly
     ? [EventType.Maintenance]

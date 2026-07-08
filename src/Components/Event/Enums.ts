@@ -98,7 +98,7 @@ export function GetStatusList(type: EventType, status?: EventStatus, groups?: st
     if (groups.some(g => g === Roles.Creators)) {
       return [EventStatus.PendingReview, EventStatus.Cancelled];
     }
-    if (groups.some(g => g === Roles.Operators || g === Roles.Admins)) {
+    if (groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)) {
       return [EventStatus.PendingReview, ...Object.values(EventStatus).slice(5, 10)];
     }
   }

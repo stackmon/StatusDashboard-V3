@@ -44,13 +44,13 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         <div className="flex gap-x-3">
           <Authorized rules={(groups) =>
             Event.Status === EventStatus.PendingReview &&
-            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
             <EventApprove Event={Event} />
           </Authorized>
 
           <Authorized rules={(groups) =>
             Event.RegionServices.size > 1 &&
-            groups.some(g => g === Roles.Operators || g === Roles.Admins)}>
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
             <EventExtract Event={Event} />
           </Authorized>
 
@@ -58,7 +58,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
             Event.Status === EventStatus.PendingReview &&
             groups.some(g => g === Roles.Creators)
           ) ||
-            !groups.some(g => g === Roles.Creators)}>
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
             <EventEditor Event={Event} />
           </Authorized>
         </div>

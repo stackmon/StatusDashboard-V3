@@ -4,13 +4,14 @@ import { useAuth } from "react-oidc-context";
 /**
  * @author Aloento
  * @since 1.5.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 export const enum Roles {
   Readers = "/sd_readers",
   Creators = "/sd_creators",
   Operators = "/sd_operators",
-  Admins = "/sd_admins"
+  Admins = "/sd_admins",
+  GitHub = "/status-dashboard"
 }
 
 /**

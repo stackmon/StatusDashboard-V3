@@ -144,7 +144,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
         </div>
 
         <div className="flex flex-col gap-y-6">
-          <div className="flex flex-1 flex-col gap-y-2 min-h-0">
+          <div className="flex flex-1 flex-col gap-y-2 min-h-56 resize-y overflow-auto">
             <label className="text-sm font-medium text-gray-700">Description</label>
             <MdEditor
               className="flex-1 min-h-0"
@@ -167,7 +167,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             )}
           </div>
 
-          <div className="flex flex-1 flex-col gap-y-2 min-h-0">
+          <div className="flex flex-1 flex-col gap-y-2 min-h-56 resize-y overflow-auto">
             <label className="text-sm font-medium text-gray-700">Update Message</label>
             <MdEditor
               className="flex-1 min-h-0"

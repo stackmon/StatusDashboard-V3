@@ -24,7 +24,7 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
@@ -131,7 +131,6 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               helperText={Validation.contactEmail}
             />
           )}
-
         </div>
 
         <div className="flex flex-col gap-y-6 md:w-1/2">

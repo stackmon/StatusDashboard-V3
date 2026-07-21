@@ -45,14 +45,14 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       onScale-before-close={(e) => e.preventDefault()}
     >
       <form
-        className="flex flex-col gap-y-6 md:grid md:grid-cols-2 md:gap-x-6"
+        className="flex flex-col gap-y-6 md:flex-row md:gap-x-6"
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
           OnSubmit().then(() => setFalse());
         }}>
 
-        <div className="flex flex-col gap-y-6">
+        <div className="flex flex-col gap-y-6 md:w-1/2">
           <ScaleDropdownSelect
             label="Type"
             value={State.type}
@@ -132,18 +132,9 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             />
           )}
 
-          <div className="flex gap-x-3 md:mt-auto">
-            <ScaleButton onClick={setFalse} variant="secondary" type="button">
-              Cancel
-            </ScaleButton>
-
-            <ScaleButton type="submit" disabled={Loading}>
-              Submit
-            </ScaleButton>
-          </div>
         </div>
 
-        <div className="flex flex-col gap-y-6">
+        <div className="flex flex-col gap-y-6 md:w-1/2">
           <div className="flex flex-1 flex-col gap-y-2 min-h-56 resize-y overflow-auto">
             <label className="text-sm font-medium text-gray-700">Description</label>
             <MdEditor
@@ -188,6 +179,16 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             {Validation.update && (
               <ScaleHelperText variant="danger" helperText={Validation.update} />
             )}
+          </div>
+
+          <div className="flex gap-x-3 justify-end">
+            <ScaleButton onClick={setFalse} variant="secondary" type="button">
+              Cancel
+            </ScaleButton>
+
+            <ScaleButton type="submit" disabled={Loading}>
+              Submit
+            </ScaleButton>
           </div>
         </div>
       </form>

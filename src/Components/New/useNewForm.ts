@@ -1,7 +1,8 @@
 import { useRequest } from "ahooks";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { fetchPlus } from "~/Helpers/fetchPlus";
 import { useStatus } from "~/Services/Status";
-import { Models } from "~/Services/Status.Models";
+import { IStatusContext, Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
 import { EventStatus, EventType, GetEventImpact, IsIncident } from "../Event/Enums";
 import { useRouter } from "../Router";
@@ -197,6 +198,7 @@ export function useNewForm() {
 
   const { Nav } = useRouter();
   const getToken = useAccessToken();
+  const snapshotRef = useRef<IStatusContext | null>(null);
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setDescription(), setStart(start, { resetConfirm: false }), setEnd(), setServices(), setContactEmail()].every(Boolean)) {
@@ -233,6 +235,9 @@ export function useNewForm() {
       Version: 1
     };
 
+    // Save snapshot for rollback (deep copy to avoid shared array references)
+    snapshotRef.current = structuredClone(DB);
+
     const url = process.env.SD_BACKEND_URL!;
 
     const body: Record<string, any> = {
@@ -252,17 +257,13 @@ export function useNewForm() {
       body.end_date = end
     }
 
-    const raw = await fetch(`${url}/v2/events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`
-      },
-      body: JSON.stringify(body)
-    });
+    const res = await fetchPlus.postJson<{ result: { incident_id?: number }[] }>(
+      `${url}/v2/events`,
+      body,
+      { token: getToken() }
+    );
 
-    const res = await raw.json();
-    const id = res.result.at(0)?.incident_id;
+    const id = res.result?.at(0)?.incident_id;
 
     if (id) {
       event.Id = id;
@@ -273,7 +274,15 @@ export function useNewForm() {
 
     Nav(`/Event/${event.Id}`);
   }, {
-    manual: true
+    manual: true,
+    onError: (err) => {
+      // Rollback on failure
+      if (snapshotRef.current) {
+        Update(snapshotRef.current);
+      }
+      // Toast is already handled by the ErrorBoundary/Toast system
+      throw err; // re-throw so ahooks tracks error state
+    },
   });
 
   return {

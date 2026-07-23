@@ -1,6 +1,7 @@
-import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
 import { useState } from "react";
+import { fetchPlus } from "~/Helpers/fetchPlus";
+import { useAppToast } from "~/Helpers/useAppToast";
 import { useStatus } from "~/Services/Status";
 import { Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
@@ -30,7 +31,7 @@ export function useEventExtract(event: Models.IEvent) {
   }
 
   const getToken = useAccessToken();
-  const { dispatchToast } = useToastController();
+  const toast = useAppToast();
   const { Nav } = useRouter();
   const { Refresh } = useStatus();
 
@@ -45,28 +46,12 @@ export function useEventExtract(event: Models.IEvent) {
       components: services.map(s => s.Id),
     }
 
-    const raw = await fetch(`${url}/v2/events/${event.Id}/extract`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`
-      },
-      body: JSON.stringify(body)
-    });
+    const res = await fetchPlus.postJson<{ id?: number }>(
+      `${url}/v2/events/${event.Id}/extract`,
+      body,
+      { token: getToken() }
+    );
 
-    if (!raw.ok) {
-      const message = await raw.text();
-      dispatchToast(
-        <Toast>
-          <ToastTitle>Failed to extract services from event</ToastTitle>
-          <ToastBody>{message}</ToastBody>
-        </Toast>,
-        { intent: "warning" }
-      );
-      throw new Error("Failed to extract services from event: " + message);
-    }
-
-    const res = await raw.json();
     const id = res.id;
 
     if (id) {
@@ -76,7 +61,11 @@ export function useEventExtract(event: Models.IEvent) {
 
     return true;
   }, {
-    manual: true
+    manual: true,
+    onError: (err) => {
+      const message = err instanceof Error ? err.message : "An error occurred";
+      toast.showError("Failed to extract services from event", { body: message });
+    },
   });
 
   return {

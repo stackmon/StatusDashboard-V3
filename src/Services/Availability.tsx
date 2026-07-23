@@ -2,7 +2,9 @@ import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { useCreation, useRequest } from "ahooks";
 import { createContext, JSX, Suspense, useContext, useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
+import { ApiError } from "~/Helpers/ApiError";
 import { Station } from "~/Helpers/Entities";
+import { fetchPlus } from "~/Helpers/fetchPlus";
 import { Logger } from "~/Helpers/Logger";
 import { DB } from "./DB";
 import { useStatus } from "./Status";
@@ -28,7 +30,8 @@ interface IAvailability {
 
 interface IContext {
   Availa: IAvailability[];
-  Region: Models.IRegion
+  Region: Models.IRegion;
+  Error?: ApiError;
 }
 
 const db = new DB<IAvailability[]>(() => []);
@@ -43,15 +46,15 @@ const log = new Logger("Service", key);
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useAvailability() {
   const ctx = useContext(CTX);
 
-  if (db.Ins.length < 1) {
+  if (db.Ins.length < 1 && !ctx.Error) {
     throw new Promise((res) => {
       const i = setInterval(() => {
-        if (db.Ins.length > 0) {
+        if (db.Ins.length > 0 || ctx.Error) {
           clearInterval(i);
           res(ctx);
         }
@@ -71,6 +74,7 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
   const { DB } = useStatus();
   const [region, setRegion] = useState(DB.Regions[0]);
   const [ins, setDB] = useState(db.Ins);
+  const [error, setError] = useState<ApiError>();
 
   const regionSub = useCreation(
     () => Station.get(key, () => {
@@ -86,8 +90,10 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
   const url = process.env.SD_BACKEND_URL;
 
   useRequest(async () => {
-    const res = await fetch(`${url}/v2/availability`);
-    const data = (await res.json()).data as ServiceAvaEntity[];
+    const res = await fetchPlus.getJson<{ data: ServiceAvaEntity[] }>(
+      `${url}/v2/availability`
+    );
+    const data = res.data;
 
     const raw = [] as IAvailability[];
 
@@ -117,13 +123,19 @@ export function AvailaContext({ children }: { children: JSX.Element }) {
   }, {
     cacheKey: key,
     onSuccess: (res) => {
+      setError(undefined);
       setDB(res);
       db.save(key, res);
-    }
+    },
+    onError: (err) => {
+      const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
+      log.error("Availability data load failed", apiError);
+      setError(apiError);
+    },
   });
 
   return (
-    <CTX.Provider value={{ Availa: ins, Region: region }}>
+    <CTX.Provider value={{ Availa: ins, Region: region, Error: error }}>
       <Suspense fallback={<ScaleLoadingSpinner size="large" text={`Loading ${key}...`} />}>
         {children}
       </Suspense>

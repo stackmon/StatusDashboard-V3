@@ -20,11 +20,8 @@ interface ToastOptions {
 const DEDUP_WINDOW_MS = 30_000;
 
 /**
- * Unified toast notification wrapper around Fluent UI useToastController.
- * Provides: showError / showWarning / showSuccess / showInfo with built-in deduplication.
- *
  * @author Aloento
- * @since 3.0.0
+ * @since 1.5.0
  * @version 1.0.0
  */
 export function useAppToast() {
@@ -68,7 +65,7 @@ export function useAppToast() {
       {
         intent,
         timeout: timeout,
-        position: "top-end",
+        position: "bottom-end",
       }
     );
   }

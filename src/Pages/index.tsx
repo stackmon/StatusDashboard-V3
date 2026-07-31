@@ -2,10 +2,10 @@ import { FluentProvider, Toaster, webLightTheme } from "@fluentui/react-componen
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { Suspense, useMemo } from "react";
 import { useAuth } from "react-oidc-context";
-import { ErrorBanner } from "~/Components/Common/StateViews";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
+import { ErrorBanner } from "~/Components/StateViews";
 import { useAppToast } from "~/Helpers/useAppToast";
 import { useNetworkStatus } from "~/Helpers/useNetworkStatus";
 import { useStatus } from "~/Services/Status";

@@ -5,6 +5,10 @@ import { useAuth } from "react-oidc-context";
 import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
+import { ErrorBanner } from "~/Components/StateViews";
+import { useAppToast } from "~/Helpers/useAppToast";
+import { useNetworkStatus } from "~/Helpers/useNetworkStatus";
+import { useStatus } from "~/Services/Status";
 import { NotFound } from "./404";
 import { Availability } from "./Availability";
 import { Event } from "./Event";
@@ -21,6 +25,14 @@ export function Layout() {
   const { Paths } = useRouter();
   const path = Paths.at(0);
   const auth = useAuth();
+  const { Error: ctxError, Refresh } = useStatus();
+  const toast = useAppToast();
+
+  const { isOnline } = useNetworkStatus(() => {
+    Refresh()
+      .then(() => toast.showSuccess("Back online, data refreshed."))
+      .catch(() => { /* Refresh will retry on next interval */ });
+  });
 
   const match = useMemo(() => {
     switch (path) {
@@ -58,6 +70,22 @@ export function Layout() {
   return (
     <div className="absolute flex min-h-full w-full min-w-96 flex-col bg-zinc-50">
       <TopNavBar />
+
+      {!isOnline && (
+        <div role="status" className="bg-yellow-500 text-white text-center text-sm py-1">
+          You are offline. Some features may be unavailable.
+        </div>
+      )}
+
+      {ctxError && (
+        <div className="mx-auto w-full max-w-(--breakpoint-xl) px-3 pt-4">
+          <ErrorBanner
+            error={ctxError}
+            onRetry={() => Refresh()}
+            onDismiss={() => { /* Error clears on next successful load */ }}
+          />
+        </div>
+      )}
 
       <main className="mx-auto flex w-full max-w-(--breakpoint-xl) flex-col gap-y-8 px-3 pt-8">
         <Suspense fallback={<ScaleLoadingSpinner size="large" text="Loading..." />}>

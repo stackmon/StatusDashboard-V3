@@ -1,8 +1,9 @@
-import { Link, Toast, ToastFooter, ToastTitle, ToastTrigger, useToastController } from "@fluentui/react-components";
+import { Link } from "@fluentui/react-components";
 import { useMount } from "ahooks";
 import { ReactNode, useEffect } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { Logger } from "~/Helpers/Logger";
+import { useAppToast } from "~/Helpers/useAppToast";
 import { useRouter } from "../Router";
 import { UserMgr } from "./UserMgr";
 
@@ -32,7 +33,7 @@ const log = new Logger("Auth");
 function AuthHandler() {
   const auth = useAuth();
   const { Paths } = useRouter();
-  const { dispatchToast } = useToastController();
+  const toast = useAppToast();
 
   useMount(() => {
     if (Paths.at(0) === "signin-oidc") {
@@ -42,28 +43,13 @@ function AuthHandler() {
   });
 
   function dispatch() {
-    dispatchToast(
-      <Toast>
-        <ToastTitle>
-          Login Expired
-        </ToastTitle>
-
-        <ToastFooter>
-          <Link
-            onClick={() => auth.signinRedirect()}>
-            Login Again
-          </Link>
-
-          <ToastTrigger>
-            <Link
-              href="/">
-              Dismiss
-            </Link>
-          </ToastTrigger>
-        </ToastFooter>
-      </Toast>,
-      { intent: "warning", timeout: -1 }
-    );
+    toast.showWarning("Login Expired", {
+      action: (
+        <Link onClick={() => auth.signinRedirect()}>
+          Login Again
+        </Link>
+      ),
+    });
 
     auth.signoutSilent();
   }

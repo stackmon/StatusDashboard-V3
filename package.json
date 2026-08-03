@@ -41,7 +41,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "core-js": "^3.49.0",
     "eslint": "^10.7.0",
-    "globals": "^17.7.0",
+    "globals": "^17.8.0",
     "postcss": "^8.5.22",
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.3.1",

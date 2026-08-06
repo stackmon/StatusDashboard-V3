@@ -31,11 +31,6 @@ export function EventGrid() {
       padding-bottom: 0 !important;
     }
 
-    .tbody__text-cell {
-      text-wrap: auto;
-      max-width: 510px;
-    }
-
     .tbody__mobile-title {
       display: none !important;
     }

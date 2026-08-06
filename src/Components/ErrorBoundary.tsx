@@ -1,7 +1,6 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { useCallback, useRef } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
-;
 
 /**
  * @author Aloento

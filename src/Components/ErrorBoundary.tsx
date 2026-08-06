@@ -1,10 +1,12 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { useCallback, useRef } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
+;
 
 /**
- * Root-level error boundary fallback.
- * Shown when an uncaught render error bubbles to the top of the app.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 function RootFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
@@ -32,9 +34,9 @@ function RootFallback({ error, resetErrorBoundary }: FallbackProps) {
 }
 
 /**
- * Data-load error boundary fallback.
- * Shown when API data fetching fails inside StatusContext.
- * Offers Retry, View Cached (if cached data exists), and Return Home.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 function DataLoadFallback({ error, resetErrorBoundary }: FallbackProps) {
   const retried = useRef(false);
@@ -71,6 +73,11 @@ function DataLoadFallback({ error, resetErrorBoundary }: FallbackProps) {
   );
 }
 
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
 export interface ErrorBoundaryProps {
   children: React.ReactNode;
   /** Use the data-load variant (includes spinner + simpler UI) */
@@ -80,9 +87,9 @@ export interface ErrorBoundaryProps {
 }
 
 /**
- * Thin wrapper around react-error-boundary providing two variants:
- * - `root`: full-page "Something went wrong" (for App.tsx)
- * - `data`: data-loading failure with retry (for StatusContext)
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 export function AppErrorBoundary({ children, variant = "root", onReset }: ErrorBoundaryProps) {
   return (

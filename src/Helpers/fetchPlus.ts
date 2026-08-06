@@ -1,5 +1,10 @@
 import { ApiError } from "./ApiError";
 
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
 export interface FetchPlusOptions {
   /** Bearer token for Authorization header */
   token?: string;
@@ -8,12 +13,8 @@ export interface FetchPlusOptions {
 }
 
 /**
- * Lightweight fetch wrapper.
- * Only does: res.ok check, JSON parsing, and Bearer token injection.
- * Retry / timeout / state management is handled by ahooks useRequest at the upper layer.
- *
  * @author Aloento
- * @since 3.0.0
+ * @since 1.5.0
  * @version 1.0.0
  */
 class FetchPlus {

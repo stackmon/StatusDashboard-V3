@@ -82,6 +82,10 @@ export function Layout() {
           <ErrorBanner
             error={ctxError}
             onRetry={() => Refresh()}
+            onAction={ctxError.isAuthError()
+              ? () => auth.signinRedirect()
+              : undefined}
+            actionLabel={ctxError.isAuthError() ? "Log In" : undefined}
             onDismiss={() => { /* Error clears on next successful load */ }}
           />
         </div>

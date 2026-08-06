@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Network status monitoring hook.
- * Detects online/offline state and provides automatic recovery when coming back online.
- *
  * @author Aloento
- * @since 3.0.0
+ * @since 1.5.0
  * @version 1.0.0
  */
 export function useNetworkStatus(onRecovery?: () => void) {

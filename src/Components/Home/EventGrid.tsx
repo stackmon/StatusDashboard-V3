@@ -1,10 +1,11 @@
 import { ScaleDataGrid } from "@telekom/scale-components-react";
-import { useBoolean, useCreation } from "ahooks";
+import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useRef } from "react";
 import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
+import { useShadowStyle } from "~/Helpers/useShadowStyle";
 import { useStatus } from "~/Services/Status";
 import { EventType, IsIncident, IsOpenStatus } from "../Event/Enums";
 import { getEventTag } from "../History/EventTag";
@@ -12,7 +13,7 @@ import { getEventTag } from "../History/EventTag";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.2
+ * @version 0.3.0
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -20,36 +21,25 @@ export function EventGrid() {
   const ref = useRef<HTMLScaleDataGridElement>(null);
   const [hidden, { set }] = useBoolean();
 
-  const observer = useCreation(() => {
-    return new MutationObserver((mutationsList) => {
-      mutationsList.forEach((mutation) => {
-        if (mutation.type === "childList") {
-          const added = mutation.addedNodes as NodeListOf<HTMLElement>;
+  useShadowStyle(ref, `
+    .data-grid__scroll-container {
+      overflow: hidden !important;
+    }
 
-          added.forEach((node) => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              const cells = node.querySelectorAll(".tbody__cell") as NodeListOf<HTMLDivElement>;
+    .tbody__cell:has(.tbody__actions) {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
 
-              cells.forEach((cell) => {
-                if (cell.querySelector(".tbody__actions")) {
-                  cell.style.paddingTop = "0";
-                  cell.style.paddingBottom = "0";
-                } else if (cell.querySelector(".tbody__text-cell")) {
-                  cell.style.textWrap = "auto";
-                  cell.style.maxWidth = "510px";
-                }
-              });
+    .tbody__text-cell {
+      text-wrap: auto;
+      max-width: 510px;
+    }
 
-              const mobileTitles = node.querySelectorAll('h5.tbody__mobile-title');
-              mobileTitles.forEach((title) => {
-                title.remove();
-              });
-            }
-          });
-        }
-      });
-    });
-  }, []);
+    .tbody__mobile-title {
+      display: none !important;
+    }
+  `);
 
   useEffect(() => {
     if (!ref.current) {
@@ -57,12 +47,6 @@ export function EventGrid() {
     }
 
     const grid = ref.current;
-
-    observer.disconnect();
-    observer.observe(grid.shadowRoot!, {
-      childList: true,
-      subtree: true
-    });
 
     grid.fields = [
       { type: "number", label: "ID", sortable: true },

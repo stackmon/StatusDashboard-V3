@@ -270,7 +270,7 @@ export function useEditForm(event: Models.IEvent) {
     await fetchPlus.patchJson(
       `${url}/v2/events/${event.Id}`,
       body,
-      { token: getToken() }
+      { token: await getToken() }
     );
 
     const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);

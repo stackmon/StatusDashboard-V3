@@ -2,12 +2,18 @@ import { Link } from "@fluentui/react-components";
 import { useMount } from "ahooks";
 import { ReactNode, useEffect } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
+import { setTokenRefresher } from "~/Helpers/fetchPlus";
 import { Logger } from "~/Helpers/Logger";
 import { useAppToast } from "~/Helpers/useAppToast";
 import { useRouter } from "../Router";
 import { UserMgr } from "./UserMgr";
 
 const userMgr = new UserMgr();
+
+setTokenRefresher(async () => {
+  const user = await userMgr.signinSilent();
+  return user?.access_token ?? null;
+});
 
 /**
  * @author Aloento

@@ -17,16 +17,20 @@ import { SigninRedirectArgs, User, UserManager, WebStorageStateStore } from "oid
  *
  * @author Aloento
  * @since 1.0.0
- * @version 1.1.0
+ * @version 2.0.0
  */
 export class UserMgr extends UserManager {
+  private refreshPromise: Promise<User | null> | null = null;
+
   constructor() {
     super({
       client_id: process.env.SD_CLIENT_ID!,
       scope: "openid profile email",
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: process.env.SD_AUTHORITY_URL!,
-      redirect_uri: `${window.location.origin}/signin-oidc`
+      redirect_uri: `${window.location.origin}/signin-oidc`,
+      automaticSilentRenew: true,
+      accessTokenExpiringNotificationTimeInSeconds: 60
     });
   }
 
@@ -95,10 +99,22 @@ export class UserMgr extends UserManager {
     return user;
   }
 
-  override async signinSilent(): Promise<User | null> {
-    const user = await this.getUser();
+  override signinSilent(): Promise<User | null> {
+    if (this.refreshPromise)
+      return this.refreshPromise;
 
-    if (user?.refresh_token) {
+    const renew = async (): Promise<User | null> => {
+      const user = await this._loadUser();
+
+      if (!user?.refresh_token)
+        return null;
+
+      const remaining = user.expires_in;
+      if (remaining !== undefined && remaining > this.settings.accessTokenExpiringNotificationTimeInSeconds + 10) {
+        await this._events.load(user);
+        return user;
+      }
+
       const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/refresh`, {
         method: "POST",
         headers: {
@@ -130,33 +146,50 @@ export class UserMgr extends UserManager {
       });
 
       await this.storeUser(newUser);
-      await this._events.load(user);
+      await this._events.load(newUser);
 
       return newUser;
-    }
+    };
 
-    return null;
+    this.refreshPromise = (async () => {
+      if (navigator.locks)
+        return navigator.locks.request("sd-token-refresh", renew);
+
+      return renew();
+    })().finally(() => {
+      this.refreshPromise = null;
+    });
+
+    return this.refreshPromise;
   }
 
   override async signoutSilent(): Promise<void> {
-    const user = await this.getUser();
+    const run = async (): Promise<void> => {
+      const user = await this._loadUser();
 
-    if (user?.refresh_token) {
-      const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/logout`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          refresh_token: user.refresh_token,
-        }),
-      });
+      if (user?.refresh_token) {
+        const res = await fetch(`${process.env.SD_BACKEND_URL}/auth/logout`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            refresh_token: user.refresh_token,
+          }),
+        });
 
-      if (!res.ok)
-        throw new Error("Failed to logout");
-    }
+        if (!res.ok)
+          throw new Error("Failed to logout");
+      }
 
-    await this.removeUser();
+      await this.removeUser();
+    };
+
+    if (navigator.locks)
+      await navigator.locks.request("sd-token-refresh", run);
+    else
+      await run();
+
     window.location.href = "/";
   }
 }

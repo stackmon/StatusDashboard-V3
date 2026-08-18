@@ -11,8 +11,14 @@ export function useAccessToken() {
   const auth = useAuth();
   const toast = useAppToast();
 
-  function getToken() {
-    if (auth.user?.expired) {
+  async function getToken(): Promise<string> {
+    let user = auth.user;
+
+    if (user?.expired) {
+      user = await auth.signinSilent();
+    }
+
+    if (!user) {
       toast.showWarning("You're not logged in.", {
         action: (
           <Link onClick={() => auth.signinRedirect()}>
@@ -24,7 +30,7 @@ export function useAccessToken() {
       throw new Error("You're not logged in.");
     }
 
-    return auth.user!.access_token;
+    return user.access_token;
   }
 
   return getToken;

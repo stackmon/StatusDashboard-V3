@@ -2,7 +2,9 @@ import { useMount, useRequest } from "ahooks";
 import { createContext, JSX, useContext, useRef, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { Subject } from "rxjs";
+import { ApiError } from "~/Helpers/ApiError";
 import { Station } from "~/Helpers/Entities";
+import { fetchPlus } from "~/Helpers/fetchPlus";
 import { Logger } from "~/Helpers/Logger";
 import { DB } from "./DB";
 import { EventEntityV2, StatusEntityV2 } from "./Status.Entities";
@@ -38,6 +40,7 @@ interface IContext {
   DB: IStatusContext;
   Update: (data?: IStatusContext) => void;
   Refresh: () => Promise<unknown>;
+  Error?: ApiError;
 }
 
 const CTX = createContext<IContext>({} as IContext);
@@ -92,6 +95,7 @@ export function useStatus() {
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
+  const [error, setError] = useState<ApiError>();
 
   const auth = useAuth();
   const abortRef = useRef<AbortController | null>(null);
@@ -104,33 +108,25 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       const { signal } = abortRef.current;
 
       log.info(`Loading status data from v2...`);
-      const token: RequestInit = auth.user?.access_token
-        ? {
-          headers: {
-            Authorization: `Bearer ${auth.user.access_token}`
-          },
-          signal
-        }
-        : {};
+      const token = auth.user?.access_token;
 
       const compLink = `${url}/v2/components`;
-      const compRes = await fetch(compLink, token);
-      signal.throwIfAborted();
-      const compData = await compRes.json();
+      const compData = await fetchPlus.getJson<StatusEntityV2[]>(compLink, { token, signal });
 
       log.debug("Components Status loaded.", compData);
 
-      const first = await fetch(`${url}/v2/events?page=1&limit=50`, token);
-      signal.throwIfAborted();
-      const firstData = await first.json();
+      const first = await fetchPlus.getJson<{
+        data?: EventEntityV2[];
+        pagination?: { totalPages?: number };
+      }>(`${url}/v2/events?page=1&limit=50`, { token, signal });
 
       const allEvents: EventEntityV2[] = [];
 
-      if (firstData.data && Array.isArray(firstData.data)) {
-        allEvents.push(...firstData.data);
+      if (first.data && Array.isArray(first.data)) {
+        allEvents.push(...first.data);
       }
 
-      const totalPages = firstData.pagination?.totalPages || 1;
+      const totalPages = first.pagination?.totalPages || 1;
       log.debug(`Total pages: ${totalPages}`);
 
       if (totalPages > 1) {
@@ -140,11 +136,10 @@ export function StatusContext({ children }: { children: JSX.Element }) {
           const eventLink = `${url}/v2/events?page=${page}&limit=50`;
 
           pagePromises.push(
-            fetch(eventLink, token)
-              .then(res => res.json())
-              .then(data => {
-                log.debug(`Loaded page ${page}/${totalPages}, events: ${data.data?.length || 0}`);
-                return data.data || [];
+            fetchPlus.getJson<{ data?: EventEntityV2[] }>(eventLink, { token, signal })
+              .then(res => {
+                log.debug(`Loaded page ${page}/${totalPages}, events: ${res.data?.length || 0}`);
+                return res.data || [];
               })
           );
         }
@@ -161,13 +156,23 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       log.debug("Events loaded.", { total: allEvents.length });
 
       return {
-        Components: compData as StatusEntityV2[],
+        Components: compData,
         Events: allEvents as EventEntityV2[]
       };
     },
     {
       cacheKey: key,
-      onSuccess: (res) => update(TransformerV2(res)),
+      onSuccess: (res) => {
+        setError(undefined);
+        update(TransformerV2(res));
+      },
+      onError: (err) => {
+        if (abortRef.current?.signal.aborted) return;
+        const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
+        log.error("Status data load failed", apiError);
+        setError(apiError);
+        loading = undefined;
+      },
       onFinally: () => subRef.current?.next(new Date()),
       refreshDeps: [auth.user?.access_token],
       pollingInterval: 60000,
@@ -187,6 +192,6 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   }
 
   return (
-    <CTX.Provider value={{ DB: ins, Update: update, Refresh: runAsync }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ DB: ins, Update: update, Refresh: runAsync, Error: error }}>{children}</CTX.Provider>
   );
 }

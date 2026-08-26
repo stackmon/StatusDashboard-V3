@@ -79,6 +79,7 @@ export function NewForm() {
         <div className="flex flex-col gap-y-2">
           <label className="text-sm font-medium text-gray-700">Description</label>
           <MdEditor
+            className="w-full resize-y overflow-auto min-h-48"
             placeholder="If there is any known information, please write it down here."
             renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
             value={State.description}

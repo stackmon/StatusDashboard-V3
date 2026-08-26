@@ -1,37 +1,36 @@
-import { Link, Toast, ToastFooter, ToastTitle, useToastController } from "@fluentui/react-components";
+import { Link } from "@fluentui/react-components";
 import { useAuth } from "react-oidc-context";
+import { useAppToast } from "~/Helpers/useAppToast";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.2.0
  */
 export function useAccessToken() {
   const auth = useAuth();
-  const { dispatchToast } = useToastController();
+  const toast = useAppToast();
 
-  function getToken() {
-    if (auth.user?.expired) {
-      dispatchToast(
-        <Toast>
-          <ToastTitle>
-            You're not logged in.
-          </ToastTitle>
+  async function getToken(): Promise<string> {
+    let user = auth.user;
 
-          <ToastFooter>
-            <Link
-              onClick={() => auth.signinRedirect()}>
-              Login
-            </Link>
-          </ToastFooter>
-        </Toast>,
-        { intent: "warning" }
-      );
+    if (user?.expired) {
+      user = await auth.signinSilent();
+    }
+
+    if (!user) {
+      toast.showWarning("You're not logged in.", {
+        action: (
+          <Link onClick={() => auth.signinRedirect()}>
+            Login
+          </Link>
+        ),
+      });
 
       throw new Error("You're not logged in.");
     }
 
-    return auth.user!.access_token;
+    return user.access_token;
   }
 
   return getToken;

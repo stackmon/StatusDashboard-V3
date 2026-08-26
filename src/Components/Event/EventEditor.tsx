@@ -42,23 +42,23 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       heading="Edit Event"
       opened={open}
       omitCloseButton
-      size="small"
+      size="large"
       class="absolute"
       onScale-before-close={(e) => e.preventDefault()}
     >
       <form
-        className="flex flex-col gap-y-6"
+        className="flex flex-col gap-y-6 md:flex-row md:gap-x-6"
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
           OnSubmit().then(() => setFalse());
         }}>
 
-        {
-          IsIncident(Event.Type) &&
+        <div className="flex flex-col gap-y-6 md:w-1/2">
           <ScaleDropdownSelect
             label="Type"
             value={State.type}
+            disabled={!IsIncident(Event.Type)}
             onScale-change={(e) => Actions.setType(e.target.value as EventType)}
             invalid={!!Validation.type}
             helperText={Validation.type}
@@ -68,125 +68,131 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
                 {type}
               </ScaleDropdownSelectItem>)}
           </ScaleDropdownSelect>
-        }
 
-        <ScaleTextField
-          placeholder="Please give the title of event"
-          required
-          label="Title"
-          value={State.title}
-          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
-          invalid={!!Validation.title}
-          helperText={Validation.title}
-        />
-
-        <ScaleDropdownSelect
-          label="Status"
-          value={State.status}
-          onScale-change={(e) => Actions.setStatus(e.target.value as EventStatus)}
-          invalid={!!Validation.status}
-          helperText={Validation.status}
-        >
-          {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
-            .map((status, i) =>
-              <ScaleDropdownSelectItem value={status} key={i}>
-                {status}
-              </ScaleDropdownSelectItem>)}
-        </ScaleDropdownSelect>
-
-        <ScaleTextField
-          type="datetime-local"
-          label="Start CET"
-          disabled={IsIncident(State.type) && IsOpenStatus(Event.Status)}
-          value={dayjs(State.start).format(Dic.Picker)}
-          onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
-          invalid={!!Validation.start}
-          helperText={Validation.start}
-        />
-
-        <ScaleTextField
-          type="datetime-local"
-          label="(Plan) End CET"
-          disabled={!(!IsIncident(State.type) || (State.status && !IsOpenStatus(State.status)))}
-          value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
-          onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
-          invalid={!!Validation.end}
-          helperText={Validation.end}
-        />
-
-        <ScaleTextField
-          type="datetime-local"
-          label="Updated At"
-          value={dayjs(State.updateAt).format(Dic.Picker)}
-          onScale-input={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
-          invalid={!!Validation.updateAt}
-          helperText={Validation.updateAt}
-        />
-
-        <div className="flex flex-col gap-y-2">
-          <label className="text-sm font-medium text-gray-700">Description</label>
-          <MdEditor
-            placeholder="Optional description for the event"
-            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
-            value={State.description}
-            onChange={({ text }) => Actions.setDescription(text)}
-            plugins={MDDecsPlugins}
-            config={{
-              view: {
-                menu: true,
-                md: true,
-                html: false
-              }
-            }}
-          />
-          {Validation.description && (
-            <ScaleHelperText variant="danger" helperText={Validation.description} />
-          )}
-        </div>
-
-        {State.type === EventType.Maintenance && (
           <ScaleTextField
-            placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
-            label="Contact Email"
-            type="email"
-            value={State.contactEmail || ""}
-            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
-            invalid={!!Validation.contactEmail}
-            helperText={Validation.contactEmail}
+            placeholder="Please give the title of event"
+            required
+            label="Title"
+            value={State.title}
+            onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+            invalid={!!Validation.title}
+            helperText={Validation.title}
           />
-        )}
 
-        <div className="flex flex-col gap-y-2">
-          <label className="text-sm font-medium text-gray-700">Update Message</label>
-          <MdEditor
-            placeholder="Message detailing the updates"
-            renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
-            value={State.update}
-            onChange={({ text }) => Actions.setUpdate(text)}
-            plugins={MDUpdatePlugins}
-            config={{
-              view: {
-                menu: true,
-                md: true,
-                html: false
-              }
-            }}
+          <ScaleDropdownSelect
+            label="Status"
+            value={State.status}
+            onScale-change={(e) => Actions.setStatus(e.target.value as EventStatus)}
+            invalid={!!Validation.status}
+            helperText={Validation.status}
+          >
+            {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
+              .map((status, i) =>
+                <ScaleDropdownSelectItem value={status} key={i}>
+                  {status}
+                </ScaleDropdownSelectItem>)}
+          </ScaleDropdownSelect>
+
+          <ScaleTextField
+            type="datetime-local"
+            label="Start CET"
+            disabled={IsIncident(State.type) && IsOpenStatus(Event.Status)}
+            value={dayjs(State.start).format(Dic.Picker)}
+            onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+            invalid={!!Validation.start}
+            helperText={Validation.start}
           />
-          {Validation.update && (
-            <ScaleHelperText variant="danger" helperText={Validation.update} />
+
+          <ScaleTextField
+            type="datetime-local"
+            label="(Plan) End CET"
+            disabled={!(!IsIncident(State.type) || (State.status && !IsOpenStatus(State.status)))}
+            value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
+            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+            invalid={!!Validation.end}
+            helperText={Validation.end}
+          />
+
+          <ScaleTextField
+            type="datetime-local"
+            label="Updated At"
+            value={dayjs(State.updateAt).format(Dic.Picker)}
+            onScale-input={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
+            invalid={!!Validation.updateAt}
+            helperText={Validation.updateAt}
+          />
+
+          {State.type === EventType.Maintenance && (
+            <ScaleTextField
+              placeholder="e.g. DL-TSI_OTC_Storage_Squad@t-systems.com"
+              label="Contact Email"
+              type="email"
+              value={State.contactEmail || ""}
+              onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+              invalid={!!Validation.contactEmail}
+              helperText={Validation.contactEmail}
+            />
           )}
         </div>
 
-        <div className="flex gap-x-3 self-end">
-          <ScaleButton onClick={setFalse} variant="secondary" type="button">
-            Cancel
-          </ScaleButton>
+        <div className="flex flex-col gap-y-6 md:w-1/2">
+          <div className="flex flex-1 flex-col gap-y-2 min-h-56 resize-y overflow-auto">
+            <label className="text-sm font-medium text-gray-700">Description</label>
+            <MdEditor
+              className="flex-1 min-h-0"
+              placeholder="Optional description for the event"
+              renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+              value={State.description}
+              onChange={({ text }) => Actions.setDescription(text)}
+              plugins={MDDecsPlugins}
+              style={{ minHeight: 0, flex: 1 }}
+              config={{
+                view: {
+                  menu: true,
+                  md: true,
+                  html: false
+                }
+              }}
+            />
+            {Validation.description && (
+              <ScaleHelperText variant="danger" helperText={Validation.description} />
+            )}
+          </div>
 
-          <ScaleButton type="submit" disabled={Loading}>
-            Submit
-          </ScaleButton>
+          <div className="flex flex-1 flex-col gap-y-2 min-h-56 resize-y overflow-auto">
+            <label className="text-sm font-medium text-gray-700">Update Message</label>
+            <MdEditor
+              className="flex-1 min-h-0"
+              placeholder="Message detailing the updates"
+              renderHTML={(text) => <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{text}</ReactMarkdown>}
+              value={State.update}
+              onChange={({ text }) => Actions.setUpdate(text)}
+              plugins={MDUpdatePlugins}
+              style={{ minHeight: 0, flex: 1 }}
+              config={{
+                view: {
+                  menu: true,
+                  md: true,
+                  html: false
+                }
+              }}
+            />
+            {Validation.update && (
+              <ScaleHelperText variant="danger" helperText={Validation.update} />
+            )}
+          </div>
+
+          <div className="flex gap-x-3 justify-end">
+            <ScaleButton onClick={setFalse} variant="secondary" type="button">
+              Cancel
+            </ScaleButton>
+
+            <ScaleButton type="submit" disabled={Loading}>
+              Submit
+            </ScaleButton>
+          </div>
         </div>
       </form>
-    </ScaleModal>
+    </ScaleModal >
   </>;
 }

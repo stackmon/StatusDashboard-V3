@@ -1,9 +1,10 @@
-import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { useRequest } from "ahooks";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { fetchPlus } from "~/Helpers/fetchPlus";
+import { useAppToast } from "~/Helpers/useAppToast";
 import { useStatus } from "~/Services/Status";
 import { StatusEnum } from "~/Services/Status.Entities";
-import { Models } from "~/Services/Status.Models";
+import { IStatusContext, Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
 import { EventStatus, EventType, GetEventImpact, GetStatusString, IsIncident, IsOpenStatus } from "./Enums";
 
@@ -217,14 +218,18 @@ export function useEditForm(event: Models.IEvent) {
   }, [start, end]);
 
   const getToken = useAccessToken();
-  const { dispatchToast } = useToastController();
+  const toast = useAppToast();
   const { DB, Update } = useStatus();
+  const snapshotRef = useRef<IStatusContext | null>(null);
 
   const { runAsync, loading } = useRequest(async () => {
     if (![setTitle(), setType(), setUpdate(), setDescription(), setContactEmail(), setStatus(), setStart(), setEnd(), setUpdateAt()].every(Boolean)) {
       throw new Error("Validation failed.");
     }
     const url = process.env.SD_BACKEND_URL!;
+
+    // Save snapshot for rollback (deep copy to avoid shared array references)
+    snapshotRef.current = structuredClone(DB);
 
     const body: Record<string, any> = {
       title,
@@ -262,26 +267,11 @@ export function useEditForm(event: Models.IEvent) {
       }
     }
 
-    const raw = await fetch(`${url}/v2/events/${event.Id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!raw.ok) {
-      const message = await raw.text();
-      dispatchToast(
-        <Toast>
-          <ToastTitle>Failed to update event</ToastTitle>
-          <ToastBody>{message}</ToastBody>
-        </Toast>,
-        { intent: "warning" }
-      );
-      throw new Error("Failed to update event: " + message);
-    }
+    await fetchPlus.patchJson(
+      `${url}/v2/events/${event.Id}`,
+      body,
+      { token: await getToken() }
+    );
 
     const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);
     if (eventIndex !== -1) {
@@ -311,7 +301,15 @@ export function useEditForm(event: Models.IEvent) {
     _setStatus(undefined);
     _setUpdateAt(new Date());
   }, {
-    manual: true
+    manual: true,
+    onError: (err) => {
+      // Rollback on failure
+      if (snapshotRef.current) {
+        Update(snapshotRef.current);
+      }
+      const message = err instanceof Error ? err.message : "An error occurred";
+      toast.showError("Failed to update event", { body: message });
+    },
   });
 
   return {

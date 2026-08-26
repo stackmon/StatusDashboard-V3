@@ -1,6 +1,7 @@
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { Suspense } from "react";
 import { OIDCProvider } from "./Components/Auth";
+import { AppErrorBoundary } from "./Components/ErrorBoundary";
 import { BrowserRouter } from "./Components/Router";
 import { Layout } from "./Pages";
 import { StatusContext } from "./Services/Status";
@@ -18,14 +19,18 @@ import { StatusContext } from "./Services/Status";
  */
 export function App() {
   return (
-    <Suspense fallback={<ScaleLoadingSpinner />}>
+    <AppErrorBoundary variant="root">
       <BrowserRouter>
         <OIDCProvider>
-          <StatusContext>
-            <Layout />
-          </StatusContext>
+          <AppErrorBoundary variant="data">
+            <Suspense fallback={<ScaleLoadingSpinner />}>
+              <StatusContext>
+                <Layout />
+              </StatusContext>
+            </Suspense>
+          </AppErrorBoundary>
         </OIDCProvider>
       </BrowserRouter>
-    </Suspense>
+    </AppErrorBoundary>
   )
 }

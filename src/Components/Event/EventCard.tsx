@@ -4,10 +4,11 @@ import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { Authorized } from "../Auth/With";
+import { Authorized, Roles } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
+import { EventApprove } from "./EventApprove";
 import { EventEditor } from "./EventEditor";
 import { EventExtract } from "./EventExtract";
 
@@ -26,7 +27,7 @@ import { EventExtract } from "./EventExtract";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.1
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
   return (
@@ -40,15 +41,27 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </h3>
         </div>
 
-        <Authorized>
-          <div className="flex gap-x-3">
-            {
-              Event.RegionServices.size > 1 &&
-              <EventExtract Event={Event} />
-            }
+        <div className="flex gap-x-3">
+          <Authorized rules={(groups) =>
+            Event.Status === EventStatus.PendingReview &&
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
+            <EventApprove Event={Event} />
+          </Authorized>
+
+          <Authorized rules={(groups) =>
+            Event.RegionServices.size > 1 &&
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
+            <EventExtract Event={Event} />
+          </Authorized>
+
+          <Authorized rules={(groups) => (
+            Event.Status === EventStatus.PendingReview &&
+            groups.some(g => g === Roles.Creators)
+          ) ||
+            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
             <EventEditor Event={Event} />
-          </div>
-        </Authorized>
+          </Authorized>
+        </div>
       </div>
 
       <div className="flex gap-x-2.5">

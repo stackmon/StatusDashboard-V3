@@ -1,5 +1,6 @@
 import { useRequest } from "ahooks";
 import { useEffect, useRef, useState } from "react";
+import { ApiError } from "~/Helpers/ApiError";
 import { fetchPlus } from "~/Helpers/fetchPlus";
 import { useAppToast } from "~/Helpers/useAppToast";
 import { useStatus } from "~/Services/Status";
@@ -219,7 +220,7 @@ export function useEditForm(event: Models.IEvent) {
 
   const getToken = useAccessToken();
   const toast = useAppToast();
-  const { DB, Update } = useStatus();
+  const { DB, Update, Refresh } = useStatus();
   const snapshotRef = useRef<IStatusContext | null>(null);
 
   const { runAsync, loading } = useRequest(async () => {
@@ -231,47 +232,66 @@ export function useEditForm(event: Models.IEvent) {
     // Save snapshot for rollback (deep copy to avoid shared array references)
     snapshotRef.current = structuredClone(DB);
 
-    const body: Record<string, any> = {
-      title,
-      status: GetStatusString(status!),
-      impact: GetEventImpact(type),
-      message: update,
-      update_date: updateAt.toISOString(),
-      description,
+    const buildBody = (version?: number): Record<string, any> => {
+      const b: Record<string, any> = {
+        title,
+        status: GetStatusString(status!),
+        impact: GetEventImpact(type),
+        message: update,
+        update_date: updateAt.toISOString(),
+        description,
+      };
+
+      // The backend version = number of updates + 1 (creation adds an initial update).
+      if (type === EventType.Maintenance && contactEmail) {
+        b.contact_email = contactEmail;
+        b.version = version ?? event.Version ?? event.Histories.size + 1;
+      };
+
+      if (event.Type !== type) {
+        b.status = StatusEnum.ImpactChanged;
+      }
+
+      if (!IsIncident(event.Type)) {
+        b.start_date = start.toISOString();
+      }
+
+      if (end && !isNaN(end.getTime())) {
+        b.end_date = end.toISOString();
+      }
+
+      if (!IsOpenStatus(event.Status) && IsIncident(event.Type)) {
+        if (event.Status !== status) {
+          b.end_date = undefined;
+          b.status = StatusEnum.Reopened;
+        } else {
+          b.start_date = start.toISOString();
+          b.status = StatusEnum.Changed;
+        }
+      }
+
+      return b;
     };
 
-    if (type === EventType.Maintenance && contactEmail) {
-      body.contact_email = contactEmail;
-      body.version = event.Version ?? event.Histories.size + 1;
-    };
+    const token = await getToken();
+    let body = buildBody();
+    let versionUsed = body.version as number | undefined;
 
-    if (event.Type !== type) {
-      body.status = StatusEnum.ImpactChanged;
-    }
-
-    if (!IsIncident(event.Type)) {
-      body.start_date = start.toISOString();
-    }
-
-    if (end && !isNaN(end.getTime())) {
-      body.end_date = end.toISOString();
-    }
-
-    if (!IsOpenStatus(event.Status) && IsIncident(event.Type)) {
-      if (event.Status !== status) {
-        body.end_date = undefined;
-        body.status = StatusEnum.Reopened;
+    try {
+      await fetchPlus.patchJson(`${url}/v2/events/${event.Id}`, body, { token });
+    } catch (err) {
+      // Optimistic-concurrency conflict: reload the authoritative version and retry once
+      if (err instanceof ApiError && err.status === 409 && body.version !== undefined) {
+        await Refresh();
+        const fresh = DB.Events.find(e => e.Id === event.Id);
+        const freshVersion = fresh ? fresh.Version ?? fresh.Histories.size + 1 : undefined;
+        body = buildBody(freshVersion);
+        versionUsed = body.version as number | undefined;
+        await fetchPlus.patchJson(`${url}/v2/events/${event.Id}`, body, { token });
       } else {
-        body.start_date = start.toISOString();
-        body.status = StatusEnum.Changed;
+        throw err;
       }
     }
-
-    await fetchPlus.patchJson(
-      `${url}/v2/events/${event.Id}`,
-      body,
-      { token: await getToken() }
-    );
 
     const eventIndex = DB.Events.findIndex(e => e.Id === event.Id);
     if (eventIndex !== -1) {
@@ -283,6 +303,10 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.End = end;
       updatedEvent.Description = description;
       updatedEvent.ContactEmail = contactEmail;
+      // Keep the optimistic version in sync so a follow-up edit does not hit a 409 conflict.
+      if (versionUsed !== undefined) {
+        updatedEvent.Version = versionUsed + 1;
+      }
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,

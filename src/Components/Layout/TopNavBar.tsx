@@ -1,5 +1,9 @@
 import { ScaleTelekomHeader, ScaleTelekomNavItem, ScaleTelekomNavList } from "@telekom/scale-components-react";
+import { chain } from "lodash";
+import { useMemo } from "react";
+import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
+import { useStatus } from "~/Services/Status";
 import { Authorized } from "../Auth/With";
 import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
@@ -8,9 +12,15 @@ import { ProfileMenu } from "./ProfileMenu";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.3.0
  */
 export function TopNavBar() {
+  const { DB } = useStatus();
+
+  const pendingCount = useMemo(() => chain(DB.Events)
+    .filter(e => e.Status === EventStatus.PendingReview)
+    .value().length, [DB]);
+
   return (
     <ScaleTelekomHeader
       appName={Dic.Name}
@@ -29,6 +39,12 @@ export function TopNavBar() {
             Docs
           </a>
         </ScaleTelekomNavItem>
+
+        <Authorized>
+          <NavItem Href="/NewEvent" Label="New Event" />
+
+          {pendingCount > 0 && <NavItem Href="/Reviews" Label={`Reviews: ${pendingCount}`} />}
+        </Authorized>
       </ScaleTelekomNavList>
 
       <ScaleTelekomNavList alignment="right" aria-label="Functions Menu" slot="functions" variant="functions">

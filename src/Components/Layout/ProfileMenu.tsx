@@ -13,22 +13,18 @@ export function ProfileMenu() {
     <ScaleTelekomNavItem hideOnMobile>
       <ScaleMenuFlyout>
 
-        <ScaleButton slot="trigger" variant="secondary" iconOnly>
-          <ScaleIconUserFileUser accessibility-title="Menu" />
-        </ScaleButton>
+        <div slot="trigger" className="relative">
+          <ScaleButton variant="secondary" iconOnly>
+            <ScaleIconUserFileUser accessibility-title="Menu" />
+          </ScaleButton>
+        </div>
 
         <ScaleMenuFlyoutList>
           <ScaleMenuFlyoutItem>
             Hi, {auth.user?.profile.name || auth.user?.profile.preferred_username}
           </ScaleMenuFlyoutItem>
 
-          <ScaleMenuFlyoutItem>
-            <a className="text-black no-underline" href="/NewEvent">
-              New Event
-            </a>
-          </ScaleMenuFlyoutItem>
-
-          <ScaleMenuFlyoutItem onScale-select={() => auth.signoutSilent()}>
+          <ScaleMenuFlyoutItem onScaleSelect={() => auth.signoutSilent()}>
             Logout
           </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>

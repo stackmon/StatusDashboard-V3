@@ -1,14 +1,23 @@
 import { ScaleIconActionMenu, ScaleTelekomMobileFlyoutCanvas, ScaleTelekomMobileMenu, ScaleTelekomMobileMenuItem, ScaleTelekomNavFlyout, ScaleTelekomNavItem } from "@telekom/scale-components-react";
+import { chain } from "lodash";
+import { useMemo } from "react";
 import { useAuth } from "react-oidc-context";
-import { Authorized } from "../Auth/With";
+import { EventStatus } from "~/Components/Event/Enums";
+import { useStatus } from "~/Services/Status";
+import { Authorized, Roles } from "../Auth/With";
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.1.0
+ * @version 0.3.0
  */
 export function MobileMenu() {
   const auth = useAuth();
+  const { DB } = useStatus();
+
+  const pendingCount = useMemo(() => chain(DB.Events)
+    .filter(e => e.Status === EventStatus.PendingReview)
+    .value().length, [DB]);
 
   return (
     <ScaleTelekomNavItem hideOnDesktop>
@@ -39,8 +48,17 @@ export function MobileMenu() {
                 <a href="/NewEvent">New Event</a>
               </ScaleTelekomMobileMenuItem>
 
-              <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutSilent()}>
-                Logout {auth.user?.profile.name}
+              <Authorized rules={(groups) => {
+                return pendingCount > 0 &&
+                  groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
+              }}>
+                <ScaleTelekomMobileMenuItem>
+                  <a href="/Reviews">Reviews: {pendingCount}</a>
+                </ScaleTelekomMobileMenuItem>
+              </Authorized>
+
+              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={() => auth.signoutSilent()}>
+                Logout {auth.user?.profile.name || auth.user?.profile.preferred_username}
               </ScaleTelekomMobileMenuItem>
             </Authorized>
           </ScaleTelekomMobileMenu>

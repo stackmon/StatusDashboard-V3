@@ -21,7 +21,7 @@ export function TabItem({ Item, Topic }: INavWorkaround) {
   return <>
     <ScaleTabHeader
       slot="tab"
-      onScale-select={() => regionSub.next(Item)}
+      onScaleSelect={() => regionSub.next(Item)}
     >
       {Item.Name}
     </ScaleTabHeader>

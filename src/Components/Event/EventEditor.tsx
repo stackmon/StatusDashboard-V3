@@ -3,6 +3,7 @@ import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
+import { useAuth } from "react-oidc-context";
 import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins, MDUpdatePlugins } from "~/Helpers/Entities";
@@ -24,16 +25,17 @@ import { useEditForm } from "./useEditForm";
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.4.0
+ * @version 0.4.1
  */
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
+  const auth = useAuth();
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
       <ScaleIconActionEdit />
-      Edit
+      &nbsp;Edit
     </ScaleButton>
 
     <ScaleModal
@@ -42,7 +44,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
       omitCloseButton
       size="large"
       class="absolute"
-      onScale-before-close={(e) => e.preventDefault()}
+      onScaleBeforeClose={(e) => e.preventDefault()}
     >
       <form
         className="flex flex-col gap-y-6 md:flex-row md:gap-x-6"
@@ -57,7 +59,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             label="Type"
             value={State.type}
             disabled={!IsIncident(Event.Type)}
-            onScale-change={(e) => Actions.setType(e.target.value as EventType)}
+            onScaleChange={(e) => Actions.setType(e.target.value as EventType)}
             invalid={!!Validation.type}
             helperText={Validation.type}
           >
@@ -72,7 +74,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             required
             label="Title"
             value={State.title}
-            onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+            onScaleInput={(e) => Actions.setTitle(e.target.value as string)}
             invalid={!!Validation.title}
             helperText={Validation.title}
           />
@@ -80,11 +82,11 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           <ScaleDropdownSelect
             label="Status"
             value={State.status}
-            onScale-change={(e) => Actions.setStatus(e.target.value as EventStatus)}
+            onScaleChange={(e) => Actions.setStatus(e.target.value as EventStatus)}
             invalid={!!Validation.status}
             helperText={Validation.status}
           >
-            {GetStatusList(State.type)
+            {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
               .map((status, i) =>
                 <ScaleDropdownSelectItem value={status} key={i}>
                   {status}
@@ -96,7 +98,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             label="Start CET"
             disabled={IsIncident(State.type) && IsOpenStatus(Event.Status)}
             value={dayjs(State.start).format(Dic.Picker)}
-            onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+            onScaleInput={(e) => Actions.setStart(new Date(e.target.value as string))}
             invalid={!!Validation.start}
             helperText={Validation.start}
           />
@@ -106,7 +108,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             label="(Plan) End CET"
             disabled={!(!IsIncident(State.type) || (State.status && !IsOpenStatus(State.status)))}
             value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
-            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+            onScaleInput={(e) => Actions.setEnd(new Date(e.target.value as string))}
             invalid={!!Validation.end}
             helperText={Validation.end}
           />
@@ -115,7 +117,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             type="datetime-local"
             label="Updated At"
             value={dayjs(State.updateAt).format(Dic.Picker)}
-            onScale-input={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
+            onScaleInput={(e) => Actions.setUpdateAt(new Date(e.target.value as string))}
             invalid={!!Validation.updateAt}
             helperText={Validation.updateAt}
           />
@@ -126,7 +128,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
               label="Contact Email"
               type="email"
               value={State.contactEmail || ""}
-              onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+              onScaleInput={(e) => Actions.setContactEmail(e.target.value as string)}
               invalid={!!Validation.contactEmail}
               helperText={Validation.contactEmail}
             />
@@ -191,6 +193,6 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
           </div>
         </div>
       </form>
-    </ScaleModal>
+    </ScaleModal >
   </>;
 }

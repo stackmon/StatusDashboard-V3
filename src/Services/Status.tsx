@@ -91,36 +91,34 @@ export function useStatus() {
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
   const [error, setError] = useState<ApiError>();
 
   const auth = useAuth();
-  const authRef = useRef(auth);
-  authRef.current = auth;
-
+  const abortRef = useRef<AbortController | null>(null);
   const url = process.env.SD_BACKEND_URL;
 
   const { runAsync } = useRequest(
     async () => {
-      while (authRef.current.isLoading) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
+      abortRef.current?.abort();
+      abortRef.current = new AbortController();
+      const { signal } = abortRef.current;
 
       log.info(`Loading status data from v2...`);
-      const token = authRef.current?.user?.access_token;
+      const token = auth.user?.access_token;
 
       const compLink = `${url}/v2/components`;
-      const compData = await fetchPlus.getJson<StatusEntityV2[]>(compLink, { token });
+      const compData = await fetchPlus.getJson<StatusEntityV2[]>(compLink, { token, signal });
 
       log.debug("Components Status loaded.", compData);
 
       const first = await fetchPlus.getJson<{
         data?: EventEntityV2[];
         pagination?: { totalPages?: number };
-      }>(`${url}/v2/events?page=1&limit=50`, { token });
+      }>(`${url}/v2/events?page=1&limit=50`, { token, signal });
 
       const allEvents: EventEntityV2[] = [];
 
@@ -138,7 +136,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
           const eventLink = `${url}/v2/events?page=${page}&limit=50`;
 
           pagePromises.push(
-            fetchPlus.getJson<{ data?: EventEntityV2[] }>(eventLink, { token })
+            fetchPlus.getJson<{ data?: EventEntityV2[] }>(eventLink, { token, signal })
               .then(res => {
                 log.debug(`Loaded page ${page}/${totalPages}, events: ${res.data?.length || 0}`);
                 return res.data || [];
@@ -148,6 +146,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
 
         const remainingPages = await Promise.all(pagePromises);
         remainingPages.forEach(pageData => {
+          signal.throwIfAborted();
           if (Array.isArray(pageData)) {
             allEvents.push(...pageData);
           }
@@ -168,23 +167,22 @@ export function StatusContext({ children }: { children: JSX.Element }) {
         update(TransformerV2(res));
       },
       onError: (err) => {
+        if (abortRef.current?.signal.aborted) return;
         const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
         log.error("Status data load failed", apiError);
         setError(apiError);
-        loading = undefined; // Allow retry via ErrorBoundary
+        loading = undefined;
       },
+      onFinally: () => subRef.current?.next(new Date()),
+      refreshDeps: [auth.user?.access_token],
+      pollingInterval: 60000,
+      pollingWhenHidden: false,
     }
   );
 
+  const subRef = useRef<Subject<Date>>(null);
   useMount(() => {
-    const sub = Station.get<Subject<Date>>("Update", () => new Subject());
-
-    const interval = setInterval(() => {
-      runAsync();
-      sub.next(new Date());
-    }, 60000);
-
-    return () => clearInterval(interval);
+    subRef.current = Station.get<Subject<Date>>("Update", () => new Subject());
   });
 
   function update(data: IStatusContext = ins) {

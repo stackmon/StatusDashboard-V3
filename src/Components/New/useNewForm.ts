@@ -260,7 +260,7 @@ export function useNewForm() {
     const res = await fetchPlus.postJson<{ result: { incident_id?: number }[] }>(
       `${url}/v2/events`,
       body,
-      { token: getToken() }
+      { token: await getToken() }
     );
 
     const id = res.result?.at(0)?.incident_id;

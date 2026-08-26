@@ -49,7 +49,7 @@ export function useEventExtract(event: Models.IEvent) {
     const res = await fetchPlus.postJson<{ id?: number }>(
       `${url}/v2/events/${event.Id}/extract`,
       body,
-      { token: getToken() }
+      { token: await getToken() }
     );
 
     const id = res.id;

@@ -12,23 +12,41 @@ export interface FetchPlusOptions {
   signal?: AbortSignal;
 }
 
+export type TokenRefresher = () => Promise<string | null>;
+
+let refresher: TokenRefresher | null = null;
+
+export function setTokenRefresher(fn: TokenRefresher | null): void {
+  refresher = fn;
+}
+
 /**
  * @author Aloento
- * @since 1.5.0
+ * @since 1.6.0
  * @version 1.0.0
  */
 class FetchPlus {
-  private buildHeaders(token?: string, extra?: Record<string, string>): Headers {
-    const headers: Record<string, string> = { ...extra };
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+  private async request<T>(url: string, init: RequestInit, options?: FetchPlusOptions, retried = false): Promise<T> {
+    const headers = new Headers(init.headers);
+    if (options?.token) {
+      headers.set("Authorization", `Bearer ${options.token}`);
     }
-    return new Headers(headers);
-  }
 
-  async getJson<T = unknown>(url: string, options?: FetchPlusOptions): Promise<T> {
-    const headers = this.buildHeaders(options?.token);
-    const res = await fetch(url, { headers, signal: options?.signal });
+    const res = await fetch(url, { ...init, headers });
+
+    if (res.status === 401 && !retried && options?.token && refresher) {
+      let newToken: string | null = null;
+      try {
+        newToken = await refresher();
+      } catch {
+        newToken = null;
+      }
+
+      if (newToken) {
+        headers.set("Authorization", `Bearer ${newToken}`);
+        return this.request<T>(url, { ...init, headers }, { ...options, token: newToken }, true);
+      }
+    }
 
     if (!res.ok) {
       const body = await res.text().catch(() => undefined);
@@ -38,42 +56,30 @@ class FetchPlus {
     return this.parseJson<T>(res);
   }
 
-  async postJson<T = unknown>(url: string, body: unknown, options?: FetchPlusOptions): Promise<T> {
-    const headers = this.buildHeaders(options?.token, {
-      "Content-Type": "application/json",
-    });
-    const res = await fetch(url, {
-      method: "POST",
-      headers,
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-      signal: options?.signal,
-    });
-
-    if (!res.ok) {
-      const text = await res.text().catch(() => undefined);
-      throw ApiError.fromHttp(res, text);
-    }
-
-    return this.parseJson<T>(res);
+  getJson<T = unknown>(url: string, options?: FetchPlusOptions): Promise<T> {
+    return this.request<T>(url, { signal: options?.signal }, options);
   }
 
-  async patchJson<T = unknown>(url: string, body: unknown, options?: FetchPlusOptions): Promise<T> {
-    const headers = this.buildHeaders(options?.token, {
-      "Content-Type": "application/json",
-    });
-    const res = await fetch(url, {
-      method: "PATCH",
-      headers,
+  postJson<T = unknown>(url: string, body: unknown, options?: FetchPlusOptions): Promise<T> {
+    return this.request<T>(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: body !== undefined ? JSON.stringify(body) : undefined,
       signal: options?.signal,
-    });
+    }, options);
+  }
 
-    if (!res.ok) {
-      const text = await res.text().catch(() => undefined);
-      throw ApiError.fromHttp(res, text);
-    }
-
-    return this.parseJson<T>(res);
+  patchJson<T = unknown>(url: string, body: unknown, options?: FetchPlusOptions): Promise<T> {
+    return this.request<T>(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      signal: options?.signal,
+    }, options);
   }
 
   private async parseJson<T>(res: Response): Promise<T> {

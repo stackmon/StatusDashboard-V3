@@ -22,15 +22,16 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
 
   const { runAsync, loading } = useRequest(async () => {
     const url = process.env.SD_BACKEND_URL!;
+    const version = Event.Version ?? Event.Histories.size + 1;
     const raw = await fetch(`${url}/v2/events/${Event.Id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`,
+        "Authorization": `Bearer ${await getToken()}`,
       },
       body: JSON.stringify({
         status: StatusEnum.Reviewed,
-        version: Event.Version ?? Event.Histories.size + 1,
+        version,
         message: `Approved by ${user?.profile.name || user?.profile.preferred_username}`,
         update_date: new Date().toISOString(),
       }),
@@ -49,6 +50,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
     }
 
     Event.Status = EventStatus.Reviewed;
+    Event.Version = version + 1;
     Event.Histories.add({
       Id: Event.Histories.size + 1,
       Created: new Date(),

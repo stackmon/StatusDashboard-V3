@@ -240,9 +240,14 @@ export function useEditForm(event: Models.IEvent) {
       description,
     };
 
+    // The backend version = number of updates + 1 (creation adds an initial update).
+    const sentVersion = type === EventType.Maintenance && contactEmail
+      ? event.Version ?? event.Histories.size + 1
+      : undefined;
+
     if (type === EventType.Maintenance && contactEmail) {
       body.contact_email = contactEmail;
-      body.version = event.Version ?? event.Histories.size + 1;
+      body.version = sentVersion;
     };
 
     if (event.Type !== type) {
@@ -283,6 +288,10 @@ export function useEditForm(event: Models.IEvent) {
       updatedEvent.End = end;
       updatedEvent.Description = description;
       updatedEvent.ContactEmail = contactEmail;
+      // Keep the optimistic version in sync so a follow-up edit does not hit a 409 conflict.
+      if (sentVersion !== undefined) {
+        updatedEvent.Version = sentVersion + 1;
+      }
 
       const newHistory: Models.IHistory = {
         Id: Math.max(...Array.from(updatedEvent.Histories).map(h => h.Id), 0) + 1,

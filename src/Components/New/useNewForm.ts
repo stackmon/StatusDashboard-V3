@@ -19,7 +19,7 @@ import { useRouter } from "../Router";
  * @version 0.3.0
  */
 export function useNewForm() {
-  const { DB, Update } = useStatus();
+  const { DB, Update, Refresh } = useStatus();
 
   const [title, _setTitle] = useState("");
   const [valTitle, setValTitle] = useState<string>();
@@ -271,6 +271,8 @@ export function useNewForm() {
 
     DB.Events.push(event);
     Update();
+
+    Refresh()?.catch(() => { /* StatusContext already handles load errors */ });
 
     Nav(`/Event/${event.Id}`);
   }, {

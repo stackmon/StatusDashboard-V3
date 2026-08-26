@@ -4,7 +4,9 @@ import type { ApiError } from "~/Helpers/ApiError";
 import { getUserFriendlyMessage } from "~/Helpers/ApiError";
 
 /**
- * Full-page loading view.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 export function LoadingView({ text = "Loading..." }: { text?: string }) {
   return (
@@ -15,7 +17,9 @@ export function LoadingView({ text = "Loading..." }: { text?: string }) {
 }
 
 /**
- * Empty state with icon and optional action.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 export function EmptyView({
   text = "No data available",
@@ -46,7 +50,9 @@ export function EmptyView({
 }
 
 /**
- * Full-page error state with retry button.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 export function ErrorView({
   error,
@@ -92,17 +98,17 @@ export function ErrorView({
   );
 }
 
-/**
- * Non-blocking error banner displayed at the top of a page.
- * The page content below remains visible and interactive.
- */
 export function ErrorBanner({
   error,
   onRetry,
+  onAction,
+  actionLabel,
   onDismiss,
 }: {
   error?: ApiError | Error;
   onRetry?: () => void;
+  onAction?: () => void;
+  actionLabel?: string;
   onDismiss?: () => void;
 }) {
   const message = error
@@ -136,14 +142,21 @@ export function ErrorBanner({
         <span className="text-red-700 truncate">{message}</span>
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        {onRetry && (
+        {onAction && actionLabel ? (
+          <button
+            onClick={onAction}
+            className="rounded bg-red-600 px-3 py-1 text-xs font-medium text-white hover:bg-red-700 cursor-pointer"
+          >
+            {actionLabel}
+          </button>
+        ) : onRetry ? (
           <button
             onClick={onRetry}
             className="rounded bg-red-600 px-3 py-1 text-xs font-medium text-white hover:bg-red-700 cursor-pointer"
           >
             Retry
           </button>
-        )}
+        ) : null}
         {onDismiss && (
           <button
             onClick={onDismiss}

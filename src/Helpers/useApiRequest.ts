@@ -6,6 +6,11 @@ import { useAppToast } from "./useAppToast";
 
 const log = new Logger("API");
 
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
 export interface UseApiRequestOptions<TData, TParams extends unknown[]> {
   /** Fire-and-forget or manual trigger */
   manual?: boolean;
@@ -28,15 +33,8 @@ export interface UseApiRequestOptions<TData, TParams extends unknown[]> {
 }
 
 /**
- * Unified wrapper around ahooks `useRequest` for API calls.
- *
- * - Automatically logs errors and shows toast (deduplicated via fingerprint).
- * - Manages AbortController lifecycle (cancels on unmount).
- * - Preserves `mutate` from ahooks for optimistic updates.
- * - Clears error state on successful invocations.
- *
  * @author Aloento
- * @since 3.0.0
+ * @since 1.5.0
  * @version 1.0.0
  */
 export function useApiRequest<TData, TParams extends unknown[] = []>(

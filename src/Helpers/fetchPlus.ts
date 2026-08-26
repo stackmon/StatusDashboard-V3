@@ -1,5 +1,10 @@
 import { ApiError } from "./ApiError";
 
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
 export interface FetchPlusOptions {
   /** Bearer token for Authorization header */
   token?: string;

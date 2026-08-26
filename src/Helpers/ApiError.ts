@@ -1,8 +1,6 @@
 /**
- * Structured API error type with factory methods and user-friendly messaging.
- *
  * @author Aloento
- * @since 3.0.0
+ * @since 1.5.0
  * @version 1.0.0
  */
 export class ApiError extends Error {
@@ -54,7 +52,11 @@ export class ApiError extends Error {
   }
 }
 
-/** Maps ApiError to a short user-friendly message for Toast / Banner */
+/**
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
+ */
 export function getUserFriendlyMessage(err: ApiError): string {
   if (err.isNetworkError) {
     return "Network error. Please check your connection.";
@@ -77,8 +79,9 @@ export function getUserFriendlyMessage(err: ApiError): string {
 }
 
 /**
- * Generate a deduplication fingerprint from an ApiError.
- * Same fingerprint -> same error class, helps avoid duplicate toasts.
+ * @author Aloento
+ * @since 1.5.0
+ * @version 1.0.0
  */
 export function errorFingerprint(err: ApiError): string {
   if (err.isNetworkError) return "network";

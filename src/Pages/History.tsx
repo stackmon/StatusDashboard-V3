@@ -130,7 +130,7 @@ export function History() {
             {PAGE_SIZE_OPTIONS.map((size) => (
               <ScaleMenuFlyoutItem
                 key={size}
-                onScale-select={() => {
+                onScaleSelect={() => {
                   setPageSize(size);
                   localStorage.setItem(PAGE_SIZE_KEY, size.toString());
                 }}

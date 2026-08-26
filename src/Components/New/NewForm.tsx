@@ -55,7 +55,7 @@ export function NewForm() {
         <ScaleDropdownSelect
           label="Type"
           value={State.type}
-          onScale-change={(e) => Actions.setType(e.target.value as EventType)}
+          onScaleChange={(e) => Actions.setType(e.target.value as EventType)}
           invalid={!!Validation.type}
           helperText={Validation.type}
           disabled={isCreatorOnly}
@@ -71,7 +71,7 @@ export function NewForm() {
           required
           label="Title"
           value={State.title}
-          onScale-input={(e) => Actions.setTitle(e.target.value as string)}
+          onScaleInput={(e) => Actions.setTitle(e.target.value as string)}
           invalid={!!Validation.title}
           helperText={Validation.title}
         />
@@ -158,7 +158,7 @@ export function NewForm() {
           label="Start CET"
           required
           value={dayjs(State.start).format(Dic.Picker)}
-          onScale-input={(e) => Actions.setStart(new Date(e.target.value as string))}
+          onScaleInput={(e) => Actions.setStart(new Date(e.target.value as string))}
           invalid={!!Validation.start}
           helperText={Validation.start}
         />
@@ -169,7 +169,7 @@ export function NewForm() {
             label="(Plan) End CET"
             required={State.type === EventType.Maintenance}
             value={State.end ? dayjs(State.end).format(Dic.Picker) : null}
-            onScale-input={(e) => Actions.setEnd(new Date(e.target.value as string))}
+            onScaleInput={(e) => Actions.setEnd(new Date(e.target.value as string))}
             invalid={!!Validation.end}
             helperText={Validation.end}
           />
@@ -182,7 +182,7 @@ export function NewForm() {
             type="email"
             required
             value={State.contactEmail || ""}
-            onScale-input={(e) => Actions.setContactEmail(e.target.value as string)}
+            onScaleInput={(e) => Actions.setContactEmail(e.target.value as string)}
             invalid={!!Validation.contactEmail}
             helperText={Validation.contactEmail}
           />
@@ -204,7 +204,7 @@ export function NewForm() {
         omitCloseButton
         size="small"
         class="absolute"
-        onScale-before-close={(e) => e.preventDefault()}
+        onScaleBeforeClose={(e) => e.preventDefault()}
       >
         <div className="flex flex-col gap-y-4">
           <p className="text-base font-semibold text-red-700">

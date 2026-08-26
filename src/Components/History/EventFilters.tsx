@@ -69,7 +69,7 @@ export function EventFilters({
           value={filters.startDate}
           invalid={!!validation.startDate}
           helperText={validation.startDate}
-          onScale-input={(e) => {
+          onScaleInput={(e) => {
             const newStartDate = e.target.value as string;
             onFiltersChange({
               ...filters,
@@ -86,7 +86,7 @@ export function EventFilters({
           value={filters.endDate}
           invalid={!!validation.endDate}
           helperText={validation.endDate}
-          onScale-input={(e) => {
+          onScaleInput={(e) => {
             const newEndDate = e.target.value as string;
             onFiltersChange({
               ...filters,
@@ -101,7 +101,7 @@ export function EventFilters({
           placeholder="Search service name"
           value={filters.serviceName}
           inputAutocomplete="off"
-          onScale-input={(e) => onFiltersChange({
+          onScaleInput={(e) => onFiltersChange({
             ...filters,
             serviceName: e.target.value as string
           })}
@@ -110,7 +110,7 @@ export function EventFilters({
         <ScaleDropdownSelect
           label="Region"
           value={filters.region}
-          onScale-change={(e) => onFiltersChange({
+          onScaleChange={(e) => onFiltersChange({
             ...filters,
             region: e.target.value as string
           })}
@@ -126,7 +126,7 @@ export function EventFilters({
         <ScaleDropdownSelect
           label="Event Type"
           value={filters.eventType}
-          onScale-change={(e) => onFiltersChange({
+          onScaleChange={(e) => onFiltersChange({
             ...filters,
             eventType: e.target.value as string
           })}
@@ -142,7 +142,7 @@ export function EventFilters({
         <ScaleDropdownSelect
           label="Event Status"
           value={filters.eventStatus}
-          onScale-change={(e) => onFiltersChange({
+          onScaleChange={(e) => onFiltersChange({
             ...filters,
             eventStatus: e.target.value as string
           })}

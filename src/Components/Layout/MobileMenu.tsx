@@ -57,7 +57,7 @@ export function MobileMenu() {
                 </ScaleTelekomMobileMenuItem>
               </Authorized>
 
-              <ScaleTelekomMobileMenuItem onScale-set-menu-item-active={() => auth.signoutSilent()}>
+              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={() => auth.signoutSilent()}>
                 Logout {auth.user?.profile.name || auth.user?.profile.preferred_username}
               </ScaleTelekomMobileMenuItem>
             </Authorized>

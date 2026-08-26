@@ -25,7 +25,7 @@ export function EventExtract({ Event }: { Event: Models.IEvent }) {
       omitCloseButton
       size="small"
       class="absolute"
-      onScale-before-close={(e) => e.preventDefault()}
+      onScaleBeforeClose={(e) => e.preventDefault()}
     >
       <form
         className="flex flex-col gap-y-6"

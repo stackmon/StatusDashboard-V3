@@ -25,3 +25,14 @@ img {
 .with-dot {
   position: relative;
 }
+
+/*
+ * Scale DataGrid measures column auto-widths and sizes the table to the full
+ * container width, but the rendered columns + reserved scrollbar space end up
+ * ~8-20px wider. This always triggers a phantom horizontal scrollbar even when
+ * the columns visually fit. Hide the horizontal overflow (vertical scrolling is
+ * unaffected) as the standard workaround.
+ */
+scale-data-grid::part(scrollable) {
+  overflow-x: hidden !important;
+}

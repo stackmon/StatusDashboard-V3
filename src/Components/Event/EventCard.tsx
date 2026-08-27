@@ -49,6 +49,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </Authorized>
 
           <Authorized rules={(groups) =>
+            Event.Type !== EventType.Maintenance &&
             Event.RegionServices.size > 1 &&
             groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
             <EventExtract Event={Event} />

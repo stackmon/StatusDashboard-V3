@@ -42,7 +42,7 @@
     "core-js": "^3.50.0",
     "eslint": "^10.9.1",
     "globals": "^17.11.0",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "react-refresh": "^0.18.0",
     "tailwindcss": "4.3.3",
     "tailwindcss-scoped-preflight": "^4.0.6",

@@ -6,3 +6,4 @@ minimumReleaseAgeExclude:
   - '@types/react@19.2.15'
   - postcss@8.5.15
   - core-js@3.50.0
+  - vite@8.3.0

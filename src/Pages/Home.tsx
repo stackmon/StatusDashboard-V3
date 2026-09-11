@@ -1,5 +1,4 @@
 import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-components";
-import { ScaleNotification } from "@telekom/scale-components-react";
 import { useCreation } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
@@ -11,6 +10,7 @@ import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/E
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
+import { Notification } from "~/Components/Home/Notification";
 import { RegionSelector } from "~/Components/Home/RegionSelector";
 import { StatusCard } from "~/Components/Home/StatusCard";
 import { Dic, Station } from "~/Helpers/Entities";
@@ -110,14 +110,14 @@ export function Home() {
         return pendingCount > 0 &&
           groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
       }}>
-        <ScaleNotification
+        <Notification
           heading={`You have ${pendingCount} maintenance events pending for review.`}
           opened
           variant="informational"
         />
       </Authorized>
 
-      <ScaleNotification
+      <Notification
         heading={heading}
         opened
         variant={abnormalCount > 0 ? "warning" : "success"}

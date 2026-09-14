@@ -19,6 +19,7 @@ RUN --mount=type=secret,id=SD_BACKEND_URL,env=SD_BACKEND_URL \
   --mount=type=secret,id=SD_ANALYTICS_URL,env=SD_ANALYTICS_URL \
   --mount=type=secret,id=SD_ANALYTICS_ID,env=SD_ANALYTICS_ID \
   --mount=type=secret,id=SD_NAME,env=SD_NAME \
+  --mount=type=secret,id=SD_GIT_SHA,env=SD_GIT_SHA \
   pnpm run build
 
 FROM nginx:stable-alpine

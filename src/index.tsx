@@ -15,13 +15,13 @@ dayjs.extend(timezone);
 defineCustomElements();
 
 const src = process.env.SD_ANALYTICS_URL || "";
-const BuildHash = process.env.SD_BUILD_HASH || "";
-const BuildUrl = process.env.SD_BUILD_URL || "";
+
+const commit = (process.env.SD_GIT_SHA || "").slice(0, 7);
+const build = commit ? `https://github.com/stackmon/StatusDashboard-V3/commit/${commit}` : "dev";
 
 const log = new Logger("App");
-const build = BuildUrl || BuildHash;
 
-log.info(`© 2026, T-Cloud, Ecosystem Squad${build ? `, ${build}` : ""}`);
+log.info(`© 2026, T-Cloud, Ecosystem Squad, ${build}`);
 
 if (src) {
   const s = document.createElement("script");

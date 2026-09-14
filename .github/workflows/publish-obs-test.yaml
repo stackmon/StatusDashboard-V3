@@ -1,0 +1,62 @@
+name: Publish test site to OBS
+
+# Builds the frontend and uploads dist/ to the static-website bucket. Until DNS points at
+# the bucket this only replaces the files, the site is still served by Kubernetes.
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Publishing must not be cancelled halfway through: an interrupted upload can leave
+# index.html referencing a bundle that was never written.
+concurrency:
+  group: publish-obs-test
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: test
+
+    env:
+      SD_BACKEND_URL: ${{ secrets.SD_BACKEND_URL }}
+      SD_CLIENT_ID: ${{ secrets.SD_CLIENT_ID }}
+      SD_AUTHORITY_URL: ${{ secrets.SD_AUTHORITY_URL }}
+      OBS_BUCKET: ${{ vars.OBS_TEST_BUCKET }}
+      OBS_SITE_ENDPOINT: ${{ vars.OBS_TEST_SITE_ENDPOINT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.OBS_TEST_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_TEST_SECRET_ACCESS_KEY }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "latest"
+          cache: "pnpm"
+          registry-url: "https://artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/"
+          scope: "@telekom-ods"
+
+      - name: Configure npm auth
+        run: npm config set //artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload to OBS
+        run: bash .github/scripts/upload-to-obs.sh

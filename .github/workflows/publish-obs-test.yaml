@@ -30,6 +30,7 @@ jobs:
       SD_BACKEND_URL: ${{ secrets.SD_BACKEND_URL }}
       SD_CLIENT_ID: ${{ secrets.SD_CLIENT_ID }}
       SD_AUTHORITY_URL: ${{ secrets.SD_AUTHORITY_URL }}
+      SD_GIT_SHA: ${{ github.sha }}
       OBS_BUCKET: ${{ vars.OBS_TEST_BUCKET }}
       OBS_SITE_ENDPOINT: ${{ vars.OBS_TEST_SITE_ENDPOINT }}
       AWS_ACCESS_KEY_ID: ${{ secrets.OBS_TEST_ACCESS_KEY_ID }}

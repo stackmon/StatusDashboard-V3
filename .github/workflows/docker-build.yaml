@@ -50,6 +50,7 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_GIT_SHA=${{ github.sha }}
 
   push_if_merged:
     if: github.event.pull_request.merged == true
@@ -95,3 +96,4 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_GIT_SHA=${{ github.sha }}

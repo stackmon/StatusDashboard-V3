@@ -1,7 +1,7 @@
 import { ScaleDataGrid, ScaleIconActionCheckmark, ScaleIconActionMenu, ScaleMenuFlyoutItem, ScaleMenuFlyoutList } from "@telekom/scale-components-react";
 import dayjs from "dayjs";
 import { chain } from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
@@ -26,7 +26,9 @@ export function Reviews() {
 
   const pendingEvents = DB.Events.filter((x) => x.Status === EventStatus.PendingReview);
 
-  useEffect(() => {
+  // Fields must be set before the data grid's ResizeObserver first fires,
+  // otherwise its initial column stretching throws on `fields.forEach`.
+  useLayoutEffect(() => {
     if (!gridRef.current) {
       return;
     }

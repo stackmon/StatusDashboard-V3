@@ -35,6 +35,13 @@ export AWS_DEFAULT_REGION="$OBS_REGION"
 export AWS_EC2_METADATA_DISABLED="true"
 export AWS_PAGER=""
 
+# Since CLI 2.23 the aws CLI calculates a trailing CRC64NVME checksum by default. It streams the
+# body in the aws-chunked format and marks the object with Content-Encoding: aws-chunked. OBS
+# stores that body as sent, so the chunk sizes and the trailer become part of the file and a
+# browser renders them as page content. OBS does not need the checksum, keep it opt-in.
+export AWS_REQUEST_CHECKSUM_CALCULATION="${AWS_REQUEST_CHECKSUM_CALCULATION:-when_required}"
+export AWS_RESPONSE_CHECKSUM_VALIDATION="${AWS_RESPONSE_CHECKSUM_VALIDATION:-when_required}"
+
 aws configure set default.s3.addressing_style path
 
 S3=(aws --endpoint-url "$OBS_ENDPOINT" s3)
@@ -122,7 +129,7 @@ if [ -z "$entry" ]; then
 fi
 
 head_ok() { # <path> <expected content-type>
-  local header
+  local header encoding
   header="$(curl -fsSI --max-time 30 "https://${OBS_SITE_ENDPOINT}${1}")" || {
     echo "::error::GET https://${OBS_SITE_ENDPOINT}${1} failed"
     return 1
@@ -132,10 +139,27 @@ head_ok() { # <path> <expected content-type>
     printf '%s\n' "$header"
     return 1
   }
+  # A clean object has no content encoding. Anything else means the body was uploaded
+  # chunk-encoded and the visitor would download the framing instead of the file.
+  encoding="$(sed -n 's/^[Cc]ontent-[Ee]ncoding:[[:space:]]*//p' <<<"$header" | tr -d '\r' | tr 'A-Z' 'a-z')"
+  if [ -n "$encoding" ] && [ "$encoding" != "identity" ]; then
+    echo "::error::${1} is served with Content-Encoding: ${encoding}, the object was uploaded chunk-encoded"
+    printf '%s\n' "$header"
+    return 1
+  fi
 }
 
 head_ok /index.html "text/html"
 head_ok "$entry" "application/javascript"
+
+# The served bundle has to be byte for byte the local file. A mismatch means the object was
+# stored with extra framing or was truncated, which the checks above cannot see.
+local_size="$(wc -c <"${DIST_DIR}${entry}" | tr -d '[:space:]')"
+served_size="$(curl -fsS --max-time 60 "https://${OBS_SITE_ENDPOINT}${entry}" | wc -c | tr -d '[:space:]')"
+if [ "$served_size" != "$local_size" ]; then
+  echo "::error::${entry} is served with ${served_size} bytes, the local file has ${local_size}"
+  exit 1
+fi
 
 served="$(curl -fsS --max-time 30 "https://${OBS_SITE_ENDPOINT}/" | grep -m1 -oE 'src="/assets/[^"]+\.js"' || true)"
 served="${served#src=\"}"; served="${served%\"}"

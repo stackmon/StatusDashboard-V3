@@ -44,6 +44,7 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_GIT_SHA=${{ github.sha }}
 
   push_manual:
     runs-on: ubuntu-latest
@@ -87,3 +88,4 @@ jobs:
             SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
             SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
             SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_GIT_SHA=${{ github.sha }}

@@ -55,3 +55,4 @@ jobs:
             SD_ANALYTICS_URL=${{ secrets.SD_ANALYTICS_URL }}
             SD_ANALYTICS_ID=${{ secrets.SD_ANALYTICS_ID_PROD }}
             SD_NAME=${{ secrets.SD_NAME }}
+            SD_GIT_SHA=${{ github.sha }}

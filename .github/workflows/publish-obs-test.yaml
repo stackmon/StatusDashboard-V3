@@ -8,6 +8,9 @@ on:
       - main
     paths-ignore:
       - "**/*.md"
+  # A manual run takes the branch that is selected in the Actions UI, so a feature branch can be
+  # published to the test bucket to look at the build there. The bucket holds one site, whichever
+  # run finished last wins.
   workflow_dispatch:
 
 permissions:
@@ -22,7 +25,6 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: test
 
     env:
       SD_BACKEND_URL: ${{ secrets.SD_BACKEND_URL }}

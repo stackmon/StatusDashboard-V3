@@ -8,12 +8,20 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { Logger } from "./Helpers/Logger";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 defineCustomElements();
 
 const src = process.env.SD_ANALYTICS_URL || "";
+const BuildHash = process.env.SD_BUILD_HASH || "";
+const BuildUrl = process.env.SD_BUILD_URL || "";
+
+const log = new Logger("App");
+const build = BuildUrl || BuildHash;
+
+log.info(`© 2026, T-Cloud, Ecosystem Squad${build ? `, ${build}` : ""}`);
 
 if (src) {
   const s = document.createElement("script");

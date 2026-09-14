@@ -1,6 +1,6 @@
 import { ScaleIconActionMenu, ScaleTelekomMobileFlyoutCanvas, ScaleTelekomMobileMenu, ScaleTelekomMobileMenuItem, ScaleTelekomNavFlyout, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { chain } from "lodash";
-import { useMemo } from "react";
+import { useMemo, useRef, type MouseEvent } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
 import { useStatus } from "~/Services/Status";
@@ -14,18 +14,38 @@ import { Authorized, Roles } from "../Auth/With";
 export function MobileMenu() {
   const auth = useAuth();
   const { DB } = useStatus();
+  const flyoutRef = useRef<HTMLScaleTelekomNavFlyoutElement>(null);
 
   const pendingCount = useMemo(() => chain(DB.Events)
     .filter(e => e.Status === EventStatus.PendingReview)
     .value().length, [DB]);
 
+  /**
+   * Defensive fallback for `scale-telekom-nav-flyout` (3.0.0-beta.161): its
+   * `connectedCallback` used to assign a private `parentElement` field, which
+   * hits the readonly `Node.parentElement` getter, aborts the callback and
+   * leaves the trigger without `aria-haspopup` and without a click listener, so
+   * the flyout never opens. `patches/` fixes that in the shipped source, which
+   * makes the guard below short-circuit; the manual toggle keeps the menu
+   * usable if the patch is ever dropped or lost on a Scale upgrade.
+   */
+  const toggleFlyout = (event: MouseEvent<HTMLButtonElement>) => {
+    const flyout = flyoutRef.current;
+
+    if (!flyout || event.currentTarget.hasAttribute("aria-haspopup")) {
+      return;
+    }
+
+    flyout.expanded = !flyout.expanded;
+  };
+
   return (
     <ScaleTelekomNavItem hideOnDesktop>
-      <button>
+      <button onClick={toggleFlyout}>
         <ScaleIconActionMenu accessibility-title="Menu" />
       </button>
 
-      <ScaleTelekomNavFlyout>
+      <ScaleTelekomNavFlyout ref={flyoutRef}>
         <ScaleTelekomMobileFlyoutCanvas>
           <ScaleTelekomMobileMenu slot="mobile-main-nav">
 

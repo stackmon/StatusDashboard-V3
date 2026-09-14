@@ -2,7 +2,7 @@ import { ScaleDataGrid } from "@telekom/scale-components-react";
 import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import { chain } from "lodash";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useAuth } from "react-oidc-context";
 import { Dic } from "~/Helpers/Entities";
 import { useShadowStyle } from "~/Helpers/useShadowStyle";
@@ -36,7 +36,9 @@ export function EventGrid() {
     }
   `);
 
-  useEffect(() => {
+  // Fields must be set before the data grid's ResizeObserver first fires,
+  // otherwise its initial column stretching throws on `fields.forEach`.
+  useLayoutEffect(() => {
     if (!ref.current) {
       return;
     }

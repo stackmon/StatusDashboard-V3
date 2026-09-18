@@ -26,6 +26,9 @@ env:
   SD_ANALYTICS_URL: ${{ vars.SD_ANALYTICS_URL }}
   SD_ANALYTICS_ID: ${{ vars.SD_ANALYTICS_ID_PROD }}
   SD_GIT_SHA: ${{ github.sha }}
+  # Single source for the primary website endpoint: it is both the upload target of
+  # publish-primary and the release every mirror has to match.
+  OBS_PRIMARY_SITE_ENDPOINT: status.obs-website.eu-de.otc.t-systems.com
 
 jobs:
   build:
@@ -56,12 +59,20 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # One build feeds every bucket, so all targets end up with byte-identical content.
+      # The marker describes what the build produced. It is written next to dist, never inside it,
+      # so the upload script's extension whitelist stays authoritative for the site content.
+      - name: Write release marker
+        run: bash .github/scripts/write-version-json.sh > version.json
+
+      # One build feeds every bucket, and they all share this artifact, so the markers are
+      # byte-identical and comparing them compares the releases.
       - name: Upload build output
         uses: actions/upload-artifact@v7
         with:
           name: dist
-          path: dist
+          path: |
+            dist
+            version.json
           retention-days: 7
 
   # The primary bucket is published and verified first. Mirrors must not run ahead of it, otherwise
@@ -72,9 +83,9 @@ jobs:
 
     env:
       OBS_BUCKET: status
-      OBS_SITE_ENDPOINT: status.obs-website.eu-de.otc.t-systems.com
       OBS_ENDPOINT: https://obs.eu-de.otc.t-systems.com
       OBS_REGION: eu-de
+      VERSION_FILE: version.json
       AWS_ACCESS_KEY_ID: ${{ secrets.OBS_PROD_EU_DE_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_PROD_EU_DE_SECRET_ACCESS_KEY }}
 
@@ -89,7 +100,9 @@ jobs:
       # The script uploads with the right content types and cache headers and then verifies what
       # the website endpoint actually serves, so a failure here fails the job.
       - name: Upload to primary bucket
-        run: bash .github/scripts/upload-to-obs.sh
+        run: |
+          export OBS_SITE_ENDPOINT="$OBS_PRIMARY_SITE_ENDPOINT"
+          bash .github/scripts/upload-to-obs.sh
 
   publish-mirrors:
     needs: publish-primary
@@ -114,6 +127,7 @@ jobs:
       OBS_SITE_ENDPOINT: ${{ matrix.site_endpoint }}
       OBS_ENDPOINT: ${{ matrix.endpoint }}
       OBS_REGION: ${{ matrix.region }}
+      VERSION_FILE: version.json
       AWS_ACCESS_KEY_ID: ${{ secrets[matrix.access_key_id] }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets[matrix.secret_access_key] }}
 
@@ -127,3 +141,10 @@ jobs:
 
       - name: Upload to mirror bucket
         run: bash .github/scripts/upload-to-obs.sh
+
+      # A mirror is only a usable fallback while it serves the same release as the primary. The
+      # markers are compared as bytes, so a bucket that is behind, ahead or partially written
+      # fails its own leg instead of silently diverging. fail-fast: false keeps the other mirrors
+      # publishing, and the release as a whole turns red.
+      - name: Check the mirror serves the primary release
+        run: bash .github/scripts/verify-obs-release.sh version.json "$OBS_SITE_ENDPOINT" "$OBS_PRIMARY_SITE_ENDPOINT"

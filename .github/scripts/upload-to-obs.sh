@@ -4,11 +4,12 @@
 #
 # Required environment:
 #   OBS_BUCKET         target bucket
-#   OBS_SITE_ENDPOINT  website endpoint host, used by the post-upload check
+#   OBS_SITE_ENDPOINT  website endpoint host, used by the post-upload check; a full URL works too
 # Optional environment:
 #   OBS_ENDPOINT       S3 API endpoint        (default: https://obs.eu-de.otc.t-systems.com)
 #   OBS_REGION         signature region       (default: eu-de)
 #   DIST_DIR           build output directory (default: dist)
+#   VERSION_FILE       release marker from write-version-json.sh, published as /version.json
 set -euo pipefail
 
 : "${OBS_BUCKET:?OBS_BUCKET is required}"
@@ -17,6 +18,13 @@ set -euo pipefail
 OBS_ENDPOINT="${OBS_ENDPOINT:-https://obs.eu-de.otc.t-systems.com}"
 OBS_REGION="${OBS_REGION:-eu-de}"
 DIST_DIR="${DIST_DIR:-dist}"
+
+# Bare hosts are the normal case; a full URL is accepted so the same checks can be pointed at a
+# proxy or a local stand-in.
+case "$OBS_SITE_ENDPOINT" in
+  http://* | https://*) SITE_URL="$OBS_SITE_ENDPOINT" ;;
+  *) SITE_URL="https://${OBS_SITE_ENDPOINT}" ;;
+esac
 
 # Vite content-hashes everything under assets/, so those names change with the content and
 # can be cached forever. Every other file keeps its name and gets a short TTL, and index.html
@@ -120,6 +128,16 @@ echo "::group::index.html"
   --content-type "text/html; charset=utf-8" --cache-control "no-cache, must-revalidate"
 echo "::endgroup::"
 
+if [ -n "${VERSION_FILE:-}" ]; then
+  echo "::group::version marker"
+  [ -f "$VERSION_FILE" ] || { echo "::error::VERSION_FILE=${VERSION_FILE} does not exist"; exit 1; }
+  # Last object of a release, together with index.html: a bucket that serves a marker is a
+  # bucket whose content is complete, which is what makes several buckets comparable.
+  "${S3[@]}" cp "$VERSION_FILE" "s3://${OBS_BUCKET}/version.json" "${COMMON[@]}" \
+    --content-type "application/json" --cache-control "no-cache, must-revalidate"
+  echo "::endgroup::"
+fi
+
 echo "::group::verify"
 entry="$(grep -m1 -oE 'src="/assets/[^"]+\.js"' "${DIST_DIR}/index.html" || true)"
 entry="${entry#src=\"}"; entry="${entry%\"}"
@@ -130,8 +148,8 @@ fi
 
 head_ok() { # <path> <expected content-type>
   local header encoding
-  header="$(curl -fsSI --max-time 30 "https://${OBS_SITE_ENDPOINT}${1}")" || {
-    echo "::error::GET https://${OBS_SITE_ENDPOINT}${1} failed"
+  header="$(curl -fsSI --max-time 30 "${SITE_URL}${1}")" || {
+    echo "::error::GET ${SITE_URL}${1} failed"
     return 1
   }
   grep -qi "^content-type: .*${2}" <<<"$header" || {
@@ -153,19 +171,50 @@ head_ok /index.html "text/html"
 head_ok "$entry" "application/javascript"
 
 # The served bundle has to be byte for byte the local file. A mismatch means the object was
-# stored with extra framing or was truncated, which the checks above cannot see.
+# stored with extra framing or was truncated, which the checks above cannot see. The download is
+# kept in a file so that the size and the hash describe the same response.
+served_body="$(mktemp)"
+headers="$(mktemp)"
+trap 'rm -f "$served_body" "$headers"' EXIT
+hash_file() { sha256sum "$1" | cut -d' ' -f1; }
+
+curl -fsS --max-time 60 --retry 2 --retry-delay 2 -D "$headers" -o "$served_body" "${SITE_URL}${entry}" || {
+  echo "::error::GET ${SITE_URL}${entry} failed"
+  exit 1
+}
 local_size="$(wc -c <"${DIST_DIR}${entry}" | tr -d '[:space:]')"
-served_size="$(curl -fsS --max-time 60 "https://${OBS_SITE_ENDPOINT}${entry}" | wc -c | tr -d '[:space:]')"
-if [ "$served_size" != "$local_size" ]; then
-  echo "::error::${entry} is served with ${served_size} bytes, the local file has ${local_size}"
+served_size="$(wc -c <"$served_body" | tr -d '[:space:]')"
+local_hash="$(hash_file "${DIST_DIR}${entry}")"
+served_hash="$(hash_file "$served_body")"
+if [ "$served_size" != "$local_size" ] || [ "$served_hash" != "$local_hash" ]; then
+  echo "::error::${entry} is served as ${served_size} bytes / sha256 ${served_hash}, the local file is ${local_size} bytes / sha256 ${local_hash}"
   exit 1
 fi
 
-served="$(curl -fsS --max-time 30 "https://${OBS_SITE_ENDPOINT}/" | grep -m1 -oE 'src="/assets/[^"]+\.js"' || true)"
+served="$(curl -fsS --max-time 30 "${SITE_URL}/" | grep -m1 -oE 'src="/assets/[^"]+\.js"' || true)"
 served="${served#src=\"}"; served="${served%\"}"
 if [ "$served" != "$entry" ]; then
-  echo "::error::https://${OBS_SITE_ENDPOINT}/ serves '${served:-<none>}' instead of '${entry}'"
+  echo "::error::${SITE_URL}/ serves '${served:-<none>}' instead of '${entry}'"
   exit 1
+fi
+
+if [ -n "${VERSION_FILE:-}" ]; then
+  # A missing object can come back as the bucket error document, so the status code alone proves
+  # nothing: the served marker has to be JSON and byte for byte the file that was uploaded.
+  curl -fsS --max-time 30 --retry 2 --retry-delay 2 -D "$headers" -o "$served_body" "${SITE_URL}/version.json" || {
+    echo "::error::GET ${SITE_URL}/version.json failed"
+    exit 1
+  }
+  if ! grep -qiE '^content-type:[[:space:]]*application/json' "$headers"; then
+    echo "::error::/version.json is not served as JSON, the bucket error document answered instead"
+    grep -i '^content-type:' "$headers" >&2
+    exit 1
+  fi
+  if ! cmp -s "$served_body" "$VERSION_FILE"; then
+    echo "::error::/version.json is not byte for byte ${VERSION_FILE}"
+    exit 1
+  fi
+  echo "version marker served: sha $(sed -n 's/^[[:space:]]*"sha":[[:space:]]*"\([^"]*\)".*/\1/p' "$VERSION_FILE")"
 fi
 
 echo "published ${entry} to ${OBS_BUCKET}"

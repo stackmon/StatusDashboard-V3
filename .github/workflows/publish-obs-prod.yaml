@@ -1,0 +1,129 @@
+name: Publish production site to OBS
+
+# Creating a release is the gate for a production publish. The published type covers pre-releases
+# and full releases alike: every release is expected to reach the primary bucket and the mirrors.
+on:
+  release:
+    types: [published]
+  # Operational channel: seed the buckets before the first cutover, or re-publish a tagged commit
+  # to roll back. It runs the ref selected in the Actions UI, so that ref needs this workflow file.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Publishing must not be cancelled halfway through: an interrupted upload can leave index.html
+# referencing a bundle that was never written. A new release waits for the running one.
+concurrency:
+  group: publish-obs-prod
+  cancel-in-progress: false
+
+env:
+  SD_NAME: ${{ secrets.SD_NAME }}
+  SD_BACKEND_URL: ${{ secrets.SD_BACKEND_URL_PROD }}
+  SD_CLIENT_ID: ${{ secrets.SD_CLIENT_ID }}
+  SD_AUTHORITY_URL: ${{ secrets.SD_AUTHORITY_URL }}
+  SD_ANALYTICS_URL: ${{ secrets.SD_ANALYTICS_URL }}
+  SD_ANALYTICS_ID: ${{ secrets.SD_ANALYTICS_ID_PROD }}
+  SD_GIT_SHA: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "latest"
+          cache: "pnpm"
+          registry-url: "https://artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/"
+          scope: "@telekom-ods"
+
+      - name: Configure npm auth
+        run: npm config set //artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      # One build feeds every bucket, so all targets end up with byte-identical content.
+      - name: Upload build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  # The primary bucket is published and verified first. Mirrors must not run ahead of it, otherwise
+  # a failover to a mirror would serve a different version than the primary.
+  publish-primary:
+    needs: build
+    runs-on: ubuntu-latest
+
+    env:
+      OBS_BUCKET: status
+      OBS_SITE_ENDPOINT: status.obs-website.eu-de.otc.t-systems.com
+      OBS_ENDPOINT: https://obs.eu-de.otc.t-systems.com
+      OBS_REGION: eu-de
+      AWS_ACCESS_KEY_ID: ${{ secrets.OBS_PROD_EU_DE_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_PROD_EU_DE_SECRET_ACCESS_KEY }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      # The script uploads with the right content types and cache headers and then verifies what
+      # the website endpoint actually serves, so a failure here fails the job.
+      - name: Upload to primary bucket
+        run: bash .github/scripts/upload-to-obs.sh
+
+  publish-mirrors:
+    needs: publish-primary
+    runs-on: ubuntu-latest
+    name: publish-mirrors (${{ matrix.region }})
+
+    strategy:
+      # One unreachable region must not stop the remaining mirrors from being updated.
+      fail-fast: false
+      matrix:
+        include:
+          - region: eu-nl
+            bucket: status-dashboard
+            site_endpoint: status-dashboard.obs-website.eu-nl.otc.t-systems.com
+            endpoint: https://obs.eu-nl.otc.t-systems.com
+            access_key_id: OBS_PROD_EU_NL_ACCESS_KEY_ID
+            secret_access_key: OBS_PROD_EU_NL_SECRET_ACCESS_KEY
+          # Adding a region means one entry here plus its two secrets; nothing else changes.
+
+    env:
+      OBS_BUCKET: ${{ matrix.bucket }}
+      OBS_SITE_ENDPOINT: ${{ matrix.site_endpoint }}
+      OBS_ENDPOINT: ${{ matrix.endpoint }}
+      OBS_REGION: ${{ matrix.region }}
+      AWS_ACCESS_KEY_ID: ${{ secrets[matrix.access_key_id] }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets[matrix.secret_access_key] }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - name: Upload to mirror bucket
+        run: bash .github/scripts/upload-to-obs.sh

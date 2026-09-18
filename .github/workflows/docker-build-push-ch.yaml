@@ -47,10 +47,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           secrets: |
-            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL_CH_PROD }}
-            SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
-            SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
-            SD_ANALYTICS_URL=${{ secrets.SD_ANALYTICS_URL }}
-            SD_ANALYTICS_ID=${{ secrets.SD_ANALYTICS_ID_PROD_CH }}
-            SD_NAME=${{ secrets.SD_NAME_CH }}
+            SD_BACKEND_URL=${{ vars.SD_BACKEND_URL_CH_PROD }}
+            SD_CLIENT_ID=${{ vars.SD_CLIENT_ID }}
+            SD_AUTHORITY_URL=${{ vars.SD_AUTHORITY_URL }}
+            SD_ANALYTICS_URL=${{ vars.SD_ANALYTICS_URL }}
+            SD_ANALYTICS_ID=${{ vars.SD_ANALYTICS_ID_PROD_CH }}
+            SD_NAME=${{ vars.SD_NAME_CH }}
             SD_GIT_SHA=${{ github.sha }}

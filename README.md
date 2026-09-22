@@ -17,4 +17,5 @@ Only the `Docker Image Build and Push (manual)` workflow builds it, and only by 
 produces both shims: the tag you pass names the public site image, and the CH image is the same tag
 with a `-ch` suffix, each with its own endpoint chain. An added mirror or a renamed bucket is the
 reason to build it again, nothing else. The chains themselves are rendered by
-[docker/generate-origin-conf.sh](docker/generate-origin-conf.sh).
+[docker/generate-origin-conf.sh](docker/generate-origin-conf.sh), and building without arguments
+gives the test site, whose chain is the Dockerfile default.

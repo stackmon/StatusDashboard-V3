@@ -1,11 +1,8 @@
 #!/bin/sh
 #
-# Renders the failover chain that the frontend shim includes into its nginx config.
-#
-# OBS picks the bucket from the Host header alone, so every bucket has to be reached through its
-# own website endpoint: a single upstream block cannot send three different Host headers. The list
-# therefore becomes a chain of locations, each proxy_pass naming one endpoint, and a failing
-# endpoint is answered by the next one.
+# Renders the failover chain that the frontend shim includes into its nginx config: one location per
+# endpoint, each one answering for the previous. OBS picks the bucket from the Host header alone and
+# nginx computes that header once per request, so the endpoints cannot share an upstream block.
 #
 # Usage: generate-origin-conf.sh <comma-separated-endpoints> <output-file>
 set -eu
@@ -18,7 +15,6 @@ if [ -z "$origins" ] || [ -z "$out" ]; then
     exit 2
 fi
 
-# Split the list on commas and stray spaces; globbing off because the input is free text.
 set -f
 old_ifs=$IFS
 IFS=', '
@@ -41,8 +37,7 @@ for origin in "$@"; do
 done
 
 {
-    echo "# Generated at image build time from SD3_FRONT_ORIGINS. Editing this file in a running"
-    echo "# container changes nothing outside that container."
+    echo "# Generated at image build time from SD3_FRONT_ORIGINS; edits in a running container are lost."
 
     i=0
     for origin in "$@"; do

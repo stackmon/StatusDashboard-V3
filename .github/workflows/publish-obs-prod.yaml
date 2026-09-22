@@ -65,7 +65,8 @@ jobs:
         run: bash .github/scripts/write-version-json.sh > version.json
 
       # One build feeds every bucket, and they all share this artifact, so the markers are
-      # byte-identical and comparing them compares the releases.
+      # byte-identical and comparing them compares the releases. More than one path makes the
+      # workspace the root of the artifact, which is why the publish jobs unpack it there too.
       - name: Upload build output
         uses: actions/upload-artifact@v7
         with:
@@ -92,10 +93,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v8
+      # Several paths make the workspace the root of the artifact, so it holds dist/ and
+      # version.json side by side: extracting it next to the checkout puts both where the
+      # script and the mirror check expect them.
+      - name: Download the build
+        uses: actions/download-artifact@v8
         with:
           name: dist
-          path: dist
+          path: .
 
       # The script uploads with the right content types and cache headers and then verifies what
       # the website endpoint actually serves, so a failure here fails the job.
@@ -134,10 +139,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v8
+      - name: Download the build
+        uses: actions/download-artifact@v8
         with:
           name: dist
-          path: dist
+          path: .
 
       - name: Upload to mirror bucket
         run: bash .github/scripts/upload-to-obs.sh

@@ -1,19 +1,14 @@
 name: Publish production site to OBS
 
-# Creating a release is the gate for a production publish. The published type covers pre-releases
-# and full releases alike: every release is expected to reach the primary bucket and the mirrors.
 on:
   release:
     types: [published]
-  # Operational channel: seed the buckets before the first cutover, or re-publish a tagged commit
-  # to roll back. It runs the ref selected in the Actions UI, so that ref needs this workflow file.
+
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# Publishing must not be cancelled halfway through: an interrupted upload can leave index.html
-# referencing a bundle that was never written. A new release waits for the running one.
 concurrency:
   group: publish-obs-prod
   cancel-in-progress: false
@@ -26,8 +21,6 @@ env:
   SD_ANALYTICS_URL: ${{ vars.SD_ANALYTICS_URL }}
   SD_ANALYTICS_ID: ${{ vars.SD_ANALYTICS_ID_PROD }}
   SD_GIT_SHA: ${{ github.sha }}
-  # Single source for the primary website endpoint: it is both the upload target of
-  # publish-primary and the release every mirror has to match.
   OBS_PRIMARY_SITE_ENDPOINT: status.obs-website.eu-de.otc.t-systems.com
 
 jobs:
@@ -59,14 +52,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # The marker describes what the build produced. It is written next to dist, never inside it,
-      # so the upload script's extension whitelist stays authoritative for the site content.
       - name: Write release marker
         run: bash .github/scripts/write-version-json.sh > version.json
 
-      # One build feeds every bucket, and they all share this artifact, so the markers are
-      # byte-identical and comparing them compares the releases. More than one path makes the
-      # workspace the root of the artifact, which is why the publish jobs unpack it there too.
       - name: Upload build output
         uses: actions/upload-artifact@v7
         with:
@@ -76,8 +64,6 @@ jobs:
             version.json
           retention-days: 7
 
-  # The primary bucket is published and verified first. Mirrors must not run ahead of it, otherwise
-  # a failover to a mirror would serve a different version than the primary.
   publish-primary:
     needs: build
     runs-on: ubuntu-latest
@@ -93,17 +79,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Several paths make the workspace the root of the artifact, so it holds dist/ and
-      # version.json side by side: extracting it next to the checkout puts both where the
-      # script and the mirror check expect them.
       - name: Download the build
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: .
 
-      # The script uploads with the right content types and cache headers and then verifies what
-      # the website endpoint actually serves, so a failure here fails the job.
       - name: Upload to primary bucket
         run: |
           export OBS_SITE_ENDPOINT="$OBS_PRIMARY_SITE_ENDPOINT"
@@ -115,7 +96,6 @@ jobs:
     name: publish-mirrors (${{ matrix.region }})
 
     strategy:
-      # One unreachable region must not stop the remaining mirrors from being updated.
       fail-fast: false
       matrix:
         include:
@@ -125,14 +105,13 @@ jobs:
             endpoint: https://obs.eu-nl.otc.t-systems.com
             access_key_id: OBS_PROD_EU_NL_ACCESS_KEY_ID
             secret_access_key: OBS_PROD_EU_NL_SECRET_ACCESS_KEY
-          # eu-ch2 is the Swiss cloud, so its endpoints are under eu-ch2.sc.otc.t-systems.com.
+
           - region: eu-ch2
             bucket: status-pub
             site_endpoint: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
             endpoint: https://obs.eu-ch2.sc.otc.t-systems.com
             access_key_id: OBS_PROD_EU_CH2_ACCESS_KEY_ID
             secret_access_key: OBS_PROD_EU_CH2_SECRET_ACCESS_KEY
-          # Adding a region means one entry here plus its two secrets; nothing else changes.
 
     env:
       OBS_BUCKET: ${{ matrix.bucket }}
@@ -155,9 +134,5 @@ jobs:
       - name: Upload to mirror bucket
         run: bash .github/scripts/upload-to-obs.sh
 
-      # A mirror is only a usable fallback while it serves the same release as the primary. The
-      # markers are compared as bytes, so a bucket that is behind, ahead or partially written
-      # fails its own leg instead of silently diverging. fail-fast: false keeps the other mirrors
-      # publishing, and the release as a whole turns red.
       - name: Check the mirror serves the primary release
         run: bash .github/scripts/verify-obs-release.sh version.json "$OBS_SITE_ENDPOINT" "$OBS_PRIMARY_SITE_ENDPOINT"

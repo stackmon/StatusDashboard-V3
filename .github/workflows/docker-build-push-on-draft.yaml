@@ -41,9 +41,9 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: false
           secrets: |
-            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
-            SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
-            SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_BACKEND_URL=${{ vars.SD_BACKEND_URL_TEST }}
+            SD_CLIENT_ID=${{ vars.SD_CLIENT_ID }}
+            SD_AUTHORITY_URL=${{ vars.SD_AUTHORITY_URL }}
             SD_GIT_SHA=${{ github.sha }}
 
   push_manual:
@@ -85,7 +85,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           secrets: |
-            SD_BACKEND_URL=${{ secrets.SD_BACKEND_URL }}
-            SD_CLIENT_ID=${{ secrets.SD_CLIENT_ID }}
-            SD_AUTHORITY_URL=${{ secrets.SD_AUTHORITY_URL }}
+            SD_BACKEND_URL=${{ vars.SD_BACKEND_URL_TEST }}
+            SD_CLIENT_ID=${{ vars.SD_CLIENT_ID }}
+            SD_AUTHORITY_URL=${{ vars.SD_AUTHORITY_URL }}
             SD_GIT_SHA=${{ github.sha }}

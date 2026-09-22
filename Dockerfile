@@ -1,9 +1,5 @@
-# Frozen shim: the image carries no site content, it only fronts the OBS static website buckets so
-# the CCE objects keep their current shape.
 FROM nginx:stable-alpine
 
-# Website endpoints to fall back through, primary first, comma separated. Defaults to the test
-# bucket, every environment overrides it, see .github/workflows/docker-build-push.yaml.
 ARG SD3_FRONT_ORIGINS="status-dashboard-test.obs-website.eu-de.otc.t-systems.com"
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf

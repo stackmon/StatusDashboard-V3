@@ -1,8 +1,5 @@
-name: Docker Image Build and Push (manual)
+name: Docker Image Build and Push
 
-# The frontend image is frozen: it carries no build output and only a human updates it, so there is
-# no pull_request, tag or release trigger here. One run builds both sites, which differ by their
-# endpoint chains and by nothing else; each chain overrides the Dockerfile default.
 on:
   workflow_dispatch:
     inputs:

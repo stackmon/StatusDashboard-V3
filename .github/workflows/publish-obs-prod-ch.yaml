@@ -1,0 +1,131 @@
+name: Publish CH production site to OBS
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-obs-prod-ch
+  cancel-in-progress: false
+
+env:
+  SD_NAME: ${{ vars.SD_NAME_CH }}
+  SD_BACKEND_URL: ${{ vars.SD_BACKEND_URL_CH_PROD }}
+  SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID }}
+  SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL }}
+  SD_ANALYTICS_URL: ${{ vars.SD_ANALYTICS_URL }}
+  SD_ANALYTICS_ID: ${{ vars.SD_ANALYTICS_ID_PROD_CH }}
+  SD_GIT_SHA: ${{ github.sha }}
+  OBS_PRIMARY_SITE_ENDPOINT: status-ch.obs-website.eu-ch2.sc.otc.t-systems.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "latest"
+          cache: "pnpm"
+          registry-url: "https://artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/"
+          scope: "@telekom-ods"
+
+      - name: Configure npm auth
+        run: npm config set //artifactory.devops.telekom.de/artifactory/api/npm/one-design-system-npm/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Write release marker
+        run: bash .github/scripts/write-version-json.sh > version.json
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: |
+            dist
+            version.json
+          retention-days: 7
+
+  publish-primary:
+    needs: build
+    runs-on: ubuntu-latest
+
+    env:
+      OBS_BUCKET: status-ch
+      OBS_ENDPOINT: https://obs.eu-ch2.sc.otc.t-systems.com
+      OBS_REGION: eu-ch2
+      VERSION_FILE: version.json
+      AWS_ACCESS_KEY_ID: ${{ secrets.OBS_PROD_EU_CH2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_PROD_EU_CH2_SECRET_ACCESS_KEY }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download the build
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: .
+
+      - name: Upload to primary bucket
+        run: |
+          export OBS_SITE_ENDPOINT="$OBS_PRIMARY_SITE_ENDPOINT"
+          bash .github/scripts/upload-to-obs.sh
+
+  publish-mirrors:
+    needs: publish-primary
+    runs-on: ubuntu-latest
+    name: publish-mirrors (${{ matrix.region }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - region: eu-nl
+            bucket: status-ch
+            site_endpoint: status-ch.obs-website.eu-nl.otc.t-systems.com
+            endpoint: https://obs.eu-nl.otc.t-systems.com
+            access_key_id: OBS_PROD_EU_NL_ACCESS_KEY_ID
+            secret_access_key: OBS_PROD_EU_NL_SECRET_ACCESS_KEY
+
+    env:
+      OBS_BUCKET: ${{ matrix.bucket }}
+      OBS_SITE_ENDPOINT: ${{ matrix.site_endpoint }}
+      OBS_ENDPOINT: ${{ matrix.endpoint }}
+      OBS_REGION: ${{ matrix.region }}
+      VERSION_FILE: version.json
+      AWS_ACCESS_KEY_ID: ${{ secrets[matrix.access_key_id] }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets[matrix.secret_access_key] }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download the build
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: .
+
+      - name: Upload to mirror bucket
+        run: bash .github/scripts/upload-to-obs.sh
+
+      - name: Check the mirror serves the primary release
+        run: bash .github/scripts/verify-obs-release.sh version.json "$OBS_SITE_ENDPOINT" "$OBS_PRIMARY_SITE_ENDPOINT"

@@ -1,0 +1,69 @@
+name: Docker Image Build and Push
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Base tag, without the image name and without the -ch suffix (e.g. 1.2.0 gives 1.2.0 and 1.2.0-ch)"
+        required: true
+      origins:
+        description: "Public site endpoints to fall back through, primary first"
+        required: true
+        default: "status.obs-website.eu-de.otc.t-systems.com,status-dashboard.obs-website.eu-nl.otc.t-systems.com,status-pub.obs-website.eu-ch2.sc.otc.t-systems.com"
+      origins_ch:
+        description: "CH site endpoints to fall back through, primary first"
+        required: true
+        default: "status-ch.obs-website.eu-ch2.sc.otc.t-systems.com,status-ch.obs-website.eu-nl.otc.t-systems.com"
+
+env:
+  ORG: stackmon
+  PROJECT: status-dashboard-v3-front
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate the tag
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          case "$TAG" in
+            ""|*[!A-Za-z0-9._-]*) echo "::error::pass a base tag made of letters, digits, dots, dashes and underscores"; exit 1 ;;
+            *-ch) echo "::error::pass the base tag, the -ch variant is derived from it"; exit 1 ;;
+            *) echo "building $TAG and $TAG-ch" ;;
+          esac
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push the public site image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}:${{ inputs.tag }}
+          build-args: |
+            SD3_FRONT_ORIGINS=${{ inputs.origins }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+
+      - name: Build and push the CH site image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}:${{ inputs.tag }}-ch
+          build-args: |
+            SD3_FRONT_ORIGINS=${{ inputs.origins_ch }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}

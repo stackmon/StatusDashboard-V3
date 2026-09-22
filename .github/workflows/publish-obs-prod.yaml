@@ -125,6 +125,13 @@ jobs:
             endpoint: https://obs.eu-nl.otc.t-systems.com
             access_key_id: OBS_PROD_EU_NL_ACCESS_KEY_ID
             secret_access_key: OBS_PROD_EU_NL_SECRET_ACCESS_KEY
+          # eu-ch2 is the Swiss cloud, so its endpoints are under eu-ch2.sc.otc.t-systems.com.
+          - region: eu-ch2
+            bucket: status-pub
+            site_endpoint: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
+            endpoint: https://obs.eu-ch2.sc.otc.t-systems.com
+            access_key_id: OBS_PROD_EU_CH2_ACCESS_KEY_ID
+            secret_access_key: OBS_PROD_EU_CH2_SECRET_ACCESS_KEY
           # Adding a region means one entry here plus its two secrets; nothing else changes.
 
     env:

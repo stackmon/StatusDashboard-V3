@@ -1,0 +1,47 @@
+name: Docker Image Build and Push (manual)
+
+# The frontend image is frozen: it carries no build output and only a human updates it, so there is
+# no pull_request, tag or release trigger here. The endpoints are a build argument because a
+# renamed bucket or an added mirror is a new image, not something the cluster configures.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to push, without the image name (e.g. 1.2.0-shim, 1.2.0-ch-shim)"
+        required: true
+      origins:
+        description: "Website endpoints to fall back through, primary first"
+        required: true
+        default: "status.obs-website.eu-de.otc.t-systems.com,status-dashboard.obs-website.eu-nl.otc.t-systems.com,status-pub.obs-website.eu-ch2.sc.otc.t-systems.com"
+
+env:
+  ORG: stackmon
+  PROJECT: status-dashboard-v3-front
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}:${{ inputs.tag }}
+          build-args: |
+            SD3_FRONT_ORIGINS=${{ inputs.origins }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}

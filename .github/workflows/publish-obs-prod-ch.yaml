@@ -18,8 +18,6 @@ env:
   SD_BACKEND_URL: ${{ vars.SD_BACKEND_URL_CH_PROD }}
   SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID }}
   SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL }}
-  SD_ANALYTICS_URL: ${{ vars.SD_ANALYTICS_URL }}
-  SD_ANALYTICS_ID: ${{ vars.SD_ANALYTICS_ID_PROD_CH }}
   SD_GIT_SHA: ${{ github.sha }}
   OBS_PRIMARY_SITE_ENDPOINT: status-ch.obs-website.eu-ch2.sc.otc.t-systems.com
 

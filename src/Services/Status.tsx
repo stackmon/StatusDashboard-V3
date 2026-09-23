@@ -1,11 +1,12 @@
-import { useMount, useRequest } from "ahooks";
+import { useRequest } from "ahooks";
 import { createContext, JSX, useContext, useRef, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { Subject } from "rxjs";
 import { ApiError } from "~/Helpers/ApiError";
-import { Station } from "~/Helpers/Entities";
+import { resolveConnectionState, type ConnectionState } from "~/Helpers/Connection";
 import { fetchPlus } from "~/Helpers/fetchPlus";
 import { Logger } from "~/Helpers/Logger";
+import { useAppToast } from "~/Helpers/useAppToast";
+import { useNetworkStatus } from "~/Helpers/useNetworkStatus";
 import { DB } from "./DB";
 import { EventEntityV2, StatusEntityV2 } from "./Status.Entities";
 import { IStatusContext } from "./Status.Models";
@@ -40,6 +41,8 @@ interface IContext {
   DB: IStatusContext;
   Update: (data?: IStatusContext) => void;
   Refresh: () => Promise<unknown>;
+  Connection: ConnectionState;
+  SavedAt: Date | null;
   Error?: ApiError;
 }
 
@@ -91,13 +94,16 @@ export function useStatus() {
  *
  * @author Aloento
  * @since 1.0.0
- * @version 0.4.0
+ * @version 0.5.0
  */
 export function StatusContext({ children }: { children: JSX.Element }) {
   const [ins, setDB] = useState(db.Ins);
+  const [savedAt, setSavedAt] = useState<Date | null>(db.SavedAt);
   const [error, setError] = useState<ApiError>();
+  const [reconnecting, setReconnecting] = useState(false);
 
   const auth = useAuth();
+  const toast = useAppToast();
   const abortRef = useRef<AbortController | null>(null);
   const url = process.env.SD_BACKEND_URL;
 
@@ -164,6 +170,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
       cacheKey: key,
       onSuccess: (res) => {
         setError(undefined);
+        setReconnecting(false);
         update(TransformerV2(res));
       },
       onError: (err) => {
@@ -171,27 +178,39 @@ export function StatusContext({ children }: { children: JSX.Element }) {
         const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
         log.error("Status data load failed", apiError);
         setError(apiError);
+        setReconnecting(false);
         loading = undefined;
       },
-      onFinally: () => subRef.current?.next(new Date()),
       refreshDeps: [auth.user?.access_token],
       pollingInterval: 60000,
       pollingWhenHidden: false,
     }
   );
 
-  const subRef = useRef<Subject<Date>>(null);
-  useMount(() => {
-    subRef.current = Station.get<Subject<Date>>("Update", () => new Subject());
+  const { isOnline } = useNetworkStatus(() => {
+    setReconnecting(true);
+    runAsync()
+      .then(() => toast.showSuccess("Back online, data refreshed."))
+      .catch(() => { /* Refresh will retry on next interval */ });
   });
+
+  const connection = resolveConnectionState({ isOnline, reconnecting, error });
 
   function update(data: IStatusContext = ins) {
     const raw = { ...data };
     setDB(raw);
     db.save(key, raw);
+    setSavedAt(db.SavedAt);
   }
 
   return (
-    <CTX.Provider value={{ DB: ins, Update: update, Refresh: runAsync, Error: error }}>{children}</CTX.Provider>
+    <CTX.Provider value={{
+      DB: ins,
+      Update: update,
+      Refresh: runAsync,
+      Connection: connection,
+      SavedAt: savedAt,
+      Error: error
+    }}>{children}</CTX.Provider>
   );
 }

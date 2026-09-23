@@ -6,8 +6,6 @@ import { PageFooter } from "~/Components/Layout/PageFooter";
 import { TopNavBar } from "~/Components/Layout/TopNavBar";
 import { useRouter } from "~/Components/Router";
 import { ErrorBanner } from "~/Components/StateViews";
-import { useAppToast } from "~/Helpers/useAppToast";
-import { useNetworkStatus } from "~/Helpers/useNetworkStatus";
 import { useStatus } from "~/Services/Status";
 import { NotFound } from "./404";
 import { Availability } from "./Availability";
@@ -20,20 +18,13 @@ import { Reviews } from "./Reviews";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.2.0
+ * @version 0.3.0
  */
 export function Layout() {
   const { Paths } = useRouter();
   const path = Paths.at(0);
   const auth = useAuth();
-  const { Error: ctxError, Refresh } = useStatus();
-  const toast = useAppToast();
-
-  const { isOnline } = useNetworkStatus(() => {
-    Refresh()
-      .then(() => toast.showSuccess("Back online, data refreshed."))
-      .catch(() => { /* Refresh will retry on next interval */ });
-  });
+  const { Error: ctxError, Refresh, Connection } = useStatus();
 
   const match = useMemo(() => {
     switch (path) {
@@ -75,13 +66,18 @@ export function Layout() {
     <div className="absolute flex min-h-full w-full min-w-96 flex-col bg-zinc-50">
       <TopNavBar />
 
-      {!isOnline && (
-        <div role="status" className="bg-yellow-500 text-white text-center text-sm py-1">
-          You are offline. Some features may be unavailable.
+      {Connection !== "online" && (
+        <div
+          role="status"
+          className={`text-center text-sm py-1 text-white ${Connection === "offline" ? "bg-red-600" : "bg-yellow-500"}`}
+        >
+          {Connection === "offline"
+            ? "You are offline. Showing the data cached on this device."
+            : "Reconnecting to the status API…"}
         </div>
       )}
 
-      {ctxError && (
+      {ctxError && !(ctxError.isNetworkError && Connection !== "online") && (
         <div className="mx-auto w-full max-w-(--breakpoint-xl) px-3 pt-4">
           <ErrorBanner
             error={ctxError}

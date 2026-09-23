@@ -1,12 +1,12 @@
 import { CounterBadge, FluentProvider, webLightTheme } from "@fluentui/react-components";
 import { useCreation } from "ahooks";
-import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { Authorized, Roles } from "~/Components/Auth/With";
 import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
+import { Blink } from "~/Components/Home/Blink";
 import { EventGrid } from "~/Components/Home/EventGrid";
 import "~/Components/Home/Home.css";
 import { Indicator } from "~/Components/Home/Indicator";
@@ -20,25 +20,13 @@ import { useStatus } from "~/Services/Status";
 const log = new Logger("Home");
 
 /**
- * The Home component serves as the main entry point for the status dashboard.
- * It orchestrates the rendering of various subcomponents and manages the state
- * related to the selected region and the status of services. The component
- * leverages several hooks and utilities to fetch and process data, ensuring
- * that the UI reflects the current state of the system. The use of memoization
- * and subscriptions helps in optimizing performance and keeping the UI
- * responsive. The component also handles the display of notifications and
- * status indicators, providing users with real-time updates on the system's
- * health. Overall, the Home component is a crucial part of the application,
- * bringing together various functionalities to deliver a cohesive user
- * experience.
- *
  * @component
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function Home() {
-  const { DB } = useStatus();
+  const { DB, Connection, SavedAt } = useStatus();
   const [region, setRegion] = useState(DB.Regions[0]);
 
   const topic = "HomeRegion";
@@ -48,18 +36,9 @@ export function Home() {
       return new BehaviorSubject(first);
     }), []);
 
-  const [update, setUpdate] = useState<Date>();
-
-  const updateSub = useCreation(
-    () => Station.get<Subject<Date>>("Update"), []);
-
   useEffect(() => {
     const sub = regionSub.subscribe(setRegion);
-    const sub2 = updateSub.subscribe(setUpdate);
-    return () => {
-      sub.unsubscribe();
-      sub2.unsubscribe();
-    };
+    return () => sub.unsubscribe();
   }, []);
 
   const categories = useMemo(() => {
@@ -134,10 +113,7 @@ export function Home() {
       </section>
 
       <section className="flex flex-wrap justify-between gap-y-2 py-2">
-        <div className="flex items-center gap-x-2">
-          <div className="Blink" />
-          <label>{update ? `Last Auto Update at ${dayjs(update).format("HH:mm")}` : "Auto Refresh Enabled"}</label>
-        </div>
+        <Blink Connection={Connection} SavedAt={SavedAt} />
 
         <legend className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
           {Object.values(EventType).map((state, i) => (

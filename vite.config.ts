@@ -2,14 +2,14 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
 import { VitePWA, type ManifestOptions } from "vite-plugin-pwa";
-// @ts-ignore
-import { branding, Product } from "./src/Helpers/Branding";
 
 const requiredBuildVars = [
   "SD_BACKEND_URL",
   "SD_CLIENT_ID",
   "SD_AUTHORITY_URL",
 ] as const;
+
+const Product = "Status Dashboard";
 
 export default defineConfig(({ mode }) => {
   const loadedEnv = loadEnv(mode, process.cwd(), "SD_");
@@ -25,12 +25,13 @@ export default defineConfig(({ mode }) => {
     }
   }
 
-  const brand = branding(sdEnv);
-  const title = `${brand.Name} ${Product}`;
+  const Name = sdEnv.SD_NAME?.trim() || "T Cloud Public";
+  const App = sdEnv.SD_APP_NAME?.trim() || `${Name} Status`;
+  const title = `${Name} ${Product}`;
 
   const manifest: Partial<ManifestOptions> = {
     name: title,
-    short_name: brand.App,
+    short_name: App,
     description: "Your go-to resource for monitoring the availability of various components in different regions.",
     id: "/",
     start_url: "/",
@@ -104,7 +105,7 @@ export default defineConfig(({ mode }) => {
           order: "pre",
           handler: (html) => html
             .replaceAll("%SD_TITLE%", title)
-            .replaceAll("%SD_APP_NAME%", brand.App),
+            .replaceAll("%SD_APP_NAME%", App),
         },
       },
       VitePWA({
@@ -125,7 +126,12 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      "process.env": sdEnv,
+      "process.env": {
+        ...sdEnv,
+        SD_NAME: Name,
+        SD_APP_NAME: App,
+        SD_PRODUCT: Product,
+      },
     },
     envPrefix: "SD_",
     server: {

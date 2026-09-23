@@ -1,3 +1,4 @@
+import { FluentProvider, Toaster, webLightTheme } from "@fluentui/react-components";
 import { ScaleLoadingSpinner } from "@telekom/scale-components-react";
 import { Suspense } from "react";
 import { OIDCProvider } from "./Components/Auth";
@@ -8,21 +9,20 @@ import { Layout } from "./Pages";
 import { StatusContext } from "./Services/Status";
 
 /**
- * The main application component that sets up the routing, authentication, and status context.
- *
- * This component uses the `BrowserRouter` for server-side routing, the `OIDCProvider` for handling
- * Connect authentication, and the `StatusContext` for managing the web's status.
- *
- * The `Layout` component is rendered within these providers to ensure that all routes and
- * authentication states are properly managed.
- *
- * @returns The main application component with routing, authentication, and status context.
+ * @author Aloento
+ * @since 1.0.0
+ * @version 1.0.0
  */
 export function App() {
   return (
     <AppErrorBoundary variant="root">
       <BrowserRouter>
+        <FluentProvider theme={webLightTheme}>
+          <Toaster />
+        </FluentProvider>
+
         <PwaUpdate />
+
         <OIDCProvider>
           <AppErrorBoundary variant="data">
             <Suspense fallback={<ScaleLoadingSpinner />}>

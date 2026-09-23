@@ -1,7 +1,9 @@
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { VitePWA, type ManifestOptions } from "vite-plugin-pwa";
+// @ts-ignore
+import { branding, Product } from "./src/Helpers/Branding";
 
 const requiredBuildVars = [
   "SD_BACKEND_URL",
@@ -23,14 +25,93 @@ export default defineConfig(({ mode }) => {
     }
   }
 
+  const brand = branding(sdEnv);
+  const title = `${brand.Name} ${Product}`;
+
+  const manifest: Partial<ManifestOptions> = {
+    name: title,
+    short_name: brand.App,
+    description: "Your go-to resource for monitoring the availability of various components in different regions.",
+    id: "/",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    orientation: "any",
+    lang: "en",
+    dir: "ltr",
+    theme_color: "#ffffff",
+    background_color: "#ffffff",
+    categories: ["business", "productivity", "utilities"],
+    icons: [
+      {
+        src: "/web-app-manifest-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/web-app-manifest-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "/web-app-manifest-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/web-app-manifest-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Availability",
+        url: "/Availability",
+        icons: [
+          {
+            src: "/favicon-96x96.png",
+            sizes: "96x96",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: "History",
+        url: "/History",
+        icons: [
+          {
+            src: "/favicon-96x96.png",
+            sizes: "96x96",
+            type: "image/png",
+          },
+        ],
+      },
+    ],
+  };
+
   return {
     plugins: [
       react(),
+      {
+        // Replaces the placeholders in index.html, the manifest link is added by VitePWA.
+        name: "sd3-branding",
+        transformIndexHtml: {
+          order: "pre",
+          handler: (html) => html
+            .replaceAll("%SD_TITLE%", title)
+            .replaceAll("%SD_APP_NAME%", brand.App),
+        },
+      },
       VitePWA({
         strategies: "generateSW",
         registerType: "prompt",
         injectRegister: null,
-        manifest: false,
+        manifest,
         workbox: {
           inlineWorkboxRuntime: true,
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],

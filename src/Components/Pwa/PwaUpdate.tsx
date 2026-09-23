@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { Logger } from "~/Helpers/Logger";
 import { useAppToast } from "~/Helpers/useAppToast";
+import { usePwaInstall } from "./usePwaInstall";
 
 const log = new Logger("PWA");
 
@@ -73,13 +74,7 @@ export function PwaUpdate() {
     });
   }, [needRefresh]);
 
-  useEffect(() => {
-    if (!offlineReady) return;
-
-    toast.showInfo("Ready to work offline.", {
-      body: "The dashboard is cached on this device and opens without a network.",
-    });
-  }, [offlineReady]);
+  usePwaInstall(offlineReady);
 
   return null;
 }

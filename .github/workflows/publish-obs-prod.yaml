@@ -15,6 +15,7 @@ concurrency:
 
 env:
   SD_NAME: ${{ vars.SD_NAME }}
+  SD_APP_NAME: ${{ vars.SD_APP_NAME }}
   SD_BACKEND_URL: ${{ vars.SD_BACKEND_URL_PROD }}
   SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID }}
   SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL }}

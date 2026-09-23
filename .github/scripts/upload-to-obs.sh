@@ -4,8 +4,8 @@
 #
 # Required: OBS_BUCKET, OBS_SITE_ENDPOINT (host or full URL, used by the post-upload check).
 # Optional: OBS_ENDPOINT, OBS_REGION, DIST_DIR, VERSION_FILE (release marker from
-# write-version-json.sh, published as /version.json) and RETAIN_DAYS (days an object has been
-# out of the build before it is deleted; default 30, 0 keeps everything).
+# write-version-json.sh, published as /version.json) and RETAIN_DAYS (whole number of days an
+# object has been out of the build before it is deleted; default 30, 0 keeps everything).
 set -euo pipefail
 
 : "${OBS_BUCKET:?OBS_BUCKET is required}"
@@ -59,9 +59,13 @@ COMMON=(--no-progress --only-show-errors --no-guess-mime-type)
 
 # Every publish re-uploads the whole build (`aws s3 sync` compares size and mtime, and a CI
 # checkout has fresh mtimes), so an object older than the window has been absent from every build
-# since then and no page the bucket serves can reference it. A sync that starts skipping
-# unchanged files would take that guarantee away.
+# since then and no page the bucket serves can reference it. prune_stale re-checks that none of the
+# objects it just uploaded looks stale, which is what a sync that starts skipping unchanged files
+# would produce.
 RETAIN_DAYS="${RETAIN_DAYS:-30}"
+case "$RETAIN_DAYS" in
+  *[!0-9]*) echo "::error::RETAIN_DAYS must be a whole number of days, got '${RETAIN_DAYS}'"; exit 1 ;;
+esac
 
 content_type() {
   case "$1" in
@@ -97,11 +101,15 @@ sync_pass() { # <content-type> <cache-control> <exclude/include args...>
 # Drops what no recent build contains. Failures warn instead of failing the run: pruning cannot
 # corrupt the site, and a gap in the bucket policy must not block a release.
 prune_stale() { # <days>
-  local days="$1" cutoff keys payload count part result failed=0
+  local days="$1" cutoff keys payload build_keys count part result failed=0
 
-  cutoff="$(date -u -d "-${days} days" +%Y-%m-%dT%H:%M:%S.000Z)"
+  cutoff="$(date -u -d "-${days} days" +%Y-%m-%dT%H:%M:%S.000Z)" || {
+    echo "::warning::${OBS_BUCKET}: no retention cutoff for '${days}' days, nothing was pruned"
+    return 0
+  }
   keys="$work/keys"
   payload="$work/payload"
+  build_keys="$work/build.keys"
 
   if ! "${S3API[@]}" list-objects-v2 --bucket "$OBS_BUCKET" \
       --output text --query 'Contents[].[LastModified,Key]' > "${keys}.listing"; then
@@ -119,12 +127,28 @@ prune_stale() { # <days>
     return 0
   fi
 
+  # Nothing this run uploaded may look stale. If it does, the full-re-upload assumption no longer
+  # holds and deleting would take live content with it, so keep everything and say so.
+  (cd "$DIST_DIR" && find . -type f -print | sed 's|^\./||' | LC_ALL=C sort) > "$build_keys"
+  if [ ! -s "$build_keys" ]; then
+    echo "::warning::${OBS_BUCKET}: no list of the files just uploaded, nothing was pruned"
+    return 0
+  fi
+  LC_ALL=C comm -12 "$build_keys" <(LC_ALL=C sort "$keys") > "$work/live.keys"
+  if [ -s "$work/live.keys" ]; then
+    echo "::warning::${OBS_BUCKET}: nothing was pruned, $(wc -l < "$work/live.keys" | tr -d '[:space:]') object(s) of this build are older than ${days} days:"
+    head -n 20 "$work/live.keys" | sed 's/^/  /'
+    return 0
+  fi
+
   echo "${count} object(s) have been out of the build for more than ${days} days:"
   head -n 20 "$keys" | sed 's/^/  /'
   [ "$count" -le 20 ] || echo "  ... and $((count - 20)) more"
 
-  split -l 1000 -d "$keys" "${keys}."
-  for part in "${keys}".*; do
+  # The batch prefix must not collide with $keys: a "$keys".* glob would also pick up the
+  # $keys.listing file next to it and send the raw listing as a batch of garbage keys.
+  split -l 1000 -d "$keys" "$work/part."
+  for part in "$work"/part.*; do
     awk 'BEGIN { printf "{\"Quiet\": true, \"Objects\": [" } \
          { printf "%s{\"Key\": \"%s\"}", (NR > 1 ? "," : ""), $0 } \
          END { printf "]}" }' "$part" > "$payload"
@@ -205,10 +229,10 @@ if [ -n "${VERSION_FILE:-}" ]; then
 fi
 
 echo "::group::retention"
-if [ "$RETAIN_DAYS" = "0" ]; then
+if [ "$RETAIN_DAYS" -eq 0 ]; then
   echo "RETAIN_DAYS=0, every object is kept"
-else
-  prune_stale "$RETAIN_DAYS"
+elif ! prune_stale "$RETAIN_DAYS"; then
+  echo "::warning::pruning ${OBS_BUCKET} failed, the bucket keeps growing until this is fixed"
 fi
 echo "::endgroup::"
 

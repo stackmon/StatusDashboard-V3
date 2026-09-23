@@ -1,7 +1,4 @@
 import { SubjectLike } from "rxjs";
-import { branding, Product } from "./Branding";
-
-const brand = branding(process.env);
 
 /**
  * @author Aloento
@@ -10,9 +7,9 @@ const brand = branding(process.env);
  */
 export const Dic = {
   Symbol: "SD3",
-  Name: brand.Name,
-  App: brand.App,
-  Prod: Product,
+  Name: process.env.SD_NAME!,
+  App: process.env.SD_APP_NAME!,
+  Prod: process.env.SD_PRODUCT!,
   TZ: "Europe/Berlin",
   Time: "DD MMM YY, HH:mm",
   TimeTZ: "DD MMM YYYY, HH:mm [CET]",

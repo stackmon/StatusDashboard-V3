@@ -27,14 +27,21 @@ case "$OBS_SITE_ENDPOINT" in
 esac
 
 # Vite content-hashes everything under assets/, so those names change with the content and
-# can be cached forever. Every other file keeps its name and gets a short TTL, and index.html
-# is revalidated on each visit.
+# can be cached forever. Every other file keeps its name and gets a short TTL, except the three
+# whose freshness decides what a visitor runs and which data they see.
 IMMUTABLE="public, max-age=31536000, immutable"
 SHORT="public, max-age=3600"
+# index.html and version.json: `public` is spelled out so the caches in front of the bucket
+# (the fallback shim, proxies) may keep a copy, as long as they ask the bucket before serving it.
+REVALIDATE="public, no-cache, must-revalidate"
+# The service worker keeps its name across releases, so a copy served without asking the bucket
+# would pin a visitor to the build that registered it. It stays out of shared caches entirely.
+SERVICE_WORKER="no-cache, must-revalidate"
 # The cache class follows the location and the content type follows the extension. A file that
-# fits neither list fails the run instead of becoming a silent gap in the published site.
+# fits none of the lists fails the run instead of becoming a silent gap in the published site.
 ASSET_EXTENSIONS=(js css woff2 woff svg png ico json map)
 ROOT_EXTENSIONS=(png svg ico webmanifest)
+ROOT_JS_EXTENSIONS=(js)
 
 [ -d "$DIST_DIR" ] || { echo "::error::${DIST_DIR} does not exist, run the build first"; exit 1; }
 [ -f "${DIST_DIR}/index.html" ] || { echo "::error::${DIST_DIR}/index.html is missing"; exit 1; }
@@ -93,14 +100,15 @@ sync_pass() { # <content-type> <cache-control> <exclude/include args...>
 unmatched=()
 while IFS= read -r file; do
   file="${file#./}"
+  ext="${file##*.}"
   case "$file" in
     index.html) continue ;;
-    assets/*) in_list "${file##*.}" "${ASSET_EXTENSIONS[@]}" || unmatched+=("$file") ;;
-    *) in_list "${file##*.}" "${ROOT_EXTENSIONS[@]}" || unmatched+=("$file") ;;
+    assets/*) in_list "$ext" "${ASSET_EXTENSIONS[@]}" || unmatched+=("$file") ;;
+    *) in_list "$ext" "${ROOT_EXTENSIONS[@]}" || in_list "$ext" "${ROOT_JS_EXTENSIONS[@]}" || unmatched+=("$file") ;;
   esac
 done < <(cd "$DIST_DIR" && find . -type f)
 if [ "${#unmatched[@]}" -gt 0 ]; then
-  echo "::error::${#unmatched[@]} artifact(s) have no upload rule, add them to ASSET_EXTENSIONS/ROOT_EXTENSIONS and content_type():"
+  echo "::error::${#unmatched[@]} artifact(s) have no upload rule, add them to ASSET_EXTENSIONS/ROOT_EXTENSIONS/ROOT_JS_EXTENSIONS and content_type():"
   printf '  %s\n' "${unmatched[@]}"
   exit 1
 fi
@@ -120,12 +128,19 @@ for ext in "${ROOT_EXTENSIONS[@]}"; do
 done
 echo "::endgroup::"
 
+echo "::group::service worker"
+for ext in "${ROOT_JS_EXTENSIONS[@]}"; do
+  # Same filter shape as the site assets above: root-level scripts only, assets/ stays untouched.
+  sync_pass "$(content_type "$ext")" "$SERVICE_WORKER" --exclude '*' --include "*.${ext}" --exclude 'assets/*'
+done
+echo "::endgroup::"
+
 echo "::group::index.html"
 # Uploaded last: a visitor must never receive an index.html that references a bundle which is
 # not in the bucket yet. It is deliberately in none of the passes above, otherwise it would be
 # uploaded with the wrong cache header before the assets are in place.
 "${S3[@]}" cp "${DIST_DIR}/index.html" "s3://${OBS_BUCKET}/index.html" "${COMMON[@]}" \
-  --content-type "text/html; charset=utf-8" --cache-control "no-cache, must-revalidate"
+  --content-type "text/html; charset=utf-8" --cache-control "$REVALIDATE"
 echo "::endgroup::"
 
 if [ -n "${VERSION_FILE:-}" ]; then
@@ -134,7 +149,7 @@ if [ -n "${VERSION_FILE:-}" ]; then
   # Last object of a release, together with index.html: a bucket that serves a marker is a
   # bucket whose content is complete, which is what makes several buckets comparable.
   "${S3[@]}" cp "$VERSION_FILE" "s3://${OBS_BUCKET}/version.json" "${COMMON[@]}" \
-    --content-type "application/json" --cache-control "no-cache, must-revalidate"
+    --content-type "application/json" --cache-control "$REVALIDATE"
   echo "::endgroup::"
 fi
 
@@ -169,6 +184,9 @@ head_ok() { # <path> <expected content-type>
 
 head_ok /index.html "text/html"
 head_ok "$entry" "application/javascript"
+# The service worker is registered by the app, so a wrong content type or a chunk-encoded body
+# there breaks offline support without breaking the site itself.
+head_ok /sw.js "application/javascript"
 
 # The served bundle has to be byte for byte the local file. A mismatch means the object was
 # stored with extra framing or was truncated, which the checks above cannot see. The download is

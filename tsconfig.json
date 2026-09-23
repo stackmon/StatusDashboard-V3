@@ -22,7 +22,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["node"]
+    "types": ["node", "vite-plugin-pwa/client"]
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -49,7 +49,8 @@ jobs:
       - name: Build and push the public site image
         uses: docker/build-push-action@v7
         with:
-          context: .
+          context: docker
+          file: docker/Dockerfile
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}:${{ inputs.tag }}
           build-args: |
@@ -60,7 +61,8 @@ jobs:
       - name: Build and push the CH site image
         uses: docker/build-push-action@v7
         with:
-          context: .
+          context: docker
+          file: docker/Dockerfile
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}:${{ inputs.tag }}-ch
           build-args: |

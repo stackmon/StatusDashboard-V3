@@ -35,6 +35,8 @@ jobs:
       OBS_SITE_ENDPOINT: ${{ vars.OBS_TEST_SITE_ENDPOINT }}
       AWS_ACCESS_KEY_ID: ${{ secrets.OBS_TEST_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_TEST_SECRET_ACCESS_KEY }}
+      # Every push to main publishes here, so this bucket collects dead objects fastest.
+      RETAIN_DAYS: "7"
 
     steps:
       - uses: actions/checkout@v7

@@ -2,14 +2,10 @@
 #
 # Publish the Vite build output to an OTC OBS bucket that hosts a static website.
 #
-# Required environment:
-#   OBS_BUCKET         target bucket
-#   OBS_SITE_ENDPOINT  website endpoint host, used by the post-upload check; a full URL works too
-# Optional environment:
-#   OBS_ENDPOINT       S3 API endpoint        (default: https://obs.eu-de.otc.t-systems.com)
-#   OBS_REGION         signature region       (default: eu-de)
-#   DIST_DIR           build output directory (default: dist)
-#   VERSION_FILE       release marker from write-version-json.sh, published as /version.json
+# Required: OBS_BUCKET, OBS_SITE_ENDPOINT (host or full URL, used by the post-upload check).
+# Optional: OBS_ENDPOINT, OBS_REGION, DIST_DIR, VERSION_FILE (release marker from
+# write-version-json.sh, published as /version.json) and RETAIN_DAYS (days an object has been
+# out of the build before it is deleted; default 30, 0 keeps everything).
 set -euo pipefail
 
 : "${OBS_BUCKET:?OBS_BUCKET is required}"
@@ -19,26 +15,20 @@ OBS_ENDPOINT="${OBS_ENDPOINT:-https://obs.eu-de.otc.t-systems.com}"
 OBS_REGION="${OBS_REGION:-eu-de}"
 DIST_DIR="${DIST_DIR:-dist}"
 
-# Bare hosts are the normal case; a full URL is accepted so the same checks can be pointed at a
-# proxy or a local stand-in.
 case "$OBS_SITE_ENDPOINT" in
   http://* | https://*) SITE_URL="$OBS_SITE_ENDPOINT" ;;
   *) SITE_URL="https://${OBS_SITE_ENDPOINT}" ;;
 esac
 
-# Vite content-hashes everything under assets/, so those names change with the content and
-# can be cached forever. Every other file keeps its name and gets a short TTL, except the three
-# whose freshness decides what a visitor runs and which data they see.
+# Hashed assets can be cached forever, every other file keeps a short TTL. index.html and
+# version.json must be revalidated, but `public` lets the shared caches in front of the bucket
+# keep a copy. sw.js keeps its name across releases, so a copy served without asking the bucket
+# would pin a visitor to the build that registered it and it stays out of shared caches.
 IMMUTABLE="public, max-age=31536000, immutable"
 SHORT="public, max-age=3600"
-# index.html and version.json: `public` is spelled out so the caches in front of the bucket
-# (the fallback shim, proxies) may keep a copy, as long as they ask the bucket before serving it.
 REVALIDATE="public, no-cache, must-revalidate"
-# The service worker keeps its name across releases, so a copy served without asking the bucket
-# would pin a visitor to the build that registered it. It stays out of shared caches entirely.
 SERVICE_WORKER="no-cache, must-revalidate"
-# The cache class follows the location and the content type follows the extension. A file that
-# fits none of the lists fails the run instead of becoming a silent gap in the published site.
+# A file that matches none of the lists fails the run instead of silently not being published.
 ASSET_EXTENSIONS=(js css woff2 woff svg png ico json map)
 ROOT_EXTENSIONS=(png svg ico webmanifest)
 ROOT_JS_EXTENSIONS=(js)
@@ -46,23 +36,32 @@ ROOT_JS_EXTENSIONS=(js)
 [ -d "$DIST_DIR" ] || { echo "::error::${DIST_DIR} does not exist, run the build first"; exit 1; }
 [ -f "${DIST_DIR}/index.html" ] || { echo "::error::${DIST_DIR}/index.html is missing"; exit 1; }
 
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+
 export AWS_DEFAULT_REGION="$OBS_REGION"
 export AWS_EC2_METADATA_DISABLED="true"
 export AWS_PAGER=""
 
-# Since CLI 2.23 the aws CLI calculates a trailing CRC64NVME checksum by default. It streams the
-# body in the aws-chunked format and marks the object with Content-Encoding: aws-chunked. OBS
-# stores that body as sent, so the chunk sizes and the trailer become part of the file and a
-# browser renders them as page content. OBS does not need the checksum, keep it opt-in.
+# Since CLI 2.23 the aws CLI sends a trailing CRC64NVME checksum as aws-chunked and marks the
+# object with Content-Encoding: aws-chunked. OBS stores that framing as file content, which a
+# browser renders as page garbage. OBS does not need the checksum, so keep it opt-in.
 export AWS_REQUEST_CHECKSUM_CALCULATION="${AWS_REQUEST_CHECKSUM_CALCULATION:-when_required}"
 export AWS_RESPONSE_CHECKSUM_VALIDATION="${AWS_RESPONSE_CHECKSUM_VALIDATION:-when_required}"
 
 aws configure set default.s3.addressing_style path
 
 S3=(aws --endpoint-url "$OBS_ENDPOINT" s3)
-# --no-guess-mime-type: the content type is always passed explicitly, and a guessed type
-# would overwrite the metadata that an earlier pass already uploaded.
+S3API=(aws --endpoint-url "$OBS_ENDPOINT" s3api)
+# --no-guess-mime-type: the type is always passed explicitly, a guessed one would overwrite the
+# metadata an earlier pass already uploaded.
 COMMON=(--no-progress --only-show-errors --no-guess-mime-type)
+
+# Every publish re-uploads the whole build (`aws s3 sync` compares size and mtime, and a CI
+# checkout has fresh mtimes), so an object older than the window has been absent from every build
+# since then and no page the bucket serves can reference it. A sync that starts skipping
+# unchanged files would take that guarantee away.
+RETAIN_DAYS="${RETAIN_DAYS:-30}"
 
 content_type() {
   case "$1" in
@@ -88,13 +87,69 @@ in_list() { # <value> <list...>
   return 1
 }
 
-# `aws s3 sync` compares size and mtime only. A CI checkout has fresh mtimes, so every run
-# re-uploads everything and the metadata below is always rewritten.
 sync_pass() { # <content-type> <cache-control> <exclude/include args...>
   local content="$1" cache="$2"
   shift 2
   "${S3[@]}" sync "$DIST_DIR" "s3://${OBS_BUCKET}" "${COMMON[@]}" \
     --content-type "$content" --cache-control "$cache" "$@"
+}
+
+# Drops what no recent build contains. Failures warn instead of failing the run: pruning cannot
+# corrupt the site, and a gap in the bucket policy must not block a release.
+prune_stale() { # <days>
+  local days="$1" cutoff keys payload count part result failed=0
+
+  cutoff="$(date -u -d "-${days} days" +%Y-%m-%dT%H:%M:%S.000Z)"
+  keys="$work/keys"
+  payload="$work/payload"
+
+  if ! "${S3API[@]}" list-objects-v2 --bucket "$OBS_BUCKET" \
+      --output text --query 'Contents[].[LastModified,Key]' > "${keys}.listing"; then
+    echo "::warning::${OBS_BUCKET}: object listing failed, nothing was pruned"
+    return 0
+  fi
+
+  awk -F'\t' -v cutoff="$cutoff" \
+    '$1 ~ /^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T/ && $1 < cutoff { print $2 }' \
+    "${keys}.listing" > "$keys"
+
+  count="$(wc -l < "$keys" | tr -d '[:space:]')"
+  if [ "$count" = "0" ]; then
+    echo "every object is younger than ${days} days"
+    return 0
+  fi
+
+  echo "${count} object(s) have been out of the build for more than ${days} days:"
+  head -n 20 "$keys" | sed 's/^/  /'
+  [ "$count" -le 20 ] || echo "  ... and $((count - 20)) more"
+
+  split -l 1000 -d "$keys" "${keys}."
+  for part in "${keys}".*; do
+    awk 'BEGIN { printf "{\"Quiet\": true, \"Objects\": [" } \
+         { printf "%s{\"Key\": \"%s\"}", (NR > 1 ? "," : ""), $0 } \
+         END { printf "]}" }' "$part" > "$payload"
+
+    if ! result="$("${S3API[@]}" delete-objects --bucket "$OBS_BUCKET" \
+        --delete "file://${payload}" --query 'Errors[].[Key,Message]' --output text)"; then
+      echo "::warning::${OBS_BUCKET}: delete-objects was rejected, the bucket keeps growing"
+      failed=1
+      break
+    fi
+
+    case "$result" in
+      "" | None) ;;
+      *)
+        echo "::warning::${OBS_BUCKET}: some objects were not deleted"
+        printf '%s\n' "$result"
+        ;;
+    esac
+  done
+
+  if [ "$failed" = "1" ]; then
+    echo "::warning::pruning ${OBS_BUCKET} stopped early, it keeps growing until this is fixed"
+  else
+    echo "pruned ${count} object(s)"
+  fi
 }
 
 unmatched=()
@@ -115,30 +170,27 @@ fi
 
 echo "::group::hashed assets"
 for ext in "${ASSET_EXTENSIONS[@]}"; do
-  # The filter wildcard also matches "/", so nested directories are covered as well.
   sync_pass "$(content_type "$ext")" "$IMMUTABLE" --exclude '*' --include "assets/*.${ext}"
 done
 echo "::endgroup::"
 
 echo "::group::site assets"
 for ext in "${ROOT_EXTENSIONS[@]}"; do
-  # The last matching filter wins, hence the second exclusion: assets/ is uploaded above and
-  # must not be rewritten with the shorter TTL.
+  # The last matching filter wins, hence the second exclusion: assets/ was uploaded above at its
+  # longer TTL.
   sync_pass "$(content_type "$ext")" "$SHORT" --exclude '*' --include "*.${ext}" --exclude 'assets/*'
 done
 echo "::endgroup::"
 
 echo "::group::service worker"
 for ext in "${ROOT_JS_EXTENSIONS[@]}"; do
-  # Same filter shape as the site assets above: root-level scripts only, assets/ stays untouched.
   sync_pass "$(content_type "$ext")" "$SERVICE_WORKER" --exclude '*' --include "*.${ext}" --exclude 'assets/*'
 done
 echo "::endgroup::"
 
 echo "::group::index.html"
-# Uploaded last: a visitor must never receive an index.html that references a bundle which is
-# not in the bucket yet. It is deliberately in none of the passes above, otherwise it would be
-# uploaded with the wrong cache header before the assets are in place.
+# Uploaded last, and in none of the passes above: a visitor must never receive an index.html that
+# references a bundle which is not in the bucket yet.
 "${S3[@]}" cp "${DIST_DIR}/index.html" "s3://${OBS_BUCKET}/index.html" "${COMMON[@]}" \
   --content-type "text/html; charset=utf-8" --cache-control "$REVALIDATE"
 echo "::endgroup::"
@@ -146,12 +198,19 @@ echo "::endgroup::"
 if [ -n "${VERSION_FILE:-}" ]; then
   echo "::group::version marker"
   [ -f "$VERSION_FILE" ] || { echo "::error::VERSION_FILE=${VERSION_FILE} does not exist"; exit 1; }
-  # Last object of a release, together with index.html: a bucket that serves a marker is a
-  # bucket whose content is complete, which is what makes several buckets comparable.
+  # Last object of a release: a bucket that serves the marker serves complete content.
   "${S3[@]}" cp "$VERSION_FILE" "s3://${OBS_BUCKET}/version.json" "${COMMON[@]}" \
     --content-type "application/json" --cache-control "$REVALIDATE"
   echo "::endgroup::"
 fi
+
+echo "::group::retention"
+if [ "$RETAIN_DAYS" = "0" ]; then
+  echo "RETAIN_DAYS=0, every object is kept"
+else
+  prune_stale "$RETAIN_DAYS"
+fi
+echo "::endgroup::"
 
 echo "::group::verify"
 entry="$(grep -m1 -oE 'src="/assets/[^"]+\.js"' "${DIST_DIR}/index.html" || true)"
@@ -172,8 +231,7 @@ head_ok() { # <path> <expected content-type>
     printf '%s\n' "$header"
     return 1
   }
-  # A clean object has no content encoding. Anything else means the body was uploaded
-  # chunk-encoded and the visitor would download the framing instead of the file.
+  # A clean object has no content encoding; anything else means the uploaded body was chunked.
   encoding="$(sed -n 's/^[Cc]ontent-[Ee]ncoding:[[:space:]]*//p' <<<"$header" | tr -d '\r' | tr 'A-Z' 'a-z')"
   if [ -n "$encoding" ] && [ "$encoding" != "identity" ]; then
     echo "::error::${1} is served with Content-Encoding: ${encoding}, the object was uploaded chunk-encoded"
@@ -184,16 +242,12 @@ head_ok() { # <path> <expected content-type>
 
 head_ok /index.html "text/html"
 head_ok "$entry" "application/javascript"
-# The service worker is registered by the app, so a wrong content type or a chunk-encoded body
-# there breaks offline support without breaking the site itself.
 head_ok /sw.js "application/javascript"
 
-# The served bundle has to be byte for byte the local file. A mismatch means the object was
-# stored with extra framing or was truncated, which the checks above cannot see. The download is
-# kept in a file so that the size and the hash describe the same response.
-served_body="$(mktemp)"
-headers="$(mktemp)"
-trap 'rm -f "$served_body" "$headers"' EXIT
+# The served bundle must be byte for byte the local file; extra framing or a truncated body shows
+# up only here.
+served_body="$work/body"
+headers="$work/headers"
 hash_file() { sha256sum "$1" | cut -d' ' -f1; }
 
 curl -fsS --max-time 60 --retry 2 --retry-delay 2 -D "$headers" -o "$served_body" "${SITE_URL}${entry}" || {
@@ -217,8 +271,8 @@ if [ "$served" != "$entry" ]; then
 fi
 
 if [ -n "${VERSION_FILE:-}" ]; then
-  # A missing object can come back as the bucket error document, so the status code alone proves
-  # nothing: the served marker has to be JSON and byte for byte the file that was uploaded.
+  # A missing object comes back as the bucket error document, so the body, not the status code,
+  # decides.
   curl -fsS --max-time 30 --retry 2 --retry-delay 2 -D "$headers" -o "$served_body" "${SITE_URL}/version.json" || {
     echo "::error::GET ${SITE_URL}/version.json failed"
     exit 1

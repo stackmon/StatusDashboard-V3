@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Renders the failover chain that the frontend shim includes into its nginx config: one location per
-# endpoint, each one answering for the previous. OBS picks the bucket from the Host header alone and
-# nginx computes that header once per request, so the endpoints cannot share an upstream block.
+# Renders the failover chain that the frontend shim includes into its nginx config: OBS picks the
+# bucket from the Host header alone, and nginx computes that header once per request, so the
+# endpoints cannot share an upstream block.
 #
 # Usage: generate-origin-conf.sh <comma-separated-endpoints> <output-file>
 set -eu

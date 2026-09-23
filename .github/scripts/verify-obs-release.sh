@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 #
-# Assert that OBS static website endpoints serve the release marker this run published.
+# Assert that every endpoint serves the release marker this run published, with a JSON content type
+# and a body identical to the local marker, so a marker hidden behind the bucket error document
+# cannot pass as a healthy one; passing several endpoints is how a mirror proves it matches the
+# primary bucket.
 #
 #   bash .github/scripts/verify-obs-release.sh version.json <endpoint> [more endpoints...]
 #
-# An endpoint is a bare host (https:// is assumed) or a full URL. Every endpoint has to serve
-# /version.json with the JSON content type and a body that is byte for byte the local marker, so
-# a marker hidden behind the bucket error document cannot pass as a healthy one.
-#
-# Passing several endpoints is how a mirror proves it matches the primary bucket.
+# An endpoint is a bare host (https:// is assumed) or a full URL.
 set -euo pipefail
 
 : "${1:-usage: verify-obs-release.sh <local-marker.json> <endpoint> [endpoint...]}"
@@ -27,11 +26,13 @@ field() { # <file> <key>, tolerant of a missing file so an unreachable endpoint 
 
 short() { printf '%s' "$1" | cut -c1-"$2"; }
 
+row() { printf '  %-56s %-7s %-13s %-24s %s\n' "$1" "$2" "${3:--}" "${4:--}" "${5:--}"; }
+
 expected_sha="$(field "$marker" sha)"
 expected_digest="$(field "$marker" digest)"
 echo "expected sha=${expected_sha} digest=${expected_digest}"
 
-printf '  %-56s %-7s %-13s %-24s %s\n' "ENDPOINT" "STATUS" "SHA" "DIGEST" "BUILT_AT"
+row ENDPOINT STATUS SHA DIGEST BUILT_AT
 status=0
 for endpoint in "$@"; do
   case "$endpoint" in
@@ -41,24 +42,23 @@ for endpoint in "$@"; do
   body="$work/body"
   headers="$work/headers"
   rm -f "$body" "$headers"
-  # no-cache: a marker describes the release that is live right now, never a cached answer.
+  # Never accept a cached marker: it must describe what is live right now.
   code="$(curl -sS -o "$body" -D "$headers" -w '%{http_code}' --max-time 60 --retry 2 --retry-delay 2 \
     -H 'Cache-Control: no-cache' "${base}/version.json" || true)"
   served_sha="$(field "$body" sha)"
   served_digest="$(field "$body" digest)"
 
   if [ "$code" != "200" ]; then
-    printf '  %-56s %-7s %-13s %-24s %s\n' "$endpoint" "$code" - - -
+    row "$endpoint" "$code"
     echo "::error::${endpoint} answered ${code} for /version.json"
     status=1
   elif ! grep -qiE '^content-type:[[:space:]]*application/json' "$headers"; then
-    printf '  %-56s %-7s %-13s %-24s %s\n' "$endpoint" "$code" - - -
+    row "$endpoint" "$code"
     echo "::error::${endpoint} serves /version.json with a non-JSON content type, which is what the bucket error document looks like"
     grep -i '^content-type:' "$headers" | tr -d '\r' >&2
     status=1
   elif ! cmp -s "$body" "$marker"; then
-    printf '  %-56s %-7s %-13s %-24s %s\n' "$endpoint" "$code" \
-      "$(short "${served_sha:-<none>}" 12)" "$(short "${served_digest:-<none>}" 24)" "$(field "$body" built_at)"
+    row "$endpoint" "$code" "$(short "${served_sha:-<none>}" 12)" "$(short "${served_digest:-<none>}" 24)" "$(field "$body" built_at)"
     echo "::error::${endpoint} serves a different release than this build"
     printf '    serves   sha=%s digest=%s built_at=%s ref=%s\n' \
       "${served_sha:-<none>}" "${served_digest:-<none>}" "$(field "$body" built_at)" "$(field "$body" ref)" >&2
@@ -68,8 +68,7 @@ for endpoint in "$@"; do
     [ -z "$delta" ] || printf '    %s\n' "$delta" >&2
     status=1
   else
-    printf '  %-56s %-7s %-13s %-24s %s\n' "$endpoint" "$code" \
-      "$(short "$served_sha" 12)" "$(short "$served_digest" 24)" "$(field "$body" built_at)"
+    row "$endpoint" "$code" "$(short "$served_sha" 12)" "$(short "$served_digest" 24)" "$(field "$body" built_at)"
   fi
 done
 

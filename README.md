@@ -11,3 +11,7 @@
 
 `pnpm build` needs `SD_BACKEND_URL`, `SD_CLIENT_ID` and `SD_AUTHORITY_URL` in the environment and
 fails when one of them is empty. `pnpm start` serves the output of the last build.
+
+`SD_NAME` names the deployment in the browser title, `SD_APP_NAME` names the app it is installed as
+and what the install toast offers. `SD_APP_NAME` falls back to `SD_NAME Status`, so every deployment
+keeps its own entry on the home screen instead of sharing one.

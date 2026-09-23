@@ -1,14 +1,18 @@
 import { SubjectLike } from "rxjs";
+import { branding, Product } from "./Branding";
+
+const brand = branding(process.env);
 
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 2.0.0
+ * @version 2.1.0
  */
 export const Dic = {
   Symbol: "SD3",
-  Name: process.env.SD_NAME || "T Cloud Public",
-  Prod: "Status Dashboard",
+  Name: brand.Name,
+  App: brand.App,
+  Prod: Product,
   TZ: "Europe/Berlin",
   Time: "DD MMM YY, HH:mm",
   TimeTZ: "DD MMM YYYY, HH:mm [CET]",

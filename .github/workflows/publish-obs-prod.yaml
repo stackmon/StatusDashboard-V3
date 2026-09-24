@@ -93,27 +93,16 @@ jobs:
   publish-mirrors:
     needs: publish-primary
     runs-on: ubuntu-latest
-    name: publish-mirrors (${{ matrix.region }})
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - region: eu-ch2
-            bucket: status-pub
-            site_endpoint: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
-            endpoint: https://obs.eu-ch2.sc.otc.t-systems.com
-            access_key_id: ${{ secrets.OBS_PROD_EU_CH2_ACCESS_KEY_ID }}
-            secret_access_key: ${{ secrets.OBS_PROD_EU_CH2_SECRET_ACCESS_KEY }}
+    name: publish-mirrors (eu-ch2)
 
     env:
-      OBS_BUCKET: ${{ matrix.bucket }}
-      OBS_SITE_ENDPOINT: ${{ matrix.site_endpoint }}
-      OBS_ENDPOINT: ${{ matrix.endpoint }}
-      OBS_REGION: ${{ matrix.region }}
+      OBS_BUCKET: status-pub
+      OBS_SITE_ENDPOINT: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
+      OBS_ENDPOINT: https://obs.eu-ch2.sc.otc.t-systems.com
+      OBS_REGION: eu-ch2
       VERSION_FILE: version.json
-      AWS_ACCESS_KEY_ID: ${{ matrix.access_key_id }}
-      AWS_SECRET_ACCESS_KEY: ${{ matrix.secret_access_key }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.OBS_PROD_EU_CH2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_PROD_EU_CH2_SECRET_ACCESS_KEY }}
 
     steps:
       - uses: actions/checkout@v7

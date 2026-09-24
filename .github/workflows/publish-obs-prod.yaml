@@ -99,19 +99,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - region: eu-nl
-            bucket: status-dashboard
-            site_endpoint: status-dashboard.obs-website.eu-nl.otc.t-systems.com
-            endpoint: https://obs.eu-nl.otc.t-systems.com
-            access_key_id: OBS_PROD_EU_NL_ACCESS_KEY_ID
-            secret_access_key: OBS_PROD_EU_NL_SECRET_ACCESS_KEY
-
           - region: eu-ch2
             bucket: status-pub
             site_endpoint: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
             endpoint: https://obs.eu-ch2.sc.otc.t-systems.com
-            access_key_id: OBS_PROD_EU_CH2_ACCESS_KEY_ID
-            secret_access_key: OBS_PROD_EU_CH2_SECRET_ACCESS_KEY
+            access_key_id: ${{ secrets.OBS_PROD_EU_CH2_ACCESS_KEY_ID }}
+            secret_access_key: ${{ secrets.OBS_PROD_EU_CH2_SECRET_ACCESS_KEY }}
 
     env:
       OBS_BUCKET: ${{ matrix.bucket }}
@@ -119,8 +112,8 @@ jobs:
       OBS_ENDPOINT: ${{ matrix.endpoint }}
       OBS_REGION: ${{ matrix.region }}
       VERSION_FILE: version.json
-      AWS_ACCESS_KEY_ID: ${{ secrets[matrix.access_key_id] }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets[matrix.secret_access_key] }}
+      AWS_ACCESS_KEY_ID: ${{ matrix.access_key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ matrix.secret_access_key }}
 
     steps:
       - uses: actions/checkout@v7

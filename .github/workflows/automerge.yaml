@@ -19,6 +19,8 @@ on:
       - completed
   status: {}
 
+permissions: {}
+
 jobs:
   automerge:
     runs-on: ubuntu-latest

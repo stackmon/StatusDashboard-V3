@@ -117,6 +117,7 @@ export default defineConfig(({ mode }) => {
           inlineWorkboxRuntime: true,
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],
           navigateFallback: "index.html",
+          navigateFallbackDenylist: [/^\/v2\//, /^\/rss/, /^\/openapi\.json$/, /^\/swagger/],
         },
       }),
     ],
@@ -136,12 +137,8 @@ export default defineConfig(({ mode }) => {
     envPrefix: "SD_",
     server: {
       proxy: {
-        "/auth": {
-          target: "https://api.test.status.otc-service.com",
-          changeOrigin: true,
-        },
         "/v2": {
-          target: "https://api.test.status.otc-service.com",
+          target: "https://test.status.otc-service.com",
           changeOrigin: true,
         },
       },

@@ -95,10 +95,6 @@ jobs:
     runs-on: ubuntu-latest
     name: publish-mirrors (eu-ch2)
 
-    # No matrix here on purpose: naming the secrets through matrix values would
-    # need a dynamic secrets lookup, which the excessive-secrets-exposure
-    # scanner reports, while the secrets context is not permitted inside
-    # strategy. A single mirror does not need one anyway.
     env:
       OBS_BUCKET: status-pub
       OBS_SITE_ENDPOINT: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com

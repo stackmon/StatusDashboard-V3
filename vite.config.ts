@@ -117,9 +117,6 @@ export default defineConfig(({ mode }) => {
           inlineWorkboxRuntime: true,
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],
           navigateFallback: "index.html",
-          // The API is served from the same origin as the app, so top-level navigations to
-          // API paths must reach the backend instead of being answered with the cached
-          // index.html by the navigation fallback.
           navigateFallbackDenylist: [/^\/v2\//, /^\/rss/, /^\/openapi\.json$/, /^\/swagger/],
         },
       }),

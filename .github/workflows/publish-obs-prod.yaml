@@ -93,29 +93,20 @@ jobs:
   publish-mirrors:
     needs: publish-primary
     runs-on: ubuntu-latest
-    name: publish-mirrors (${{ matrix.region }})
+    name: publish-mirrors (eu-ch2)
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - region: eu-ch2
-            bucket: status-pub
-            site_endpoint: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
-            endpoint: https://obs.eu-ch2.sc.otc.t-systems.com
-            access_key_id: OBS_PROD_EU_CH2_ACCESS_KEY_ID
-            secret_access_key: OBS_PROD_EU_CH2_SECRET_ACCESS_KEY
-
+    # No matrix here on purpose: naming the secrets through matrix values would
+    # need a dynamic secrets lookup, which the excessive-secrets-exposure
+    # scanner reports, while the secrets context is not permitted inside
+    # strategy. A single mirror does not need one anyway.
     env:
-      OBS_BUCKET: ${{ matrix.bucket }}
-      OBS_SITE_ENDPOINT: ${{ matrix.site_endpoint }}
-      OBS_ENDPOINT: ${{ matrix.endpoint }}
-      OBS_REGION: ${{ matrix.region }}
+      OBS_BUCKET: status-pub
+      OBS_SITE_ENDPOINT: status-pub.obs-website.eu-ch2.sc.otc.t-systems.com
+      OBS_ENDPOINT: https://obs.eu-ch2.sc.otc.t-systems.com
+      OBS_REGION: eu-ch2
       VERSION_FILE: version.json
-      # The secrets context is not available in strategy.matrix, only in env, so
-      # the matrix carries the secret names and the values are resolved here.
-      AWS_ACCESS_KEY_ID: ${{ secrets[matrix.access_key_id] }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets[matrix.secret_access_key] }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.OBS_PROD_EU_CH2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OBS_PROD_EU_CH2_SECRET_ACCESS_KEY }}
 
     steps:
       - uses: actions/checkout@v7

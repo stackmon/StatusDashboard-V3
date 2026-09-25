@@ -57,11 +57,6 @@ export function PwaUpdate() {
     };
   }, []);
 
-  /**
-   * Reload as soon as the waiting worker takes over. `updateServiceWorker` only
-   * asks it to activate, and the library's own reload is skipped unless the page
-   * was already controlled when the worker registered.
-   */
   async function applyUpdate() {
     if (!registration.current?.waiting) {
       window.location.reload();

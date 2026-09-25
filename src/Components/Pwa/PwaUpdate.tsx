@@ -57,6 +57,21 @@ export function PwaUpdate() {
     };
   }, []);
 
+  /**
+   * Reload as soon as the waiting worker takes over. `updateServiceWorker` only
+   * asks it to activate, and the library's own reload is skipped unless the page
+   * was already controlled when the worker registered.
+   */
+  async function applyUpdate() {
+    if (!registration.current?.waiting) {
+      window.location.reload();
+      return;
+    }
+
+    navigator.serviceWorker.addEventListener("controllerchange", () => window.location.reload(), { once: true });
+    await updateServiceWorker(true);
+  }
+
   useEffect(() => {
     if (!needRefresh || prompted.current) return;
     prompted.current = true;
@@ -65,7 +80,7 @@ export function PwaUpdate() {
       body: "Reload to switch to the latest build of the dashboard.",
       action: (
         <button
-          onClick={() => updateServiceWorker(true)}
+          onClick={() => void applyUpdate()}
           className="rounded bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 cursor-pointer"
         >
           Reload

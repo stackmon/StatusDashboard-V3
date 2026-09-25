@@ -7,6 +7,7 @@ const requiredBuildVars = [
   "SD_BACKEND_URL",
   "SD_CLIENT_ID",
   "SD_AUTHORITY_URL",
+  "SD_PROJECT_ID",
 ] as const;
 
 const Product = "Status Dashboard";

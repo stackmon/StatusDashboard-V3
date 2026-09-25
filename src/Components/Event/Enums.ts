@@ -1,5 +1,5 @@
 import { StatusEnum } from "~/Services/Status.Entities";
-import { Roles } from "../Auth/With";
+import { CanApprove, Roles } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -93,12 +93,12 @@ export enum EventStatus {
  * @since 1.1.0
  * @version 0.3.0
  */
-export function GetStatusList(type: EventType, status?: EventStatus, groups?: string[]): EventStatus[] {
-  if (groups && status === EventStatus.PendingReview) {
-    if (groups.some(g => g === Roles.Creators)) {
+export function GetStatusList(type: EventType, status?: EventStatus, roles?: ReadonlySet<string>): EventStatus[] {
+  if (roles && status === EventStatus.PendingReview) {
+    if (roles.has(Roles.Creators)) {
       return [EventStatus.PendingReview, EventStatus.Cancelled];
     }
-    if (groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)) {
+    if (CanApprove(roles)) {
       return [EventStatus.PendingReview, ...Object.values(EventStatus).slice(5, 10)];
     }
   }

@@ -4,7 +4,7 @@ import { useMemo, useRef, type MouseEvent } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
 import { useStatus } from "~/Services/Status";
-import { Authorized, Roles } from "../Auth/With";
+import { Authorized, CanApprove } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -68,16 +68,15 @@ export function MobileMenu() {
                 <a href="/NewEvent">New Event</a>
               </ScaleTelekomMobileMenuItem>
 
-              <Authorized rules={(groups) => {
-                return pendingCount > 0 &&
-                  groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
+              <Authorized rules={(roles) => {
+                return pendingCount > 0 && CanApprove(roles);
               }}>
                 <ScaleTelekomMobileMenuItem>
                   <a href="/Reviews">Reviews: {pendingCount}</a>
                 </ScaleTelekomMobileMenuItem>
               </Authorized>
 
-              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={() => auth.signoutSilent()}>
+              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={() => auth.signoutRedirect()}>
                 Logout {auth.user?.profile.name || auth.user?.profile.preferred_username}
               </ScaleTelekomMobileMenuItem>
             </Authorized>

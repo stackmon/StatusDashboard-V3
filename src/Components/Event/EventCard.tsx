@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { Authorized, Roles } from "../Auth/With";
+import { Authorized, CanApprove, Roles } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
@@ -42,24 +42,23 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
         </div>
 
         <div className="flex gap-x-3">
-          <Authorized rules={(groups) =>
-            Event.Status === EventStatus.PendingReview &&
-            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
+          <Authorized rules={(roles) =>
+            Event.Status === EventStatus.PendingReview && CanApprove(roles)}>
             <EventApprove Event={Event} />
           </Authorized>
 
-          <Authorized rules={(groups) =>
+          <Authorized rules={(roles) =>
             Event.Type !== EventType.Maintenance &&
             Event.RegionServices.size > 1 &&
-            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
+            CanApprove(roles)}>
             <EventExtract Event={Event} />
           </Authorized>
 
-          <Authorized rules={(groups) => (
+          <Authorized rules={(roles) => (
             Event.Status === EventStatus.PendingReview &&
-            groups.some(g => g === Roles.Creators)
+            roles.has(Roles.Creators)
           ) ||
-            groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub)}>
+            CanApprove(roles)}>
             <EventEditor Event={Event} />
           </Authorized>
         </div>

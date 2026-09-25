@@ -17,8 +17,9 @@ env:
   SD_NAME: ${{ vars.SD_NAME }}
   SD_APP_NAME: ${{ vars.SD_APP_NAME }}
   SD_BACKEND_URL: ${{ vars.SD_BACKEND_URL_PROD }}
-  SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID }}
-  SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL }}
+  SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID_PROD }}
+  SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL_PROD }}
+  SD_PROJECT_ID: ${{ vars.SD_PROJECT_ID_PROD }}
   SD_GIT_SHA: ${{ github.sha }}
   OBS_PRIMARY_SITE_ENDPOINT: status.obs-website.eu-de.otc.t-systems.com
   RETAIN_DAYS: "30"

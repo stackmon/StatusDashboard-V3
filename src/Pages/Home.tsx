@@ -4,7 +4,7 @@ import { chain } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BehaviorSubject } from "rxjs";
-import { Authorized, Roles } from "~/Components/Auth/With";
+import { Authorized, CanApprove } from "~/Components/Auth/With";
 import { EventStatus, EventType, IsIncident, IsOpenStatus } from "~/Components/Event/Enums";
 import { Blink } from "~/Components/Home/Blink";
 import { EventGrid } from "~/Components/Home/EventGrid";
@@ -85,9 +85,8 @@ export function Home() {
         <title>{Dic.Name} {Dic.Prod}</title>
       </Helmet>
 
-      <Authorized rules={(groups) => {
-        return pendingCount > 0 &&
-          groups.some(g => g === Roles.Operators || g === Roles.Admins || g === Roles.GitHub);
+      <Authorized rules={(roles) => {
+        return pendingCount > 0 && CanApprove(roles);
       }}>
         <Notification
           heading={`You have ${pendingCount} maintenance events pending for review.`}

@@ -1,5 +1,5 @@
 import { Link } from "@fluentui/react-components";
-import { UserManager } from "oidc-client-ts";
+import { UserManager, WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode, useEffect } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { setTokenRefresher } from "~/Helpers/fetchPlus";
@@ -10,8 +10,6 @@ import { Roles } from "./With";
 
 const projectId = process.env.SD_PROJECT_ID!;
 
-// Zitadel only asserts the roles a scope asks for and only puts the project id
-// into the audience of the access token when its scope is requested.
 const scope = [
   "openid", "profile", "email", "offline_access",
   ...Object.values(Roles).map(role => `urn:zitadel:iam:org:project:role:${role}`),
@@ -26,7 +24,8 @@ const userMgr = new UserManager({
   scope: scope.join(" "),
   revokeTokensOnSignout: true,
   automaticSilentRenew: true,
-  accessTokenExpiringNotificationTimeInSeconds: 60
+  accessTokenExpiringNotificationTimeInSeconds: 60,
+  userStore: new WebStorageStateStore({ store: window.localStorage })
 });
 
 setTokenRefresher(async () => {
@@ -78,14 +77,10 @@ function AuthHandler() {
 
     log.warn(auth.error);
 
-    // A failed renewal cannot recover on its own, a failed sign-out still has to
-    // drop the session the browser kept.
     if (auth.error.source === "renewSilent") sessionLost();
     else if (auth.error.source === "signoutRedirect") auth.removeUser();
   }, [auth.error]);
 
-  // The token expired before the automatic renewal could catch it, which happens
-  // when the tab was suspended past its expiry.
   useEffect(() => {
     if (!auth.user?.expired) return;
 
@@ -94,8 +89,6 @@ function AuthHandler() {
     });
   }, [auth.user]);
 
-  // The sign-in callback is a route of its own, the authorization response has to
-  // leave the URL once the library consumed it.
   useEffect(() => {
     if (Paths.at(0) !== "signin-oidc" || auth.isLoading) return;
 

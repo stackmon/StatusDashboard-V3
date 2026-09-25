@@ -31,6 +31,7 @@ jobs:
       SD_BACKEND_URL: ${{ vars.SD_BACKEND_URL_TEST }}
       SD_CLIENT_ID: ${{ vars.SD_CLIENT_ID }}
       SD_AUTHORITY_URL: ${{ vars.SD_AUTHORITY_URL }}
+      SD_PROJECT_ID: ${{ vars.SD_PROJECT_ID }}
       SD_GIT_SHA: ${{ github.sha }}
       OBS_BUCKET: ${{ vars.OBS_TEST_BUCKET }}
       OBS_SITE_ENDPOINT: ${{ vars.OBS_TEST_SITE_ENDPOINT }}

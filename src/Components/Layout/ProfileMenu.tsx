@@ -24,7 +24,7 @@ export function ProfileMenu() {
             Hi, {auth.user?.profile.name || auth.user?.profile.preferred_username}
           </ScaleMenuFlyoutItem>
 
-          <ScaleMenuFlyoutItem onScaleSelect={() => auth.signoutSilent()}>
+          <ScaleMenuFlyoutItem onScaleSelect={() => auth.signoutRedirect()}>
             Logout
           </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>

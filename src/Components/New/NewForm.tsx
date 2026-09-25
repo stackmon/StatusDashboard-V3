@@ -3,12 +3,11 @@ import dayjs from "dayjs";
 import { orderBy } from "lodash";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
-import { useAuth } from "react-oidc-context";
 import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { Roles } from "../Auth/With";
+import { CanApprove, useRoles } from "../Auth/With";
 import { EventType, IsIncident } from "../Event/Enums";
 import { useNewForm } from "./useNewForm";
 
@@ -32,10 +31,8 @@ import { useNewForm } from "./useNewForm";
 export function NewForm() {
   const { DB } = useStatus();
   const { State, Actions, Validation, OnSubmit, Loading } = useNewForm();
-  const auth = useAuth();
-
-  const groups: string[] = (auth.user?.profile as any)?.groups || [];
-  const isCreatorOnly = !groups.includes(Roles.Operators) && !groups.includes(Roles.Admins) && !groups.includes(Roles.GitHub);
+  const roles = useRoles();
+  const isCreatorOnly = !CanApprove(roles);
 
   const availableTypes = isCreatorOnly
     ? [EventType.Maintenance]

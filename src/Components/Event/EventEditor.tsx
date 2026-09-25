@@ -3,11 +3,11 @@ import { useBoolean } from "ahooks";
 import dayjs from "dayjs";
 import ReactMarkdown from 'react-markdown';
 import MdEditor from 'react-markdown-editor-lite';
-import { useAuth } from "react-oidc-context";
 import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic, MDDecsPlugins, MDUpdatePlugins } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
+import { useRoles } from "../Auth/With";
 import { EventStatus, EventType, GetStatusList, IsIncident, IsOpenStatus } from "./Enums";
 import { useEditForm } from "./useEditForm";
 
@@ -30,7 +30,7 @@ import { useEditForm } from "./useEditForm";
 export function EventEditor({ Event }: { Event: Models.IEvent }) {
   const { State, Actions, Validation, OnSubmit, Loading } = useEditForm(Event);
   const [open, { setTrue, setFalse }] = useBoolean();
-  const auth = useAuth();
+  const roles = useRoles();
 
   return <>
     <ScaleButton onClick={setTrue} size="small">
@@ -86,7 +86,7 @@ export function EventEditor({ Event }: { Event: Models.IEvent }) {
             invalid={!!Validation.status}
             helperText={Validation.status}
           >
-            {GetStatusList(State.type, Event.Status, (auth.user?.profile as any)?.groups)
+            {GetStatusList(State.type, Event.Status, roles)
               .map((status, i) =>
                 <ScaleDropdownSelectItem value={status} key={i}>
                   {status}

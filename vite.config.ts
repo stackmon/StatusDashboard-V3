@@ -115,6 +115,7 @@ export default defineConfig(({ mode }) => {
         injectRegister: null,
         manifest,
         workbox: {
+          clientsClaim: true,
           inlineWorkboxRuntime: true,
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],
           navigateFallback: "index.html",

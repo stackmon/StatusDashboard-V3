@@ -115,8 +115,6 @@ export default defineConfig(({ mode }) => {
         injectRegister: null,
         manifest,
         workbox: {
-          // The prompt below reloads the page once the new worker takes over, which
-          // only happens when the incoming worker claims the open clients.
           clientsClaim: true,
           inlineWorkboxRuntime: true,
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],

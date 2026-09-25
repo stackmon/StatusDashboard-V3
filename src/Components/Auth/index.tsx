@@ -1,5 +1,5 @@
 import { Link } from "@fluentui/react-components";
-import { UserManager } from "oidc-client-ts";
+import { UserManager, WebStorageStateStore } from "oidc-client-ts";
 import { ReactNode, useEffect } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { setTokenRefresher } from "~/Helpers/fetchPlus";
@@ -26,7 +26,10 @@ const userMgr = new UserManager({
   scope: scope.join(" "),
   revokeTokensOnSignout: true,
   automaticSilentRenew: true,
-  accessTokenExpiringNotificationTimeInSeconds: 60
+  accessTokenExpiringNotificationTimeInSeconds: 60,
+  // The default sessionStorage store drops the session when the last tab
+  // closes; the refresh token must survive that for silent sign-in.
+  userStore: new WebStorageStateStore({ store: window.localStorage })
 });
 
 setTokenRefresher(async () => {

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { Authorized } from "~/Components/Auth/With";
+import { Authorized, CanCreate } from "~/Components/Auth/With";
 import { NewForm } from "~/Components/New/NewForm";
 import { Dic } from "~/Helpers/Entities";
 
@@ -10,7 +10,7 @@ import { Dic } from "~/Helpers/Entities";
  */
 export function NewEvent() {
   return (
-    <Authorized>
+    <Authorized rules={CanCreate}>
       <Helmet>
         <title>New Event - {Dic.Name} {Dic.Prod}</title>
       </Helmet>

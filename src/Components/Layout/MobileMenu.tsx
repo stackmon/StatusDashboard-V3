@@ -4,7 +4,7 @@ import { useMemo, useRef, type MouseEvent } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
 import { useStatus } from "~/Services/Status";
-import { Authorized, CanApprove } from "../Auth/With";
+import { Authorized, CanApprove, CanCreate } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -64,9 +64,11 @@ export function MobileMenu() {
             </ScaleTelekomMobileMenuItem>
 
             <Authorized>
-              <ScaleTelekomMobileMenuItem>
-                <a href="/NewEvent">New Event</a>
-              </ScaleTelekomMobileMenuItem>
+              <Authorized rules={CanCreate}>
+                <ScaleTelekomMobileMenuItem>
+                  <a href="/NewEvent">New Event</a>
+                </ScaleTelekomMobileMenuItem>
+              </Authorized>
 
               <Authorized rules={(roles) => {
                 return pendingCount > 0 && CanApprove(roles);

@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import remarkIns from 'remark-ins';
 import { Dic } from "~/Helpers/Entities";
 import { Models } from "~/Services/Status.Models";
-import { Authorized, CanApprove, Roles } from "../Auth/With";
+import { Authorized, CanApprove, Roles, useCurrentUserId } from "../Auth/With";
 import { Indicator } from "../Home/Indicator";
 import { EventStatus, EventType, IsIncident } from "./Enums";
 import { EventAffected } from "./EventAffected";
@@ -30,6 +30,8 @@ import { EventExtract } from "./EventExtract";
  * @version 0.3.1
  */
 export function EventCard({ Event }: { Event: Models.IEvent }) {
+  const currentUserId = useCurrentUserId();
+
   return (
     <section className="flex flex-col gap-y-4 rounded-md bg-white px-8 py-6 shadow-md">
       <div className="flex justify-between">
@@ -48,7 +50,7 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
           </Authorized>
 
           <Authorized rules={(roles) =>
-            Event.Type !== EventType.Maintenance &&
+            IsIncident(Event.Type) &&
             Event.RegionServices.size > 1 &&
             CanApprove(roles)}>
             <EventExtract Event={Event} />
@@ -56,7 +58,8 @@ export function EventCard({ Event }: { Event: Models.IEvent }) {
 
           <Authorized rules={(roles) => (
             Event.Status === EventStatus.PendingReview &&
-            roles.has(Roles.Creators)
+            roles.has(Roles.Creators) &&
+            currentUserId === Event.Creator
           ) ||
             CanApprove(roles)}>
             <EventEditor Event={Event} />

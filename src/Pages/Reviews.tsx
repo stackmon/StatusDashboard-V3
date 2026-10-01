@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
+import { Authorized, CanApprove } from "~/Components/Auth/With";
 import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
@@ -81,7 +82,7 @@ export function Reviews() {
   }, [gridRef.current, pendingEvents]);
 
   return (
-    <>
+    <Authorized rules={CanApprove}>
       <Helmet>
         <title>Reviews - {Dic.Name} {Dic.Prod}</title>
       </Helmet>
@@ -93,7 +94,7 @@ export function Reviews() {
         hideBorder
         ref={gridRef}
       >
-        <ScaleMenuFlyoutItem slot="menu" class="scale-menu-trigger">
+        <ScaleMenuFlyoutItem slot="menu" className="scale-menu-trigger">
           Page Size
           <ScaleIconActionMenu slot="prefix" className="mr-2" />
 
@@ -120,6 +121,6 @@ export function Reviews() {
           </ScaleMenuFlyoutList>
         </ScaleMenuFlyoutItem>
       </ScaleDataGrid>
-    </>
+    </Authorized>
   );
 }

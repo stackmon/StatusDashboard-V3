@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { Authorized } from "../Auth/With";
+import { Authorized, CanApprove, CanCreate } from "../Auth/With";
 import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
 import { ProfileMenu } from "./ProfileMenu";
@@ -40,10 +40,12 @@ export function TopNavBar() {
           </a>
         </ScaleTelekomNavItem>
 
-        <Authorized>
+        <Authorized rules={CanCreate}>
           <NavItem Href="/NewEvent" Label="New Event" />
+        </Authorized>
 
-          {pendingCount > 0 && <NavItem Href="/Reviews" Label={`Reviews: ${pendingCount}`} />}
+        <Authorized rules={(roles) => pendingCount > 0 && CanApprove(roles)}>
+          <NavItem Href="/Reviews" Label={`Reviews: ${pendingCount}`} />
         </Authorized>
       </ScaleTelekomNavList>
 

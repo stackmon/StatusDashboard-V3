@@ -78,6 +78,26 @@ export function CanApprove(roles: ReadonlySet<string>): boolean {
 
 /**
  * @author Aloento
+ * @since 1.6.0
+ * @version 1.0.0
+ */
+export function CanCreate(roles: ReadonlySet<string>): boolean {
+  return roles.has(Roles.Creators) || CanApprove(roles);
+}
+
+/**
+ * @author Aloento
+ * @since 1.6.0
+ * @version 1.0.0
+ */
+export function useCurrentUserId(): string | undefined {
+  const auth = useAuth();
+
+  return auth.user?.profile?.sub;
+}
+
+/**
+ * @author Aloento
  * @since 1.0.0
  * @version 0.3.0
  */

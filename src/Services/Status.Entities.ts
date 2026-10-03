@@ -55,25 +55,32 @@ interface UpdateEntityV2 {
  * @version 0.3.1
  */
 export const enum StatusEnum {
-  Analyzing = "analyzing",
   Analysing = "analysing",
   Detected = "detected",
   Changed = "changed",
   ImpactChanged = "impact changed",
   Completed = "completed",
-  Description = "description",
   Fixing = "fixing",
-  InProgress = "in progress",
-  InProgress2 = "in_progress",
+  InProgress = "in_progress",
   Modified = "modified",
   Observing = "observing",
   Reopened = "reopened",
   Resolved = "resolved",
-  Scheduled = "scheduled",
   System = "SYSTEM",
   Planned = "planned",
   Cancelled = "cancelled",
   Active = "active",
   PendingReview = "pending_review",
   Reviewed = "reviewed",
+
+  /**
+   * Legacy spellings that only exist in rows stored by older backends; the
+   * backend passes them through verbatim and folds nothing, so the canonical
+   * members above are matched to them in `ResolveEventStatus`. Never send these
+   * back: the API validates `status` against a closed set.
+   */
+  Analyzing = "analyzing",
+  Description = "description",
+  InProgressLegacy = "in progress",
+  Scheduled = "scheduled",
 }

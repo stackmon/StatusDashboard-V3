@@ -52,7 +52,7 @@ function ResolveEventStatus({
     case StatusEnum.Modified:
       return EventStatus.Modified;
     case StatusEnum.InProgress:
-    case StatusEnum.InProgress2:
+    case StatusEnum.InProgressLegacy:
       return EventStatus.InProgress;
     case StatusEnum.Completed:
       return EventStatus.Completed;

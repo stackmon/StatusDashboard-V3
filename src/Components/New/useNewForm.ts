@@ -1,11 +1,34 @@
 import { useRequest } from "ahooks";
 import { useEffect, useRef, useState } from "react";
+import { ApiError, getUserFriendlyMessage } from "~/Helpers/ApiError";
 import { fetchPlus } from "~/Helpers/fetchPlus";
+import { useAppToast } from "~/Helpers/useAppToast";
 import { useStatus } from "~/Services/Status";
 import { IStatusContext, Models } from "~/Services/Status.Models";
 import { useAccessToken } from "../Auth/useAccessToken";
 import { EventStatus, EventType, GetEventImpact, IsIncident } from "../Event/Enums";
 import { useRouter } from "../Router";
+
+/**
+ * A component that already has an active maintenance is reported per component in
+ * `result[].error` by the create endpoint, not in the shared `errMsg` field.
+ */
+function conflictReasons(err: ApiError): string | undefined {
+  if (err.status !== 409 || !err.details) {
+    return undefined;
+  }
+
+  try {
+    const result = JSON.parse(err.details)?.result as { error?: string }[] | undefined;
+    const reasons = (result ?? [])
+      .map(entry => entry?.error)
+      .filter((reason): reason is string => Boolean(reason));
+
+    return reasons.length ? Array.from(new Set(reasons)).join("; ") : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 /**
  * Custom hook to manage the state and validation of a form.
@@ -198,6 +221,7 @@ export function useNewForm() {
 
   const { Nav } = useRouter();
   const getToken = useAccessToken();
+  const toast = useAppToast();
   const snapshotRef = useRef<IStatusContext | null>(null);
 
   const { runAsync, loading } = useRequest(async () => {
@@ -282,10 +306,14 @@ export function useNewForm() {
       if (snapshotRef.current) {
         Update(snapshotRef.current);
       }
-      // Toast is already handled by the ErrorBoundary/Toast system
-      throw err; // re-throw so ahooks tracks error state
+
+      const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
+      const body = conflictReasons(apiError) ?? getUserFriendlyMessage(apiError);
+      toast.showError("Failed to create event", { body });
     },
   });
+
+  const submit = () => runAsync().catch(() => { /* already reported through onError */ });
 
   return {
     State: {
@@ -317,7 +345,7 @@ export function useNewForm() {
       services: valServices,
       contactEmail: valContactEmail
     },
-    OnSubmit: runAsync,
+    OnSubmit: submit,
     Loading: loading
   }
 }

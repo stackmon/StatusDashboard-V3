@@ -10,7 +10,9 @@ export class ApiError extends Error {
     message: string,
     public readonly status?: number,
     public readonly details?: string,
-    public readonly isNetworkError = false
+    public readonly isNetworkError = false,
+    /** The backend's own wording, taken from the `errMsg` field when present. */
+    public readonly serverMessage?: string
   ) {
     super(message);
     this.name = "ApiError";
@@ -19,10 +21,12 @@ export class ApiError extends Error {
 
   /** Create from a non-ok HTTP Response */
   static fromHttp(res: Response, body?: string): ApiError {
-    const message = body
-      ? `${res.status} ${res.statusText}: ${body}`
+    const serverMessage = parseServerMessage(body);
+    const detail = serverMessage ?? body;
+    const message = detail
+      ? `${res.status} ${res.statusText}: ${detail}`
       : `${res.status} ${res.statusText}`;
-    return new ApiError(message, res.status, body, false);
+    return new ApiError(message, res.status, body, false, serverMessage);
   }
 
   /** Create from a network-level error (fetch threw TypeError) */
@@ -52,6 +56,20 @@ export class ApiError extends Error {
   }
 }
 
+/** Read the backend's `errMsg` field out of a JSON error body. */
+function parseServerMessage(body?: string): string | undefined {
+  if (!body) {
+    return undefined;
+  }
+
+  try {
+    const message = JSON.parse(body)?.errMsg;
+    return typeof message === "string" && message ? message : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * @author Aloento
  * @since 1.5.0
@@ -60,6 +78,11 @@ export class ApiError extends Error {
 export function getUserFriendlyMessage(err: ApiError): string {
   if (err.isNetworkError) {
     return "Network error. Please check your connection.";
+  }
+  // Validation and conflict failures are explained by the backend itself; the
+  // fixed wording below would only hide the reason.
+  if (err.serverMessage && (err.status === 400 || err.status === 409)) {
+    return err.serverMessage;
   }
   switch (err.status) {
     case 400: return "Bad request. Please check your input.";

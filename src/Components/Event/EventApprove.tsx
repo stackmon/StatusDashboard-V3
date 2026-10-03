@@ -1,7 +1,9 @@
-import { Toast, ToastBody, ToastTitle, useToastController } from "@fluentui/react-components";
 import { ScaleButton, ScaleIconActionCheckmark } from "@telekom/scale-components-react";
 import { useRequest } from "ahooks";
 import { useAuth } from "react-oidc-context";
+import { ApiError, getUserFriendlyMessage } from "~/Helpers/ApiError";
+import { fetchPlus } from "~/Helpers/fetchPlus";
+import { useAppToast } from "~/Helpers/useAppToast";
 import { useStatus } from "~/Services/Status";
 import { StatusEnum } from "~/Services/Status.Entities";
 import { Models } from "~/Services/Status.Models";
@@ -18,36 +20,19 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
 
   const getToken = useAccessToken();
   const { user } = useAuth();
-  const { dispatchToast } = useToastController();
+  const toast = useAppToast();
 
   const { runAsync, loading } = useRequest(async () => {
     const url = process.env.SD_BACKEND_URL!;
     const version = Event.Version ?? Event.Histories.size + 1;
-    const raw = await fetch(`${url}/v2/events/${Event.Id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${await getToken()}`,
-      },
-      body: JSON.stringify({
-        status: StatusEnum.Reviewed,
-        version,
-        message: `Approved by ${user?.profile.name || user?.profile.preferred_username}`,
-        update_date: new Date().toISOString(),
-      }),
-    });
+    const message = `Approved by ${user?.profile.name || user?.profile.preferred_username}`;
 
-    if (!raw.ok) {
-      const message = await raw.text();
-      dispatchToast(
-        <Toast>
-          <ToastTitle>Failed to approve event</ToastTitle>
-          <ToastBody>{message}</ToastBody>
-        </Toast>,
-        { intent: "warning" }
-      );
-      throw new Error("Failed to approve event: " + message);
-    }
+    await fetchPlus.patchJson(`${url}/v2/events/${Event.Id}`, {
+      status: StatusEnum.Reviewed,
+      version,
+      message,
+      update_date: new Date().toISOString(),
+    }, { token: await getToken() });
 
     Event.Status = EventStatus.Reviewed;
     Event.Version = version + 1;
@@ -55,12 +40,16 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       Id: Event.Histories.size + 1,
       Created: new Date(),
       Event,
-      Message: `Approved by ${user?.profile.name || user?.profile.preferred_username}`,
+      Message: message,
       Status: EventStatus.Reviewed,
     });
     Update();
   }, {
     manual: true,
+    onError: (err) => {
+      const apiError = err instanceof ApiError ? err : ApiError.fromNetwork(err);
+      toast.showError("Failed to approve event", { body: getUserFriendlyMessage(apiError) });
+    },
   });
 
   return (
@@ -68,7 +57,7 @@ export function EventApprove({ Event }: { Event: Models.IEvent }) {
       size="small"
       variant="secondary"
       disabled={loading}
-      onClick={() => runAsync()}
+      onClick={() => { runAsync().catch(() => { /* already reported through onError */ }); }}
     >
       <ScaleIconActionCheckmark />
       &nbsp;Approve

@@ -66,21 +66,9 @@ export const enum StatusEnum {
   Observing = "observing",
   Reopened = "reopened",
   Resolved = "resolved",
-  System = "SYSTEM",
   Planned = "planned",
   Cancelled = "cancelled",
   Active = "active",
   PendingReview = "pending_review",
   Reviewed = "reviewed",
-
-  /**
-   * Legacy spellings that only exist in rows stored by older backends; the
-   * backend passes them through verbatim and folds nothing, so the canonical
-   * members above are matched to them in `ResolveEventStatus`. Never send these
-   * back: the API validates `status` against a closed set.
-   */
-  Analyzing = "analyzing",
-  Description = "description",
-  InProgressLegacy = "in progress",
-  Scheduled = "scheduled",
 }

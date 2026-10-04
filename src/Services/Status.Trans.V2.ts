@@ -13,24 +13,16 @@ function ResolveEventStatus({
   source,
   prev,
   type,
-  endDate,
 }: {
   source?: StatusEnum;
   prev: EventStatus;
   type: EventType;
-  endDate: null | string;
 }): EventStatus | undefined {
   if (!source) {
     return undefined;
   }
 
   switch (source) {
-    case StatusEnum.System:
-      return endDate
-        ? IsIncident(type) ? EventStatus.Resolved : EventStatus.Completed
-        : prev;
-
-    case StatusEnum.Analyzing:
     case StatusEnum.Analysing:
       return EventStatus.Analysing;
     case StatusEnum.Detected:
@@ -44,7 +36,6 @@ function ResolveEventStatus({
     case StatusEnum.Resolved:
       return EventStatus.Resolved;
 
-    case StatusEnum.Scheduled:
     case StatusEnum.Planned:
       return EventStatus.Planned;
     case StatusEnum.Active:
@@ -52,7 +43,6 @@ function ResolveEventStatus({
     case StatusEnum.Modified:
       return EventStatus.Modified;
     case StatusEnum.InProgress:
-    case StatusEnum.InProgressLegacy:
       return EventStatus.InProgress;
     case StatusEnum.Completed:
       return EventStatus.Completed;
@@ -200,7 +190,6 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       source: event.status,
       prev: dbEvent.Status,
       type,
-      endDate: event.end_date,
     });
     const shouldInferStatusFromUpdates = !statusFromEvent;
     if (statusFromEvent) {
@@ -227,16 +216,10 @@ export function TransformerV2({ Components, Events }: { Components: StatusEntity
       let prev = dbEvent.Status;
 
       for (const update of event.updates) {
-        if (update.status === StatusEnum.Description) {
-          dbEvent.Description = update.text;
-          continue;
-        }
-
         const status = ResolveEventStatus({
           source: update.status,
           prev,
           type,
-          endDate: event.end_date,
         });
 
         if (!status) {

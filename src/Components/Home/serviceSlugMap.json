@@ -15,7 +15,8 @@
   "T Cloud Public": "https://public.t-cloud.com/",
   "T Cloud Public Community": "https://community.open-telekom-cloud.com/",
   "T Cloud Public Console": "https://console.otc.t-systems.com/",
-  "MyWorkplace": "https://myworkplace.t-systems.com/MyWorkplace/Login.aspx",
+  "Business Login / MyWorkplace": "https://myworkplace.t-systems.com/MyWorkplace/Login.aspx",
+  "TaurusDB": "taurusdb",
   "Financial Dashboard": "",
   "Invoicing": ""
 }

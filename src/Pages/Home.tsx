@@ -82,7 +82,7 @@ export function Home() {
   return (
     <>
       <Helmet>
-        <title>{Dic.Name} {Dic.Prod}</title>
+        <title>{Dic.App} {Dic.Prod}</title>
       </Helmet>
 
       <Authorized rules={(roles) => {

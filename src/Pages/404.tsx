@@ -14,7 +14,7 @@ export function NotFound() {
 
   return <>
     <Helmet>
-      <title>Redirect - Not Found - {Dic.Name}</title>
+      <title>Redirect - Not Found - {Dic.App} {Dic.Prod}</title>
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
 

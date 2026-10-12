@@ -84,7 +84,7 @@ export function Reviews() {
   return (
     <Authorized rules={CanApprove}>
       <Helmet>
-        <title>Reviews - {Dic.Name} {Dic.Prod}</title>
+        <title>Reviews - {Dic.App} {Dic.Prod}</title>
       </Helmet>
 
       <ScaleDataGrid

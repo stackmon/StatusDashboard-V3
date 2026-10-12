@@ -102,7 +102,7 @@ export function History() {
 
   return <div className="h-full flex flex-col gap-4">
     <Helmet>
-      <title>History - {Dic.Name} {Dic.Prod}</title>
+      <title>History - {Dic.App} {Dic.Prod}</title>
     </Helmet>
 
     <EventFilters

@@ -25,7 +25,7 @@ export function Event() {
 
   return <>
     <Helmet>
-      <title>Event {id.toString()} - {Dic.Name} {Dic.Prod}</title>
+      <title>Event {id.toString()} - {Dic.App} {Dic.Prod}</title>
     </Helmet>
 
     <EventCard Event={event} />

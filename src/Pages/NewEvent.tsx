@@ -12,7 +12,7 @@ export function NewEvent() {
   return (
     <Authorized rules={CanCreate}>
       <Helmet>
-        <title>New Event - {Dic.Name} {Dic.Prod}</title>
+        <title>New Event - {Dic.App} {Dic.Prod}</title>
       </Helmet>
 
       <h3 className="text-3xl font-medium text-slate-800">Create New Event</h3>

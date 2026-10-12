@@ -12,7 +12,7 @@ import { AvailaContext } from "~/Services/Availability";
 export function Availability() {
   return <>
     <Helmet>
-      <title>Availability - {Dic.Name} {Dic.Prod}</title>
+      <title>Availability - {Dic.App} {Dic.Prod}</title>
     </Helmet>
 
     <RegionSelector

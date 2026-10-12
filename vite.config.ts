@@ -10,7 +10,7 @@ const requiredBuildVars = [
   "SD_PROJECT_ID",
 ] as const;
 
-const Product = "Status Dashboard";
+const Product = "Dashboard";
 
 export default defineConfig(({ mode }) => {
   const loadedEnv = loadEnv(mode, process.cwd(), "SD_");
@@ -28,7 +28,9 @@ export default defineConfig(({ mode }) => {
 
   const Name = sdEnv.SD_NAME?.trim() || "T Cloud Public";
   const App = sdEnv.SD_APP_NAME?.trim() || `${Name} Status`;
-  const title = `${Name} ${Product}`;
+  const title = `${App} ${Product}`;
+
+  const shortcutIcon = { src: "/favicon-96x96.png", sizes: "96x96", type: "image/png" };
 
   const manifest: Partial<ManifestOptions> = {
     name: title,
@@ -72,26 +74,40 @@ export default defineConfig(({ mode }) => {
     ],
     shortcuts: [
       {
+        name: "New Event",
+        short_name: "New Event",
+        description: "Create a new maintenance event",
+        url: "/NewEvent",
+        icons: [shortcutIcon],
+      },
+      {
+        name: "Login",
+        short_name: "Login",
+        description: "Sign in to create and review maintenance events",
+        url: "/login",
+        icons: [shortcutIcon],
+      },
+      {
         name: "Availability",
+        short_name: "Availability",
+        description: "View the availability matrix of the regions",
         url: "/Availability",
-        icons: [
-          {
-            src: "/favicon-96x96.png",
-            sizes: "96x96",
-            type: "image/png",
-          },
-        ],
+        icons: [shortcutIcon],
       },
       {
         name: "History",
+        short_name: "History",
+        description: "Browse the maintenance events of the past",
         url: "/History",
-        icons: [
-          {
-            src: "/favicon-96x96.png",
-            sizes: "96x96",
-            type: "image/png",
-          },
-        ],
+        icons: [shortcutIcon],
+      },
+      // Android keeps the first four shortcuts, so this one is the desktop-only entry.
+      {
+        name: "Reviews",
+        short_name: "Reviews",
+        description: "Review the maintenance events waiting for approval",
+        url: "/Reviews",
+        icons: [shortcutIcon],
       },
     ],
   };

@@ -173,8 +173,8 @@ importers:
         specifier: 3.0.0-beta.161
         version: 3.0.0-beta.161
       '@telekom/scale-components-react':
-        specifier: 3.0.0-beta.161
-        version: 3.0.0-beta.161(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 3.0.0-beta.162
+        version: 3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       ahooks:
         specifier: ^3.10.0
         version: 3.10.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1970,13 +1970,16 @@ packages:
   '@telekom/design-tokens@1.0.0-beta.12':
     resolution: {integrity: sha512-bsR4fnhsOpwVPrgPI4mj/0ZSPO8db9r4F2AC3kdUCtXbBTMbJxSW5rM42Gs4zjkfFI+VehSVOBIquqjfn/FhBw==}
 
-  '@telekom/scale-components-react@3.0.0-beta.161':
-    resolution: {integrity: sha512-kRFdkOC+id/tDTXto8Z+tTaLrvowsD6pwEf57QXBYCLdh0EcblnlSWF3+EpkhwNeZmfgBH9Mim4ACqJz/PjJDQ==}
+  '@telekom/scale-components-react@3.0.0-beta.162':
+    resolution: {integrity: sha512-QcnxFxzkDLd5LOpVB3cL/bhGLjxGEmG2fpvry2sjLOAPB/+FmswZkYX7yeu6szJyecl9GG3rydDb8NCu6Iunww==}
     peerDependencies:
       '@telekom/scale-components': '>=3.0.0-beta.159'
-      '@types/react-dom': ^18.3.1
+      '@types/react-dom': ^18.3.1 || ^19.0.0
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
+    peerDependenciesMeta:
+      '@types/react-dom':
+        optional: true
 
   '@telekom/scale-components@3.0.0-beta.161':
     resolution: {integrity: sha512-00nxsglb/BkKb0w6/iKphI8BG/BAfj0ApQ0C6jFFanlh0qXrBy35cCuyMtdiOkwcUVWinWzZnB86d116yqrdSA==}
@@ -6159,14 +6162,15 @@ snapshots:
 
   '@telekom/design-tokens@1.0.0-beta.12': {}
 
-  '@telekom/scale-components-react@3.0.0-beta.161(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@telekom/scale-components-react@3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@stencil/react-output-target': 1.5.3(@stencil/core@4.45.2)(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@telekom/scale-components': 3.0.0-beta.161
-      '@types/react-dom': 19.3.0(@types/react@19.3.0)
       '@types/vfile-message': 2.0.0
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
+    optionalDependencies:
+      '@types/react-dom': 19.3.0(@types/react@19.3.0)
     transitivePeerDependencies:
       - '@stencil/core'
       - '@types/react'

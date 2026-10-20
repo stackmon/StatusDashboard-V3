@@ -170,11 +170,11 @@ importers:
         specifier: ^9.74.9
         version: 9.74.9(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)
       '@telekom/scale-components':
-        specifier: 3.0.0-beta.161
-        version: 3.0.0-beta.161
+        specifier: 3.0.0-beta.162
+        version: 3.0.0-beta.162
       '@telekom/scale-components-react':
         specifier: 3.0.0-beta.162
-        version: 3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.162)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       ahooks:
         specifier: ^3.10.0
         version: 3.10.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1981,8 +1981,8 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@telekom/scale-components@3.0.0-beta.161':
-    resolution: {integrity: sha512-00nxsglb/BkKb0w6/iKphI8BG/BAfj0ApQ0C6jFFanlh0qXrBy35cCuyMtdiOkwcUVWinWzZnB86d116yqrdSA==}
+  '@telekom/scale-components@3.0.0-beta.162':
+    resolution: {integrity: sha512-Rw5uqLoaaFfhLd2xfjSUkJnDle1xE60D18k9hH5awPhjnN5AmDX1RwKLX+X2hWQ7iVCSKmOJmHFpM8+wCxNcRw==}
 
   '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1':
     resolution: {integrity: sha512-/67zpWDBLV+oYAEL682s1ktXL0HgqX76f6gaVGkGnVZlBbm1zd0v4Bz8MFF2GGhoX9rvfq3KSQHubFHwa6w6/Q==}
@@ -6162,10 +6162,10 @@ snapshots:
 
   '@telekom/design-tokens@1.0.0-beta.12': {}
 
-  '@telekom/scale-components-react@3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.161)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@telekom/scale-components-react@3.0.0-beta.162(@stencil/core@4.45.2)(@telekom/scale-components@3.0.0-beta.162)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@stencil/react-output-target': 1.5.3(@stencil/core@4.45.2)(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@telekom/scale-components': 3.0.0-beta.161
+      '@telekom/scale-components': 3.0.0-beta.162
       '@types/vfile-message': 2.0.0
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
@@ -6175,7 +6175,7 @@ snapshots:
       - '@stencil/core'
       - '@types/react'
 
-  '@telekom/scale-components@3.0.0-beta.161':
+  '@telekom/scale-components@3.0.0-beta.162':
     dependencies:
       '@duetds/date-picker': 1.2.0
       '@floating-ui/dom': 1.8.0

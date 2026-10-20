@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@fluentui/react-components": "^9.74.9",
-    "@telekom/scale-components": "3.0.0-beta.161",
+    "@telekom/scale-components": "3.0.0-beta.162",
     "@telekom/scale-components-react": "3.0.0-beta.162",
     "ahooks": "^3.10.0",
     "dayjs": "^1.11.23",

@@ -4,7 +4,7 @@ import { useMemo, useRef, type MouseEvent } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
 import { useStatus } from "~/Services/Status";
-import { Authorized, CanApprove, CanCreate } from "../Auth/With";
+import { Authorized, CanApprove, CanCreate, useCurrentUserId } from "../Auth/With";
 
 /**
  * @author Aloento
@@ -15,10 +15,15 @@ export function MobileMenu() {
   const auth = useAuth();
   const { DB } = useStatus();
   const flyoutRef = useRef<HTMLScaleTelekomNavFlyoutElement>(null);
+  const currentUserId = useCurrentUserId();
 
   const pendingCount = useMemo(() => chain(DB.Events)
     .filter(e => e.Status === EventStatus.PendingReview)
     .value().length, [DB]);
+
+  const ownPendingCount = useMemo(() => chain(DB.Events)
+    .filter(e => e.Status === EventStatus.PendingReview && e.Creator === currentUserId)
+    .value().length, [DB, currentUserId]);
 
   /**
    * Defensive fallback for `scale-telekom-nav-flyout` (3.0.0-beta.161): its
@@ -75,6 +80,14 @@ export function MobileMenu() {
               }}>
                 <ScaleTelekomMobileMenuItem>
                   <a href="/Reviews">Reviews: {pendingCount}</a>
+                </ScaleTelekomMobileMenuItem>
+              </Authorized>
+
+              <Authorized rules={(roles) => {
+                return ownPendingCount > 0 && CanCreate(roles) && !CanApprove(roles);
+              }}>
+                <ScaleTelekomMobileMenuItem>
+                  <a href="/Reviews">Reviews</a>
                 </ScaleTelekomMobileMenuItem>
               </Authorized>
 

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
-import { Authorized, CanApprove, CanCreate } from "../Auth/With";
+import { Authorized, CanApprove, CanCreate, useCurrentUserId } from "../Auth/With";
 import { MobileMenu } from "./MobileMenu";
 import { NavItem } from "./NavItem";
 import { ProfileMenu } from "./ProfileMenu";
@@ -16,10 +16,15 @@ import { ProfileMenu } from "./ProfileMenu";
  */
 export function TopNavBar() {
   const { DB } = useStatus();
+  const currentUserId = useCurrentUserId();
 
   const pendingCount = useMemo(() => chain(DB.Events)
     .filter(e => e.Status === EventStatus.PendingReview)
     .value().length, [DB]);
+
+  const ownPendingCount = useMemo(() => chain(DB.Events)
+    .filter(e => e.Status === EventStatus.PendingReview && e.Creator === currentUserId)
+    .value().length, [DB, currentUserId]);
 
   return (
     <ScaleTelekomHeader
@@ -46,6 +51,10 @@ export function TopNavBar() {
 
         <Authorized rules={(roles) => pendingCount > 0 && CanApprove(roles)}>
           <NavItem Href="/Reviews" Label={`Reviews: ${pendingCount}`} />
+        </Authorized>
+
+        <Authorized rules={(roles) => ownPendingCount > 0 && CanCreate(roles) && !CanApprove(roles)}>
+          <NavItem Href="/Reviews" Label="Reviews" />
         </Authorized>
       </ScaleTelekomNavList>
 

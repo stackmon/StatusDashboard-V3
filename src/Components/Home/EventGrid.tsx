@@ -85,7 +85,7 @@ export function EventGrid() {
             return IsOpenStatus(x.Status);
           }
 
-          return false;
+          return x.Status === EventStatus.Active;
         }
 
         return IsOpenStatus(x.Status);

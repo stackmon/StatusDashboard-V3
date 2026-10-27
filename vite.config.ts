@@ -133,9 +133,11 @@ export default defineConfig(({ mode }) => {
         workbox: {
           clientsClaim: true,
           inlineWorkboxRuntime: true,
-          globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],
-          navigateFallback: "index.html",
-          navigateFallbackDenylist: [/^\/v2\//, /^\/rss/, /^\/openapi\.json$/, /^\/swagger/],
+          globPatterns: ["**/*.{js,css,ico,png,svg,woff,woff2,webmanifest}"],
+          // Serving the document from the SW keeps visitors on the previous
+          // build until the waiting worker activates, so a plain reload never
+          // picks up a new release.
+          navigateFallback: null,
         },
       }),
     ],

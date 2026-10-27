@@ -13,7 +13,7 @@ import { getEventTag } from "../History/EventTag";
 /**
  * @author Aloento
  * @since 1.0.0
- * @version 0.3.0
+ * @version 0.4.0
  */
 export function EventGrid() {
   const { DB } = useStatus();
@@ -93,11 +93,11 @@ export function EventGrid() {
       .orderBy([
         x => {
           switch (x.Type) {
-            case EventType.Outage: return 0;
-            case EventType.Major: return 1;
-            case EventType.Minor: return 2;
-            case EventType.Maintenance: return 3;
-            case EventType.Information: return 4;
+            case EventType.Information: return 0;
+            case EventType.Outage: return 1;
+            case EventType.Major: return 2;
+            case EventType.Minor: return 3;
+            case EventType.Maintenance: return 4;
             default: return 5;
           }
         },

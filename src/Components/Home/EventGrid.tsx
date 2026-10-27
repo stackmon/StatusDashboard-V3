@@ -139,7 +139,7 @@ export function EventGrid() {
   return (
     <ScaleDataGrid
       className="sm:rounded-lg sm:bg-white sm:shadow-md"
-      pageSize={4}
+      pageSize={8}
       heading="Current Events"
       hideBorder
       ref={ref}

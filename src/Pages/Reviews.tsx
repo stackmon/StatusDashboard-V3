@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { chain } from "lodash";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Authorized, CanApprove } from "~/Components/Auth/With";
+import { Authorized, CanApprove, CanCreate, useCurrentUserId, useRoles } from "~/Components/Auth/With";
 import { EventStatus } from "~/Components/Event/Enums";
 import { Dic } from "~/Helpers/Entities";
 import { useStatus } from "~/Services/Status";
@@ -19,13 +19,19 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50];
 export function Reviews() {
   const { DB } = useStatus();
   const gridRef = useRef<HTMLScaleDataGridElement>(null);
+  const roles = useRoles();
+  const currentUserId = useCurrentUserId();
+  const canApprove = CanApprove(roles);
 
   const [pageSize, setPageSize] = useState<number>(() => {
     const stored = localStorage.getItem(PAGE_SIZE_KEY);
     return stored ? parseInt(stored, 10) : 10;
   });
 
-  const pendingEvents = DB.Events.filter((x) => x.Status === EventStatus.PendingReview);
+  const pendingEvents = DB.Events.filter((x) =>
+    x.Status === EventStatus.PendingReview &&
+    (canApprove || x.Creator === currentUserId)
+  );
 
   // Fields must be set before the data grid's ResizeObserver first fires,
   // otherwise its initial column stretching throws on `fields.forEach`.
@@ -82,7 +88,7 @@ export function Reviews() {
   }, [gridRef.current, pendingEvents]);
 
   return (
-    <Authorized rules={CanApprove}>
+    <Authorized rules={CanCreate}>
       <Helmet>
         <title>Reviews - {Dic.App} {Dic.Prod}</title>
       </Helmet>

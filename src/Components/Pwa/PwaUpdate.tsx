@@ -12,41 +12,46 @@ const FOREGROUND_THROTTLE = 15 * 60 * 1000;
 /**
  * @author Aloento
  * @since 1.6.0
- * @version 1.0.0
+ * @version 1.1.0
  */
 export function PwaUpdate() {
   const toast = useAppToast();
   const prompted = useRef(false);
   const checkedAt = useRef(0);
-  const registration = useRef<ServiceWorkerRegistration>(null);
+  const registration = useRef<ServiceWorkerRegistration | null>(null);
 
   const {
     offlineReady: [offlineReady],
     needRefresh: [needRefresh],
-    updateServiceWorker,
   } = useRegisterSW({
     onRegisteredSW(swUrl, reg) {
-      registration.current = reg!;
+      registration.current = reg;
       log.info(`Service worker registered from ${swUrl}`);
+
+      if (!reg) return;
+
+      // Browsers throttle the update check they run on navigation, so ask for
+      // one explicitly on every page load.
+      checkForUpdate(reg);
     },
     onRegisterError(error) {
       log.error("Service worker registration failed", error);
     },
   });
 
-  useEffect(() => {
-    function check() {
-      checkedAt.current = Date.now();
-      registration.current?.update()
-        .catch(error => log.warn("Service worker update check failed", error));
-    }
+  function checkForUpdate(reg: ServiceWorkerRegistration | null = registration.current) {
+    checkedAt.current = Date.now();
+    reg?.update()
+      .catch(error => log.warn("Service worker update check failed", error));
+  }
 
-    const timer = setInterval(check, UPDATE_INTERVAL);
+  useEffect(() => {
+    const timer = setInterval(() => checkForUpdate(), UPDATE_INTERVAL);
 
     function onVisibilityChange() {
       if (document.visibilityState !== "visible" || !navigator.onLine) return;
       if (Date.now() - checkedAt.current < FOREGROUND_THROTTLE) return;
-      check();
+      checkForUpdate();
     }
 
     document.addEventListener("visibilitychange", onVisibilityChange);
@@ -57,14 +62,10 @@ export function PwaUpdate() {
     };
   }, []);
 
-  async function applyUpdate() {
-    if (!registration.current?.waiting) {
-      window.location.reload();
-      return;
-    }
-
-    navigator.serviceWorker.addEventListener("controllerchange", () => window.location.reload(), { once: true });
-    await updateServiceWorker(true);
+  // The document is fetched from the network on every load, so reloading picks
+  // up the current build without waiting for the worker to take over.
+  function applyUpdate() {
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -75,7 +76,7 @@ export function PwaUpdate() {
       body: "Reload to switch to the latest build of the dashboard.",
       action: (
         <button
-          onClick={() => void applyUpdate()}
+          onClick={() => applyUpdate()}
           className="rounded bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 cursor-pointer"
         >
           Reload

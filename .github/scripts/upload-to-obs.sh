@@ -181,7 +181,7 @@ while IFS= read -r file; do
   file="${file#./}"
   ext="${file##*.}"
   case "$file" in
-    index.html) continue ;;
+    index.html | shell.html) continue ;;
     assets/*) in_list "$ext" "${ASSET_EXTENSIONS[@]}" || unmatched+=("$file") ;;
     *) in_list "$ext" "${ROOT_EXTENSIONS[@]}" || in_list "$ext" "${ROOT_JS_EXTENSIONS[@]}" || unmatched+=("$file") ;;
   esac
@@ -215,6 +215,13 @@ echo "::endgroup::"
 echo "::group::index.html"
 # Uploaded last, and in none of the passes above: a visitor must never receive an index.html that
 # references a bundle which is not in the bucket yet.
+if [ -f "${DIST_DIR}/shell.html" ]; then
+  # Copy of index.html the service worker precaches and falls back to when the network is gone. It
+  # goes before index.html so the offline page of a release is in the bucket before the release is
+  # served, and it is not a navigation target, so it never needs to be the newest document.
+  "${S3[@]}" cp "${DIST_DIR}/shell.html" "s3://${OBS_BUCKET}/shell.html" "${COMMON[@]}" \
+    --content-type "text/html; charset=utf-8" --cache-control "$REVALIDATE"
+fi
 "${S3[@]}" cp "${DIST_DIR}/index.html" "s3://${OBS_BUCKET}/index.html" "${COMMON[@]}" \
   --content-type "text/html; charset=utf-8" --cache-control "$REVALIDATE"
 echo "::endgroup::"
@@ -267,6 +274,7 @@ head_ok() { # <path> <expected content-type>
 head_ok /index.html "text/html"
 head_ok "$entry" "application/javascript"
 head_ok /sw.js "application/javascript"
+[ ! -f "${DIST_DIR}/shell.html" ] || head_ok /shell.html "text/html"
 
 # The served bundle must be byte for byte the local file; extra framing or a truncated body shows
 # up only here.

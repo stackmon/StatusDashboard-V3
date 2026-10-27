@@ -1,4 +1,5 @@
 import react from "@vitejs/plugin-react";
+import { copyFileSync } from "node:fs";
 import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
 import { VitePWA, type ManifestOptions } from "vite-plugin-pwa";
@@ -125,6 +126,22 @@ export default defineConfig(({ mode }) => {
             .replaceAll("%SD_APP_NAME%", App),
         },
       },
+      {
+        // The precache route answers a navigation to "/" from the precached
+        // index.html, which is what kept visitors on the previous build. The
+        // shell is a copy that is only used as the offline fallback.
+        name: "sd3-offline-shell",
+        apply: "build",
+        closeBundle: {
+          order: "pre",
+          handler() {
+            copyFileSync(
+              path.resolve(__dirname, "dist/index.html"),
+              path.resolve(__dirname, "dist/shell.html")
+            );
+          },
+        },
+      },
       VitePWA({
         strategies: "generateSW",
         registerType: "prompt",
@@ -133,11 +150,24 @@ export default defineConfig(({ mode }) => {
         workbox: {
           clientsClaim: true,
           inlineWorkboxRuntime: true,
-          globPatterns: ["**/*.{js,css,ico,png,svg,woff,woff2,webmanifest}"],
-          // Serving the document from the SW keeps visitors on the previous
+          globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webmanifest}"],
+          globIgnores: ["index.html"],
+          // Serving the document from the cache keeps visitors on the previous
           // build until the waiting worker activates, so a plain reload never
-          // picks up a new release.
+          // picks up a new release. Documents come from the network instead and
+          // fall back to the precached shell when the network is gone.
           navigateFallback: null,
+          runtimeCaching: [
+            {
+              // Document paths only: no file extension, and not the API.
+              urlPattern: /^(?!.*\/(?:v2|rss|swagger)(?:\/|$))(?=.*\/[^./]*$)/,
+              handler: "NetworkFirst",
+              options: {
+                cacheName: "documents",
+                precacheFallback: { fallbackURL: "shell.html" },
+              },
+            },
+          ],
         },
       }),
     ],

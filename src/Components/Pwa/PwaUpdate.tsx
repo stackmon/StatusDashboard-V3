@@ -18,14 +18,14 @@ export function PwaUpdate() {
   const toast = useAppToast();
   const prompted = useRef(false);
   const checkedAt = useRef(0);
-  const registration = useRef<ServiceWorkerRegistration>(null);
+  const registration = useRef<ServiceWorkerRegistration | null>(null);
 
   const {
     offlineReady: [offlineReady],
     needRefresh: [needRefresh],
   } = useRegisterSW({
     onRegisteredSW(swUrl, reg) {
-      registration.current = reg!;
+      registration.current = reg;
       log.info(`Service worker registered from ${swUrl}`);
 
       if (!reg) return;
@@ -46,7 +46,7 @@ export function PwaUpdate() {
   }
 
   useEffect(() => {
-    const timer = setInterval(checkForUpdate, UPDATE_INTERVAL);
+    const timer = setInterval(() => checkForUpdate(), UPDATE_INTERVAL);
 
     function onVisibilityChange() {
       if (document.visibilityState !== "visible" || !navigator.onLine) return;

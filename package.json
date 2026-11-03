@@ -13,7 +13,7 @@
     "@fluentui/react-components": "^9.74.11",
     "@telekom/scale-components": "3.0.0-beta.161",
     "@telekom/scale-components-react": "3.0.0-beta.162",
-    "ahooks": "^3.10.0",
+    "ahooks": "^3.11.0",
     "dayjs": "^1.11.23",
     "idb": "^8.0.4",
     "lodash": "^4.18.1",

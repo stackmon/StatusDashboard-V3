@@ -50,17 +50,15 @@ const CTX = createContext<IContext>({} as IContext);
 const key = "Status";
 
 function toCache(data: IStatusContext): IStatusContext {
-  const events = data.Events.map((event) => {
-    const cached = { ...event };
-    delete cached.Creator;
-    delete cached.ContactEmail;
-    cached.Histories = new Set(
-      Array.from(event.Histories).map((history) => ({ ...history, Event: cached }))
-    );
-    return cached;
-  });
+  const cache = structuredClone(data);
 
-  return { ...data, Events: events };
+  for (const event of cache.Events) {
+    delete event.Creator;
+    delete event.ContactEmail;
+    delete event.Version;
+  }
+
+  return cache;
 }
 
 await db.load(key);

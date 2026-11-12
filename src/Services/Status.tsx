@@ -49,6 +49,20 @@ interface IContext {
 const CTX = createContext<IContext>({} as IContext);
 const key = "Status";
 
+function toCache(data: IStatusContext): IStatusContext {
+  const events = data.Events.map((event) => {
+    const cached = { ...event };
+    delete cached.Creator;
+    delete cached.ContactEmail;
+    cached.Histories = new Set(
+      Array.from(event.Histories).map((history) => ({ ...history, Event: cached }))
+    );
+    return cached;
+  });
+
+  return { ...data, Events: events };
+}
+
 await db.load(key);
 
 const log = new Logger("Service", key);
@@ -199,7 +213,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   function update(data: IStatusContext = ins) {
     const raw = { ...data };
     setDB(raw);
-    db.save(key, raw);
+    db.save(key, toCache(raw));
     setSavedAt(db.SavedAt);
   }
 

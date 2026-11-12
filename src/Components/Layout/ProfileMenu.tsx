@@ -1,5 +1,6 @@
 import { ScaleButton, ScaleIconUserFileUser, ScaleMenuFlyout, ScaleMenuFlyoutItem, ScaleMenuFlyoutList, ScaleTelekomNavItem } from "@telekom/scale-components-react";
 import { useAuth } from "react-oidc-context";
+import { clearDatabase } from "~/Services/DB";
 
 /**
  * @author Aloento
@@ -24,7 +25,10 @@ export function ProfileMenu() {
             Hi, {auth.user?.profile.name || auth.user?.profile.preferred_username}
           </ScaleMenuFlyoutItem>
 
-          <ScaleMenuFlyoutItem onScaleSelect={() => auth.signoutRedirect()}>
+          <ScaleMenuFlyoutItem onScaleSelect={async () => {
+            await clearDatabase();
+            await auth.signoutRedirect();
+          }}>
             Logout
           </ScaleMenuFlyoutItem>
         </ScaleMenuFlyoutList>

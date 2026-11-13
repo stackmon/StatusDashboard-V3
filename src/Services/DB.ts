@@ -1,7 +1,7 @@
 import { deleteDB, openDB } from "idb";
 import { Dic } from "~/Helpers/Entities";
 
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 /**
  * @author Aloento
@@ -62,4 +62,13 @@ export class DB<T> {
 
     db.close();
   }
+}
+
+/**
+ * @author Aloento
+ * @since 1.0.0
+ * @version 0.1.0
+ */
+export async function clearDatabase() {
+  await deleteDB(Dic.Symbol);
 }

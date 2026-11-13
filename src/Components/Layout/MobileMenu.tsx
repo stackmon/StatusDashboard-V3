@@ -3,6 +3,7 @@ import { chain } from "lodash";
 import { useMemo, useRef, type MouseEvent } from "react";
 import { useAuth } from "react-oidc-context";
 import { EventStatus } from "~/Components/Event/Enums";
+import { clearDatabase } from "~/Services/DB";
 import { useStatus } from "~/Services/Status";
 import { Authorized, CanApprove, CanCreate, useCurrentUserId } from "../Auth/With";
 
@@ -91,7 +92,10 @@ export function MobileMenu() {
                 </ScaleTelekomMobileMenuItem>
               </Authorized>
 
-              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={() => auth.signoutRedirect()}>
+              <ScaleTelekomMobileMenuItem onScaleSetMenuItemActive={async () => {
+                await clearDatabase();
+                await auth.signoutRedirect();
+              }}>
                 Logout {auth.user?.profile.name || auth.user?.profile.preferred_username}
               </ScaleTelekomMobileMenuItem>
             </Authorized>

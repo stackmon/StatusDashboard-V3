@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from "react-oidc-context";
 import { setTokenRefresher } from "~/Helpers/fetchPlus";
 import { Logger } from "~/Helpers/Logger";
 import { useAppToast } from "~/Helpers/useAppToast";
+import { clearDatabase } from "~/Services/DB";
 import { useRouter } from "../Router";
 import { Roles } from "./With";
 
@@ -60,6 +61,8 @@ function AuthHandler() {
   const toast = useAppToast();
 
   function sessionLost() {
+    void clearDatabase();
+
     toast.showWarning("Login Expired", {
       body: "Your session cannot be renewed automatically.",
       action: (
@@ -78,7 +81,10 @@ function AuthHandler() {
     log.warn(auth.error);
 
     if (auth.error.source === "renewSilent") sessionLost();
-    else if (auth.error.source === "signoutRedirect") auth.removeUser();
+    else if (auth.error.source === "signoutRedirect") {
+      void clearDatabase();
+      auth.removeUser();
+    }
   }, [auth.error]);
 
   useEffect(() => {

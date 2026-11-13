@@ -49,6 +49,18 @@ interface IContext {
 const CTX = createContext<IContext>({} as IContext);
 const key = "Status";
 
+function toCache(data: IStatusContext): IStatusContext {
+  const cache = structuredClone(data);
+
+  for (const event of cache.Events) {
+    delete event.Creator;
+    delete event.ContactEmail;
+    delete event.Version;
+  }
+
+  return cache;
+}
+
 await db.load(key);
 
 const log = new Logger("Service", key);
@@ -199,7 +211,7 @@ export function StatusContext({ children }: { children: JSX.Element }) {
   function update(data: IStatusContext = ins) {
     const raw = { ...data };
     setDB(raw);
-    db.save(key, raw);
+    db.save(key, toCache(raw));
     setSavedAt(db.SavedAt);
   }
 

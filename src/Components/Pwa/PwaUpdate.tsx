@@ -8,6 +8,7 @@ const log = new Logger("PWA");
 
 const UPDATE_INTERVAL = 60 * 60 * 1000;
 const FOREGROUND_THROTTLE = 15 * 60 * 1000;
+const APPLY_TIMEOUT = 5000;
 
 /**
  * @author Aloento
@@ -23,6 +24,7 @@ export function PwaUpdate() {
   const {
     offlineReady: [offlineReady],
     needRefresh: [needRefresh],
+    updateServiceWorker,
   } = useRegisterSW({
     onRegisteredSW(swUrl, reg) {
       registration.current = reg;
@@ -62,10 +64,31 @@ export function PwaUpdate() {
     };
   }, []);
 
-  // The document is fetched from the network on every load, so reloading picks
-  // up the current build without waiting for the worker to take over.
+  // The worker installed for a new release waits until every tab it controls is
+  // gone, which a reload does not do: the next load finds the same waiting
+  // worker and prompts again. Ask it to take over and reload once it has.
   function applyUpdate() {
-    window.location.reload();
+    if (!registration.current?.waiting) {
+      window.location.reload();
+      return;
+    }
+
+    let reloading = false;
+
+    function reload() {
+      if (reloading) return;
+      reloading = true;
+      window.location.reload();
+    }
+
+    navigator.serviceWorker.addEventListener("controllerchange", reload, { once: true });
+    void updateServiceWorker(true);
+
+    // Activation does not always reach the page: a worker built without
+    // `clients.claim()` never claims it, and the browser can hold the takeover
+    // while the tab keeps the current worker busy. The reload retires the tab
+    // either way, which is what lets the new worker finish activating.
+    window.setTimeout(reload, APPLY_TIMEOUT);
   }
 
   useEffect(() => {

@@ -39,7 +39,7 @@
     "@types/react-helmet": "^6.1.11",
     "@vitejs/plugin-react": "^6.3.0",
     "core-js": "^3.51.0",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "globals": "^17.14.0",
     "postcss": "^8.5.32",
     "react-refresh": "^0.19.0",
